@@ -1,0 +1,6 @@
+{
+  "/eg-os/page": "app/eg-os/page.js",
+  "/eg-os/flow/page": "app/eg-os/flow/page.js",
+  "/eg-os/dre/page": "app/eg-os/dre/page.js",
+  "/eg-os/legalbot/page": "app/eg-os/legalbot/page.js"
+}
