@@ -15,6 +15,14 @@ const inter = Inter({
 export const metadata = {
   title: 'Evergreen MKT | Growth, Tecnologia e Resultados',
   description: 'Hub de autoridade em growth, tecnologia, IA e execução de resultados reais.',
+  icons: {
+    icon: [
+      { url: '/images/favicon.ico' },
+      { url: '/images/favicon.ico', type: 'image/ico' },
+    ],
+    shortcut: '/images/favicon.ico',
+    apple: '/images/favicon.ico',
+  },
 }
 
 export default function RootLayout({

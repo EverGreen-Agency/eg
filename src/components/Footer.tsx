@@ -83,6 +83,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/politicas-de-reembolso" className="text-[#E6E3B1] hover:text-emerald-500">
+                  Reembolso
+                </Link>
+              </li>
+              <li>
                 <Link href="/legal/cookies" className="text-[#E6E3B1] hover:text-emerald-500">
                   Cookies
                 </Link>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 export default function Navbar() {
@@ -16,11 +17,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link 
-              href="/" 
-              className="text-emerald-500 font-bold text-2xl hover:text-emerald-600 transition-colors"
-            >
-              Evergreen MKT
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/Evergreen - Horizontal.png"
+                alt="Evergreen MKT"
+                width={180}
+                height={40}
+                priority
+                className="h-10 w-auto"
+              />
             </Link>
           </div>
 

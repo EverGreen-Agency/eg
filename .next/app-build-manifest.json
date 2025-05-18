@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/eg-os/page": [
+    "/eg-os/dre/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/eg-os/page.js"
+      "static/chunks/app/eg-os/dre/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -11,20 +11,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/eg-os/dre/page": [
+    "/contato/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/eg-os/dre/page.js"
-    ],
-    "/eg-os/flow/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/eg-os/flow/page.js"
-    ],
-    "/eg-os/legalbot/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/eg-os/legalbot/page.js"
+      "static/chunks/app/contato/page.js"
     ]
   }
 }

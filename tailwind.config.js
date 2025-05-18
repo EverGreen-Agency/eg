@@ -11,6 +11,9 @@ module.exports = {
         'eg-green': '#00A86B',
         'eg-black': '#111827',
         'eg-offwhite': '#F9FAFB',
+        'verde-musgo': '#092B1B',
+        'verde-menta': '#3AC97B',
+        'amarelo-baunilha': '#FFF4C7',
       },
       fontFamily: {
         sans: ['var(--font-inter)'],

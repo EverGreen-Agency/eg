@@ -1,190 +1,150 @@
-import { Metadata } from 'next'
+"use client";
+import React from 'react';
+import { motion } from 'framer-motion';
 
-export const metadata: Metadata = {
-  title: 'Política de Privacidade - Evergreen MKT',
-  description: 'Como a Evergreen MKT protege e utiliza seus dados pessoais',
-}
-
-export default function PrivacidadePage() {
+export default function PrivacyPolicyPage() {
+  const currentDate = new Date().toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+  
   return (
-    <>
-      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-12">
-        Política de Privacidade
-      </h1>
-      
-      <div className="prose prose-lg dark:prose-invert max-w-none">
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
-            Introdução
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-              Na Evergreen MKT, levamos sua privacidade a sério. Esta política descreve como coletamos, usamos e protegemos suas informações pessoais quando você utiliza nossos serviços.
+    <main className="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="prose prose-lg dark:prose-invert mx-auto"
+      >
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8">POLÍTICA DE PRIVACIDADE E PROTEÇÃO DE DADOS PESSOAIS</h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-8">
+          Versão: {currentDate}<br />
+          Última atualização: {currentDate}
+        </p>
+
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
+          <p>
+            Esta Política tem por finalidade esclarecer como a Evergreen Marketing Ltda., inscrita no CNPJ sob o nº XX.XXX.XXX/0001-XX, doravante "Contratada", realiza o tratamento de dados pessoais e sensíveis, nos termos da Lei Geral de Proteção de Dados – LGPD (Lei nº 13.709/2018).
+          </p>
+        </div>
+
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">1. Controlador e Operador</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p className="mb-4">
+              1.1. O Cliente (Contratante) é o Controlador dos dados fornecidos; a Contratada atua como Operadora, realizando o tratamento apenas dentro do escopo dos serviços contratados.
+            </p>
+            <p>
+              1.2. Para os dados internos do site e CRM (como leads, contatos de WhatsApp e e-mail), a Contratada atua como Controladora, respeitando as finalidades aqui descritas.
             </p>
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
-            Informações que Coletamos
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-            <ul className="list-none space-y-4 pl-0">
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Informações de contato (nome, email, telefone)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Dados de navegação e interação com o site</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Informações de pagamento (quando aplicável)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Dados de uso dos nossos serviços</span>
-              </li>
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">2. Tipos de Dados Coletados</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p className="mb-4">
+              2.1. No uso dos serviços prestados, poderão ser coletados e tratados os seguintes dados:
+            </p>
+            <ul className="list-disc pl-5 mb-4">
+              <li className="mb-2">Dados cadastrais (nome, CNPJ, e-mail, telefone, endereço);</li>
+              <li className="mb-2">Dados operacionais (informações sobre vendas, despesas, fluxo de caixa, DRE);</li>
+              <li className="mb-2">Dados financeiros (receitas, custos, folha de pagamento, investimentos);</li>
+              <li>Dados sensíveis (quando envolver informações relacionadas à saúde financeira, crédito, etc.).</li>
+            </ul>
+            <p>
+              2.2. A coleta ocorre por meio de formulários, planilhas, integrações com plataformas, e canais digitais (WhatsApp, e-mail, entre outros).
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">3. Finalidade do Tratamento</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p className="mb-4">
+              3.1. Os dados serão utilizados exclusivamente para:
+            </p>
+            <ul className="list-disc pl-5 mb-4">
+              <li className="mb-2">Prestação dos serviços contratados;</li>
+              <li className="mb-2">Emissão de relatórios e análises gerenciais;</li>
+              <li className="mb-2">Atendimento técnico e suporte;</li>
+              <li>Cumprimento de obrigações legais e regulatórias.</li>
             </ul>
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
-            Como Utilizamos suas Informações
-          </h2>
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">Melhorar nossos serviços</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Utilizamos seus dados para entender como você interage com nossos serviços e melhorar sua experiência.
-              </p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">Comunicação</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Enviamos atualizações importantes sobre nossos serviços e respondemos às suas solicitações.
-              </p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">Segurança</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Protegemos suas informações contra acesso não autorizado e uso indevido.
-              </p>
-            </div>
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">4. Armazenamento e Segurança</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p className="mb-4">
+              4.1. Os dados serão armazenados em servidores seguros, com acesso restrito e controlado por autenticação e criptografia.
+            </p>
+            <p>
+              4.2. A Contratada adota medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado, perda, destruição ou vazamento.
+            </p>
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
-            Compartilhamento de Informações
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-              Não vendemos suas informações pessoais. Compartilhamos dados apenas com:
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">5. Compartilhamento de Dados</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p className="mb-4">
+              5.1. A Contratada não compartilha os dados com terceiros, salvo:
             </p>
-            <ul className="list-none space-y-4 pl-0">
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Provedores de serviços que nos auxiliam na operação do site</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Autoridades legais quando exigido por lei</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Parceiros de negócios com seu consentimento explícito</span>
-              </li>
+            <ul className="list-disc pl-5 mb-4">
+              <li className="mb-2">Com prestadores de serviços vinculados à operação técnica do sistema, sob cláusula de confidencialidade;</li>
+              <li className="mb-2">Por obrigação legal ou ordem judicial;</li>
+              <li>Com consentimento expresso do Cliente.</li>
             </ul>
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
-            Seus Direitos
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-              Você tem o direito de:
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">6. Direitos do Titular</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p className="mb-4">
+              6.1. O Cliente tem direito a:
             </p>
-            <ul className="list-none space-y-4 pl-0">
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Acessar suas informações pessoais</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Corrigir dados imprecisos</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Solicitar a exclusão de seus dados</span>
-              </li>
-              <li className="flex items-start">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-200 mr-4 mt-1">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">Retirar seu consentimento para o processamento de dados</span>
-              </li>
+            <ul className="list-disc pl-5 mb-4">
+              <li className="mb-2">Confirmar a existência de tratamento;</li>
+              <li className="mb-2">Acessar, corrigir, atualizar ou solicitar a exclusão de seus dados;</li>
+              <li className="mb-2">Solicitar a portabilidade para outro fornecedor;</li>
+              <li>Revogar o consentimento.</li>
             </ul>
+            <p>
+              6.2. As solicitações poderão ser feitas pelo canal oficial: privacidade@evergreenmkt.com.br.
+            </p>
           </div>
         </section>
 
-        <section>
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
-            Contato
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-              Se você tiver dúvidas sobre esta política de privacidade ou sobre como tratamos seus dados pessoais, entre em contato conosco através do email: privacidade@evergreenmkt.com.br
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">7. Retenção de Dados</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p>
+              7.1. Os dados serão mantidos pelo tempo necessário à execução dos serviços e cumprimento das obrigações legais e contratuais, sendo posteriormente descartados de forma segura.
             </p>
           </div>
         </section>
-      </div>
-    </>
-  )
+
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">8. Alterações</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p>
+              8.1. A Contratada poderá alterar esta política a qualquer tempo, comunicando o Cliente por e-mail ou publicação no site. O uso continuado dos serviços após a comunicação implica concordância com as alterações.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">9. Foro</h2>
+          <div className="pl-4 border-l-4 border-emerald-500">
+            <p>
+              9.1. Fica eleito o foro da Comarca de São Paulo/SP, com renúncia a qualquer outro, para dirimir eventuais controvérsias relacionadas a esta Política.
+            </p>
+          </div>
+        </section>
+      </motion.div>
+    </main>
+  );
 } 
