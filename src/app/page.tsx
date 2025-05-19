@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#09231B] via-[#09231B] to-[#3AC97B]/10">
       {/* HERO */}
-      <section className="relative py-32 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20 text-center">
+      <section className="relative py-16 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20 text-center">
         <div className="container mx-auto px-4 max-w-4xl">
           <motion.div variants={staggerContainer} initial="hidden" animate="visible">
             <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-bold mb-6 text-[#FFF4C7]">
@@ -143,7 +143,7 @@ export default function Home() {
       </section>
         */}
       {/* SISTEMA EVERGREEN */}
-      <section className="py-24 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20">
+      <section className="py-12 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20">
         <div className="container mx-auto px-4 max-w-5xl">
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-3xl font-bold mb-12 text-[#FFF4C7] text-center">
             Nossa Metodologia:<br />Da Aquisição ao Crescimento com Inteligência.
@@ -162,7 +162,7 @@ export default function Home() {
       </section>
 
       {/* SERVIÇOS EM CARDS */}
-      <section className="py-24 bg-[#09231B]">
+      <section className="py-12 bg-[#09231B]">
         <div className="container mx-auto px-4 max-w-6xl">
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-3xl font-bold mb-12 text-[#FFF4C7] text-center">
             Nossos Serviços
@@ -210,7 +210,7 @@ export default function Home() {
       </section>
         */}
       {/* CTA FINAL */}
-      <section className="py-24 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20 text-center">
+      <section className="py-12 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20 text-center">
         <div className="container mx-auto px-4 max-w-2xl">
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-4xl font-bold mb-6 text-[#FFF4C7]">
             Pronto para Escalar sua Receita de Forma Inteligente?
