@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 import * as fbq from '@/lib/fpixel';
 
-export default function PurchaseSuccessPage() {
+// Componente interno que usa useSearchParams
+function PurchaseSuccessContent() {
   const searchParams = useSearchParams();
   const [loaded, setLoaded] = useState(false);
   
@@ -68,5 +69,14 @@ export default function PurchaseSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Componente principal com Suspense
+export default function PurchaseSuccessPage() {
+  return (
+    <Suspense fallback={null}>
+      <PurchaseSuccessContent />
+    </Suspense>
   );
 } 

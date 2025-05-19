@@ -2,10 +2,11 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import * as fbq from '../lib/fpixel';
 
-export default function FacebookPixel() {
+// Componente interno que usa useSearchParams
+function FacebookPixelInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [loaded, setLoaded] = useState(false);
@@ -58,5 +59,14 @@ export default function FacebookPixel() {
         />
       </noscript>
     </>
+  );
+}
+
+// Componente wrapper com Suspense
+export default function FacebookPixel() {
+  return (
+    <Suspense fallback={null}>
+      <FacebookPixelInner />
+    </Suspense>
   );
 } 
