@@ -473,7 +473,7 @@ export default function FlowLanding() {
                   <Brain className="h-8 w-8" style={{ color: verdeMenta }} />
                 </span>
               </div>
-              <h3 className="text-2xl font-bold mb-2 text-center">Média Empresa</h3>
+              <h3 className="text-2xl font-bold mb-2 text-center">Média</h3>
               <div className="text-center mb-6">
                 <p className="text-3xl font-bold" style={{ color: verdeMenta }}>{isAnnual ? 'R$4.970' : 'R$497'}</p>
                 <p className="text-sm" style={{ opacity: 0.8 }}>{isAnnual ? 'por ano' : 'por mês'}</p>

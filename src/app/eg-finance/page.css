@@ -1,0 +1,25 @@
+/* Estilos específicos para a landing page Finance */
+.finance-landing .card {
+  transition: all 0.3s ease;
+}
+
+.finance-landing .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(9, 43, 27, 0.2);
+}
+
+.finance-landing .cta-btn {
+  transition: all 0.3s ease;
+}
+
+.finance-landing .cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(58, 201, 123, 0.4);
+}
+
+.finance-landing .text-gradient {
+  background: linear-gradient(90deg, #3AC97B 0%, #92E3A9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+} 

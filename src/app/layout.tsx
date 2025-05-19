@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Head from 'next/head'
 import CookieConsent from "@/components/CookieConsent";
+import FacebookPixel from '@/components/FacebookPixel';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.png" type="image/png" />
       </Head>
       <body className={`${inter.className} min-h-screen bg-gray-50 dark:bg-gray-900`}>
+        <FacebookPixel />
         <Navbar />
         {children}
         <Footer />
