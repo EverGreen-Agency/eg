@@ -89,12 +89,12 @@ export default function DreLanding() {
   // Stripe checkout URLs for DRE-only plans
   const stripeCheckoutUrls = {
     mei: {
-      monthly: "https://checkout.stripe.com/c/pay/cs_test_dre_mei_monthly_url",
-      annual: "https://checkout.stripe.com/c/pay/cs_test_dre_mei_annual_url"
+      monthly: "https://buy.stripe.com/eVq9ATgHf8r27GKgMx08g0a",
+      annual: "https://buy.stripe.com/9B6bJ1fDbaza6CG3ZL08g0b"
     },
     pme: {
-      monthly: "https://buy.stripe.com/cNieVd62BgXyf9c67T08g08",
-      annual: "https://checkout.stripe.com/c/pay/cs_test_dre_pme_annual_url"
+      monthly: "https://buy.stripe.com/fZu14naiR4aMd149k508g09",
+      annual: "https://buy.stripe.com/cNieVd62BgXyf9c67T08g08"
     },
     media: {
       monthly: "https://buy.stripe.com/14k3cednyaAqa7S5kl",
