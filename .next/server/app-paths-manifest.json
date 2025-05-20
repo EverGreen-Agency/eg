@@ -1,3 +1,4 @@
 {
-  "/eg-os/dre/page": "app/eg-os/dre/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/eg-finance/landing/page": "app/eg-finance/landing/page.js"
 }

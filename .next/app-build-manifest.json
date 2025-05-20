@@ -1,15 +1,26 @@
 {
   "pages": {
-    "/eg-os/dre/page": [
+    "/eg-finance/landing/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/eg-os/dre/page.js"
+      "static/chunks/app/eg-finance/landing/page.js"
+    ],
+    "/eg-finance/landing/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/eg-finance/landing/layout.css",
+      "static/chunks/app/eg-finance/landing/layout.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
