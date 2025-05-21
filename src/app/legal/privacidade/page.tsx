@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
           <p>
-            Esta Política tem por finalidade esclarecer como a Evergreen Marketing Ltda., inscrita no CNPJ sob o nº XX.XXX.XXX/0001-XX, doravante "Contratada", realiza o tratamento de dados pessoais e sensíveis, nos termos da Lei Geral de Proteção de Dados – LGPD (Lei nº 13.709/2018).
+            Esta Política tem por finalidade esclarecer como a Evergreen Marketing Ltda., inscrita no CNPJ sob o nº 51.684.292/0001-60, doravante "Contratada", realiza o tratamento de dados pessoais e sensíveis, nos termos da Lei Geral de Proteção de Dados – LGPD (Lei nº 13.709/2018).
           </p>
         </div>
 
@@ -113,7 +113,7 @@ export default function PrivacyPolicyPage() {
               <li>Revogar o consentimento.</li>
             </ul>
             <p>
-              6.2. As solicitações poderão ser feitas pelo canal oficial: privacidade@evergreenmkt.com.br.
+              6.2. As solicitações poderão ser feitas pelo canal oficial: contato@evergreenmkt.com.br.
             </p>
           </div>
         </section>

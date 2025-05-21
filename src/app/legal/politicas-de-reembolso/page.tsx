@@ -25,7 +25,7 @@ export default function RefundPage() {
 
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
           <p>
-            Esta Política aplica-se a todos os serviços prestados por Evergreen Marketing Ltda., inscrita no CNPJ sob o nº XX.XXX.XXX/0001-XX, doravante denominada "Contratada", contratados pelo cliente, pessoa física ou jurídica, doravante denominado "Contratante" ou "Usuário".
+            Esta Política aplica-se a todos os serviços prestados por Evergreen Marketing Ltda., inscrita no CNPJ sob o nº 51.684.292/0001-60, doravante denominada "Contratada", contratados pelo cliente, pessoa física ou jurídica, doravante denominado "Contratante" ou "Usuário".
           </p>
         </div>
 

@@ -25,7 +25,7 @@ export default function TermsOfServicePage() {
 
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
           <p>
-            Estes Termos de Serviço regulam a relação jurídica entre o cliente ("Usuário" ou "Contratante") e a Evergreen Marketing Ltda., CNPJ XX.XXX.XXX/0001-XX, doravante "Contratada", para a prestação de serviços automatizados de apoio à gestão empresarial, nos seguintes termos:
+            Estes Termos de Serviço regulam a relação jurídica entre o cliente ("Usuário" ou "Contratante") e a Evergreen Marketing Ltda., CNPJ 51.684.292/0001-60, doravante "Contratada", para a prestação de serviços automatizados de apoio à gestão empresarial, nos seguintes termos:
           </p>
         </div>
 
