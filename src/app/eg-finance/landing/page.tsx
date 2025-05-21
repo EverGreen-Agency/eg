@@ -783,7 +783,7 @@ export default function EgFinanceLanding() {
         <div className="max-w-4xl mx-auto">
           <p>© {new Date().getFullYear()} EverGreen Finance. Todos os direitos reservados.</p>
           <div className="flex flex-wrap justify-center gap-4 mt-2">
-            <Link href="/politicas-de-reembolso" className="hover:text-white" target="_blank" rel="noopener noreferrer">
+            <Link href="/legal/politicas-de-reembolso" className="hover:text-white" target="_blank" rel="noopener noreferrer">
               Política de Reembolso
             </Link>
             <Link href="/legal/termos-de-uso" className="hover:text-white" target="_blank" rel="noopener noreferrer">

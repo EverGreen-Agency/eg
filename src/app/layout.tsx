@@ -40,6 +40,7 @@ export default function RootLayout({
         <FacebookPixel />
         <Navbar />
         {children}
+        <Footer />
         <CookieConsent />
       </body>
     </html>
