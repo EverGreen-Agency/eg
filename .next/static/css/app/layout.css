@@ -1329,9 +1329,6 @@ video {
 .max-h-40 {
   max-height: 10rem;
 }
-.min-h-\[230px\] {
-  min-height: 230px;
-}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1567,6 +1564,9 @@ video {
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.flex-row {
+  flex-direction: row;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -1582,9 +1582,6 @@ video {
 .items-center {
   align-items: center;
 }
-.items-stretch {
-  align-items: stretch;
-}
 .justify-end {
   justify-content: flex-end;
 }
@@ -1593,6 +1590,9 @@ video {
 }
 .justify-between {
   justify-content: space-between;
+}
+.gap-1 {
+  gap: 0.25rem;
 }
 .gap-12 {
   gap: 3rem;
@@ -1840,10 +1840,6 @@ video {
 .border-red-500\/20 {
   border-color: rgb(239 68 68 / 0.2);
 }
-.border-verde-menta {
-  --tw-border-opacity: 1;
-  border-color: rgb(58 201 123 / var(--tw-border-opacity, 1));
-}
 .border-verde-musgo\/20 {
   border-color: rgb(9 43 27 / 0.2);
 }
@@ -1881,10 +1877,6 @@ video {
 }
 .bg-\[\#0D221B\]\/50 {
   background-color: rgb(13 34 27 / 0.5);
-}
-.bg-\[\#104027\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(16 64 39 / var(--tw-bg-opacity, 1));
 }
 .bg-\[\#3AC97B\] {
   --tw-bg-opacity: 1;
@@ -1981,14 +1973,6 @@ video {
 }
 .bg-transparent {
   background-color: transparent;
-}
-.bg-verde-menta {
-  --tw-bg-opacity: 1;
-  background-color: rgb(58 201 123 / var(--tw-bg-opacity, 1));
-}
-.bg-verde-musgo {
-  --tw-bg-opacity: 1;
-  background-color: rgb(9 43 27 / var(--tw-bg-opacity, 1));
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -2441,9 +2425,6 @@ video {
 .pt-24 {
   padding-top: 6rem;
 }
-.pt-28 {
-  padding-top: 7rem;
-}
 .pt-4 {
   padding-top: 1rem;
 }
@@ -2579,10 +2560,6 @@ video {
 .text-\[\#FFF4C7\]\/90 {
   color: rgb(255 244 199 / 0.9);
 }
-.text-amarelo-baunilha {
-  --tw-text-opacity: 1;
-  color: rgb(255 244 199 / var(--tw-text-opacity, 1));
-}
 .text-amber-500 {
   --tw-text-opacity: 1;
   color: rgb(245 158 11 / var(--tw-text-opacity, 1));
@@ -2713,14 +2690,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(20 184 166 / var(--tw-text-opacity, 1));
 }
-.text-verde-menta {
-  --tw-text-opacity: 1;
-  color: rgb(58 201 123 / var(--tw-text-opacity, 1));
-}
-.text-verde-musgo {
-  --tw-text-opacity: 1;
-  color: rgb(9 43 27 / var(--tw-text-opacity, 1));
-}
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2779,9 +2748,6 @@ video {
 }
 .opacity-80 {
   opacity: 0.8;
-}
-.opacity-85 {
-  opacity: 0.85;
 }
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
