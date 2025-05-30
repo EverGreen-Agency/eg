@@ -135,7 +135,7 @@ Cada um com:
 
 ---
 
-## 🌱 Nomes de Submarcas (EG.MKT, EG.Tech, EG.Lab)
+## 🌱 Nomes de Submarcas (EG.MKT/EG.Growth, EG.Tech, EG.Lab, EG.OS)
 - Landing pages distintas com visual e copy alinhada ao ecossistema
 - Não criar marcas separadas ainda
 - Cada uma é um "território" dentro do império EG
