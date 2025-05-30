@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -9,8 +10,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo e Descrição */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="text-emerald-500 font-bold text-2xl">
-              Evergreen MKT
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/Evergreen - Horizontal.png"
+                alt="Evergreen MKT"
+                width={180}
+                height={60}
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="mt-4 text-sm text-[#E6E3B1]">
               Transformando negócios através de growth, tecnologia e resultados reais.
