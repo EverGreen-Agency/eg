@@ -156,6 +156,7 @@ Criar uma experiência digital viva, modulada e escalável. Um site que seja:
 - Um ativo de marketing
 - Um centro de autoridade
 - Um ecossistema interativo
+- Incubadora de Projetos
 
 **Execução começa com: estrutura Next.js + Tailwind + CMS headless.**
 
