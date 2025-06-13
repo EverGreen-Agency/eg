@@ -1,5 +1,13 @@
 import { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import './styles.css';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Agro AI Guardian - Preveja pragas e clima. Proteja até 40% da sua colheita',

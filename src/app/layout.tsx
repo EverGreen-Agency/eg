@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import Head from 'next/head'
 import CookieConsent from "@/components/CookieConsent";
 import FacebookPixel from '@/components/FacebookPixel';
+import ConditionalLayout from '@/components/ConditionalLayout';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,9 +39,9 @@ export default function RootLayout({
       </Head>
       <body className={`${inter.className} min-h-screen bg-gray-50 dark:bg-gray-900`}>
         <FacebookPixel />
-        <Navbar />
-        {children}
-        <Footer />
+        <ConditionalLayout>
+          {children}
+        </ConditionalLayout>
         <CookieConsent />
       </body>
     </html>
