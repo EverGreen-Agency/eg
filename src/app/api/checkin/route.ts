@@ -126,7 +126,7 @@ export async function POST(request: Request) {
     // Envio do email
     const emailResponse = await resend.emails.send({
       from: 'contato@evergreenmkt.com.br',
-      to: 'contato@evergreenmkt.com.br',
+      to: 'adm@evergreenmkt.com.br',
       replyTo: clientInfo.email,
       subject: `Check-in Omnicanal - ${clientInfo.name} - ${dataFormatada}`,
       html: `
