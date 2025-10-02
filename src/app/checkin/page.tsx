@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 interface CheckInData {
@@ -28,7 +28,7 @@ interface CheckInData {
 
 
 
-export default function CheckInPage() {
+function CheckInForm() {
   const searchParams = useSearchParams();
   const clientToken = searchParams.get('k');
   
@@ -452,5 +452,13 @@ export default function CheckInPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CheckInPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <CheckInForm />
+    </Suspense>
   );
 }

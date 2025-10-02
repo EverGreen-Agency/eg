@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.evergreenmkt.com.br
+
+# Sitemaps
+Sitemap: https://www.evergreenmkt.com.br/sitemap.xml

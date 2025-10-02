@@ -2,9 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['framer-motion'],
-  experimental: {
-    suppressHydrationWarning: true
-  },
   images: {
     remotePatterns: [
       {
