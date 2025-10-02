@@ -17,10 +17,7 @@ const nextConfig = {
     ],
     unoptimized: true,
     domains: ['evergreenmkt.com.br', 'cms.evergreenmkt.com.br']
-  },
-  output: 'export',
-  basePath: '',
-  assetPrefix: ''
+  }
 }
 
 module.exports = nextConfig
