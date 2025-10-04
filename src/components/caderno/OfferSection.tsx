@@ -99,9 +99,14 @@ export default function OfferSection() {
                 </div>
 
                 {/* CTA Button */}
-                <button className="w-full bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] hover:from-[#F8C4B4] hover:to-[#F5B6C1] text-white text-2xl font-bold py-6 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-6">
+                <a 
+                  href="https://pay.cakto.com.br/xfhutrz_595670" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] hover:from-[#F8C4B4] hover:to-[#F5B6C1] text-white text-2xl font-bold py-6 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-6 inline-block text-center"
+                >
                   Quero meu Caderno agora! ✨
-                </button>
+                </a>
 
                 {/* Security badges */}
                 <div className="flex justify-center gap-4 text-sm text-[#7F8C8D]">
