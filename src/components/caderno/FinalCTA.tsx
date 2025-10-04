@@ -12,10 +12,26 @@ export default function FinalCTA() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-[#C1E8C5] opacity-10 rounded-full blur-3xl"></div>
         
         {/* Floating elements */}
-        <div className="absolute top-1/4 left-1/4 text-4xl opacity-30 animate-bounce">💖</div>
-        <div className="absolute top-1/3 right-1/3 text-3xl opacity-30 animate-pulse">⭐</div>
-        <div className="absolute bottom-1/3 left-1/3 text-3xl opacity-30 animate-bounce delay-300">🎨</div>
-        <div className="absolute bottom-1/4 right-1/4 text-4xl opacity-30 animate-pulse delay-500">🌟</div>
+        <div className="absolute top-1/4 left-1/4 text-4xl opacity-30 animate-bounce">
+          <svg className="w-8 h-8 text-[#F5B6C1]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div className="absolute top-1/3 right-1/3 text-3xl opacity-30 animate-pulse">
+          <svg className="w-6 h-6 text-[#FFF0B5]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div className="absolute bottom-1/3 left-1/3 text-3xl opacity-30 animate-bounce delay-300">
+          <svg className="w-6 h-6 text-[#C1E8C5]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2zm6.442 5.125c-.437 0-.746.309-.746.746s.309.746.746.746.746-.309.746-.746-.309-.746-.746-.746z"/>
+          </svg>
+        </div>
+        <div className="absolute bottom-1/4 right-1/4 text-4xl opacity-30 animate-pulse delay-500">
+          <svg className="w-8 h-8 text-[#A5D8F3]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -23,10 +39,26 @@ export default function FinalCTA() {
           {/* Main CTA Card */}
           <div className="bg-gradient-to-r from-[#F5B6C1] to-[#A5D8F3] rounded-3xl p-8 lg:p-12 shadow-2xl relative overflow-hidden">
             {/* Decorative elements */}
-            <div className="absolute top-4 right-4 text-4xl opacity-30">✨</div>
-            <div className="absolute bottom-4 left-4 text-3xl opacity-30">💖</div>
-            <div className="absolute top-1/2 left-4 text-2xl opacity-30">🎨</div>
-            <div className="absolute top-1/2 right-4 text-2xl opacity-30">⭐</div>
+            <div className="absolute top-4 right-4 text-4xl opacity-30">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <div className="absolute bottom-4 left-4 text-3xl opacity-30">
+              <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+            <div className="absolute top-1/2 left-4 text-2xl opacity-30">
+              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2zm6.442 5.125c-.437 0-.746.309-.746.746s.309.746.746.746.746-.309.746-.746-.309-.746-.746-.746z"/>
+              </svg>
+            </div>
+            <div className="absolute top-1/2 right-4 text-2xl opacity-30">
+              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
             
             <div className="relative z-10">
               {/* Main Headline */}
@@ -45,33 +77,42 @@ export default function FinalCTA() {
               {/* Price */}
               <div className="mb-8">
                 <div className="text-6xl font-bold text-white mb-2">
-                  R$ 19,90
+                  R$ 28,90
                 </div>
                 <div className="text-2xl text-white/80 line-through mb-2">
                   De R$ 49,90
                 </div>
                 <div className="text-lg text-white/90">
-                  Economia de R$ 30,00 + Bônus exclusivos
+                  Economia de R$ 21,00 + Bônus exclusivos
                 </div>
               </div>
 
               {/* CTA Button */}
               <button className="bg-white text-[#2C3E50] text-2xl font-bold py-6 px-12 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-8">
-                Garantir agora por apenas R$ 19,90! ✨
+                Garantir agora por apenas R$ 28,90! 
+                <svg className="w-5 h-5 ml-2 inline-block" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
               </button>
 
               {/* Trust indicators */}
               <div className="grid md:grid-cols-3 gap-6 text-white/90">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-2xl">🔒</span>
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                  </svg>
                   <span className="text-sm">Compra segura</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-2xl">⚡</span>
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                  </svg>
                   <span className="text-sm">Entrega imediata</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-2xl">🛡️</span>
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                  </svg>
                   <span className="text-sm">Garantia 7 dias</span>
                 </div>
               </div>
@@ -138,7 +179,10 @@ export default function FinalCTA() {
               rel="noopener noreferrer"
               className="bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] hover:from-[#F8C4B4] hover:to-[#F5B6C1] text-white text-xl font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-block"
             >
-              Quero meu Caderno agora! ✨
+              Quero meu Caderno agora! 
+              <svg className="w-5 h-5 ml-2 inline-block" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
             </a>
           </div>
         </div>

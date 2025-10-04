@@ -23,6 +23,12 @@ const renderIcon = (iconType: string) => {
           <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2zm6.442 5.125c-.437 0-.746.309-.746.746s.309.746.746.746.746-.309.746-.746-.309-.746-.746-.746z"/>
         </svg>
       );
+    case 'sticker':
+      return (
+        <svg className="w-8 h-8 text-[#FFF0B5]" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      );
     default:
       return <div className="w-8 h-8 bg-gray-300 rounded"></div>;
   }
@@ -34,20 +40,17 @@ const bonuses = [
     title: "Versão para Impressão",
     description: "Arquivo PDF otimizado para impressão em casa ou gráfica",
     value: "R$ 15,90"
-  },
-  {
-    icon: "book",
-    title: "Guia de Uso em Família",
-    description: "10 dicas práticas para aproveitar ao máximo o caderno",
-    value: "R$ 12,90"
-  },
-  {
-    icon: "palette",
-    title: "Kit de Atividades Extras",
-    description: "Páginas adicionais com atividades criativas",
-    value: "R$ 19,90"
   }
 ];
+
+// Order Bump
+const orderBump = {
+  icon: "sticker",
+  title: "Kit Completo de Adesivos + Certificado",
+  description: "Página exclusiva de adesivos coloridos + Certificado de Conclusão personalizado",
+  value: "R$ 10,00",
+  originalValue: "R$ 15,00"
+};
 
 export default function OfferSection() {
   return (
@@ -88,13 +91,13 @@ export default function OfferSection() {
                 {/* Price */}
                 <div className="text-center mb-8 pt-4">
                   <div className="text-6xl font-bold text-[#2C3E50] mb-2">
-                    R$ 19,90
+                    R$ 28,90
                   </div>
                   <div className="text-2xl text-[#7F8C8D] line-through mb-2">
                     De R$ 49,90
                   </div>
                   <div className="text-lg text-[#F5B6C1] font-bold">
-                    Economia de R$ 30,00
+                    Economia de R$ 21,00
                   </div>
                 </div>
 
@@ -135,7 +138,10 @@ export default function OfferSection() {
                   rel="noopener noreferrer"
                   className="w-full bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] hover:from-[#F8C4B4] hover:to-[#F5B6C1] text-white text-2xl font-bold py-6 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-6 inline-block text-center"
                 >
-                  Quero meu Caderno agora! ✨
+                  Quero meu Caderno agora! 
+                  <svg className="w-5 h-5 ml-2 inline-block" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
                 </a>
 
                 {/* Security badges */}
@@ -169,7 +175,7 @@ export default function OfferSection() {
                   Bônus Exclusivos
                 </h3>
                 <p className="text-lg text-[#34495E]">
-                  Valor total dos bônus: <span className="line-through text-[#7F8C8D]">R$ 48,70</span>
+                  Valor total dos bônus: <span className="line-through text-[#7F8C8D]">R$ 15,90</span>
                 </p>
                 <p className="text-2xl font-bold text-[#F5B6C1]">
                   Seus por R$ 0,00
@@ -200,15 +206,49 @@ export default function OfferSection() {
                 </div>
               ))}
 
+              {/* Order Bump */}
+              <div className="bg-gradient-to-r from-[#FFF0B5] to-[#F5B6C1] rounded-2xl p-6 shadow-lg border-2 border-[#FFF0B5] relative overflow-hidden">
+                <div className="absolute -top-2 -right-2 bg-[#F5B6C1] text-white text-xs px-3 py-1 rounded-full font-bold">
+                  OFERTA ESPECIAL
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex items-center justify-center">{renderIcon(orderBump.icon)}</div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="text-xl font-bold text-[#2C3E50]">
+                        {orderBump.title}
+                      </h4>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-[#2C3E50]">
+                          {orderBump.value}
+                        </div>
+                        <div className="text-sm text-[#7F8C8D] line-through">
+                          {orderBump.originalValue}
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-[#34495E] leading-relaxed mb-3">
+                      {orderBump.description}
+                    </p>
+                    <div className="text-sm text-[#F5B6C1] font-bold">
+                      Economia de R$ 5,00 - Apenas hoje!
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Total Value */}
               <div className="bg-gradient-to-r from-[#F5B6C1] to-[#A5D8F3] rounded-2xl p-6 text-center">
                 <div className="text-white">
                   <div className="text-sm opacity-90 mb-1">Valor total</div>
                   <div className="text-3xl font-bold">
-                    R$ 98,60
+                    R$ 75,80
                   </div>
                   <div className="text-lg opacity-90 mt-2">
-                    Por apenas R$ 19,90
+                    Por apenas R$ 28,90
+                  </div>
+                  <div className="text-sm opacity-80 mt-1">
+                    + R$ 10,00 para o Kit de Adesivos
                   </div>
                 </div>
               </div>

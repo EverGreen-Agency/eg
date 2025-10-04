@@ -108,71 +108,139 @@ export default function ProductDemo() {
             {productPages.map((page, index) => (
               <div
                 key={page.id}
-                className={`cursor-pointer transition-all duration-300 ${
+                className={`group cursor-pointer transition-all duration-500 ease-out ${
                   activePage === index
-                    ? 'transform scale-105'
-                    : 'hover:transform hover:scale-102'
+                    ? 'transform scale-[1.02]'
+                    : 'hover:transform hover:scale-[1.01]'
                 }`}
                 onClick={() => setActivePage(index)}
               >
-                <div className={`bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border-2 transition-all duration-300 ${
+                <div className={`relative bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-lg border-2 transition-all duration-500 ease-out overflow-hidden ${
                   activePage === index
-                    ? 'border-[#F5B6C1] shadow-xl'
-                    : 'border-transparent hover:border-[#A5D8F3]'
+                    ? 'border-[#F5B6C1] shadow-2xl shadow-[#F5B6C1]/20'
+                    : 'border-transparent hover:border-[#A5D8F3]/50 hover:shadow-xl hover:shadow-[#A5D8F3]/10'
                 }`}>
-                  <div className="flex items-start gap-4">
-                    <div className="flex items-center justify-center">{renderIcon(page.icon)}</div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-[#2C3E50] mb-2">
-                        {page.title}
-                      </h3>
-                      <p className="text-[#7F8C8D] leading-relaxed mb-3">
-                        {page.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {page.features.map((feature, featureIndex) => (
-                          <span
-                            key={featureIndex}
-                            className="bg-gradient-to-r text-white text-sm px-3 py-1 rounded-full"
-                            style={{
-                              background: `linear-gradient(45deg, ${page.color.includes('C1E8C5') ? '#C1E8C5' : page.color.includes('FFF0B5') ? '#FFF0B5' : page.color.includes('F5B6C1') ? '#F5B6C1' : '#A5D8F3'}, ${page.color.includes('A5D8F3') ? '#A5D8F3' : page.color.includes('F5B6C1') ? '#F5B6C1' : page.color.includes('F8C4B4') ? '#F8C4B4' : '#D4C1E8'})`
-                            }}
-                          >
-                            {feature}
-                          </span>
-                        ))}
+                  {/* Hover gradient overlay */}
+                  <div className={`absolute inset-0 rounded-3xl transition-opacity duration-500 ${
+                    activePage === index
+                      ? 'opacity-10'
+                      : 'opacity-0 group-hover:opacity-5'
+                  }`} style={{
+                    background: `linear-gradient(135deg, ${page.color.includes('C1E8C5') ? '#C1E8C5' : page.color.includes('FFF0B5') ? '#FFF0B5' : page.color.includes('F5B6C1') ? '#F5B6C1' : '#A5D8F3'}, ${page.color.includes('A5D8F3') ? '#A5D8F3' : page.color.includes('F5B6C1') ? '#F5B6C1' : page.color.includes('F8C4B4') ? '#F8C4B4' : '#D4C1E8'})`
+                  }}></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="flex items-start gap-4">
+                      <div className={`flex items-center justify-center p-3 rounded-2xl transition-all duration-500 ${
+                        activePage === index
+                          ? 'bg-gradient-to-br from-[#F5B6C1]/20 to-[#A5D8F3]/20 scale-110'
+                          : 'bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-[#F5B6C1]/10 group-hover:to-[#A5D8F3]/10 group-hover:scale-105'
+                      }`}>
+                        <div className={`transition-all duration-500 ${
+                          activePage === index
+                            ? 'scale-110'
+                            : 'group-hover:scale-105'
+                        }`}>
+                          {renderIcon(page.icon)}
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <h3 className={`text-xl font-bold mb-2 transition-all duration-500 ${
+                          activePage === index
+                            ? 'text-[#2C3E50]'
+                            : 'text-[#2C3E50] group-hover:text-[#34495E]'
+                        }`}>
+                          {page.title}
+                        </h3>
+                        <p className={`leading-relaxed mb-4 transition-all duration-500 ${
+                          activePage === index
+                            ? 'text-[#34495E]'
+                            : 'text-[#7F8C8D] group-hover:text-[#34495E]'
+                        }`}>
+                          {page.description}
+                        </p>
+                        
+                        <div className="flex flex-wrap gap-2">
+                          {page.features.map((feature, featureIndex) => (
+                            <span
+                              key={featureIndex}
+                              className={`text-white text-sm px-4 py-2 rounded-full transition-all duration-500 transform ${
+                                activePage === index
+                                  ? 'scale-105 shadow-lg'
+                                  : 'group-hover:scale-105 group-hover:shadow-md'
+                              }`}
+                              style={{
+                                background: `linear-gradient(135deg, ${page.color.includes('C1E8C5') ? '#C1E8C5' : page.color.includes('FFF0B5') ? '#FFF0B5' : page.color.includes('F5B6C1') ? '#F5B6C1' : '#A5D8F3'}, ${page.color.includes('A5D8F3') ? '#A5D8F3' : page.color.includes('F5B6C1') ? '#F5B6C1' : page.color.includes('F8C4B4') ? '#F8C4B4' : '#D4C1E8'})`
+                              }}
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Active indicator */}
+                  {activePage === index && (
+                    <div className="absolute top-4 right-4 w-3 h-3 bg-[#F5B6C1] rounded-full animate-pulse"></div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
           {/* Right Column - Product Preview */}
-          <div className="relative">
-            <ProductMockup
-              src={productPages[activePage].image}
-              alt={productPages[activePage].title}
-              width={400}
-              height={500}
-              className="drop-shadow-2xl rounded-2xl"
-              showFloatingElements={true}
-              floatingElements={floatingElements.demo}
-            />
+          <div className="relative group">
+            <div className="relative transform transition-all duration-700 ease-out hover:scale-[1.02]">
+              <ProductMockup
+                src={productPages[activePage].image}
+                alt={productPages[activePage].title}
+                width={400}
+                height={500}
+                className="drop-shadow-2xl rounded-2xl transition-all duration-700 ease-out"
+                showFloatingElements={true}
+                floatingElements={floatingElements.demo}
+              />
+              
+              {/* Floating decorative elements */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-[#F5B6C1] to-[#F8C4B4] rounded-full opacity-60 animate-bounce"></div>
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-br from-[#A5D8F3] to-[#C1E8C5] rounded-full opacity-60 animate-pulse"></div>
+              <div className="absolute top-1/2 -left-6 w-4 h-4 bg-gradient-to-br from-[#FFF0B5] to-[#F5B6C1] rounded-full opacity-40 animate-bounce delay-300"></div>
+            </div>
 
-            {/* Page indicators */}
-            <div className="flex justify-center mt-8 space-x-2">
-              {productPages.map((_, index) => (
+            {/* Enhanced Page indicators */}
+            <div className="flex justify-center mt-8 space-x-3">
+              {productPages.map((page, index) => (
                 <button
                   key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`group relative transition-all duration-500 ease-out ${
                     activePage === index
-                      ? 'bg-[#F5B6C1] scale-125'
-                      : 'bg-[#A5D8F3] hover:bg-[#F5B6C1]'
+                      ? 'scale-125'
+                      : 'hover:scale-110'
                   }`}
                   onClick={() => setActivePage(index)}
-                />
+                >
+                  <div className={`w-4 h-4 rounded-full transition-all duration-500 ${
+                    activePage === index
+                      ? 'bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] shadow-lg shadow-[#F5B6C1]/30'
+                      : 'bg-gradient-to-r from-[#A5D8F3] to-[#C1E8C5] hover:from-[#F5B6C1] hover:to-[#F8C4B4] hover:shadow-md hover:shadow-[#F5B6C1]/20'
+                  }`}>
+                    {activePage === index && (
+                      <div className="absolute inset-0 rounded-full bg-white/30 animate-ping"></div>
+                    )}
+                  </div>
+                  
+                  {/* Tooltip on hover */}
+                  <div className={`absolute -top-12 left-1/2 transform -translate-x-1/2 bg-[#2C3E50] text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap ${
+                    activePage === index ? 'hidden' : ''
+                  }`}>
+                    {page.title}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#2C3E50]"></div>
+                  </div>
+                </button>
               ))}
             </div>
           </div>
@@ -181,22 +249,57 @@ export default function ProductDemo() {
         {/* Montagem de páginas removida - foco apenas na demonstração interativa */}
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">
-              Pronto para começar a criar memórias?
-            </h3>
-            <p className="text-lg text-[#7F8C8D] mb-6">
-              Mais de 45 páginas únicas esperando para serem preenchidas com amor e criatividade
-            </p>
-            <a 
-              href="https://pay.cakto.com.br/xfhutrz_595670" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] hover:from-[#F8C4B4] hover:to-[#F5B6C1] text-white text-xl font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-block"
-            >
-              Quero meu Caderno agora! ✨
-            </a>
+        <div className="text-center mt-20">
+          <div className="relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-xl max-w-4xl mx-auto border border-white/50 overflow-hidden group">
+            {/* Decorative background elements */}
+            <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-[#F5B6C1] to-[#F8C4B4] rounded-full opacity-20 animate-pulse"></div>
+            <div className="absolute -bottom-10 -left-10 w-16 h-16 bg-gradient-to-br from-[#A5D8F3] to-[#C1E8C5] rounded-full opacity-20 animate-bounce"></div>
+            <div className="absolute top-1/2 -right-6 w-8 h-8 bg-gradient-to-br from-[#FFF0B5] to-[#F5B6C1] rounded-full opacity-30 animate-pulse delay-500"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-6 leading-tight">
+                Pronto para começar a criar{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5B6C1] to-[#A5D8F3]">
+                  memórias?
+                </span>
+              </h3>
+              <p className="text-xl text-[#34495E] mb-8 leading-relaxed max-w-2xl mx-auto">
+                Mais de 45 páginas únicas esperando para serem preenchidas com amor e criatividade
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                <div className="flex items-center gap-2 text-[#7F8C8D]">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  <span>Entrega digital imediata</span>
+                </div>
+                <div className="flex items-center gap-2 text-[#7F8C8D]">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  <span>Garantia de 7 dias</span>
+                </div>
+                <div className="flex items-center gap-2 text-[#7F8C8D]">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  <span>Mais de 1000 famílias satisfeitas</span>
+                </div>
+              </div>
+              
+              <a 
+                href="https://pay.cakto.com.br/xfhutrz_595670" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group/btn bg-gradient-to-r from-[#F5B6C1] to-[#F8C4B4] hover:from-[#F8C4B4] hover:to-[#F5B6C1] text-white text-xl font-bold py-6 px-12 rounded-full shadow-lg hover:shadow-2xl hover:shadow-[#F5B6C1]/30 transform hover:scale-105 transition-all duration-500 ease-out inline-flex items-center gap-3"
+              >
+                <span>Quero meu Caderno agora!</span>
+                <svg className="w-6 h-6 group-hover/btn:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>

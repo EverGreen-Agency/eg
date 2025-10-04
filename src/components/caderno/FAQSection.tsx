@@ -85,7 +85,9 @@ export default function FAQSection() {
                   <div className={`text-2xl text-[#F5B6C1] transition-transform duration-300 ${
                     openIndex === index ? 'rotate-45' : ''
                   }`}>
-                    +
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
                   </div>
                 </button>
                 
