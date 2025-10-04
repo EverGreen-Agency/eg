@@ -11,8 +11,9 @@ interface ConditionalLayoutProps {
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
   const isAgroAIGuardianPage = pathname === '/agro-ai-guardian';
+  const isCadernoMemoriasPage = pathname === '/caderno-memorias';
 
-  if (isAgroAIGuardianPage) {
+  if (isAgroAIGuardianPage || isCadernoMemoriasPage) {
     return <>{children}</>;
   }
 

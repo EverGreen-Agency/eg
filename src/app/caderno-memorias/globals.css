@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Varela+Round&family=Playlist+Script&family=Sriracha&display=swap');
+
+/* Watercolor Typography Styles */
+.watercolor-text {
+  font-family: 'Playlist Script', cursive;
+  background: linear-gradient(45deg, #F5B6C1, #A5D8F3, #FFF0B5);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: watercolorFlow 3s ease-in-out infinite;
+}
+
+@keyframes watercolorFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Watercolor Background Effects */
+.watercolor-bg {
+  background: linear-gradient(135deg, 
+    rgba(245, 182, 193, 0.1) 0%,
+    rgba(165, 216, 243, 0.1) 25%,
+    rgba(255, 240, 181, 0.1) 50%,
+    rgba(193, 232, 197, 0.1) 75%,
+    rgba(212, 193, 232, 0.1) 100%);
+  background-size: 400% 400%;
+  animation: watercolorMove 8s ease-in-out infinite;
+}
+
+@keyframes watercolorMove {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+}
+
+/* Floating Elements Animation */
+.floating {
+  animation: floating 6s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Watercolor Splash Effect */
+.watercolor-splash {
+  position: relative;
+  overflow: hidden;
+}
+
+.watercolor-splash::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, 
+    rgba(245, 182, 193, 0.1) 0%,
+    rgba(165, 216, 243, 0.1) 25%,
+    rgba(255, 240, 181, 0.1) 50%,
+    transparent 70%);
+  animation: splashRotate 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes splashRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f7f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #F5B6C1, #A5D8F3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #A5D8F3, #F5B6C1);
+}
+
+/* Typography Classes */
+.font-watercolor {
+  font-family: 'Playlist Script', cursive;
+}
+
+.font-rounded {
+  font-family: 'Varela Round', sans-serif;
+}
+
+.font-quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Watercolor Button Effects */
+.btn-watercolor {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(45deg, #F5B6C1, #A5D8F3);
+  transition: all 0.3s ease;
+}
+
+.btn-watercolor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-watercolor:hover::before {
+  left: 100%;
+}
+
+/* Watercolor Card Effects */
+.card-watercolor {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(245, 182, 193, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-watercolor::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #F5B6C1, #A5D8F3, #FFF0B5, #C1E8C5);
+  background-size: 400% 400%;
+  animation: watercolorMove 8s ease-in-out infinite;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  .watercolor-text {
+    font-size: 2rem;
+  }
+  
+  .font-watercolor {
+    font-size: 1.5rem;
+  }
+}
+
+/* Watercolor Gradient Text */
+.gradient-text-watercolor {
+  background: linear-gradient(45deg, #F5B6C1, #A5D8F3, #FFF0B5, #C1E8C5);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: watercolorFlow 4s ease-in-out infinite;
+}
+
+/* Watercolor Border Animation */
+.border-watercolor {
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #F5B6C1, #A5D8F3, #FFF0B5, #C1E8C5) border-box;
+  background-clip: border-box;
+  animation: watercolorMove 6s ease-in-out infinite;
+}
+
+/* Custom Selection */
+::selection {
+  background: rgba(245, 182, 193, 0.3);
+  color: #2C3E50;
+}
+
+::-moz-selection {
+  background: rgba(245, 182, 193, 0.3);
+  color: #2C3E50;
+}
