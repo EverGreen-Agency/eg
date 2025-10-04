@@ -81,7 +81,11 @@ export default function FinalCTA() {
           {/* Additional Benefits */}
           <div className="mt-16 grid md:grid-cols-3 gap-8">
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-              <div className="text-4xl mb-4">💝</div>
+              <div className="flex justify-center mb-4">
+                <svg className="w-12 h-12 text-[#F5B6C1]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
               <h3 className="text-xl font-bold text-[#2C3E50] mb-3">
                 Presente Perfeito
               </h3>
@@ -91,7 +95,11 @@ export default function FinalCTA() {
             </div>
 
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-              <div className="text-4xl mb-4">👨‍👩‍👧‍👦</div>
+              <div className="flex justify-center mb-4">
+                <svg className="w-12 h-12 text-[#A5D8F3]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 7H16c-.8 0-1.54.5-1.85 1.26L12.5 12H10v8h2v-6h2.5l1.5 6H20zM12.5 11.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5S11 9.17 11 10s.67 1.5 1.5 1.5zM5.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm2 16v-7H9V9.5C9 8.12 7.88 7 6.5 7S4 8.12 4 9.5V15h1.5v7h2z"/>
+                </svg>
+              </div>
               <h3 className="text-xl font-bold text-[#2C3E50] mb-3">
                 Conecta Famílias
               </h3>
@@ -101,7 +109,11 @@ export default function FinalCTA() {
             </div>
 
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-              <div className="text-4xl mb-4">📚</div>
+              <div className="flex justify-center mb-4">
+                <svg className="w-12 h-12 text-[#C1E8C5]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+              </div>
               <h3 className="text-xl font-bold text-[#2C3E50] mb-3">
                 Memórias Eternas
               </h3>
