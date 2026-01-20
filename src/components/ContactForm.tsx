@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaWhatsapp } from 'react-icons/fa';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -62,8 +63,8 @@ export default function ContactForm() {
         loading: false,
         success: false,
         error: true,
-        message: error instanceof Error ? 
-          error.message : 
+        message: error instanceof Error ?
+          error.message :
           'Erro ao enviar mensagem. Por favor, tente novamente ou entre em contato pelo WhatsApp.'
       });
     }
@@ -78,7 +79,7 @@ export default function ContactForm() {
         <input
           type="text"
           value={formData.nome}
-          onChange={(e) => setFormData({...formData, nome: e.target.value})}
+          onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
           className="w-full px-4 py-3 rounded-xl bg-[#09231B] border border-[#3AC97B]/20 text-[#FFF4C7] placeholder-[#FFF4C7]/50 focus:outline-none focus:ring-2 focus:ring-[#3AC97B] focus:border-transparent"
           placeholder="Seu nome"
           required
@@ -91,7 +92,7 @@ export default function ContactForm() {
         <input
           type="email"
           value={formData.email}
-          onChange={(e) => setFormData({...formData, email: e.target.value})}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="w-full px-4 py-3 rounded-xl bg-[#09231B] border border-[#3AC97B]/20 text-[#FFF4C7] placeholder-[#FFF4C7]/50 focus:outline-none focus:ring-2 focus:ring-[#3AC97B] focus:border-transparent"
           placeholder="seu@empresa.com"
           required
@@ -103,7 +104,7 @@ export default function ContactForm() {
         </label>
         <textarea
           value={formData.mensagem}
-          onChange={(e) => setFormData({...formData, mensagem: e.target.value})}
+          onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })}
           className="w-full px-4 py-3 rounded-xl bg-[#09231B] border border-[#3AC97B]/20 text-[#FFF4C7] placeholder-[#FFF4C7]/50 focus:outline-none focus:ring-2 focus:ring-[#3AC97B] focus:border-transparent"
           rows={4}
           placeholder="Conte um pouco sobre o que você quer resolver/escalar"
@@ -112,21 +113,36 @@ export default function ContactForm() {
       </div>
 
       {status.message && (
-        <div className={`p-4 rounded-xl ${
-          status.success ? 'bg-[#3AC97B]/10 text-[#FFF4C7] border border-[#3AC97B]/20' : 
-          status.error ? 'bg-red-900/10 text-[#FFF4C7] border border-red-500/20' : ''
-        }`}>
+        <div className={`p-4 rounded-xl ${status.success ? 'bg-[#3AC97B]/10 text-[#FFF4C7] border border-[#3AC97B]/20' :
+            status.error ? 'bg-red-900/10 text-[#FFF4C7] border border-red-500/20' : ''
+          }`}>
           {status.message}
         </div>
       )}
 
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         disabled={status.loading}
         className="w-full px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status.loading ? 'Enviando...' : 'Bora escalar isso juntos 🚀'}
       </button>
+
+      <div className="relative flex py-2 items-center">
+        <div className="flex-grow border-t border-[#3AC97B]/20"></div>
+        <span className="flex-shrink-0 mx-4 text-[#FFF4C7]/50 text-sm">Ou fale diretamente</span>
+        <div className="flex-grow border-t border-[#3AC97B]/20"></div>
+      </div>
+
+      <a
+        href="https://wa.me/5511989966989"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full flex items-center justify-center gap-3 px-8 py-4 text-lg font-medium rounded-xl text-[#FFF4C7] bg-[#25D366]/10 border border-[#25D366]/50 hover:bg-[#25D366]/20 transition-all duration-300"
+      >
+        <FaWhatsapp className="text-2xl text-[#25D366]" />
+        Chamar no WhatsApp
+      </a>
     </form>
   );
 }

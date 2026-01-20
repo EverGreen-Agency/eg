@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { fadeInUp, staggerContainer } from '@/utils/animations'
 import { RocketLaunchIcon, Cog6ToothIcon, CpuChipIcon, WrenchScrewdriverIcon, ChartBarIcon, UsersIcon, BeakerIcon, ServerStackIcon } from '@heroicons/react/24/outline'
 
@@ -180,6 +181,39 @@ export default function Home() {
             <Link href="/servicos" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-[#3AC97B] text-[#09231B] hover:bg-[#3AC97B]/90 transition-colors duration-300 shadow-lg">
               Ver Todos os Serviços
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* PARCEIRO KOMMO */}
+      <section className="py-12 bg-[#09231B] border-y border-[#3AC97B]/10">
+        <div className="container mx-auto px-4 max-w-4xl md:pl-20">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+            <div className="flex-1 text-left">
+              <span className="inline-block py-1 px-3 rounded-full bg-[#3AC97B]/10 text-[#3AC97B] text-sm font-semibold mb-4">
+                Parceiro Oficial
+              </span>
+              <h2 className="text-3xl font-bold text-[#FFF4C7] mb-4">
+                Especialistas em Kommo CRM
+              </h2>
+              <p className="text-[#E6E3B1]/80 text-lg mb-6 leading-relaxed">
+                Como parceiros certificados, implementamos o primeiro CRM do mundo baseado em mensagens. Centralize seu WhatsApp, Instagram e Facebook em um só lugar.
+              </p>
+              <Link href="/kommo_partners" className="inline-flex items-center text-[#3AC97B] font-medium hover:text-[#3AC97B]/80 hover:underline">
+                Conheça nossos serviços Kommo <span className="ml-2">→</span>
+              </Link>
+            </div>
+            <div className="flex-shrink-0 flex justify-center">
+              <div className="relative w-64 h-32 md:w-72 md:h-36">
+                <Image
+                  src="/images/logo_kommo.webp"
+                  alt="Kommo CRM"
+                  fill
+                  className="object-contain hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
