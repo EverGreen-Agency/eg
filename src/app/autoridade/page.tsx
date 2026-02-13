@@ -5,9 +5,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { wordpressService, type AutoridadePost } from '@/services/wordpress'
 import { motion } from 'framer-motion'
-import { 
-  TrophyIcon, 
-  AcademicCapIcon, 
+import {
+  TrophyIcon,
+  AcademicCapIcon,
   StarIcon,
   BuildingOffice2Icon,
   ShoppingCartIcon,
@@ -49,20 +49,20 @@ export default function AutoridadePage() {
       try {
         setLoading(true)
         const data = await wordpressService.getAutoridadePosts()
-        
+
         console.log('Posts de autoridade recebidos:', data.length)
         console.log('Primeiro post:', data[0])
-        
+
         // Filtrar apenas posts da categoria "cases"
         const casePosts = data.filter(post => {
           const categories = post._embedded?.['wp:term']?.[0] || []
           console.log(`Post "${post.title.rendered}" categorias:`, categories.map(cat => cat.slug))
           return categories.some(cat => cat.slug === 'cases')
         })
-        
+
         console.log('Posts filtrados como cases:', casePosts.length)
-        
-        const sortedData = casePosts.sort((a, b) => 
+
+        const sortedData = casePosts.sort((a, b) =>
           new Date(b.date).getTime() - new Date(a.date).getTime()
         )
         setPosts(sortedData)
@@ -78,26 +78,26 @@ export default function AutoridadePage() {
     loadPosts()
   }, [])
 
-  const filteredPosts = categoriaAtiva === 'Todos' 
-    ? posts 
+  const filteredPosts = categoriaAtiva === 'Todos'
+    ? posts
     : posts.filter(post => {
-        const categories = post._embedded?.['wp:term']?.[0] || []
-        return categories.some(cat => cat.name === categoriaAtiva)
-      })
+      const categories = post._embedded?.['wp:term']?.[0] || []
+      return categories.some(cat => cat.name === categoriaAtiva)
+    })
 
   return (
     <div className="min-h-screen bg-[#09231B]">
       {/* Hero Section */}
       <section className="py-20 px-4 md:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#FFF4C7]"
           >
             Evergreen Authority
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -105,7 +105,7 @@ export default function AutoridadePage() {
           >
             Confiança não se compra. Se constrói.
           </motion.p>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -113,7 +113,7 @@ export default function AutoridadePage() {
           >
             Aqui estão os cases, reconhecimentos e certificações que validam nossa visão, técnica e execução. Cada resultado representa compromisso com excelência e obsessão por crescimento real.
           </motion.p>
-          <motion.blockquote 
+          <motion.blockquote
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -143,11 +143,10 @@ export default function AutoridadePage() {
               <button
                 key={categoria}
                 onClick={() => setCategoriaAtiva(categoria)}
-                className={`px-6 py-2 rounded-full transition-colors flex items-center gap-2 ${
-                  categoriaAtiva === categoria
+                className={`px-6 py-2 rounded-full transition-colors flex items-center gap-2 ${categoriaAtiva === categoria
                     ? 'bg-[#3AC97B] text-[#09231B] font-medium'
                     : 'bg-[#09231B] border border-[#3AC97B] text-[#3AC97B] hover:bg-[#3AC97B]/10'
-                }`}
+                  }`}
               >
                 {categoria === 'B2B' && <BuildingOffice2Icon className="h-4 w-4" />}
                 {categoria === 'B2C' && <UserGroupIcon className="h-4 w-4" />}
@@ -188,14 +187,14 @@ export default function AutoridadePage() {
                       </div>
                     )}
                     <div className="p-6">
-                      <h3 
+                      <h3
                         className="text-xl font-bold mb-2 text-[#FFF4C7]"
                         dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                       />
-                      <div 
+                      <div
                         className="text-[#FFF4C7]/80 line-clamp-3 mb-4"
-                        dangerouslySetInnerHTML={{ 
-                          __html: post.yoast_head_json?.description || post.content.rendered 
+                        dangerouslySetInnerHTML={{
+                          __html: post.yoast_head_json?.description || post.content.rendered
                         }}
                       />
                       <div className="flex items-center justify-between text-sm">
@@ -363,7 +362,7 @@ export default function AutoridadePage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
                     boxShadow: '0 20px 25px -5px rgba(58, 201, 123, 0.1), 0 10px 10px -5px rgba(58, 201, 123, 0.04)'
                   }}
@@ -394,22 +393,28 @@ export default function AutoridadePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {[
-              { 
-                title: 'EG Growth Expert', 
+              {
+                title: 'Google Conversion Mobile',
+                image: '/images/google_certification.png',
+                alt: 'Certificação Google Conversion Mobile',
+                description: 'Otimização de conversão e experiência mobile certificada pelo Google'
+              },
+              {
+                title: 'EG Growth Expert',
                 image: '/images/seloGrowth.png',
                 alt: 'Selo EG Growth Expert',
                 description: 'Framework proprietário de crescimento acelerado'
               },
-              { 
-                title: 'EG IA Architect', 
+              {
+                title: 'EG IA Architect',
                 image: '/images/seloArchiet.png',
                 alt: 'Selo EG IA Architect',
                 description: 'Especialização em arquitetura de IA para negócios'
               },
-              { 
-                title: 'Sistema Evergreen Certificado', 
+              {
+                title: 'Sistema Evergreen Certificado',
                 image: '/images/seloCertificado.png',
                 alt: 'Selo Sistema Evergreen Certificado',
                 description: 'Metodologia completa de transformação digital'
@@ -420,7 +425,7 @@ export default function AutoridadePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
                 }}
@@ -461,13 +466,13 @@ export default function AutoridadePage() {
             Transforme seu negócio com metodologias comprovadas e tecnologia de ponta.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link 
+            <Link
               href="/contato"
               className="bg-[#3AC97B] text-[#09231B] px-8 py-3 rounded-full hover:bg-[#3AC97B]/90 transition-colors font-medium"
             >
               Agendar Diagnóstico
             </Link>
-            <Link 
+            <Link
               href="/newsletter"
               className="bg-[#09231B] border border-[#3AC97B] text-[#3AC97B] px-8 py-3 rounded-full hover:bg-[#3AC97B]/10 transition-colors font-medium"
             >

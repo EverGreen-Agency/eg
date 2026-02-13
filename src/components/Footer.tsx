@@ -22,12 +22,20 @@ export default function Footer() {
             <p className="mt-4 text-sm text-[#E6E3B1]">
               Transformando negócios através de growth, tecnologia e resultados reais.
             </p>
-            {/* Kommo Partner Badge */}
-            <div className="mt-6">
+            {/* Partner Badges */}
+            <div className="mt-6 flex flex-wrap gap-4 items-center">
               <a href="https://www.kommo.com" target="_blank" rel="noopener noreferrer" className="inline-block relative w-32 h-16 opacity-80 hover:opacity-100 transition-opacity">
                 <Image
                   src="/images/kommopartner.png"
                   alt="Kommo Partner"
+                  fill
+                  className="object-contain object-left"
+                />
+              </a>
+              <a href="https://skillshop.exceedlms.com/student/award/b533d719-79f6-49z" target="_blank" rel="noopener noreferrer" className="inline-block relative w-32 h-16 opacity-80 hover:opacity-100 transition-opacity">
+                <Image
+                  src="/images/google_certification.png"
+                  alt="Google Mobile Conversion Certification"
                   fill
                   className="object-contain object-left"
                 />
