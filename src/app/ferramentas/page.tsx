@@ -11,14 +11,14 @@ export default function FerramentasPage() {
       {/* Hero Section */}
       <section className="py-20 px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold mb-6 text-[#3AC97B]"
           >
             Ferramentas EG
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -61,7 +61,7 @@ export default function FerramentasPage() {
                   <span>Resultados instantâneos</span>
                 </div>
               </div>
-              <Link 
+              <Link
                 href="/ferramentas/calculadora-roi"
                 className="mt-6 inline-block w-full text-center bg-[#3AC97B] text-[#09231B] py-3 px-6 rounded-xl hover:bg-[#3AC97B]/90 transition-colors"
               >
@@ -97,7 +97,7 @@ export default function FerramentasPage() {
                   <span>Diagnóstico personalizado</span>
                 </div>
               </div>
-              <Link 
+              <Link
                 href="/ferramentas/maturidade-digital"
                 className="mt-6 inline-block w-full text-center bg-[#3AC97B] text-[#09231B] py-3 px-6 rounded-xl hover:bg-[#3AC97B]/90 transition-colors"
               >
@@ -133,7 +133,7 @@ export default function FerramentasPage() {
                   <span>Diagnóstico instantâneo</span>
                 </div>
               </div>
-              <Link 
+              <Link
                 href="/ferramentas/scanner-funil"
                 className="mt-6 inline-block w-full text-center bg-[#3AC97B] text-[#09231B] py-3 px-6 rounded-xl hover:bg-[#3AC97B]/90 transition-colors"
               >
@@ -155,7 +155,7 @@ export default function FerramentasPage() {
                 <div className="ml-4">
                   <h3 className="text-xl font-bold mb-2 text-[#FFF4C7]">Cold Email Builder EG</h3>
                   <p className="text-[#FFF4C7]/80">
-                    Gere scripts matadores de cold email para fechar mais negócios B2B.
+                    Gere scripts comprovados de cold email para fechar mais negócios B2B.
                   </p>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export default function FerramentasPage() {
                   <span>Scripts validados pela EG</span>
                 </div>
               </div>
-              <Link 
+              <Link
                 href="/ferramentas/cold-email-builder"
                 className="mt-6 inline-block w-full text-center bg-[#3AC97B] text-[#09231B] py-3 px-6 rounded-xl hover:bg-[#3AC97B]/90 transition-colors"
               >
@@ -187,7 +187,7 @@ export default function FerramentasPage() {
           <p className="text-lg mb-8 text-[#FFF4C7]/80">
             Agende um diagnóstico gratuito e tenha acesso ao arsenal completo da Evergreen.
           </p>
-          <Link 
+          <Link
             href="/contato"
             className="inline-block bg-[#3AC97B] text-[#09231B] px-8 py-3 rounded-xl hover:bg-[#3AC97B]/90 transition-colors"
           >

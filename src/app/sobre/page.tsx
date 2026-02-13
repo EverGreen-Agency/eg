@@ -26,7 +26,7 @@ export default function SobrePage() {
             <p className="text-xl font-medium text-[#FFF4C7] mb-8 italic">
               "Acreditamos que previsibilidade não é uma promessa — é uma arquitetura. E cada bloco começa com intenção, tecnologia e gente boa."
             </p>
-            <Link 
+            <Link
               href="/contato"
               className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-colors shadow-lg hover:shadow-xl"
             >
@@ -45,7 +45,7 @@ export default function SobrePage() {
             <div className="glass-card p-8 bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
               <h3 className="text-2xl font-bold mb-4 text-[#3AC97B]">Nossa Visão</h3>
               <p className="text-[#FFF4C7]/80">
-                Ser a referência global em soluções integradas de growth, IA e operações de receita para empresas B2B.
+                Ser a referência global em soluções integradas de growth, IA e operações de receita para empresas B2B e B2C.
               </p>
             </div>
           </motion.div>
@@ -113,7 +113,7 @@ export default function SobrePage() {
             <div className="relative">
               {/* Linha em Z */}
               <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-[#3AC97B]/20 hidden md:block" />
-              
+
               <div className="space-y-16">
                 {[
                   { periodo: 'Q1 2024', evento: 'Fundação da Evergreen MKT' },
@@ -126,11 +126,11 @@ export default function SobrePage() {
                     {/* Linha diagonal conectora (visível apenas em desktop) */}
                     <div className={`absolute hidden md:block h-0.5 bg-gradient-to-r from-[#3AC97B]/20 to-[#3AC97B]/30 w-8 top-1/2 transform -translate-y-1/2 
                       ${index % 2 === 0 ? 'left-[calc(50%-4rem)]' : 'right-[calc(50%-4rem)]'}`} />
-                    
+
                     {/* Círculo central */}
                     <div className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#3AC97B] border-4 border-[#09231B] 
                       hidden md:block transition-transform hover:scale-150 z-10`} />
-                    
+
                     {/* Conteúdo */}
                     <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'} text-center`}>
                       <motion.div
@@ -145,7 +145,7 @@ export default function SobrePage() {
                         </div>
                       </motion.div>
                     </div>
-                    
+
                     {/* Espaço vazio do outro lado para manter o layout em Z */}
                     <div className="flex-1 hidden md:block" />
                   </div>
@@ -166,13 +166,13 @@ export default function SobrePage() {
                 Aqui, cada cliente é co-criador da floresta que estamos construindo.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
+                <Link
                   href="/contato"
                   className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-colors shadow-lg hover:shadow-xl"
                 >
                   Quero ser parte da floresta
                 </Link>
-                <Link 
+                <Link
                   href="/autoridade"
                   className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#FFF4C7] bg-[#09231B] hover:bg-[#09231B]/80 border border-[#3AC97B]/20 transition-colors shadow-lg hover:shadow-xl"
                 >
