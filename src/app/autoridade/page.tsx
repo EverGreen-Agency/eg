@@ -144,8 +144,8 @@ export default function AutoridadePage() {
                 key={categoria}
                 onClick={() => setCategoriaAtiva(categoria)}
                 className={`px-6 py-2 rounded-full transition-colors flex items-center gap-2 ${categoriaAtiva === categoria
-                    ? 'bg-[#3AC97B] text-[#09231B] font-medium'
-                    : 'bg-[#09231B] border border-[#3AC97B] text-[#3AC97B] hover:bg-[#3AC97B]/10'
+                  ? 'bg-[#3AC97B] text-[#09231B] font-medium'
+                  : 'bg-[#09231B] border border-[#3AC97B] text-[#3AC97B] hover:bg-[#3AC97B]/10'
                   }`}
               >
                 {categoria === 'B2B' && <BuildingOffice2Icon className="h-4 w-4" />}
@@ -399,7 +399,8 @@ export default function AutoridadePage() {
                 title: 'Google Conversion Mobile',
                 image: '/images/google_certification.png',
                 alt: 'Certificação Google Conversion Mobile',
-                description: 'Otimização de conversão e experiência mobile certificada pelo Google'
+                description: 'Otimização de conversão e experiência mobile certificada pelo Google',
+                link: 'https://skillshop.credential.net/dada6b71-4bff-467f-a775-ea559be3de45#acc.omjPgL9M'
               },
               {
                 title: 'EG Growth Expert',
@@ -429,23 +430,47 @@ export default function AutoridadePage() {
                   scale: 1.05,
                   boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
                 }}
-                className="bg-[#09231B] border border-[#3AC97B]/20 rounded-2xl p-8 transition-all duration-300 transform text-center"
+                className="bg-[#09231B] border border-[#3AC97B]/20 rounded-2xl p-8 transition-all duration-300 transform text-center relative z-10"
               >
-                <div className="relative w-full flex justify-center items-center mb-6">
-                  <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#3AC97B] to-[#3AC97B]/60 rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                    <Image
-                      src={selo.image}
-                      alt={selo.alt}
-                      width={200}
-                      height={200}
-                      className="object-contain relative transform transition duration-300 group-hover:scale-105"
-                      priority
-                    />
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-[#FFF4C7] mb-2">{selo.title}</h3>
-                <p className="text-[#FFF4C7]/80">{selo.description}</p>
+                {/* Wrapper condicional para link */}
+                {/* @ts-ignore */}
+                {selo.link ? (
+                  <Link href={selo.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+                    <div className="relative w-full flex justify-center items-center mb-6">
+                      <div className="relative group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#3AC97B] to-[#3AC97B]/60 rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                        <Image
+                          src={selo.image}
+                          alt={selo.alt}
+                          width={200}
+                          height={200}
+                          className="object-contain relative transform transition duration-300 group-hover:scale-105"
+                          priority
+                        />
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-[#FFF4C7] mb-2">{selo.title}</h3>
+                    <p className="text-[#FFF4C7]/80">{selo.description}</p>
+                  </Link>
+                ) : (
+                  <>
+                    <div className="relative w-full flex justify-center items-center mb-6">
+                      <div className="relative group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#3AC97B] to-[#3AC97B]/60 rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                        <Image
+                          src={selo.image}
+                          alt={selo.alt}
+                          width={200}
+                          height={200}
+                          className="object-contain relative transform transition duration-300 group-hover:scale-105"
+                          priority
+                        />
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-[#FFF4C7] mb-2">{selo.title}</h3>
+                    <p className="text-[#FFF4C7]/80">{selo.description}</p>
+                  </>
+                )}
               </motion.div>
             ))}
           </div>

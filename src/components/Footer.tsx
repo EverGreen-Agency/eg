@@ -24,7 +24,7 @@ export default function Footer() {
             </p>
             {/* Partner Badges */}
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              <a href="https://www.kommo.com" target="_blank" rel="noopener noreferrer" className="inline-block relative w-32 h-16 opacity-80 hover:opacity-100 transition-opacity">
+              <a href="https://www.kommo.com/partners/evergreen-mkt/" target="_blank" rel="noopener noreferrer" className="inline-block relative w-32 h-16 opacity-80 hover:opacity-100 transition-opacity">
                 <Image
                   src="/images/kommopartner.png"
                   alt="Kommo Partner"
@@ -32,7 +32,7 @@ export default function Footer() {
                   className="object-contain object-left"
                 />
               </a>
-              <a href="https://skillshop.exceedlms.com/student/award/b533d719-79f6-49z" target="_blank" rel="noopener noreferrer" className="inline-block relative w-32 h-16 opacity-80 hover:opacity-100 transition-opacity">
+              <a href="https://skillshop.credential.net/dada6b71-4bff-467f-a775-ea559be3de45#acc.omjPgL9M" target="_blank" rel="noopener noreferrer" className="inline-block relative w-32 h-16 opacity-80 hover:opacity-100 transition-opacity">
                 <Image
                   src="/images/google_certification.png"
                   alt="Google Mobile Conversion Certification"

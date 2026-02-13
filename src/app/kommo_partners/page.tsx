@@ -37,7 +37,7 @@ export default function KommoPage() {
                 Solicitar Consultoria
               </Link>
               <Link
-                href="https://www.kommo.com"
+                href="https://www.kommo.com/partners/evergreen-mkt/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-xl bg-transparent border border-[#3AC97B] text-[#FFF4C7] hover:bg-[#3AC97B]/10 transition-colors duration-300"
@@ -63,22 +63,26 @@ export default function KommoPage() {
         <div className="container mx-auto px-4 text-center">
           <p className="text-[#E6E3B1]/60 text-sm uppercase tracking-wider mb-8">Reconhecido Oficialmente</p>
           <div className="flex justify-center items-center gap-8 flex-wrap">
-            <div className="relative w-48 h-24 transition-all duration-500">
-              <Image
-                src="/images/logo_kommo.webp"
-                alt="Logo Kommo"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <div className="relative w-32 h-32">
-              <Image
-                src="/images/kommopartner.png"
-                alt="Selo Parceiro Kommo"
-                fill
-                className="object-contain"
-              />
-            </div>
+            <Link href="https://www.kommo.com/partners/evergreen-mkt/" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <div className="relative w-48 h-24 transition-all duration-500 hover:scale-105">
+                <Image
+                  src="/images/logo_kommo.webp"
+                  alt="Logo Kommo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </Link>
+            <Link href="https://www.kommo.com/partners/evergreen-mkt/" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <div className="relative w-32 h-32 hover:scale-105 transition-all duration-500">
+                <Image
+                  src="/images/kommopartner.png"
+                  alt="Selo Parceiro Kommo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
