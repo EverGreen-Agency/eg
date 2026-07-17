@@ -9,13 +9,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'comu5801_wp283' );
+define( 'DB_NAME', 'CHANGE_ME' );
 
 /** Database username */
-define( 'DB_USER', 'comu5801_wp283' );
+define( 'DB_USER', 'CHANGE_ME' );
 
 /** Database password */
-define( 'DB_PASSWORD', '{n[lFbx&+aX*' );
+define( 'DB_PASSWORD', 'CHANGE_ME' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
@@ -28,16 +28,17 @@ define( 'DB_COLLATE', '' );
 
 /**#@+
  * Authentication unique keys and salts.
- * Você pode gerar estas usando o {@link https://api.wordpress.org/secret-key/1.1/salt/ serviço de chaves-secretas do WordPress.org}
+ * Gere valores novos em https://api.wordpress.org/secret-key/1.1/salt/
+ * NUNCA reutilize os valores deste arquivo de exemplo em produção.
  */
-define('AUTH_KEY',         'Ey3Kj#m9X$vN&p2L*w5Q!c8Z@h4R');
-define('SECURE_AUTH_KEY',  'F6B#n9M$x2P@j5L&w8Q!c4Z*h7R');
-define('LOGGED_IN_KEY',    'G7C#p2M$x5N@k8L&w3Q!z6Z*h9R');
-define('NONCE_KEY',        'H8D#q3M$x6P@m9L&w4Q!a7Z*k2R');
-define('AUTH_SALT',        'J9E#r4M$x7N@n2L&w5Q!b8Z*m3R');
-define('SECURE_AUTH_SALT', 'K2F#s5M$x8P@p3L&w6Q!c9Z*n4R');
-define('LOGGED_IN_SALT',   'L3G#t6M$x9N@q4L&w7Q!d2Z*p5R');
-define('NONCE_SALT',       'M4H#u7M$x2P@r5L&w8Q!e3Z*q6R');
+define('AUTH_KEY',         'CHANGE_ME');
+define('SECURE_AUTH_KEY',  'CHANGE_ME');
+define('LOGGED_IN_KEY',    'CHANGE_ME');
+define('NONCE_KEY',        'CHANGE_ME');
+define('AUTH_SALT',        'CHANGE_ME');
+define('SECURE_AUTH_SALT', 'CHANGE_ME');
+define('LOGGED_IN_SALT',   'CHANGE_ME');
+define('NONCE_SALT',       'CHANGE_ME');
 
 /**#@-*/
 
@@ -74,4 +75,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Sets up WordPress vars and included files. */
-require_once ABSPATH . 'wp-settings.php'; 
+require_once ABSPATH . 'wp-settings.php';

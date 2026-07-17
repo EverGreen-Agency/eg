@@ -2,6 +2,10 @@
 RewriteEngine On
 RewriteBase /
 
+# 0. Canoniza para www (evita conteúdo duplicado apex vs www)
+RewriteCond %{HTTP_HOST} ^evergreenmkt\.com\.br$ [NC]
+RewriteRule ^(.*)$ https://www.evergreenmkt.com.br/$1 [R=301,L]
+
 # 1. Primeiro protege wp-admin e wp-json
 RewriteRule ^wp-admin$ wp-admin/ [L]
 RewriteRule ^wp-admin/(.*) wp-admin/$1 [L]

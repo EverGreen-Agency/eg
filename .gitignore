@@ -6,3 +6,6 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Segredos reais do WordPress nunca versionados — use wp-config.sample.php como template
+wp-config.php

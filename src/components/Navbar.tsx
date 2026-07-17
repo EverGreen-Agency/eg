@@ -78,23 +78,17 @@ export default function Navbar() {
               Benchmark
             </Link>
 
-            {/* Recursos Dropdown */}
-            <div className="relative group">
-              <button className="inline-flex items-center text-sm font-medium text-[#E6E3B1] hover:text-emerald-500 transition-colors">
-                Recursos
-                <svg className="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div className="absolute left-0 mt-2 w-64 rounded-xl shadow-lg py-2 bg-[#0D221B] ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link href="/newsletter" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  Newsletter
-                </Link>
-                <Link href="/ferramentas" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  Recursos Gratuitos
-                </Link>
-              </div>
-            </div>
+            {/* Link de Portfólio */}
+            <Link
+              href="/portfolio"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/portfolio')
+                  ? 'text-emerald-500'
+                  : 'text-[#E6E3B1] hover:text-emerald-500'
+              }`}
+            >
+              Portfólio
+            </Link>
 
             {/* Empresa Dropdown */}
             <div className="relative group">
@@ -110,21 +104,6 @@ export default function Navbar() {
                 </Link>
                 <Link href="/equipe" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
                   Nossa Equipe
-                </Link>
-                <Link href="/eg-tech" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  EG Tech
-                </Link>
-                <Link href="/eg-lab" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  EG Lab
-                </Link>
-                <Link href="/eg-os" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  EG Os
-                </Link>
-                <Link href="/holding" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  Holding
-                </Link>
-                <Link href="/investidores" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
-                  Investidores
                 </Link>
                 <Link href="/niveis-de-cliente" className="block px-4 py-2.5 text-sm text-[#E6E3B1] hover:bg-[#1a3d30] hover:text-emerald-500">
                   Níveis de Clientes
@@ -197,22 +176,13 @@ export default function Navbar() {
           <Link href="/autoridade" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Autoridade</Link>
           <Link href="/servicos" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Soluções</Link>
           <Link href="/benchmark" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Benchmark</Link>
-          {/* Recursos */}
-          <div>
-            <span className="block px-3 py-2 text-base font-semibold text-emerald-500">Recursos</span>
-            <Link href="/newsletter" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Newsletter</Link>
-            <Link href="/ferramentas" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Recursos Gratuitos</Link>
-          </div>
+          <Link href="/portfolio" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Portfólio</Link>
+          <Link href="/newsletter" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Newsletter</Link>
           {/* Empresa */}
           <div>
             <span className="block px-3 py-2 text-base font-semibold text-emerald-500">Empresa</span>
             <Link href="/sobre" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Sobre Nós</Link>
             <Link href="/equipe" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Nossa Equipe</Link>
-            <Link href="/eg-tech" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">EG Tech</Link>
-            <Link href="/eg-lab" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">EG Lab</Link>
-            <Link href="/eg-os" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">EG Os</Link>
-            <Link href="/holding" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Holding</Link>
-            <Link href="/investidores" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Investidores</Link>
             <Link href="/niveis-de-cliente" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Níveis de Clientes</Link>
             <Link href="/contato" onClick={() => setIsOpen(false)} className="block px-6 py-2 rounded-md text-base font-medium text-[#E6E3B1] hover:text-emerald-500">Contato</Link>
           </div>

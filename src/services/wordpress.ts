@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-// URL da API do WordPress
-const WORDPRESS_API_URL = 'https://cms.evergreenmkt.com.br/wp-json/wp/v2';
+import { WORDPRESS_API_URL } from '@/config/constants';
 
 // Configuração do axios
 const api = axios.create({
