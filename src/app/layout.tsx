@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://evergreenmkt.com.br'),
+  metadataBase: new URL('https://www.evergreenmkt.com.br'),
   title: 'Evergreen MKT | Growth, Tecnologia e Resultados',
   description: 'Hub de autoridade em growth, tecnologia, IA e execução de resultados reais.',
   icons: {
