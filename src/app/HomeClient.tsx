@@ -1,59 +1,16 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-
-/* ————————————————————————————————————————————————
-   Símbolo da marca: o "E"-escada do logo EverGreen,
-   em escala arquitetônica. As três barras sobem
-   de baixo para cima (bottom → top) na entrada.
-   ———————————————————————————————————————————————— */
-function EMark({ progress }: { progress: MotionValue<number> }) {
-  const reduce = useReducedMotion()
-
-  // Três barras paralelogramo (skew à direita) formando o E: topo largo,
-  // meio curto, base larga — igual ao ícone da marca.
-  const bars = [
-    { points: '24,8 120,8 104,38 8,38', order: 2 },    // topo (aparece por último)
-    { points: '24,55 96,55 80,85 8,85', order: 1 },    // meio
-    { points: '24,102 120,102 104,132 8,132', order: 0 }, // base (aparece primeiro)
-  ]
-
-  return (
-    <motion.div
-      style={reduce ? undefined : { y: progress }}
-      className="absolute right-[-4vw] top-1/2 -translate-y-1/2 w-[52vw] max-w-[760px] pointer-events-none select-none"
-      aria-hidden
-    >
-      <svg viewBox="0 0 128 140" className="w-full h-auto" role="presentation">
-        <defs>
-          <linearGradient id="eg-mark" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#2aa562" />
-            <stop offset="100%" stopColor="#3AC97B" />
-          </linearGradient>
-        </defs>
-        {bars.map((bar, i) => (
-          <motion.polygon
-            key={i}
-            points={bar.points}
-            fill="url(#eg-mark)"
-            initial={reduce ? false : { opacity: 0, y: 46 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.25 + bar.order * 0.22, ease: [0.16, 1, 0.3, 1] }}
-          />
-        ))}
-      </svg>
-    </motion.div>
-  )
-}
+import EStaircaseMark from '@/components/brand/EStaircaseMark'
 
 /* Cantoneiras de instrumento (moldura técnica) */
 function CornerBrackets() {
-  const corner = 'absolute w-8 h-8 border-menta/40'
+  const corner = 'absolute w-6 h-6 md:w-8 md:h-8 border-menta/30'
   return (
-    <div className="absolute inset-4 md:inset-8 pointer-events-none" aria-hidden>
+    <div className="absolute inset-4 md:inset-8 pointer-events-none z-[1]" aria-hidden>
       <span className={`${corner} top-0 left-0 border-t border-l`} />
       <span className={`${corner} top-0 right-0 border-t border-r`} />
       <span className={`${corner} bottom-0 left-0 border-b border-l`} />
@@ -107,101 +64,105 @@ export default function Home() {
     target: heroRef,
     offset: ['start start', 'end start'],
   })
-  const barsY = useTransform(scrollYProgress, [0, 1], [0, 140])
-  const fadeOut = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const markY = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const fadeOut = useTransform(scrollYProgress, [0, 0.75], [1, 0])
 
   return (
-    <main className="min-h-screen bg-musgo grain">
+    <main className="bg-musgo grain">
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative min-h-[92vh] flex flex-col overflow-hidden bg-[radial-gradient(70%_60%_at_78%_38%,rgba(58,201,123,0.10),transparent_70%)]"
+        className="relative min-h-[100svh] flex flex-col overflow-hidden bg-[radial-gradient(60%_55%_at_80%_30%,rgba(58,201,123,0.10),transparent_72%)]"
       >
-        <EMark progress={barsY} />
-        <CornerBrackets />
-
-        {/* Conteúdo principal — cresce e centraliza, com folga acima e abaixo */}
+        {/* Marca E em escada, sangrando a direita, com parallax */}
         <motion.div
-          style={reduce ? undefined : { opacity: fadeOut }}
-          className="flex-1 flex items-center relative z-10"
+          style={reduce ? undefined : { y: markY }}
+          className="absolute top-1/2 right-0 -translate-y-1/2 w-[52vw] max-w-[720px] h-[70vh] pointer-events-none opacity-90"
         >
-          <div className="container mx-auto px-6 md:px-12 pt-28 pb-16">
-            {/* Eyebrow de instrumento */}
-            <motion.p
-              initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.05 }}
-              className="mono-label text-menta mb-8 flex items-center gap-3"
-            >
-              <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
-              Crescimento previsível, escalável e tecnológico
-            </motion.p>
-
-            {/* Headline gigante, linha a linha */}
-            <h1 className="max-w-4xl mb-8">
-              {heroLines.map((line, i) => (
-                <span key={line.text} className="block overflow-hidden py-[0.05em]">
-                  <motion.span
-                    initial={reduce ? false : { y: '110%' }}
-                    animate={{ y: '0%' }}
-                    transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                    className={`block text-[clamp(2.2rem,6vw,5.4rem)] leading-[1.04] tracking-tight font-bold ${
-                      line.accent ? 'text-menta' : 'text-baunilha'
-                    }`}
-                  >
-                    {line.text}
-                  </motion.span>
-                </span>
-              ))}
-            </h1>
-
-            <motion.p
-              initial={reduce ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="max-w-xl text-lg md:text-xl text-baunilha/75 mb-10"
-            >
-              Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
-              marketing, vendas e tecnologia — com inteligência artificial e automação.
-            </motion.p>
-
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.75 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Link
-                href="/contato"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
-              >
-                Agendar Diagnóstico
-              </Link>
-              <Link
-                href="/portfolio"
-                className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
-              >
-                Ver Portfólio <span aria-hidden>→</span>
-              </Link>
-            </motion.div>
-          </div>
+          <EStaircaseMark className="w-full h-full" />
         </motion.div>
 
-        {/* Rodapé do instrumento — fluxo normal, nunca sobrepõe o conteúdo */}
+        <CornerBrackets />
+
+        {/* Conteúdo — centralizado verticalmente, cabe em uma tela */}
+        <motion.div
+          style={reduce ? undefined : { opacity: fadeOut }}
+          className="container relative z-[2] mx-auto px-6 md:px-12 flex-1 flex flex-col justify-center pt-24 pb-14"
+        >
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="mono-label text-menta mb-6 flex items-center gap-3"
+          >
+            <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
+            <span className="hidden sm:inline">Crescimento previsível, escalável e tecnológico</span>
+            <span className="sm:hidden">Crescimento previsível</span>
+          </motion.p>
+
+          <h1 className="max-w-4xl mb-7">
+            {heroLines.map((line, i) => (
+              <span key={line.text} className="block overflow-hidden py-[0.06em]">
+                <motion.span
+                  initial={reduce ? false : { y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className={`block text-[clamp(2rem,5.2vw,4.6rem)] leading-[1.03] tracking-tight font-bold ${
+                    line.accent ? 'text-menta' : 'text-baunilha'
+                  }`}
+                >
+                  {line.text}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="max-w-lg text-base md:text-lg text-baunilha/70 mb-9"
+          >
+            Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
+            marketing, vendas e tecnologia — com inteligência artificial e automação.
+          </motion.p>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.75 }}
+            className="flex flex-col sm:flex-row flex-wrap gap-4"
+          >
+            <Link
+              href="/contato"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
+            >
+              Agendar Diagnóstico
+            </Link>
+            <Link
+              href="/portfolio"
+              className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+            >
+              Ver Portfólio <span aria-hidden>→</span>
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Rodapé do instrumento — em fluxo, não sobrepõe */}
         <motion.div
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.1 }}
-          className="relative z-10 flex-none flex items-center justify-between px-6 md:px-12 pb-6 md:pb-10"
+          className="container relative z-[2] mx-auto px-6 md:px-12 pb-6 flex items-center justify-between"
         >
-          <p className="mono-label text-baunilha/40 hidden md:flex items-center gap-6">
+          <p className="mono-label text-baunilha/40 hidden md:flex items-center gap-5">
             <span>Consultoria</span>
             <span className="text-menta/60" aria-hidden>▪</span>
             <span>Tecnologia</span>
             <span className="text-menta/60" aria-hidden>▪</span>
             <span>B2B</span>
           </p>
-          <p className="mono-label text-baunilha/40 flex items-center gap-2 ml-auto">
+          <p className="mono-label text-baunilha/40 flex items-center gap-2">
             Scroll
             <motion.span
               animate={reduce ? undefined : { y: [0, 5, 0] }}
@@ -216,7 +177,7 @@ export default function Home() {
 
       {/* MARQUEE de capacidades */}
       <section className="border-y hairline py-5 overflow-hidden" aria-label="Capacidades">
-        <div className="flex w-max animate-marquee gap-0">
+        <div className="flex w-max animate-marquee">
           {[0, 1].map((half) => (
             <div key={half} className="flex shrink-0" aria-hidden={half === 1}>
               {marqueeItems.map((item) => (
@@ -233,7 +194,7 @@ export default function Home() {
       {/* O QUE FAZEMOS — cards numerados */}
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="flex items-baseline justify-between mb-14">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
             <div>
               <p className="mono-label text-menta mb-4">01 — O que fazemos</p>
               <h2 className="text-3xl md:text-5xl font-bold text-baunilha tracking-tight max-w-2xl">
@@ -242,7 +203,7 @@ export default function Home() {
             </div>
             <Link
               href="/servicos"
-              className="mono-label text-baunilha/60 hover:text-menta transition-colors hidden md:inline-flex items-center gap-2"
+              className="mono-label text-baunilha/60 hover:text-menta transition-colors inline-flex items-center gap-2 shrink-0"
             >
               Todos os serviços <span aria-hidden>→</span>
             </Link>
@@ -316,9 +277,9 @@ export default function Home() {
           className="absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(58,201,123,0.12),transparent_70%)]"
           aria-hidden
         />
-        <div className="container relative z-10 mx-auto px-6 md:px-12 text-center">
+        <div className="container relative z-[2] mx-auto px-6 md:px-12 text-center">
           <p className="mono-label text-menta mb-6">02 — Próximo passo</p>
-          <h2 className="text-[clamp(2rem,5vw,4.2rem)] leading-[1.05] tracking-tight font-bold text-baunilha max-w-4xl mx-auto mb-8">
+          <h2 className="text-[clamp(1.9rem,4.6vw,4rem)] leading-[1.06] tracking-tight font-bold text-baunilha max-w-4xl mx-auto mb-8">
             Pronto para escalar sua receita de forma{' '}
             <span className="text-menta">inteligente?</span>
           </h2>
