@@ -6,32 +6,45 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 /* ————————————————————————————————————————————————
-   Motivo da marca: as 3 barras escalonadas do logo,
-   em escala arquitetônica, sangrando a borda direita.
+   Símbolo da marca: o "E"-escada do logo EverGreen,
+   em escala arquitetônica. As três barras sobem
+   de baixo para cima (bottom → top) na entrada.
    ———————————————————————————————————————————————— */
-function StepBars({ progress }: { progress: MotionValue<number> }) {
+function EMark({ progress }: { progress: MotionValue<number> }) {
   const reduce = useReducedMotion()
+
+  // Três barras paralelogramo (skew à direita) formando o E: topo largo,
+  // meio curto, base larga — igual ao ícone da marca.
   const bars = [
-    { w: 'w-[46vw]', top: 'top-[8%]', delay: 0.15 },
-    { w: 'w-[38vw]', top: 'top-[38%]', delay: 0.3 },
-    { w: 'w-[30vw]', top: 'top-[68%]', delay: 0.45 },
+    { points: '24,8 120,8 104,38 8,38', order: 2 },    // topo (aparece por último)
+    { points: '24,55 96,55 80,85 8,85', order: 1 },    // meio
+    { points: '24,102 120,102 104,132 8,132', order: 0 }, // base (aparece primeiro)
   ]
 
   return (
     <motion.div
       style={reduce ? undefined : { y: progress }}
-      className="absolute inset-y-0 right-0 w-[55vw] pointer-events-none select-none"
+      className="absolute right-[-4vw] top-1/2 -translate-y-1/2 w-[52vw] max-w-[760px] pointer-events-none select-none"
       aria-hidden
     >
-      {bars.map((bar, i) => (
-        <motion.div
-          key={i}
-          initial={reduce ? false : { x: '30%', opacity: 0 }}
-          animate={{ x: '0%', opacity: 1 }}
-          transition={{ duration: 1.1, delay: bar.delay, ease: [0.16, 1, 0.3, 1] }}
-          className={`absolute ${bar.top} right-[-6vw] ${bar.w} h-[16vh] min-h-[80px] bg-gradient-to-r from-menta to-[#2aa562] [transform:skewX(-18deg)] shadow-[0_0_80px_rgba(58,201,123,0.25)]`}
-        />
-      ))}
+      <svg viewBox="0 0 128 140" className="w-full h-auto" role="presentation">
+        <defs>
+          <linearGradient id="eg-mark" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stopColor="#2aa562" />
+            <stop offset="100%" stopColor="#3AC97B" />
+          </linearGradient>
+        </defs>
+        {bars.map((bar, i) => (
+          <motion.polygon
+            key={i}
+            points={bar.points}
+            fill="url(#eg-mark)"
+            initial={reduce ? false : { opacity: 0, y: 46 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.25 + bar.order * 0.22, ease: [0.16, 1, 0.3, 1] }}
+          />
+        ))}
+      </svg>
     </motion.div>
   )
 }
@@ -102,78 +115,84 @@ export default function Home() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden bg-[radial-gradient(70%_60%_at_78%_35%,rgba(58,201,123,0.13),transparent_70%)]"
+        className="relative min-h-[92vh] flex flex-col overflow-hidden bg-[radial-gradient(70%_60%_at_78%_38%,rgba(58,201,123,0.10),transparent_70%)]"
       >
-        <StepBars progress={barsY} />
+        <EMark progress={barsY} />
         <CornerBrackets />
 
-        <motion.div style={reduce ? undefined : { opacity: fadeOut }} className="container relative z-10 mx-auto px-6 md:px-12">
-          {/* Eyebrow de instrumento */}
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="mono-label text-menta mb-8 flex items-center gap-3"
-          >
-            <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
-            Crescimento previsível, escalável e tecnológico
-          </motion.p>
-
-          {/* Headline gigante, linha a linha */}
-          <h1 className="max-w-5xl mb-8">
-            {heroLines.map((line, i) => (
-              <span key={line.text} className="block overflow-hidden">
-                <motion.span
-                  initial={reduce ? false : { y: '110%' }}
-                  animate={{ y: '0%' }}
-                  transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                  className={`block text-[clamp(2.4rem,6.5vw,5.8rem)] leading-[1.02] tracking-tight font-bold ${
-                    line.accent ? 'text-menta' : 'text-baunilha'
-                  }`}
-                >
-                  {line.text}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="max-w-xl text-lg md:text-xl text-baunilha/75 mb-10"
-          >
-            Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
-            marketing, vendas e tecnologia — com inteligência artificial e automação.
-          </motion.p>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.75 }}
-            className="flex flex-col sm:flex-row gap-4"
-          >
-            <Link
-              href="/contato"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
+        {/* Conteúdo principal — cresce e centraliza, com folga acima e abaixo */}
+        <motion.div
+          style={reduce ? undefined : { opacity: fadeOut }}
+          className="flex-1 flex items-center relative z-10"
+        >
+          <div className="container mx-auto px-6 md:px-12 pt-28 pb-16">
+            {/* Eyebrow de instrumento */}
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.05 }}
+              className="mono-label text-menta mb-8 flex items-center gap-3"
             >
-              Agendar Diagnóstico
-            </Link>
-            <Link
-              href="/portfolio"
-              className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+              <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
+              Crescimento previsível, escalável e tecnológico
+            </motion.p>
+
+            {/* Headline gigante, linha a linha */}
+            <h1 className="max-w-4xl mb-8">
+              {heroLines.map((line, i) => (
+                <span key={line.text} className="block overflow-hidden py-[0.05em]">
+                  <motion.span
+                    initial={reduce ? false : { y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                    className={`block text-[clamp(2.2rem,6vw,5.4rem)] leading-[1.04] tracking-tight font-bold ${
+                      line.accent ? 'text-menta' : 'text-baunilha'
+                    }`}
+                  >
+                    {line.text}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="max-w-xl text-lg md:text-xl text-baunilha/75 mb-10"
             >
-              Ver Portfólio <span aria-hidden>→</span>
-            </Link>
-          </motion.div>
+              Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
+              marketing, vendas e tecnologia — com inteligência artificial e automação.
+            </motion.p>
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.75 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Link
+                href="/contato"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
+              >
+                Agendar Diagnóstico
+              </Link>
+              <Link
+                href="/portfolio"
+                className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+              >
+                Ver Portfólio <span aria-hidden>→</span>
+              </Link>
+            </motion.div>
+          </div>
         </motion.div>
 
-        {/* Rodapé do instrumento */}
+        {/* Rodapé do instrumento — fluxo normal, nunca sobrepõe o conteúdo */}
         <motion.div
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.1 }}
-          className="absolute bottom-6 md:bottom-10 inset-x-6 md:inset-x-12 z-10 flex items-center justify-between"
+          className="relative z-10 flex-none flex items-center justify-between px-6 md:px-12 pb-6 md:pb-10"
         >
           <p className="mono-label text-baunilha/40 hidden md:flex items-center gap-6">
             <span>Consultoria</span>
@@ -182,7 +201,7 @@ export default function Home() {
             <span className="text-menta/60" aria-hidden>▪</span>
             <span>B2B</span>
           </p>
-          <p className="mono-label text-baunilha/40 flex items-center gap-2">
+          <p className="mono-label text-baunilha/40 flex items-center gap-2 ml-auto">
             Scroll
             <motion.span
               animate={reduce ? undefined : { y: [0, 5, 0] }}
