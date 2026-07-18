@@ -92,10 +92,12 @@ Cards = grid de linha fina (`gap-px bg-menta/15`), numerados `01–04`, hover es
 | Rota | Estilo novo? | Nota |
 |---|---|---|
 | `/` (home) | ✅ Refeita | `HomeClient.tsx` — hero E-escada, marquee, cards numerados, Kommo, CTA. |
-| `/portfolio` | ⚠️ Estrutura nova, visual antigo | Existe (`PortfolioClient.tsx` + `src/config/portfolio.ts`), mas ainda não recebeu a linguagem visual. |
-| `/sobre` `/servicos` `/equipe` `/blog` `/contato` `/autoridade` `/niveis-de-cliente` | ❌ Estilo antigo | Têm `page.tsx` (servidor, com metadata) + `*Client.tsx` (cliente). Só falta reestilizar o Client. |
-| `/benchmark` `/kommo_partners` | ❌ Estilo antigo | — |
-| Navbar/Footer | ⚠️ Parcial | Navbar já com CTA baunilha/pílula; falta passar tokens/estilo completo. Footer intocado. |
+| `/portfolio` | ✅ Refeita | `PortfolioClient.tsx` + `src/config/portfolio.ts`. |
+| `/sobre` `/contato` `/servicos` `/equipe` | ✅ Refeitas | Via `PageHeader` compartilhado. Copy preservada (rewrite = Fase 2). |
+| `/benchmark` | ✅ Refeita + ligada ao Bioma | Split client/server; consome `/public/benchmark` do Bioma, estado "Em Breve" data-driven. |
+| `/niveis-de-cliente` | ❌ Estilo antigo | **Bloqueada por decisão de conteúdo:** o funil de 5 níveis atual (Semente→Raiz→…) vai ser substituído por Semente/Muda/Árvore/Floresta (resolução da colisão "Raiz"). Restilizar só na Fase 2, junto com a troca de conteúdo — não polir o que será removido. |
+| `/blog` `/autoridade` `/kommo_partners` | ❌ Estilo antigo | `/autoridade` é pesada (511 linhas, integração WP). Menor prioridade. |
+| Navbar/Footer | ✅ | Navbar (CTA pílula + item Portfólio) e Footer (tokens de marca + Portfólio) atualizados. |
 
 **Split client/server:** toda página com `'use client'` foi dividida em `page.tsx` (servidor, exporta
 `metadata` com title/description únicos) + `XxxClient.tsx` (o componente client original). Manter esse
@@ -207,7 +209,31 @@ Duas features futuras que ligam o site à plataforma. **Ambas são trabalho no r
   "token de acesso ao Hub" por cliente, mintado por admin EG, codificado no NFC, redirecionando para
   `/clientes/{client_id}` autenticado. Migration + endpoint novos. Bioma roda em `bioma.evergreenmkt.com.br`.
 
-### 10b. Benchmark público (a implementar em seguida, após a replicação visual)
+### 10b. Benchmark público — BACKEND IMPLEMENTADO (falta só ligar em produção)
+
+**Site (feito):** `/benchmark` consome `BENCHMARK_ENDPOINT` (`src/config/benchmark.ts`,
+default `https://api.bioma.evergreenmkt.com.br/public/benchmark`). Estado "Em Breve" é
+data-driven: enquanto o payload não for `ao_vivo` com base suficiente, mostra "Em Breve".
+
+**Bioma (feito, repo `evergreen-ai-os`, commit `eadbe73`):**
+- Migration `0012_benchmark.sql`: `organizations.benchmark_segment`/`benchmark_consent`,
+  tabela `raio_x_scores` (fonte dos 3 pilares), `benchmark_settings` (toggle singleton + `min_sample`).
+- `services/benchmark.py`: agrega mediana/mín/máx por pilar por segmento (avaliação mais recente
+  de cada org), só publica segmento com `>= min_sample` orgs consentidas (k-anonimato), Raio-X geral =
+  média dos 3 pilares. Em_breve / sem base → payload vazio.
+- `routers/benchmark.py`: `GET /public/benchmark` (sem auth) + `GET/PATCH /benchmark/settings` (EG admin,
+  vira o toggle). Registrados no `main.py`. Smoke `scripts/smoke_benchmark.py` (e2e, precisa do Postgres).
+
+**Para ATIVAR em produção (passos que faltam):**
+1. Rodar a migration `0012` no banco de produção (`python scripts/migrate.py`).
+2. **CORS:** adicionar `https://www.evergreenmkt.com.br` (e `https://evergreenmkt.com.br`) ao
+   `CORS_ORIGINS` da API do Bioma em produção — o site faz fetch client-side cross-origin; sem isso o
+   browser bloqueia. O endpoint é público (sem credenciais), então só precisa da origem liberada.
+3. Preencher `raio_x_scores` + marcar `benchmark_consent`/`benchmark_segment` nas orgs (a UI de
+   preenchimento do Raio-X é Fase 2; por ora dá pra semear via SQL/admin).
+4. Virar o toggle para `ao_vivo` via `PATCH /benchmark/settings` — o site sai do "Em Breve" sozinho.
+
+### 10b-ref. Especificação original (mantida para contexto)
 Requisito do Eduardo: o Benchmark do site deve ser **gerado/gerido a partir dos projetos de cliente no
 Bioma**, com dado **totalmente anonimizado** ao chegar no site, e um **toggle "ocultar"** nas configs do
 Bioma para tirar do "Em Breve" sem hardcodar.
