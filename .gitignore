@@ -9,3 +9,4 @@ node_modules
 
 # Segredos reais do WordPress nunca versionados — use wp-config.sample.php como template
 wp-config.php
+tsconfig.tsbuildinfo
