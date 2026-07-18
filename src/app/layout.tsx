@@ -1,5 +1,5 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Inter, IBM_Plex_Mono } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Head from 'next/head'
@@ -12,6 +12,13 @@ const inter = Inter({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-inter',
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  variable: '--font-mono',
 })
 
 export const metadata = {
@@ -34,11 +41,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR" className={`${inter.variable} ${plexMono.variable}`}>
       <Head>
         <link rel="icon" href="/images/favicon.png" type="image/png" />
       </Head>
-      <body className={`${inter.className} min-h-screen bg-gray-50 dark:bg-gray-900`}>
+      <body className="font-sans min-h-screen bg-musgo antialiased">
         <FacebookPixel />
         <ConditionalLayout>
           {children}

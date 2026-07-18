@@ -12,7 +12,7 @@ export default function Navbar() {
   const isActive = (path: string) => pathname === path
 
   return (
-    <nav className="bg-[#0D221B] text-[#E6E3B1] sticky top-0 z-50 border-b border-gray-200/10 backdrop-blur-sm">
+    <nav className="bg-musgo/80 text-baunilha sticky top-0 z-50 border-b border-menta/10 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -125,7 +125,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/contato"
-              className="inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-xl text-white bg-emerald-500 hover:bg-emerald-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+              className="inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-full text-musgo bg-baunilha hover:bg-menta transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-menta focus:ring-offset-musgo"
             >
               Agendar Diagnóstico
             </Link>

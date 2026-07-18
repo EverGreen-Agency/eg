@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.evergreenmkt.com.br/portfolio",
+      "permanent": false
+    }
+  ]
+}

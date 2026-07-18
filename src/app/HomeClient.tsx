@@ -1,215 +1,288 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { fadeInUp, staggerContainer } from '@/utils/animations'
-import { RocketLaunchIcon, Cog6ToothIcon, CpuChipIcon, WrenchScrewdriverIcon, ChartBarIcon, UsersIcon, BeakerIcon, ServerStackIcon } from '@heroicons/react/24/outline'
 
-const authorityLogos = [
-  // Substitua pelos logos reais dos clientes/cases
-  { name: 'TechCorp', src: '/logos/techcorp.svg', result: '+300% conversão' },
-  { name: 'GrowthCo', src: '/logos/growthco.svg', result: '+500% vendas' },
-  { name: 'IW Tour', src: '/logos/iwtour.svg', result: '-40% CAC' },
+/* ————————————————————————————————————————————————
+   Motivo da marca: as 3 barras escalonadas do logo,
+   em escala arquitetônica, sangrando a borda direita.
+   ———————————————————————————————————————————————— */
+function StepBars({ progress }: { progress: MotionValue<number> }) {
+  const reduce = useReducedMotion()
+  const bars = [
+    { w: 'w-[46vw]', top: 'top-[8%]', delay: 0.15 },
+    { w: 'w-[38vw]', top: 'top-[38%]', delay: 0.3 },
+    { w: 'w-[30vw]', top: 'top-[68%]', delay: 0.45 },
+  ]
+
+  return (
+    <motion.div
+      style={reduce ? undefined : { y: progress }}
+      className="absolute inset-y-0 right-0 w-[55vw] pointer-events-none select-none"
+      aria-hidden
+    >
+      {bars.map((bar, i) => (
+        <motion.div
+          key={i}
+          initial={reduce ? false : { x: '30%', opacity: 0 }}
+          animate={{ x: '0%', opacity: 1 }}
+          transition={{ duration: 1.1, delay: bar.delay, ease: [0.16, 1, 0.3, 1] }}
+          className={`absolute ${bar.top} right-[-6vw] ${bar.w} h-[16vh] min-h-[80px] bg-gradient-to-r from-menta to-[#2aa562] [transform:skewX(-18deg)] shadow-[0_0_80px_rgba(58,201,123,0.25)]`}
+        />
+      ))}
+    </motion.div>
+  )
+}
+
+/* Cantoneiras de instrumento (moldura técnica) */
+function CornerBrackets() {
+  const corner = 'absolute w-8 h-8 border-menta/40'
+  return (
+    <div className="absolute inset-4 md:inset-8 pointer-events-none" aria-hidden>
+      <span className={`${corner} top-0 left-0 border-t border-l`} />
+      <span className={`${corner} top-0 right-0 border-t border-r`} />
+      <span className={`${corner} bottom-0 left-0 border-b border-l`} />
+      <span className={`${corner} bottom-0 right-0 border-b border-r`} />
+    </div>
+  )
+}
+
+const marqueeItems = [
+  'Consultoria comercial',
+  'Automação',
+  'IA aplicada',
+  'CRM & cadência',
+  'Dashboards',
+  'Previsibilidade',
 ]
 
-const systemBlocks = [
+const pillars = [
   {
-    icon: <UsersIcon className="h-10 w-10 text-emerald-400 mx-auto mb-4" />,
-    title: 'EG Growth',
-    desc: 'Estratégias de aquisição e nutrição de leads B2B',
-    color: 'text-emerald-400',
-  },
-  {
-    icon: <Cog6ToothIcon className="h-10 w-10 text-blue-400 mx-auto mb-4" />,
-    title: 'EG Tech',
-    desc: 'Automação de processos e aplicação de IA',
-    color: 'text-blue-400',
-  },
-  {
-    icon: <BeakerIcon className="h-10 w-10 text-purple-400 mx-auto mb-4" />,
-    title: 'EG Lab',
-    desc: 'Desenvolvimento de produtos digitais e MVPs',
-    color: 'text-purple-400',
-  },
-  {
-    icon: <ServerStackIcon className="h-10 w-10 text-green-400 mx-auto mb-4" />,
-    title: 'EG OS',
-    desc: 'Operação enxuta para PMEs via BPO automatizado',
-    color: 'text-green-400',
-  },
-]
-
-const services = [
-  {
+    num: '01',
     title: 'Estratégias de Growth',
-    desc: 'Aceleração de vendas B2B previsível',
-    icon: <RocketLaunchIcon className="h-10 w-10 text-emerald-400 mx-auto mb-4" />,
+    desc: 'Aceleração de vendas B2B previsível — demanda, conversão e jornada tratadas como sistema.',
   },
   {
+    num: '02',
     title: 'Automação Comercial',
-    desc: 'Redução de CAC e aumento de conversão com tech',
-    icon: <Cog6ToothIcon className="h-10 w-10 text-blue-400 mx-auto mb-4" />,
+    desc: 'Redução de CAC e aumento de conversão com processo, CRM e cadência estruturada.',
   },
   {
+    num: '03',
     title: 'Inteligência Artificial aplicada',
-    desc: 'IA em marketing, vendas e atendimento',
-    icon: <CpuChipIcon className="h-10 w-10 text-purple-400 mx-auto mb-4" />,
+    desc: 'IA em marketing, vendas e atendimento — invisível no processo, visível no resultado.',
   },
   {
+    num: '04',
     title: 'Desenvolvimento de Ferramentas',
-    desc: 'Plataformas digitais e MVPs validáveis',
-    icon: <WrenchScrewdriverIcon className="h-10 w-10 text-emerald-400 mx-auto mb-4" />,
-  },
-  {
-    title: 'Operação BPO Inteligente',
-    desc: 'Backoffice finance, comercial e jurídico automatizado',
-    icon: <ChartBarIcon className="h-10 w-10 text-green-400 mx-auto mb-4" />,
+    desc: 'Plataformas digitais, protótipos e MVPs que provam a tese antes de escalar.',
   },
 ]
 
-const cases = [
-  {
-    logo: '/logos/techcorp.svg',
-    client: 'TechCorp | SaaS',
-    challenge: 'Baixa conversão',
-    solution: 'Growth Engine + Automação Tech',
-    result: '+300% em conversão | ROI positivo em 3 meses',
-  },
-  {
-    logo: '/logos/growthco.svg',
-    client: 'GrowthCo | Indústria',
-    challenge: 'Vendas estagnadas',
-    solution: 'EG Growth + EG Tech',
-    result: '+500% em vendas',
-  },
-  {
-    logo: '/logos/iwtour.svg',
-    client: 'IW Tour | Turismo',
-    challenge: 'CAC alto',
-    solution: 'Automação Comercial + IA',
-    result: '-40% no CAC',
-  },
+const heroLines = [
+  { text: 'Cresça de forma inteligente.', accent: false },
+  { text: 'Venda com tecnologia.', accent: false },
+  { text: 'Escale com IA.', accent: true },
 ]
 
 export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const barsY = useTransform(scrollYProgress, [0, 1], [0, 140])
+  const fadeOut = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#09231B] via-[#09231B] to-[#3AC97B]/10">
+    <main className="min-h-screen bg-musgo grain">
       {/* HERO */}
-      <section className="relative py-16 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20 text-center">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible">
-            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-bold mb-6 text-[#FFF4C7]">
-              Cresça de Forma Inteligente. Venda com Tecnologia. Escale com IA.
-            </motion.h1>
-            <motion.p variants={fadeInUp} className="text-xl md:text-2xl mb-8 text-[#FFF4C7]/80">
-              Somos a força por trás do crescimento previsível de negócios B2B.<br />
-              Implementamos sistemas de marketing, vendas e tecnologia que geram receita real — com inteligência artificial e automação.
-            </motion.p>
-            <motion.blockquote variants={fadeInUp} className="text-2xl italic text-[#3AC97B] bg-[#09231B]/80 p-6 rounded-2xl max-w-3xl mx-auto mb-8">
-              Tecnologia que conecta. Growth que escala. IA que executa.
-            </motion.blockquote>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contato" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-[#3AC97B] text-[#09231B] hover:bg-[#3AC97B]/90 transition-colors duration-300 shadow-lg">
-                Agendar Diagnóstico de Receita
-              </Link>
-              <Link href="/autoridade" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-[#09231B] text-[#FFF4C7] border border-[#3AC97B] hover:bg-[#09231B]/80 transition-colors duration-300">
-                Ver Casos Reais
-              </Link>
-            </div>
+      <section
+        ref={heroRef}
+        className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden bg-[radial-gradient(70%_60%_at_78%_35%,rgba(58,201,123,0.13),transparent_70%)]"
+      >
+        <StepBars progress={barsY} />
+        <CornerBrackets />
+
+        <motion.div style={reduce ? undefined : { opacity: fadeOut }} className="container relative z-10 mx-auto px-6 md:px-12">
+          {/* Eyebrow de instrumento */}
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="mono-label text-menta mb-8 flex items-center gap-3"
+          >
+            <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
+            Crescimento previsível, escalável e tecnológico
+          </motion.p>
+
+          {/* Headline gigante, linha a linha */}
+          <h1 className="max-w-5xl mb-8">
+            {heroLines.map((line, i) => (
+              <span key={line.text} className="block overflow-hidden">
+                <motion.span
+                  initial={reduce ? false : { y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className={`block text-[clamp(2.4rem,6.5vw,5.8rem)] leading-[1.02] tracking-tight font-bold ${
+                    line.accent ? 'text-menta' : 'text-baunilha'
+                  }`}
+                >
+                  {line.text}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="max-w-xl text-lg md:text-xl text-baunilha/75 mb-10"
+          >
+            Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
+            marketing, vendas e tecnologia — com inteligência artificial e automação.
+          </motion.p>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.75 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <Link
+              href="/contato"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
+            >
+              Agendar Diagnóstico
+            </Link>
+            <Link
+              href="/portfolio"
+              className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+            >
+              Ver Portfólio <span aria-hidden>→</span>
+            </Link>
           </motion.div>
+        </motion.div>
+
+        {/* Rodapé do instrumento */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.1 }}
+          className="absolute bottom-6 md:bottom-10 inset-x-6 md:inset-x-12 z-10 flex items-center justify-between"
+        >
+          <p className="mono-label text-baunilha/40 hidden md:flex items-center gap-6">
+            <span>Consultoria</span>
+            <span className="text-menta/60" aria-hidden>▪</span>
+            <span>Tecnologia</span>
+            <span className="text-menta/60" aria-hidden>▪</span>
+            <span>B2B</span>
+          </p>
+          <p className="mono-label text-baunilha/40 flex items-center gap-2">
+            Scroll
+            <motion.span
+              animate={reduce ? undefined : { y: [0, 5, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+              aria-hidden
+            >
+              ↓
+            </motion.span>
+          </p>
+        </motion.div>
+      </section>
+
+      {/* MARQUEE de capacidades */}
+      <section className="border-y hairline py-5 overflow-hidden" aria-label="Capacidades">
+        <div className="flex w-max animate-marquee gap-0">
+          {[0, 1].map((half) => (
+            <div key={half} className="flex shrink-0" aria-hidden={half === 1}>
+              {marqueeItems.map((item) => (
+                <span key={`${half}-${item}`} className="mono-label text-baunilha/50 flex items-center">
+                  <span className="px-8">{item}</span>
+                  <span className="text-menta" aria-hidden>▪</span>
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* BLOCO DE AUTORIDADE 
-      <section className="py-16 bg-[#0D221B] border-b border-emerald-900">
-        <div className="container mx-auto px-4 max-w-5xl text-center">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-2xl md:text-3xl font-bold mb-8 text-emerald-200">
-            Trusted by Businesses Focused on Growth
-          </motion.h2>
-          <div className="flex flex-wrap justify-center gap-8 mb-8">
-            {authorityLogos.map((logo) => (
-              <div key={logo.name} className="flex flex-col items-center">
-                <img src={logo.src} alt={logo.name} className="h-12 mb-2" />
-                <span className="text-emerald-400 text-sm font-semibold">{logo.result}</span>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center text-emerald-200 text-lg">
-            <span>🔹 +300% em conversão para TechCorp</span>
-            <span>🔹 +500% em vendas para GrowthCo</span>
-            <span>🔹 -40% no CAC para IW Tour</span>
-          </div>
-        </div>
-      </section>
-        */}
-      {/* SISTEMA EVERGREEN */}
-      <section className="py-12 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-3xl font-bold mb-12 text-[#FFF4C7] text-center">
-            Nossa Metodologia:<br />Da Aquisição ao Crescimento com Inteligência.
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {systemBlocks.map((block) => (
-              <div key={block.title} className="glass-card p-8 bg-[#09231B]/80 border border-[#3AC97B]/20 text-center flex flex-col items-center">
-                <div>{block.icon}</div>
-                <h3 className="text-xl font-bold mb-2 text-[#3AC97B]">{block.title}</h3>
-                <p className="text-[#FFF4C7]/80 text-sm">{block.desc}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-[#FFF4C7]/80 text-lg text-center mt-8">Tudo integrado. Tudo focado em gerar receita real.</p>
-        </div>
-      </section>
-
-      {/* SERVIÇOS EM CARDS */}
-      <section className="py-12 bg-[#09231B]">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-3xl font-bold mb-12 text-[#FFF4C7] text-center">
-            Nossos Serviços
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <div key={service.title} className="glass-card p-8 bg-[#09231B]/80 border border-[#3AC97B]/20 text-center flex flex-col items-center">
-                <div className="text-4xl mb-4 text-[#3AC97B]">{service.icon}</div>
-                <h3 className="text-xl font-bold mb-2 text-[#3AC97B]">{service.title}</h3>
-                <p className="text-[#FFF4C7]/80 text-sm">{service.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Link href="/servicos" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-[#3AC97B] text-[#09231B] hover:bg-[#3AC97B]/90 transition-colors duration-300 shadow-lg">
-              Ver Todos os Serviços
+      {/* O QUE FAZEMOS — cards numerados */}
+      <section className="py-24 md:py-32">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex items-baseline justify-between mb-14">
+            <div>
+              <p className="mono-label text-menta mb-4">01 — O que fazemos</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-baunilha tracking-tight max-w-2xl">
+                Da aquisição ao crescimento, com inteligência.
+              </h2>
+            </div>
+            <Link
+              href="/servicos"
+              className="mono-label text-baunilha/60 hover:text-menta transition-colors hidden md:inline-flex items-center gap-2"
+            >
+              Todos os serviços <span aria-hidden>→</span>
             </Link>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-menta/15 border hairline">
+            {pillars.map((pillar, i) => (
+              <motion.div
+                key={pillar.num}
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: i * 0.08 }}
+                className="group bg-musgo p-8 md:p-12 hover:bg-musgo-deep transition-colors duration-300"
+              >
+                <p className="mono-label text-menta mb-6">{pillar.num}</p>
+                <h3 className="text-xl md:text-2xl font-bold text-baunilha mb-3 group-hover:text-menta transition-colors duration-300">
+                  {pillar.title}
+                </h3>
+                <p className="text-baunilha/65 leading-relaxed">{pillar.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="mono-label text-baunilha/40 text-center mt-10">
+            Tudo integrado. Tudo focado em gerar receita real.
+          </p>
         </div>
       </section>
 
       {/* PARCEIRO KOMMO */}
-      <section className="py-12 bg-[#09231B] border-y border-[#3AC97B]/10">
-        <div className="container mx-auto px-4 max-w-4xl md:pl-20">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-            <div className="flex-1 text-left">
-              <span className="inline-block py-1 px-3 rounded-full bg-[#3AC97B]/10 text-[#3AC97B] text-sm font-semibold mb-4">
-                Parceiro Oficial
-              </span>
-              <h2 className="text-3xl font-bold text-[#FFF4C7] mb-4">
+      <section className="py-20 border-t hairline">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 border hairline p-8 md:p-14 relative">
+            <div className="absolute top-0 left-8 -translate-y-1/2 bg-musgo px-3">
+              <span className="mono-label text-menta">Parceiro oficial</span>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl md:text-4xl font-bold text-baunilha mb-4 tracking-tight">
                 Especialistas em Kommo CRM
               </h2>
-              <p className="text-[#E6E3B1]/80 text-lg mb-6 leading-relaxed">
-                Como parceiros certificados, implementamos o primeiro CRM do mundo baseado em mensagens. Centralize seu WhatsApp, Instagram e Facebook em um só lugar.
+              <p className="text-baunilha/70 text-lg mb-6 leading-relaxed max-w-xl">
+                Como parceiros certificados, implementamos o primeiro CRM do mundo baseado em
+                mensagens. WhatsApp, Instagram e Facebook centralizados em um só lugar.
               </p>
-              <Link href="/kommo_partners" className="inline-flex items-center text-[#3AC97B] font-medium hover:text-[#3AC97B]/80 hover:underline">
-                Conheça nossos serviços Kommo <span className="ml-2">→</span>
+              <Link
+                href="/kommo_partners"
+                className="mono-label inline-flex items-center gap-2 text-menta hover:text-baunilha transition-colors"
+              >
+                Conheça os serviços Kommo <span aria-hidden>→</span>
               </Link>
             </div>
-            <div className="flex-shrink-0 flex justify-center">
-              <div className="relative w-64 h-32 md:w-72 md:h-36">
+            <div className="flex-shrink-0">
+              <div className="relative w-56 h-28 md:w-64 md:h-32">
                 <Image
                   src="/images/logo_kommo.webp"
                   alt="Kommo CRM"
                   fill
-                  className="object-contain hover:scale-105 transition-transform duration-300"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -218,50 +291,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BLOCO DE PROVAS/CASES 
-      <section className="py-24 bg-emerald-950">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-3xl font-bold mb-12 text-[#E6E3B1] text-center">
-            Resultados Reais. Clientes Reais.
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cases.map((c) => (
-              <div key={c.client} className="glass-card p-8 bg-emerald-900/30 text-center flex flex-col items-center">
-                <img src={c.logo} alt={c.client} className="h-12 mb-4" />
-                <h3 className="text-xl font-bold mb-2 text-emerald-400">{c.client}</h3>
-                <p className="text-[#E6E3B1] text-sm mb-2"><strong>Desafio:</strong> {c.challenge}</p>
-                <p className="text-[#E6E3B1] text-sm mb-2"><strong>Solução:</strong> {c.solution}</p>
-                <p className="text-2xl font-bold text-emerald-200 mt-2">{c.result}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Link href="/cases" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-colors duration-300 shadow-lg">
-              Ver Mais Cases
-            </Link>
-          </div>
-        </div>
-      </section>
-        */}
       {/* CTA FINAL */}
-      <section className="py-12 bg-gradient-to-br from-[#09231B] via-[#09231B] to-[#3AC97B]/20 text-center">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="text-4xl font-bold mb-6 text-[#FFF4C7]">
-            Pronto para Escalar sua Receita de Forma Inteligente?
-          </motion.h2>
-          <p className="text-[#FFF4C7]/80 text-lg mb-8">
-            Vamos desenhar o sistema que vai destravar seu crescimento.<br />Agende agora um Diagnóstico Estratégico gratuito.
+      <section className="relative py-28 md:py-40 overflow-hidden border-t hairline">
+        <div
+          className="absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(58,201,123,0.12),transparent_70%)]"
+          aria-hidden
+        />
+        <div className="container relative z-10 mx-auto px-6 md:px-12 text-center">
+          <p className="mono-label text-menta mb-6">02 — Próximo passo</p>
+          <h2 className="text-[clamp(2rem,5vw,4.2rem)] leading-[1.05] tracking-tight font-bold text-baunilha max-w-4xl mx-auto mb-8">
+            Pronto para escalar sua receita de forma{' '}
+            <span className="text-menta">inteligente?</span>
+          </h2>
+          <p className="text-baunilha/70 text-lg mb-10 max-w-xl mx-auto">
+            Vamos desenhar o sistema que vai destravar seu crescimento.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <Link href="/contato" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-[#3AC97B] text-[#09231B] hover:bg-[#3AC97B]/90 transition-colors duration-300 shadow-lg">
-              Agendar Diagnóstico de Receita
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contato"
+              className="inline-flex items-center justify-center px-10 py-5 rounded-full bg-baunilha text-musgo text-lg font-semibold hover:bg-menta transition-colors duration-300"
+            >
+              Agendar Diagnóstico
             </Link>
-            <Link href="/contato" className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl bg-[#09231B] text-[#FFF4C7] border border-[#3AC97B] hover:bg-[#09231B]/80 transition-colors duration-300">
-              Falar com um Especialista
+            <Link
+              href="/contato"
+              className="mono-label inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+            >
+              Falar com um especialista
             </Link>
           </div>
         </div>
       </section>
     </main>
   )
-} 
+}

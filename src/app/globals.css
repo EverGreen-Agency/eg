@@ -4,11 +4,24 @@
 
 @layer base {
   :root {
-    --font-sans: var(--font-inter);
+    --font-sans: 'Helvetica Neue', Helvetica, var(--font-inter), Arial, sans-serif;
+    --musgo: #09231B;
+    --musgo-deep: #05170F;
+    --menta: #3AC97B;
+    --baunilha: #FFF4C7;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply antialiased text-eg-black bg-white font-sans;
+    @apply antialiased text-baunilha bg-musgo font-sans;
+  }
+
+  ::selection {
+    background: var(--menta);
+    color: var(--musgo);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -76,6 +89,47 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Rótulo técnico de instrumento (padrão 21hrs): mono, caps, espaçado */
+  .mono-label {
+    @apply font-mono uppercase tracking-[0.22em] text-xs;
+  }
+
+  /* Linha divisória fina da marca */
+  .hairline {
+    @apply border-menta/15;
+  }
+
+  /* Grain sutil por cima de tudo — textura de filme */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Marquee infinito */
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 36s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   .animate-float {
