@@ -1,189 +1,179 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { fadeInUp, staggerContainer } from '@/utils/animations'
+import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
-import { SparklesIcon, ClockIcon, PresentationChartBarIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
+import PageHeader from '@/components/brand/PageHeader'
+
+const valores = [
+  { title: 'Inovação', description: 'Fazemos o que ninguém fez, antes que todos queiram.' },
+  { title: 'Resultados', description: 'Se não gera ROI, não tem espaço aqui.' },
+  { title: 'Transparência', description: 'Comunicação real. Sem enrolação. Sem bullshit.' },
+]
+
+const jornada = [
+  { periodo: 'Q1 2024', evento: 'Fundação da Evergreen MKT' },
+  { periodo: 'Q2 2024', evento: 'Primeiros projetos com IA aplicada em funil de vendas' },
+  { periodo: 'Q3 2024', evento: 'Sistema EG Systems validado com PMEs em expansão' },
+  { periodo: 'Q4 2024', evento: 'Início da construção da marca como autoridade digital' },
+  { periodo: 'Q1 2025', evento: 'Busca de expansão de mercados' },
+]
 
 export default function SobrePage() {
+  const reduce = useReducedMotion()
+
   return (
-    <section className="min-h-screen py-20 bg-[#09231B] text-[#FFF4C7]">
-      <div className="container mx-auto px-4">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="max-w-4xl mx-auto"
+    <main className="bg-musgo grain min-h-screen">
+      <PageHeader
+        eyebrow="Sobre a EverGreen"
+        title="Previsibilidade não é promessa. É "
+        accent="arquitetura."
+        subtitle="Somos a força por trás do crescimento previsível das empresas mais ambiciosas do mercado B2B. Unimos tecnologia, IA, estratégia e execução para transformar silos em máquinas de receita."
+      >
+        <Link
+          href="/contato"
+          className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
         >
-          {/* Seção Hero */}
-          <motion.div variants={fadeInUp}>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Sobre a <span className="text-[#3AC97B]">Evergreen MKT</span>
-            </h1>
-            <p className="text-xl text-[#FFF4C7]/80 mb-6">
-              Somos a força por trás do crescimento previsível das empresas mais ambiciosas do mercado B2B. Unimos Tecnologia, IA, estratégia e execução pra transformar silos em máquinas de receita.
-            </p>
-            <p className="text-xl font-medium text-[#FFF4C7] mb-8 italic">
-              "Acreditamos que previsibilidade não é uma promessa — é uma arquitetura. E cada bloco começa com intenção, tecnologia e gente boa."
-            </p>
+          Quero conversar com a EG
+        </Link>
+      </PageHeader>
+
+      {/* Missão e Visão */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="grid md:grid-cols-2 gap-px bg-menta/15 border hairline">
+            {[
+              {
+                titulo: 'Nossa Missão',
+                texto:
+                  'Transformar empresas em ecossistemas de crescimento sustentável, unindo estratégia, automação e inteligência artificial para escalar resultados com previsibilidade.',
+              },
+              {
+                titulo: 'Nossa Visão',
+                texto:
+                  'Ser a referência global em soluções integradas de growth, IA e operações de receita para empresas B2B e B2C.',
+              },
+            ].map((item) => (
+              <div key={item.titulo} className="bg-musgo p-8 md:p-12">
+                <h3 className="text-xl md:text-2xl font-bold text-menta mb-4">{item.titulo}</h3>
+                <p className="text-baunilha/70 leading-relaxed">{item.texto}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Valores */}
+      <section className="py-16 md:py-20 border-t hairline">
+        <div className="container mx-auto px-6 md:px-12">
+          <p className="mono-label text-menta mb-3">01 — Valores</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-baunilha tracking-tight mb-12">Nossos valores</h2>
+          <div className="grid md:grid-cols-3 gap-px bg-menta/15 border hairline">
+            {valores.map((valor, i) => (
+              <motion.div
+                key={valor.title}
+                initial={reduce ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className="group bg-musgo p-8 md:p-10 hover:bg-musgo-deep transition-colors duration-300"
+              >
+                <span className="mono-label text-menta">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="text-xl font-bold text-baunilha mt-5 mb-2 group-hover:text-menta transition-colors">
+                  {valor.title}
+                </h3>
+                <p className="text-baunilha/65">{valor.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Semente Evergreen */}
+      <section className="py-16 md:py-24 border-t hairline">
+        <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+          <p className="mono-label text-menta mb-3">02 — Origem</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-baunilha tracking-tight mb-8">Semente Evergreen</h2>
+          <p className="text-xl text-baunilha mb-6 leading-relaxed">
+            Toda floresta começa com uma semente.
+            <br />A nossa é feita de convicção, execução e ambição sem freio.
+          </p>
+          <p className="text-baunilha/70 mb-10 leading-relaxed">
+            Mesmo sendo uma equipe enxuta, já criamos soluções que melhoraram performance comercial,
+            automatizaram processos críticos e aumentaram a previsibilidade de receita de quem confia na gente.
+          </p>
+          <div className="border-l-2 border-menta/40 pl-6 mb-10">
+            <p className="mono-label text-menta mb-4">Nosso plano é simples</p>
+            <ol className="space-y-3 text-baunilha/80">
+              {[
+                'Escolher os primeiros clientes certos',
+                'Entregar absurdamente bem',
+                'Tornar cada projeto uma prova viva do que somos capazes',
+                'Crescer junto. Com consistência. Com visão.',
+              ].map((step, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="mono-label text-menta mt-1">{String(i + 1).padStart(2, '0')}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <p className="text-lg font-medium text-baunilha">
+            Porque autoridade não é comprada.
+            <br />É construída. E a gente já começou.
+          </p>
+        </div>
+      </section>
+
+      {/* Jornada */}
+      <section className="py-16 md:py-24 border-t hairline">
+        <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+          <p className="mono-label text-menta mb-3">03 — Trajetória</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-baunilha tracking-tight mb-12">Nossa jornada até aqui</h2>
+          <ol className="relative border-l hairline ml-2">
+            {jornada.map((item, i) => (
+              <motion.li
+                key={item.periodo}
+                initial={reduce ? false : { opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
+                className="relative pl-8 pb-10 last:pb-0"
+              >
+                <span className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-menta" aria-hidden />
+                <span className="mono-label text-menta block mb-2">{item.periodo}</span>
+                <span className="text-baunilha/80">{item.evento}</span>
+              </motion.li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="py-24 text-center border-t hairline">
+        <div className="container mx-auto px-6 md:px-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-baunilha tracking-tight mb-6 max-w-2xl mx-auto text-balance">
+            Faça parte desse florestamento
+          </h2>
+          <p className="text-baunilha/70 mb-10 max-w-xl mx-auto">
+            Estamos escolhendo os parceiros certos para crescer junto. Aqui, cada cliente é co-criador da
+            floresta que estamos construindo.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contato"
-              className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-colors shadow-lg hover:shadow-xl"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
             >
-              Quero conversar com a EG
+              Quero ser parte da floresta
             </Link>
-          </motion.div>
-
-          {/* Missão e Visão */}
-          <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8 mt-20">
-            <div className="glass-card p-8 bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4 text-[#3AC97B]">Nossa Missão</h3>
-              <p className="text-[#FFF4C7]/80">
-                Transformar empresas em ecossistemas de crescimento sustentável, unindo estratégia, automação e inteligência artificial para escalar resultados com previsibilidade.
-              </p>
-            </div>
-            <div className="glass-card p-8 bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4 text-[#3AC97B]">Nossa Visão</h3>
-              <p className="text-[#FFF4C7]/80">
-                Ser a referência global em soluções integradas de growth, IA e operações de receita para empresas B2B e B2C.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Valores */}
-          <motion.div variants={fadeInUp} className="mt-16">
-            <h2 className="text-3xl font-bold mb-6 text-[#3AC97B]">Nossos Valores</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: 'Inovação',
-                  description: 'Fazemos o que ninguém fez, antes que todos queiram.',
-                },
-                {
-                  title: 'Resultados',
-                  description: 'Se não gera ROI, não tem espaço aqui.',
-                },
-                {
-                  title: 'Transparência',
-                  description: 'Comunicação real. Sem enrolação. Sem bullshit.',
-                },
-              ].map((valor, index) => (
-                <div key={index} className="glass-card p-6 hover-lift bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
-                  <h3 className="text-xl font-bold mb-2 text-[#3AC97B]">{valor.title}</h3>
-                  <p className="text-[#FFF4C7]/80">{valor.description}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Semente Evergreen */}
-          <motion.div variants={fadeInUp} className="mt-24">
-            <h2 className="text-3xl font-bold mb-6 flex items-center gap-2 text-[#3AC97B]">
-              <SparklesIcon className="h-7 w-7 text-[#3AC97B]" /> Semente Evergreen
-            </h2>
-            <div className="glass-card p-8 bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
-              <p className="text-xl font-medium text-[#FFF4C7] mb-6">
-                Toda floresta começa com uma semente.<br />
-                A nossa é feita de convicção, execução e ambição sem freio.
-              </p>
-              <p className="text-[#FFF4C7]/80 mb-8">
-                Mesmo sendo uma equipe enxuta, já criamos soluções que melhoraram performance comercial, automatizaram processos críticos e aumentaram a previsibilidade de receita de quem confia na gente.
-              </p>
-              <div className="space-y-4 mb-8">
-                <h3 className="text-xl font-bold mb-4 text-[#3AC97B]">Nosso plano é simples:</h3>
-                <ol className="list-decimal list-inside space-y-2 text-[#FFF4C7]/80">
-                  <li>Escolher os primeiros clientes certos</li>
-                  <li>Entregar absurdamente bem</li>
-                  <li>Tornar cada projeto uma prova viva do que somos capazes</li>
-                  <li>Crescer junto. Com consistência. Com visão.</li>
-                </ol>
-              </div>
-              <p className="text-lg font-medium text-[#FFF4C7]">
-                Porque autoridade não é comprada.<br />
-                É construída. E a gente já começou.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Timeline */}
-          <motion.div variants={fadeInUp} className="mt-24">
-            <h2 className="text-3xl font-bold mb-16 flex items-center gap-2 text-[#3AC97B]">
-              <ClockIcon className="h-7 w-7 text-[#3AC97B]" /> Nossa jornada até aqui
-            </h2>
-            <div className="relative">
-              {/* Linha em Z */}
-              <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-[#3AC97B]/20 hidden md:block" />
-
-              <div className="space-y-16">
-                {[
-                  { periodo: 'Q1 2024', evento: 'Fundação da Evergreen MKT' },
-                  { periodo: 'Q2 2024', evento: 'Primeiros projetos com IA aplicada em funil de vendas' },
-                  { periodo: 'Q3 2024', evento: 'Sistema EG Systems validado com PMEs em expansão' },
-                  { periodo: 'Q4 2024', evento: 'Início da construção da marca como autoridade digital' },
-                  { periodo: 'Q1 2025', evento: 'Busca de expansão de mercados' },
-                ].map((item, index) => (
-                  <div key={index} className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} flex-col gap-8`}>
-                    {/* Linha diagonal conectora (visível apenas em desktop) */}
-                    <div className={`absolute hidden md:block h-0.5 bg-gradient-to-r from-[#3AC97B]/20 to-[#3AC97B]/30 w-8 top-1/2 transform -translate-y-1/2 
-                      ${index % 2 === 0 ? 'left-[calc(50%-4rem)]' : 'right-[calc(50%-4rem)]'}`} />
-
-                    {/* Círculo central */}
-                    <div className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#3AC97B] border-4 border-[#09231B] 
-                      hidden md:block transition-transform hover:scale-150 z-10`} />
-
-                    {/* Conteúdo */}
-                    <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'} text-center`}>
-                      <motion.div
-                        initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.2 }}
-                      >
-                        <div className="glass-card p-6 hover-lift transition-all duration-300 inline-block bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
-                          <span className="text-[#3AC97B] font-bold block mb-2">{item.periodo}</span>
-                          <span className="text-[#FFF4C7]/80">{item.evento}</span>
-                        </div>
-                      </motion.div>
-                    </div>
-
-                    {/* Espaço vazio do outro lado para manter o layout em Z */}
-                    <div className="flex-1 hidden md:block" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Call to Action Final */}
-          <motion.div variants={fadeInUp} className="mt-24 text-center">
-            <h2 className="text-3xl font-bold mb-6 flex items-center justify-center gap-2 text-[#3AC97B]">
-              <GlobeAltIcon className="h-7 w-7 text-[#3AC97B]" /> Faça parte desse florestamento
-            </h2>
-            <div className="glass-card p-8 bg-[#09231B]/50 border border-[#3AC97B]/20 rounded-xl">
-              <p className="text-xl text-[#FFF4C7] mb-8">
-                Se você está lendo isso, ainda dá tempo de entrar na base.<br />
-                Estamos escolhendo os parceiros certos para crescer junto.<br />
-                Aqui, cada cliente é co-criador da floresta que estamos construindo.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contato"
-                  className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-colors shadow-lg hover:shadow-xl"
-                >
-                  Quero ser parte da floresta
-                </Link>
-                <Link
-                  href="/autoridade"
-                  className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#FFF4C7] bg-[#09231B] hover:bg-[#09231B]/80 border border-[#3AC97B]/20 transition-colors shadow-lg hover:shadow-xl"
-                >
-                  Ver Casos
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-
-        </motion.div>
-      </div>
-    </section>
+            <Link
+              href="/portfolio"
+              className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+            >
+              Ver Portfólio <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   )
-} 
+}
