@@ -7,10 +7,12 @@ export interface PortfolioItem {
   category: PortfolioCategory
   /** URL do demo/repositório ao vivo — nunca um link de download do código-fonte para PoCs de lead */
   liveUrl?: string
-  /** Só relevante para category: 'poc-lead'. Preenchido quando o lead formalmente não avançou (não "ainda em negociação") e o aviso de cortesia foi enviado. */
+  /** Só relevante para category: 'poc-lead'. Preenchido quando o lead formalmente não avançou (não "ainda em negociação"). */
   leadConsent?: {
     leadClosedLostAt: string
-    courtesyNoticeSentAt: string
+    /** 'sent' = aviso de cortesia enviado antes de publicar. 'waived' = dispensado (ex.: lead parou de responder a múltiplas tentativas de contato). */
+    courtesyNotice: 'sent' | 'waived'
+    courtesyNoticeNote?: string
   }
   imageUrl?: string
 }
@@ -30,5 +32,18 @@ export const PORTFOLIO_CATEGORY_LABELS: Record<PortfolioCategory, { title: strin
   },
 }
 
-// Nenhum projeto publicado ainda — preencher conforme os critérios de cada categoria acima.
-export const portfolioItems: PortfolioItem[] = []
+export const portfolioItems: PortfolioItem[] = [
+  {
+    slug: 'automacao-protocolo-judicial-pje',
+    title: 'Automação de Protocolo Judicial (PJe)',
+    description:
+      'Protótipo de web app para automatizar o protocolo de petições no PJe de um tribunal regional, reduzindo o tempo de preenchimento por processo via motor de modelos e lógica dinâmica de jurisdição/classe.',
+    category: 'poc-lead',
+    liveUrl: 'https://rian.poc.evergreenmkt.com.br',
+    leadConsent: {
+      leadClosedLostAt: '2026-07-17',
+      courtesyNotice: 'waived',
+      courtesyNoticeNote: 'Lead parou de responder após múltiplas tentativas de recontato.',
+    },
+  },
+]
