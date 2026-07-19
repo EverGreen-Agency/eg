@@ -74,86 +74,91 @@ export default function Home() {
         ref={heroRef}
         className="relative min-h-[100svh] flex flex-col overflow-hidden bg-[radial-gradient(60%_55%_at_80%_30%,rgba(58,201,123,0.10),transparent_72%)]"
       >
-        {/* Marca E em escada, sangrando a direita, com parallax */}
-        <motion.div
-          style={reduce ? undefined : { y: markY }}
-          className="absolute top-1/2 right-0 -translate-y-1/2 w-[52vw] max-w-[720px] h-[70vh] pointer-events-none opacity-90"
-        >
-          <EStaircaseMark className="w-full h-full" />
-        </motion.div>
-
         <CornerBrackets />
 
-        {/* Conteúdo — centralizado verticalmente, cabe em uma tela */}
-        <motion.div
-          style={reduce ? undefined : { opacity: fadeOut }}
-          className="container relative z-[2] mx-auto px-6 md:px-12 flex-1 flex flex-col justify-center pt-24 pb-14"
-        >
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="mono-label text-menta mb-6 flex items-center gap-3"
-          >
-            <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
-            <span className="hidden sm:inline">Crescimento previsível, escalável e tecnológico</span>
-            <span className="sm:hidden">Crescimento previsível</span>
-          </motion.p>
-
-          <h1 className="max-w-4xl mb-7">
-            {heroLines.map((line, i) => (
-              <span key={line.text} className="block overflow-hidden py-[0.06em]">
-                <motion.span
-                  initial={reduce ? false : { y: '110%' }}
-                  animate={{ y: '0%' }}
-                  transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                  className={`block text-[clamp(2rem,5.2vw,4.6rem)] leading-[1.03] tracking-tight font-bold ${
-                    line.accent ? 'text-menta' : 'text-baunilha'
-                  }`}
-                >
-                  {line.text}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="max-w-lg text-base md:text-lg text-baunilha/70 mb-9"
-          >
-            Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
-            marketing, vendas e tecnologia — com inteligência artificial e automação.
-          </motion.p>
-
+        {/* Contêiner Principal dividido em Texto e Visual */}
+        <div className="container relative z-[2] mx-auto px-6 md:px-12 flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_1fr] xl:grid-cols-[0.95fr_1.05fr] lg:items-center gap-10 lg:gap-16 pt-28 lg:pt-16 pb-16">
+          
+          {/* Conteúdo — Coluna da Esquerda */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.75 }}
-            className="flex flex-col sm:flex-row flex-wrap gap-4"
+            style={reduce ? undefined : { opacity: fadeOut }}
+            className="flex flex-col justify-center"
           >
-            <Link
-              href="/contato"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.05 }}
+              className="mono-label text-menta mb-6 flex items-center gap-3"
             >
-              Agendar Diagnóstico
-            </Link>
-            <Link
-              href="/portfolio"
-              className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
-            >
-              Ver Portfólio <span aria-hidden>→</span>
-            </Link>
-          </motion.div>
-        </motion.div>
+              <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
+              <span className="hidden sm:inline">Crescimento previsível, escalável e tecnológico</span>
+              <span className="sm:hidden">Crescimento previsível</span>
+            </motion.p>
 
-        {/* Rodapé do instrumento — em fluxo, não sobrepõe */}
+            <h1 className="max-w-[17rem] sm:max-w-2xl lg:max-w-4xl mb-7 relative z-10">
+              {heroLines.map((line, i) => (
+                <span key={line.text} className="block overflow-hidden py-[0.06em]">
+                  <motion.span
+                    initial={reduce ? false : { y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                    className={`block text-[clamp(2.2rem,5vw,4.6rem)] leading-[1.03] tracking-tight font-bold drop-shadow-md ${
+                      line.accent ? 'text-menta' : 'text-baunilha'
+                    }`}
+                  >
+                    {line.text}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="max-w-lg text-base md:text-lg text-baunilha/70 mb-9"
+            >
+              Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
+              marketing, vendas e tecnologia — com inteligência artificial e automação.
+            </motion.p>
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.75 }}
+              className="flex flex-col sm:flex-row flex-wrap gap-4"
+            >
+              <Link
+                href="/contato"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
+              >
+                Agendar Diagnóstico
+              </Link>
+              <Link
+                href="/portfolio"
+                className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
+              >
+                Ver Portfólio <span aria-hidden>→</span>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Marca E em escada (Neon) — Coluna da Direita */}
+          <motion.div
+            style={reduce ? undefined : { y: markY }}
+            className="relative flex items-center justify-center w-full min-h-[350px] lg:min-h-[500px]"
+          >
+            <EStaircaseMark className="w-full max-w-[420px] lg:max-w-[650px] aspect-square" />
+          </motion.div>
+
+        </div>
+
+        {/* Rodapé do instrumento — fixado abaixo */}
         <motion.div
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.1 }}
-          className="container relative z-[2] mx-auto px-6 md:px-12 pb-6 flex items-center justify-between"
+          className="container relative z-[2] mx-auto px-6 md:px-12 pb-6 flex items-center justify-between mt-auto"
         >
           <p className="mono-label text-baunilha/40 hidden md:flex items-center gap-5">
             <span>Consultoria</span>
@@ -162,7 +167,7 @@ export default function Home() {
             <span className="text-menta/60" aria-hidden>▪</span>
             <span>B2B</span>
           </p>
-          <p className="mono-label text-baunilha/40 flex items-center gap-2">
+          <p className="mono-label text-baunilha/40 flex items-center gap-2 ml-auto">
             Scroll
             <motion.span
               animate={reduce ? undefined : { y: [0, 5, 0] }}
