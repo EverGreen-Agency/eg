@@ -14,7 +14,7 @@ export const BENCHMARK_ENDPOINT =
   'https://api.bioma.evergreenmkt.com.br/public/benchmark'
 
 /** Mínimo de clientes por segmento para o dado poder aparecer (k-anonimato). */
-export const MIN_SAMPLE = 5
+export const MIN_SAMPLE = 3
 
 export type PillarKey = 'oferta' | 'demanda' | 'conversao'
 
