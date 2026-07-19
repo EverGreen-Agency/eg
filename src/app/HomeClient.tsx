@@ -72,12 +72,12 @@ export default function Home() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative min-h-[100svh] flex flex-col overflow-hidden bg-[radial-gradient(60%_55%_at_80%_30%,rgba(58,201,123,0.10),transparent_72%)]"
+        className="relative min-h-[100svh] lg:min-h-[calc(100svh-5rem)] flex flex-col overflow-hidden bg-[radial-gradient(60%_55%_at_80%_30%,rgba(58,201,123,0.10),transparent_72%)]"
       >
         <CornerBrackets />
 
         {/* Contêiner Principal dividido em Texto e Visual */}
-        <div className="container relative z-[2] mx-auto px-6 md:px-12 flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_1fr] xl:grid-cols-[0.95fr_1.05fr] lg:items-center gap-10 lg:gap-16 pt-28 lg:pt-16 pb-16">
+        <div className="container relative z-[2] mx-auto px-6 md:px-12 flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_1fr] xl:grid-cols-[0.95fr_1.05fr] lg:items-center gap-8 lg:gap-12 pt-28 lg:pt-8 pb-10">
           
           {/* Conteúdo — Coluna da Esquerda */}
           <motion.div
@@ -88,14 +88,14 @@ export default function Home() {
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.05 }}
-              className="mono-label text-menta mb-6 flex items-center gap-3"
+              className="mono-label text-menta mb-5 flex items-center gap-3"
             >
               <span className="inline-block w-8 h-px bg-menta/50" aria-hidden />
               <span className="hidden sm:inline">Crescimento previsível, escalável e tecnológico</span>
               <span className="sm:hidden">Crescimento previsível</span>
             </motion.p>
 
-            <h1 className="max-w-[17rem] sm:max-w-2xl lg:max-w-4xl mb-7 relative z-10">
+            <h1 className="max-w-[17rem] sm:max-w-2xl lg:max-w-4xl mb-6 relative z-10">
               {heroLines.map((line, i) => (
                 <span key={line.text} className="block overflow-hidden py-[0.06em]">
                   <motion.span
@@ -116,7 +116,7 @@ export default function Home() {
               initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="max-w-lg text-base md:text-lg text-baunilha/70 mb-9"
+              className="max-w-lg text-base md:text-lg text-baunilha/70 mb-8"
             >
               Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
               marketing, vendas e tecnologia — com inteligência artificial e automação.
@@ -146,9 +146,9 @@ export default function Home() {
           {/* Marca E em escada (Neon) — Coluna da Direita */}
           <motion.div
             style={reduce ? undefined : { y: markY }}
-            className="relative flex items-center justify-center w-full min-h-[350px] lg:min-h-[500px]"
+            className="relative flex items-center justify-center lg:justify-end w-full min-h-[350px] lg:min-h-[500px]"
           >
-            <EStaircaseMark className="w-full max-w-[420px] lg:max-w-[650px] aspect-square" />
+            <EStaircaseMark className="w-full max-w-[420px] lg:max-w-[750px] lg:translate-x-8 aspect-square" />
           </motion.div>
 
         </div>
