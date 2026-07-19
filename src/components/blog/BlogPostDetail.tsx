@@ -138,7 +138,7 @@ export default function BlogPostDetail({ slug }: { slug: string }) {
             Gostou do conteúdo?
           </h3>
           <p className="text-[#FFF4C7]/80 mb-6">
-            Transforme conhecimento em crescimento real com a Evergreen.
+            Transforme conhecimento em crescimento real com a EverGreen.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 

@@ -81,7 +81,7 @@ export default function DreLanding() {
           </p>
           <div className="max-w-2xl mx-auto p-8 rounded-2xl shadow-lg mb-8" style={{ background: '#fff', color: verdeMusgo }}>
             <p className="text-xl mb-6 font-semibold">
-              Evergreen DRE mostra, de forma clara e sem planilhas quebradas:
+              EverGreen DRE mostra, de forma clara e sem planilhas quebradas:
             </p>
             <ul className="space-y-4 text-left">
               <li className="flex items-center">
@@ -117,7 +117,7 @@ export default function DreLanding() {
             <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 24px 0 rgba(9,43,27,0.10)' }}>
               <iframe
                 src="https://www.youtube.com/embed/pTmQ1_3nTWE"
-                title="Evergreen DRE - Entenda seu lucro real"
+                title="EverGreen DRE - Entenda seu lucro real"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 style={{
@@ -226,7 +226,7 @@ export default function DreLanding() {
               </div>
             </div>
             <p className="text-sm font-medium italic text-center" style={{ color: verdeMenta }}>
-              "Pensa no Evergreen DRE como uma calculadora: você coloca os números, ela te mostra o resultado — e ninguém mais vê."
+              "Pensa no EverGreen DRE como uma calculadora: você coloca os números, ela te mostra o resultado — e ninguém mais vê."
             </p>
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function DreLanding() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: verdeMenta }}>
-            O que muda quando você começa a usar o Evergreen DRE:
+            O que muda quando você começa a usar o EverGreen DRE:
           </h2>
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
@@ -466,7 +466,7 @@ export default function DreLanding() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-8 rounded-2xl shadow-lg" style={{ background: amareloBaunilha, color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Seu pacote Evergreen DRE inclui:
+              Seu pacote EverGreen DRE inclui:
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="flex items-center gap-3">
@@ -507,7 +507,7 @@ export default function DreLanding() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-8 rounded-2xl shadow-lg" style={{ background: '#fff', color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
             <h2 className="text-2xl font-bold mb-8 flex items-center gap-2" style={{ color: verdeMenta }}>
-              Perguntas Frequentes sobre o Evergreen DRE
+              Perguntas Frequentes sobre o EverGreen DRE
             </h2>
             <div className="divide-y divide-gray-200">
               {faqList.map((item, idx) => {

@@ -27,7 +27,7 @@ export default function NiveisDeCliente() {
             transition={{ duration: 0.8 }}
             className="text-4xl sm:text-5xl font-bold text-[#3AC97B] mb-6"
           >
-            Evergreen Journey
+            EverGreen Journey
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function NiveisDeCliente() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg text-[#FFF4C7]/80 mb-12"
           >
-            Na Evergreen, acreditamos que cada cliente é único — mas todos percorrem um caminho em comum: a jornada de evolução.
+            Na EverGreen, acreditamos que cada cliente é único — mas todos percorrem um caminho em comum: a jornada de evolução.
             Quanto mais você avança, mais ferramentas, suporte e poder de execução você desbloqueia.
           </motion.p>
           <motion.blockquote 
@@ -405,7 +405,7 @@ export default function NiveisDeCliente() {
               className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
             >
               <h3 className="text-xl font-semibold mb-4 text-[#FFF4C7]">Prioridade em Novos Projetos</h3>
-              <p className="text-[#FFF4C7]/80">Acesso antecipado a novas soluções e frameworks exclusivos da Evergreen.</p>
+              <p className="text-[#FFF4C7]/80">Acesso antecipado a novas soluções e frameworks exclusivos da EverGreen.</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -425,7 +425,7 @@ export default function NiveisDeCliente() {
               className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
             >
               <h3 className="text-xl font-semibold mb-4 text-[#FFF4C7]">Consultoria Estratégica</h3>
-              <p className="text-[#FFF4C7]/80">Acesso direto à consultoria estratégica com os founders da Evergreen.</p>
+              <p className="text-[#FFF4C7]/80">Acesso direto à consultoria estratégica com os founders da EverGreen.</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

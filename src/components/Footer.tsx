@@ -12,8 +12,8 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/Evergreen - Horizontal.png"
-                alt="Evergreen MKT"
+                src="/images/EverGreen - Horizontal.png"
+                alt="EverGreen MKT"
                 width={180}
                 height={60}
                 className="h-12 w-auto"
@@ -136,7 +136,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-[#E6E3B1]/10 pt-8">
           <p className="text-sm text-baunilha text-center">
-            © {currentYear} Evergreen MKT. Todos os direitos reservados.
+            © {currentYear} EverGreen MKT. Todos os direitos reservados.
           </p>
         </div>
       </div>

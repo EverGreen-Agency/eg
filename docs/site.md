@@ -1,6 +1,6 @@
-# 🧠 Instrução Criativa de Execução: Site Evergreen MKT
+# 🧠 Instrução Criativa de Execução: Site EverGreen MKT
 
-> Construir um site digital de próxima geração. Um hub vivo, responsivo, estrategicamente projetado para escalar a marca **Evergreen MKT** como autoridade absoluta no ecossistema de growth, tecnologia, IA e execução de resultados reais.
+> Construir um site digital de próxima geração. Um hub vivo, responsivo, estrategicamente projetado para escalar a marca **EverGreen MKT** como autoridade absoluta no ecossistema de growth, tecnologia, IA e execução de resultados reais.
 
 ## 🎯 Objetivo Geral
 
@@ -16,19 +16,19 @@ Criar um site que seja:
 
 | Página                      | Nome Estratégico        | Função |
 |----------------------------|--------------------------|--------|
-| /                          | Evergreen Frontline      | Home com CTA principal | ✅
-| /sobre                     | Evergreen Culture        | Missão, visão, filosofia | ✅
-| /servicos                  | Evergreen Systems        | Apresenta os 3 grandes sistemas | ✅
-| /cases                     | Evergreen Impact         | Prova social e resultados reais |
-| /blog                      | Evergreen Brain          | Conteúdo educacional | ✅
-| /newsletter                | Evergreen Weekly         | Lead capture e nurtura | ✅
+| /                          | EverGreen Frontline      | Home com CTA principal | ✅
+| /sobre                     | EverGreen Culture        | Missão, visão, filosofia | ✅
+| /servicos                  | EverGreen Systems        | Apresenta os 3 grandes sistemas | ✅
+| /cases                     | EverGreen Impact         | Prova social e resultados reais |
+| /blog                      | EverGreen Brain          | Conteúdo educacional | ✅
+| /newsletter                | EverGreen Weekly         | Lead capture e nurtura | ✅
 | /contato                   | Talk to EG               | Conversão | ✅
-| /equipe                    | Evergreen People         | Cultura e talentos | ✅
-| /autoridade                | Evergreen Authority      | Certificações e prêmios | ✅
-| /investidores              | Evergreen Capital        | Captação e equity deals |
-| /holding                   | Evergreen Group          | Visão corporativa |✅
-| /niveis-de-clientes        | Evergreen Journey        | Cultura de clientes | ✅
-| /legal                     | Evergreen Legal          | Termos, cookies, etc | ✅
+| /equipe                    | EverGreen People         | Cultura e talentos | ✅
+| /autoridade                | EverGreen Authority      | Certificações e prêmios | ✅
+| /investidores              | EverGreen Capital        | Captação e equity deals |
+| /holding                   | EverGreen Group          | Visão corporativa |✅
+| /niveis-de-clientes        | EverGreen Journey        | Cultura de clientes | ✅
+| /legal                     | EverGreen Legal          | Termos, cookies, etc | ✅
 
 ---
 
@@ -93,7 +93,7 @@ Todos os componentes com:
 
 ## 🚀 Conteúdo Estruturado por Página
 
-### Home (Evergreen Frontline)
+### Home (EverGreen Frontline)
 - Headline matadora
 - Subheadline clara
 - CTA triplo (Agendar, Ver Casos, Material)
@@ -102,15 +102,15 @@ Todos os componentes com:
 - Clientes que confiam (logos)
 - Oferta de entrada
 
-### Sobre (Evergreen Culture)
+### Sobre (EverGreen Culture)
 - Missão / Visão / Valores
 - Fundadores + história
 - Cultura de execução
 - CTA para modelo de parceria
 
-### Serviços (Evergreen Systems)
+### Serviços (EverGreen Systems)
 3 Sistemas:
-1. Máquina de Vendas Evergreen
+1. Máquina de Vendas EverGreen
 2. Growth Engine
 3. EG.Tech
 
@@ -120,11 +120,11 @@ Cada um com:
 - Transformação
 - CTA específico (Sprint / Diagnóstico)
 
-### Blog / Newsletter (Evergreen Brain)
+### Blog / Newsletter (EverGreen Brain)
 - Tags: Growth, Vendas, IA, Bastidores
 - Lead magnet: quiz, guias, calculadora de ROI
 
-### Cases (Evergreen Impact)
+### Cases (EverGreen Impact)
 - Antes e depois
 - Solução aplicada
 - Depoimentos em texto/vídeo

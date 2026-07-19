@@ -185,7 +185,7 @@ export default function FerramentasPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6 text-[#3AC97B]">Quer mais ferramentas exclusivas?</h2>
           <p className="text-lg mb-8 text-[#FFF4C7]/80">
-            Agende um diagnóstico gratuito e tenha acesso ao arsenal completo da Evergreen.
+            Agende um diagnóstico gratuito e tenha acesso ao arsenal completo da EverGreen.
           </p>
           <Link
             href="/contato"

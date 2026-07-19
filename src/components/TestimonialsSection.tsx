@@ -14,7 +14,7 @@ const testimonials: Testimonial[] = [
   {
     name: 'João Silva',
     role: 'CEO, TechStart',
-    content: 'A Evergreen transformou completamente nossa estratégia digital. Os resultados superaram todas as expectativas.',
+    content: 'A EverGreen transformou completamente nossa estratégia digital. Os resultados superaram todas as expectativas.',
   },
   {
     name: 'Maria Santos',
@@ -24,7 +24,7 @@ const testimonials: Testimonial[] = [
   {
     name: 'Pedro Oliveira',
     role: 'Fundador, DataSmart',
-    content: 'A melhor decisão que tomamos foi trabalhar com a Evergreen. Profissionais excepcionais e resultados reais.',
+    content: 'A melhor decisão que tomamos foi trabalhar com a EverGreen. Profissionais excepcionais e resultados reais.',
   },
 ]
 

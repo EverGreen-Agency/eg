@@ -193,7 +193,7 @@ export default function LeadForm({
               }`}
             />
             <span className="text-sm text-gray-600">
-              Aceito receber comunicações da Evergreen
+              Aceito receber comunicações da EverGreen
             </span>
           </label>
           {errors.acceptedTerms && (

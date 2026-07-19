@@ -235,7 +235,7 @@ export default function FinalCTA() {
             </div>
 
             <div className="text-sm text-[#7F8C8D] mb-4">
-              © 2025 Evergreen MKT. Todos os direitos reservados.
+              © 2025 EverGreen MKT. Todos os direitos reservados.
             </div>
             
             <div className="text-xs text-[#7F8C8D]">

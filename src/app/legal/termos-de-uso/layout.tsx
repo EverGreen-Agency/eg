@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Termos de Serviço - Evergreen MKT',
-  description: 'Termos e condições para utilização dos serviços de BPO automatizado da Evergreen MKT',
+  title: 'Termos de Serviço - EverGreen MKT',
+  description: 'Termos e condições para utilização dos serviços de BPO automatizado da EverGreen MKT',
 }
 
 export default function TermosDeUsoLayout({

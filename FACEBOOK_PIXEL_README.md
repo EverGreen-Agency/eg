@@ -1,6 +1,6 @@
 # Configuração do Facebook Pixel
 
-Este documento contém instruções para configurar o rastreamento do Facebook Pixel no site Evergreen Finance.
+Este documento contém instruções para configurar o rastreamento do Facebook Pixel no site EverGreen Finance.
 
 ## Configuração do ambiente
 

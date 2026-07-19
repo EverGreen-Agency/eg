@@ -8,7 +8,7 @@ import PageHeader from '@/components/brand/PageHeader'
 const sistemas = [
   {
     tag: 'Sistema 01',
-    title: 'Máquina de Vendas Evergreen',
+    title: 'Máquina de Vendas EverGreen',
     lead: 'Transformamos caos comercial em previsibilidade de receita.',
     image: '/images/maquinadeVendas.jpg',
     cta: 'Ver como funciona',

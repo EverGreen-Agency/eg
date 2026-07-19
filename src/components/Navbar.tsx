@@ -19,8 +19,8 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/Evergreen - Horizontal.png"
-                alt="Evergreen MKT"
+                src="/images/EverGreen - Horizontal.png"
+                alt="EverGreen MKT"
                 width={180}
                 height={40}
                 priority

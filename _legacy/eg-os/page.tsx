@@ -26,19 +26,19 @@ import {
 
 const financeServices = [
   {
-    title: 'Evergreen DRE',
+    title: 'EverGreen DRE',
     desc: 'Relatórios financeiros claros e visuais',
     icon: <FaChartLine className="text-3xl" />,
     color: 'border-emerald-400',
   },
   {
-    title: 'Evergreen Flow',
+    title: 'EverGreen Flow',
     desc: 'Fluxo de caixa previsto para 90 dias',
     icon: <FaMoneyBillWave className="text-3xl" />,
     color: 'border-emerald-400',
   },
   {
-    title: 'Evergreen CobrAI',
+    title: 'EverGreen CobrAI',
     desc: 'Cobrança automática via IA (Whats, SMS, Email)',
     icon: <FaRobot className="text-3xl" />,
     color: 'border-emerald-400',
@@ -47,13 +47,13 @@ const financeServices = [
 
 const legalServices = [
   {
-    title: 'Evergreen LegalBot',
+    title: 'EverGreen LegalBot',
     desc: 'Geração de contratos automatizados com IA',
     icon: <FaFileContract className="text-3xl" />,
     color: 'border-yellow-400',
   },
   {
-    title: 'Evergreen DocFast',
+    title: 'EverGreen DocFast',
     desc: 'Registro de empresa, marca e documentos expressos',
     icon: <FaFileAlt className="text-3xl" />,
     color: 'border-yellow-400',
@@ -62,13 +62,13 @@ const legalServices = [
 
 const salesServices = [
   {
-    title: 'Evergreen WhatsBot',
+    title: 'EverGreen WhatsBot',
     desc: 'Atendimento automático 24h via WhatsApp',
     icon: <FaWhatsapp className="text-3xl" />,
     color: 'border-blue-400',
   },
   {
-    title: 'Evergreen PitchBuilder',
+    title: 'EverGreen PitchBuilder',
     desc: 'Scripts de venda prontos em 24h com IA',
     icon: <FaFileInvoice className="text-3xl" />,
     color: 'border-blue-400',
@@ -77,7 +77,7 @@ const salesServices = [
 
 const biServices = [
   {
-    title: 'Evergreen BI Starter',
+    title: 'EverGreen BI Starter',
     desc: 'Dashboard de vendas, gastos e conversão visualizados',
     icon: <FaChartBar className="text-3xl" />,
     color: 'border-red-400',
@@ -93,14 +93,14 @@ const allServices = [
 
 // Mapear o título para o slug da rota
 const serviceSlug = {
-  'Evergreen DRE': 'dre',
-  'Evergreen Flow': 'flow',
-  'Evergreen CobrAI': 'cobrai',
-  'Evergreen LegalBot': 'legalbot',
-  'Evergreen DocFast': 'docfast',
-  'Evergreen WhatsBot': 'whatsbot',
-  'Evergreen PitchBuilder': 'pitchbuilder',
-  'Evergreen BI Starter': 'bi-starter',
+  'EverGreen DRE': 'dre',
+  'EverGreen Flow': 'flow',
+  'EverGreen CobrAI': 'cobrai',
+  'EverGreen LegalBot': 'legalbot',
+  'EverGreen DocFast': 'docfast',
+  'EverGreen WhatsBot': 'whatsbot',
+  'EverGreen PitchBuilder': 'pitchbuilder',
+  'EverGreen BI Starter': 'bi-starter',
 };
 
 const starterPack = [

@@ -118,7 +118,7 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl font-bold mb-6 text-[#3AC97B]"
           >
-            Evergreen Brain
+            EverGreen Brain
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -285,7 +285,7 @@ export default function BlogPage() {
             <h3 className="text-xl font-bold text-[#3AC97B]">Receba conteúdos inéditos antes de todo mundo</h3>
           </div>
           <p className="text-[#FFF4C7]/80 mb-4">
-            Assine a Evergreen Weekly e receba insights táticos direto da nossa mesa de operação.
+            Assine a EverGreen Weekly e receba insights táticos direto da nossa mesa de operação.
             Sem enrolação. Só coisa aplicável.
           </p>
           <form className="flex gap-2">
@@ -312,7 +312,7 @@ export default function BlogPage() {
             <h2 className="text-3xl font-bold text-[#3AC97B]">Pronto pra aplicar o que aprendeu?</h2>
           </div>
           <p className="text-lg mb-8 text-[#FFF4C7]/80">
-            Transforme ideias em execução com os sistemas da Evergreen.<br />
+            Transforme ideias em execução com os sistemas da EverGreen.<br />
             Descubra como levamos o conteúdo à prática — com crescimento real.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

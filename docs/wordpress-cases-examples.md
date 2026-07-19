@@ -98,7 +98,7 @@ Desenvolvimento de sistema de SDR automatizado com IA generativa + integração 
 **testimonial:**
 ```
 {
-  "quote": "A Evergreen não só entregou resultados excepcionais, mas transformou completamente nossa cultura comercial. Agora temos previsibilidade e escalabilidade que nunca imaginamos ser possível.",
+  "quote": "A EverGreen não só entregou resultados excepcionais, mas transformou completamente nossa cultura comercial. Agora temos previsibilidade e escalabilidade que nunca imaginamos ser possível.",
   "author": "Carlos Fatilli",
   "position": "Diretor Comercial, Grupo Casa Fatilli"
 }
@@ -235,7 +235,7 @@ Criação de campanhas de aquisição com tráfego pago, landing pages com CRO, 
 **testimonial:**
 ```
 {
-  "quote": "A Evergreen entendeu nossa essência e criou uma estratégia que não só trouxe mais leads, mas atraiu exatamente o perfil de viajante que buscamos. Agora temos previsibilidade e crescimento sustentável.",
+  "quote": "A EverGreen entendeu nossa essência e criou uma estratégia que não só trouxe mais leads, mas atraiu exatamente o perfil de viajante que buscamos. Agora temos previsibilidade e crescimento sustentável.",
   "author": "Marina Santos",
   "position": "Fundadora, IW Tour"
 }

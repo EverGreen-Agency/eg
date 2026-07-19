@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Política de Cookies - Evergreen MKT',
-  description: 'Entenda como utilizamos cookies para melhorar sua experiência no site da Evergreen MKT',
+  title: 'Política de Cookies - EverGreen MKT',
+  description: 'Entenda como utilizamos cookies para melhorar sua experiência no site da EverGreen MKT',
 }
 
 export default function CookiesPage() {

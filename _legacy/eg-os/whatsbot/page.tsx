@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Evergreen WhatsBot - Atendimento inteligente 24h',
+  title: 'EverGreen WhatsBot - Atendimento inteligente 24h',
   description: 'Transforme o WhatsApp em canal de vendas e atendimento 24h com IA treinada no seu tom. Nunca mais perca lead por falta de resposta.',
 };
 
@@ -38,7 +38,7 @@ export default function WhatsBotPage() {
             </h1>
             <p className="text-xl mb-8 mt-4" style={{ color: verdeMenta }}>
               <Bot className="inline h-6 w-6 mr-2 align-middle" style={{ color: verdeMenta }} />
-              O Evergreen WhatsBot conversa como gente, responde com precisão<br />
+              O EverGreen WhatsBot conversa como gente, responde com precisão<br />
               e transforma WhatsApp em canal de vendas e atendimento 24 horas por dia.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -88,7 +88,7 @@ export default function WhatsBotPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold mb-10 text-center" style={{ color: verdeMusgo }}>
-              Com o Evergreen WhatsBot, você:
+              Com o EverGreen WhatsBot, você:
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center" style={{ background: '#fff', color: verdeMusgo, border: `1.5px solid ${verdeMenta}22` }}>
@@ -179,7 +179,7 @@ export default function WhatsBotPage() {
               <div className="flex gap-2 items-end">
                 <Bot className="h-6 w-6" style={{ color: verdeMenta }} />
                 <div className="rounded-2xl px-4 py-2" style={{ background: verdeMenta + '22', color: verdeMusgo, maxWidth: 320 }}>
-                  Sim! Temos o serviço Evergreen Flow, que mapeia entradas, saídas e previsões de caixa. Quer que eu te mande o link com mais informações?
+                  Sim! Temos o serviço EverGreen Flow, que mapeia entradas, saídas e previsões de caixa. Quer que eu te mande o link com mais informações?
                 </div>
               </div>
               <div className="flex gap-2 items-end justify-end">
@@ -373,7 +373,7 @@ export default function WhatsBotPage() {
               </div>
             </div>
             <div className="mt-8 text-center">
-              <p className="font-semibold">Combo Evergreen: integre com LegalBot, PitchBuilder e Evergreen Flow</p>
+              <p className="font-semibold">Combo EverGreen: integre com LegalBot, PitchBuilder e EverGreen Flow</p>
             </div>
           </div>
         </div>
@@ -434,14 +434,14 @@ export default function WhatsBotPage() {
               <Link href="/eg-os/legalbot" className="block">
                 <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col items-center">
                   <CheckCircle className="h-8 w-8 mb-2" style={{ color: verdeMenta }} />
-                  <h3 className="text-xl font-semibold mb-3">Evergreen LegalBot</h3>
+                  <h3 className="text-xl font-semibold mb-3">EverGreen LegalBot</h3>
                   <p className="text-gray-600 text-center">Envio de propostas ou contratos via Whats</p>
                 </div>
               </Link>
               <Link href="/eg-os/flow" className="block">
                 <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col items-center">
                   <BarChart2 className="h-8 w-8 mb-2" style={{ color: verdeMenta }} />
-                  <h3 className="text-xl font-semibold mb-3">Evergreen Flow</h3>
+                  <h3 className="text-xl font-semibold mb-3">EverGreen Flow</h3>
                   <p className="text-gray-600 text-center">Automatize agendamento financeiro</p>
                 </div>
               </Link>

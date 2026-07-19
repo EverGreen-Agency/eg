@@ -1,4 +1,4 @@
-# Documentação do Projeto Evergreen MKT
+# Documentação do Projeto EverGreen MKT
 
 ## Visão Geral
 Este é um projeto web desenvolvido com Next.js, TypeScript e Tailwind CSS. O projeto utiliza uma estrutura moderna de desenvolvimento frontend com foco em performance e experiência do usuário.

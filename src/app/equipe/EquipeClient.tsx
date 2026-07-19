@@ -11,7 +11,7 @@ const founderCards = [
     cargo: 'CEO',
     foto: '/images/eduardo.jpg',
     tagline: 'Engenheiro por formação, executor por vocação.',
-    bio: 'Eduardo lidera a Evergreen MKT com foco em crescimento previsível e cultura de resultado. Tem background em processos, vendas e marketing orientado a dados. Já passou por ambientes de alta exigência como o Fasano e agora aplica sua visão estratégica na construção da EG.',
+    bio: 'Eduardo lidera a EverGreen MKT com foco em crescimento previsível e cultura de resultado. Tem background em processos, vendas e marketing orientado a dados. Já passou por ambientes de alta exigência como o Fasano e agora aplica sua visão estratégica na construção da EG.',
     skills: [
       'Growth Strategy',
       'SPIN Selling',

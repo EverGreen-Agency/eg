@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer } from '@/utils/animations'
 import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Consultoria Kommo CRM | Parceiro Oficial - Evergreen MKT',
+  title: 'Consultoria Kommo CRM | Parceiro Oficial - EverGreen MKT',
   description: 'Maximize suas vendas com a implementação e gestão do Kommo CRM. Somos parceiros oficiais especializados em automação e growth.',
 }
 

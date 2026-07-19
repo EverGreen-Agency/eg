@@ -149,7 +149,7 @@ export default function EGLabPage() {
                 O que é o EG Lab?
               </h2>
               <p className="text-xl text-emerald-400 mb-12">
-                O EG Lab é o braço de inovação da Evergreen.
+                O EG Lab é o braço de inovação da EverGreen.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="glass-card p-6 bg-emerald-950/30">

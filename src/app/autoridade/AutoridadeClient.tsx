@@ -95,7 +95,7 @@ export default function AutoridadePage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#FFF4C7]"
           >
-            Evergreen Authority
+            EverGreen Authority
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -415,9 +415,9 @@ export default function AutoridadePage() {
                 description: 'Especialização em arquitetura de IA para negócios'
               },
               {
-                title: 'Sistema Evergreen Certificado',
+                title: 'Sistema EverGreen Certificado',
                 image: '/images/seloCertificado.png',
-                alt: 'Selo Sistema Evergreen Certificado',
+                alt: 'Selo Sistema EverGreen Certificado',
                 description: 'Metodologia completa de transformação digital'
               }
             ].map((selo, index) => (

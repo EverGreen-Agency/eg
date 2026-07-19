@@ -11,7 +11,7 @@ const valores = [
 ]
 
 const jornada = [
-  { periodo: 'Q1 2024', evento: 'Fundação da Evergreen MKT' },
+  { periodo: 'Q1 2024', evento: 'Fundação da EverGreen MKT' },
   { periodo: 'Q2 2024', evento: 'Primeiros projetos com IA aplicada em funil de vendas' },
   { periodo: 'Q3 2024', evento: 'Sistema EG Systems validado com PMEs em expansão' },
   { periodo: 'Q4 2024', evento: 'Início da construção da marca como autoridade digital' },
@@ -88,11 +88,11 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Semente Evergreen */}
+      {/* Semente EverGreen */}
       <section className="py-16 md:py-24 border-t hairline">
         <div className="container mx-auto px-6 md:px-12 max-w-3xl">
           <p className="mono-label text-menta mb-3">02 — Origem</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-baunilha tracking-tight mb-8">Semente Evergreen</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-baunilha tracking-tight mb-8">Semente EverGreen</h2>
           <p className="text-xl text-baunilha mb-6 leading-relaxed">
             Toda floresta começa com uma semente.
             <br />A nossa é feita de convicção, execução e ambição sem freio.

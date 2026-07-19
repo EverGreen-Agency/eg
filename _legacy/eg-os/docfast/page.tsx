@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Evergreen DocFast - Formalização sem Burocracia',
+  title: 'EverGreen DocFast - Formalização sem Burocracia',
   description: 'Abra empresa, registre marca e emita nota sem fila, sem erro e sem estresse. O DocFast resolve o caos burocrático pra você.',
 };
 
@@ -39,7 +39,7 @@ export default function DocFastPage() {
               <span style={{ color: verdeMenta }}>Tudo sem fila, sem estresse, sem erro.</span>
             </h1>
             <p className="text-xl mb-8 mt-4" style={{ color: verdeMenta }}>
-              O <b>Evergreen DocFast</b> cuida da parte chata — pra você cuidar da parte que vende.
+              O <b>EverGreen DocFast</b> cuida da parte chata — pra você cuidar da parte que vende.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2 text-base" style={{ color: amareloBaunilha }}>
@@ -102,7 +102,7 @@ export default function DocFastPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold mb-10 text-center" style={{ color: verdeMusgo }}>
-              O Evergreen DocFast resolve pra você:
+              O EverGreen DocFast resolve pra você:
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center" style={{ background: '#fff', color: verdeMusgo, border: `1.5px solid ${verdeMenta}22` }}>
@@ -345,7 +345,7 @@ export default function DocFastPage() {
               </div>
             </div>
             <div className="mt-8 text-center">
-              <p className="font-semibold">Combo EG.OS: Contrate junto com LegalBot ou Evergreen Flow com desconto de 15%</p>
+              <p className="font-semibold">Combo EG.OS: Contrate junto com LegalBot ou EverGreen Flow com desconto de 15%</p>
             </div>
           </div>
         </div>
@@ -400,21 +400,21 @@ export default function DocFastPage() {
               <Link href="/eg-os/legalbot" className="block">
                 <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col items-center">
                   <FileText className="h-8 w-8 mb-2" style={{ color: verdeMenta }} />
-                  <h3 className="text-xl font-semibold mb-3">Evergreen LegalBot</h3>
+                  <h3 className="text-xl font-semibold mb-3">EverGreen LegalBot</h3>
                   <p className="text-gray-600 text-center">Gera contratos e propostas</p>
                 </div>
               </Link>
               <Link href="/eg-os/flow" className="block">
                 <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col items-center">
                   <BarChart2 className="h-8 w-8 mb-2" style={{ color: verdeMenta }} />
-                  <h3 className="text-xl font-semibold mb-3">Evergreen Flow</h3>
+                  <h3 className="text-xl font-semibold mb-3">EverGreen Flow</h3>
                   <p className="text-gray-600 text-center">Organiza entradas e saídas da empresa nova</p>
                 </div>
               </Link>
               <Link href="/eg-os/dre" className="block">
                 <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col items-center">
                   <FileStack className="h-8 w-8 mb-2" style={{ color: verdeMenta }} />
-                  <h3 className="text-xl font-semibold mb-3">Evergreen DRE</h3>
+                  <h3 className="text-xl font-semibold mb-3">EverGreen DRE</h3>
                   <p className="text-gray-600 text-center">Relatório financeiro mensal já com CNPJ</p>
                 </div>
               </Link>

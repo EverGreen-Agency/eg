@@ -38,11 +38,11 @@ Seis páginas confirmadas no índice. Não há sinal de páginas legais (privaci
 | # | URL | Title tag (verificado) |
 |---|---|---|
 | 1 | `https://evergreenmkt.com.br/` (home) | **Máquina de Vendas - EverGreen MKT - Máquina de Vendas** |
-| 2 | `https://www.evergreenmkt.com.br/sobre` | Evergreen MKT \| Growth, Tecnologia e Resultados |
-| 3 | `https://www.evergreenmkt.com.br/servicos` | Evergreen MKT \| Growth, Tecnologia e Resultados |
-| 4 | `https://www.evergreenmkt.com.br/equipe` | Evergreen MKT \| Growth, Tecnologia e Resultados |
-| 5 | `https://www.evergreenmkt.com.br/blog` | Evergreen MKT \| Growth, Tecnologia e Resultados |
-| 6 | `https://www.evergreenmkt.com.br/contato` | Evergreen MKT \| Growth, Tecnologia e Resultados |
+| 2 | `https://www.evergreenmkt.com.br/sobre` | EverGreen MKT \| Growth, Tecnologia e Resultados |
+| 3 | `https://www.evergreenmkt.com.br/servicos` | EverGreen MKT \| Growth, Tecnologia e Resultados |
+| 4 | `https://www.evergreenmkt.com.br/equipe` | EverGreen MKT \| Growth, Tecnologia e Resultados |
+| 5 | `https://www.evergreenmkt.com.br/blog` | EverGreen MKT \| Growth, Tecnologia e Resultados |
+| 6 | `https://www.evergreenmkt.com.br/contato` | EverGreen MKT \| Growth, Tecnologia e Resultados |
 
 > **Sinal técnico imediato:** a home indexa no **apex** (`evergreenmkt.com.br`, sem www) enquanto as internas indexam em **www** — indício de inconsistência de canonicalização (www vs. não-www). E **5 das 6 páginas compartilham o título idêntico**. Ambos detalhados na seção SEO.
 
@@ -54,7 +54,7 @@ Seis páginas confirmadas no índice. Não há sinal de páginas legais (privaci
 
 2. **🔴 O site promete FATURAMENTO/resultado financeiro do cliente — viola a garantia de cadência/execução.** Copy recorrente: "método que faz as empresas aumentarem seu faturamento", "foco total em resultado financeiro", "aumentar vendas com previsibilidade", "relatórios e conversas diárias centradas em crescimento de receita". Isso é **risco de expectativa/jurídico** e contradiz diretamente a regra da EG. *(Conteúdo — risco)*
 
-3. **🔴 Cinco páginas com o MESMO title tag genérico** ("Evergreen MKT | Growth, Tecnologia e Resultados") + home com título duplicado ("Máquina de Vendas - EverGreen MKT - Máquina de Vendas"). Títulos são o ativo de SEO/GEO nº 1 e estão desperdiçados, sem keyword nem diferenciação por página. *(Técnico — alta)*
+3. **🔴 Cinco páginas com o MESMO title tag genérico** ("EverGreen MKT | Growth, Tecnologia e Resultados") + home com título duplicado ("Máquina de Vendas - EverGreen MKT - Máquina de Vendas"). Títulos são o ativo de SEO/GEO nº 1 e estão desperdiçados, sem keyword nem diferenciação por página. *(Técnico — alta)*
 
 4. **🟠 Para uma IA generativa, hoje a EverGreen é "uma agência de máquina de vendas que aumenta faturamento com ads e IA".** Não existe uma definição categórica limpa ("EverGreen é uma consultoria boutique de previsibilidade comercial que faz X para Y"). Perguntada "o que é a EverGreen MKT?", a IA reproduz o posicionamento velho — exatamente o oposto do que o reposicionamento quer. *(GEO — alta)*
 
@@ -68,7 +68,7 @@ Seis páginas confirmadas no índice. Não há sinal de páginas legais (privaci
 
 | Problema | Severidade | Detalhe |
 |---|---|---|
-| **Títulos duplicados** em `/sobre`, `/servicos`, `/equipe`, `/blog`, `/contato` | 🔴 Alta | Todas com "Evergreen MKT \| Growth, Tecnologia e Resultados". Cada página precisa de título único e descritivo. |
+| **Títulos duplicados** em `/sobre`, `/servicos`, `/equipe`, `/blog`, `/contato` | 🔴 Alta | Todas com "EverGreen MKT \| Growth, Tecnologia e Resultados". Cada página precisa de título único e descritivo. |
 | **Título da home duplicado/quebrado** | 🟠 Média | "Máquina de Vendas - EverGreen MKT - Máquina de Vendas" repete o termo — típico de conflito entre tema e plugin de SEO (título setado 2×). |
 | **Títulos sem keyword do novo posicionamento** | 🔴 Alta (estratégico) | Nenhum título contém "previsibilidade comercial", "consultoria", "Sistema Raiz" etc. |
 | **Inconsistência www vs. não-www** | 🟠 Média | Home indexada no apex, internas no www → risco de conteúdo duplicado/diluição de canonical. **[VERIFICAR NA FONTE]** se há 301 forçando um host. |
@@ -107,7 +107,7 @@ Seis páginas confirmadas no índice. Não há sinal de páginas legais (privaci
 | **FAQ estruturado + FAQPage schema** | 🟠 Média | Nenhum FAQ localizado. É o formato que mais alimenta AI Overviews/Perplexity. |
 | **Metodologia própria nomeada e indexável** (Sistema Raiz: Raiz/Tronco/Ramos/Copa; Raio-X Comercial) | 🔴 Alta | Hoje **ausente** do site → invisível para busca E para IA. A IP da EG não existe para os modelos. |
 | **E-E-A-T:** nomes reais c/ sobrenome e credenciais, cases com números, datas de publicação/atualização | 🔴 Alta | Hoje só "Eduardo"/"Gustavo" (1º nome); sem Guilherme Camacho; sem cases numéricos; sem datas. |
-| **Schema Organization/Service** | 🟠 Média | Ajuda IA a desambiguar a marca (há várias "Evergreen" no Brasil — risco de confusão de entidade). |
+| **Schema Organization/Service** | 🟠 Média | Ajuda IA a desambiguar a marca (há várias "EverGreen" no Brasil — risco de confusão de entidade). |
 
 ### Linguagem genérica (prejudica SEO **e** GEO)
 Termos recorrentes de baixa especificidade detectados: "soluções integradas", "resultados reais", "qualidade", "destravar o próximo nível", "growth/tecnologia". Substituir por especificidade (nicho solar, números, nomes próprios, metodologia nomeada) melhora as duas frentes simultaneamente.

@@ -83,7 +83,7 @@ export default function AgroAIGuardianLayout({
             },
             "provider": {
               "@type": "Organization",
-              "name": "Evergreen Marketing",
+              "name": "EverGreen Marketing",
               "url": "https://evergreenmkt.com.br"
             }
           })

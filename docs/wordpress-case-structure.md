@@ -111,7 +111,7 @@ testimonial (Textarea)
 
 Exemplo:
 {
-  "quote": "A Evergreen transformou completamente nossa operação comercial",
+  "quote": "A EverGreen transformou completamente nossa operação comercial",
   "author": "João Silva",
   "position": "CEO, Casa Fatilli"
 }
@@ -196,7 +196,7 @@ Todos os campos opcionais são renderizados condicionalmente - se não existirem
   ],
   "technologies": ["IA Generativa", "CRM", "WhatsApp API", "Automação"],
   "testimonial": {
-    "quote": "A Evergreen não só entregou resultados, mas transformou nossa cultura comercial",
+    "quote": "A EverGreen não só entregou resultados, mas transformou nossa cultura comercial",
     "author": "Carlos Fatilli",
     "position": "Diretor Comercial"
   },

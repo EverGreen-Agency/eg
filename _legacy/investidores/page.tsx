@@ -34,7 +34,7 @@ export default function InvestidoresPage() {
               variants={fadeIn}
               className="text-5xl md:text-6xl font-bold mb-6 text-[#3AC97B]"
             >
-              Evergreen Capital
+              EverGreen Capital
             </motion.h1>
             <motion.p 
               variants={fadeIn}
@@ -47,7 +47,7 @@ export default function InvestidoresPage() {
               className="text-lg md:text-xl text-[#FFF4C7]/80 mb-12 max-w-3xl mx-auto space-y-4"
             >
               <p>
-                A Evergreen MKT foi criada para escalar. E toda empresa que escala, precisa de alavancas.
+                A EverGreen MKT foi criada para escalar. E toda empresa que escala, precisa de alavancas.
               </p>
               <p>
                 Aqui, equity não é moeda de troca.<br />
@@ -84,7 +84,7 @@ export default function InvestidoresPage() {
               className="text-lg text-[#FFF4C7]/80 mb-12"
             >
               <p className="mb-6">
-                A Evergreen MKT é a primeira unidade de um grupo.<br />
+                A EverGreen MKT é a primeira unidade de um grupo.<br />
                 Hoje, é uma operação lean com alto poder de execução, receita crescente e diferenciais reais:
               </p>
               <ul className="space-y-4 list-none">
@@ -244,9 +244,9 @@ export default function InvestidoresPage() {
               className="space-y-8"
             >
               <div className="bg-[#09231B] rounded-xl shadow-lg p-6 border border-[#3AC97B]/20">
-                <h3 className="text-xl font-bold mb-4 text-[#FFF4C7]">Qual é o modelo de negócio da Evergreen MKT?</h3>
+                <h3 className="text-xl font-bold mb-4 text-[#FFF4C7]">Qual é o modelo de negócio da EverGreen MKT?</h3>
                 <p className="text-[#FFF4C7]/80">
-                  A Evergreen opera como um sistema de crescimento full-stack para empresas B2B.
+                  A EverGreen opera como um sistema de crescimento full-stack para empresas B2B.
                   Trabalhamos com entregas recorrentes (consultorias + tech), produtos digitais e estruturas escaláveis de serviço com IA integrada.
                 </p>
               </div>
@@ -312,7 +312,7 @@ export default function InvestidoresPage() {
       {/* CTA Final */}
       <CTASection 
         title="Tem capital e quer co-criar com a gente?"
-        description="Se você leu até aqui, já entendeu o espírito.<br />A Evergreen não aceita qualquer investidor. Mas pra quem compartilha da mesma obsessão por construção — abrimos a porta."
+        description="Se você leu até aqui, já entendeu o espírito.<br />A EverGreen não aceita qualquer investidor. Mas pra quem compartilha da mesma obsessão por construção — abrimos a porta."
         primaryButtonText="Falar com a Holding"
         primaryButtonLink="/contato"
         secondaryButtonText="Ver Estrutura do Grupo"

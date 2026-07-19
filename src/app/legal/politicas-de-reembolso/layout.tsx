@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Política de Cancelamento e Reembolso - Evergreen MKT',
-  description: 'Política de Cancelamento e Reembolso dos serviços da Evergreen MKT',
+  title: 'Política de Cancelamento e Reembolso - EverGreen MKT',
+  description: 'Política de Cancelamento e Reembolso dos serviços da EverGreen MKT',
 }
 
 export default function PoliticasReembolsoLayout({

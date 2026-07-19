@@ -23,7 +23,7 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata = {
   metadataBase: new URL('https://www.evergreenmkt.com.br'),
-  title: 'Evergreen MKT | Growth, Tecnologia e Resultados',
+  title: 'EverGreen MKT | Growth, Tecnologia e Resultados',
   description: 'Hub de autoridade em growth, tecnologia, IA e execução de resultados reais.',
   icons: {
     icon: [

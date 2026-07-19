@@ -58,7 +58,7 @@ export default function FlowLanding() {
             <span style={{ color: verdeMenta }}>Prever o futuro te dá controle.</span>
           </h1>
           <p className="text-xl sm:text-2xl font-medium mb-8 mt-4" style={{ color: amareloBaunilha }}>
-            Com o Evergreen Flow, você sabe com exatidão <b>quanto dinheiro vai sobrar — ou faltar — nos próximos dias.</b>
+            Com o EverGreen Flow, você sabe com exatidão <b>quanto dinheiro vai sobrar — ou faltar — nos próximos dias.</b>
           </p>
           <p className="text-lg mb-8" style={{ color: '#fff', opacity: 0.85 }}>
             Porque empreender no escuro é o que faz empresas quebrarem.
@@ -102,7 +102,7 @@ export default function FlowLanding() {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold mb-10 text-center" style={{ color: verdeMenta }}>
-            Com o Evergreen Flow você...
+            Com o EverGreen Flow você...
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center" style={{ background: amareloBaunilha, color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
@@ -268,7 +268,7 @@ export default function FlowLanding() {
               <ShieldCheck className="h-7 w-7" style={{ color: verdeMenta }} /> Garantia Visão de Caixa
             </h2>
             <p className="text-lg mb-4">
-              Se em 7 dias você achar que o Evergreen Flow não te deu clareza,<br />
+              Se em 7 dias você achar que o EverGreen Flow não te deu clareza,<br />
               te devolvemos 100% do valor.
             </p>
             <blockquote className="italic border-l-4 pl-4 mb-4" style={{ borderColor: verdeMenta }}>
@@ -320,7 +320,7 @@ export default function FlowLanding() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-8 rounded-2xl shadow-lg" style={{ background: amareloBaunilha, color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
             <h2 className="text-2xl font-bold mb-8 text-center">
-              Evergreen Flow inclui:
+              EverGreen Flow inclui:
             </h2>
             <ul className="mb-8 space-y-2 text-lg">
               <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5" style={{ color: verdeMenta }} /> Previsão de saldo 30 a 90 dias</li>
@@ -330,7 +330,7 @@ export default function FlowLanding() {
               <li className="flex items-center gap-2"><Mail className="h-5 w-5" style={{ color: verdeMenta }} /> Suporte via WhatsApp</li>
             </ul>
             <div className="mt-6 text-base">
-              Quer visão completa? Combine com o <span className="underline font-semibold">Evergreen DRE</span> ou o <span className="underline font-semibold">BI Starter</span> para gestão total.
+              Quer visão completa? Combine com o <span className="underline font-semibold">EverGreen DRE</span> ou o <span className="underline font-semibold">BI Starter</span> para gestão total.
             </div>
           </div>
         </div>
@@ -348,7 +348,7 @@ export default function FlowLanding() {
             </p>
             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
               <Button size="lg" style={{ background: verdeMenta, color: verdeMusgo, fontWeight: 700 }} className="hover:brightness-90 border-none shadow-md">
-                Começar com o Evergreen Flow
+                Começar com o EverGreen Flow
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button size="lg" variant="outline" style={{ color: verdeMenta, borderColor: verdeMenta }} className="hover:bg-[#0e3a27] border-2">

@@ -33,7 +33,7 @@ export default function HoldingPage() {
               variants={fadeIn}
               className="text-5xl md:text-6xl font-bold mb-6 text-[#3AC97B]"
             >
-              Evergreen Group
+              EverGreen Group
             </motion.h1>
             <motion.p 
               variants={fadeIn}
@@ -46,7 +46,7 @@ export default function HoldingPage() {
               className="text-lg md:text-xl text-[#FFF4C7]/80 mb-12 max-w-3xl mx-auto space-y-4"
             >
               <p>
-                A Evergreen nasceu como uma agência de crescimento.
+                A EverGreen nasceu como uma agência de crescimento.
                 Mas desde o primeiro dia, carregamos uma visão maior:
                 construir um grupo de empresas conectadas por um mesmo propósito —
                 <span className="font-semibold"> escala com inteligência, tecnologia e execução.</span>

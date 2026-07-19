@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Evergreen CobrAI - Cobrança automática com IA',
+  title: 'EverGreen CobrAI - Cobrança automática com IA',
   description: 'Automatize suas cobranças com inteligência artificial. WhatsApp, SMS e e-mail. Cobrança educada, eficiente e sem climão.',
 };
 
@@ -43,7 +43,7 @@ export default function CobraiPage() {
             </h1>
             <p className="text-xl mb-8 mt-4" style={{ color: verdeMenta }}>
               <Bot className="inline h-6 w-6 mr-2 align-middle" style={{ color: verdeMenta }} />
-              O Evergreen CobrAI automatiza suas cobranças com inteligência artificial.<br />
+              O EverGreen CobrAI automatiza suas cobranças com inteligência artificial.<br />
               Seus clientes recebem lembretes educados no WhatsApp, SMS e e-mail — você só vê o dinheiro cair.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
@@ -112,7 +112,7 @@ export default function CobraiPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8" style={{ color: amareloBaunilha }}>
-              O Evergreen CobrAI resolve isso pra você:
+              O EverGreen CobrAI resolve isso pra você:
             </h2>
             <div className="grid md:grid-cols-4 gap-8 mt-12">
               <div className="p-6 rounded-lg" style={{ background: 'rgba(255,255,255,0.1)' }}>
@@ -355,7 +355,7 @@ export default function CobraiPage() {
               </div>
             </div>
             <div className="mt-8 text-base" style={{ color: amareloBaunilha }}>
-              Combo EG.OS: contrate junto com o Evergreen Flow ou DRE e ganhe 15% de desconto.
+              Combo EG.OS: contrate junto com o EverGreen Flow ou DRE e ganhe 15% de desconto.
             </div>
           </div>
         </div>
@@ -389,22 +389,22 @@ export default function CobraiPage() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: verdeMusgo }}>
-            Outros produtos Evergreen para potencializar sua gestão:
+            Outros produtos EverGreen para potencializar sua gestão:
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center" style={{ background: amareloBaunilha, color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
               <BarChart2 className="h-8 w-8 mb-3" style={{ color: verdeMenta }} />
-              <span className="font-bold mb-2">Evergreen Flow</span>
+              <span className="font-bold mb-2">EverGreen Flow</span>
               <span className="text-base mt-2">Preveja o impacto do inadimplente no caixa</span>
             </div>
             <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center" style={{ background: '#fff', color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
               <FileText className="h-8 w-8 mb-3" style={{ color: verdeMenta }} />
-              <span className="font-bold mb-2">Evergreen DRE</span>
+              <span className="font-bold mb-2">EverGreen DRE</span>
               <span className="text-base mt-2">Calcule o quanto o não pagamento afeta o lucro</span>
             </div>
             <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center" style={{ background: amareloBaunilha, color: verdeMusgo, boxShadow: sombraCard, border: bordaCard }}>
               <ShieldCheck className="h-8 w-8 mb-3" style={{ color: verdeMenta }} />
-              <span className="font-bold mb-2">Evergreen LegalBot</span>
+              <span className="font-bold mb-2">EverGreen LegalBot</span>
               <span className="text-base mt-2">Gere carta de cobrança ou aviso de débito</span>
             </div>
           </div>

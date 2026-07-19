@@ -59,7 +59,7 @@ export default function Newsletter() {
               Não Deixe para Terça
           </h1>
             <p className="text-xl text-[#FFF4C7]/80 mb-8 max-w-2xl mx-auto">
-              A newsletter da Evergreen MKT que entrega crescimento real — hoje, não na semana que vem.
+              A newsletter da EverGreen MKT que entrega crescimento real — hoje, não na semana que vem.
             </p>
             <p className="text-lg text-[#FFF4C7]/80 mb-8">
               Zero blá-blá-blá. Toda semana, direto da trincheira:<br />

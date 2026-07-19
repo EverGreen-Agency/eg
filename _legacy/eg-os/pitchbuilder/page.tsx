@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Evergreen PitchBuilder - Script de vendas com IA',
+  title: 'EverGreen PitchBuilder - Script de vendas com IA',
   description: 'Receba um script de vendas profissional, treinável e escalável, pronto para ligação, WhatsApp e presencial. Vendas com padrão e performance.',
 };
 
@@ -44,7 +44,7 @@ export default function PitchBuilderPage() {
             </h1>
             <p className="text-xl mb-8 mt-4" style={{ color: verdeMenta }}>
               <Mic className="inline h-6 w-6 mr-2 align-middle" style={{ color: verdeMenta }} />
-              O Evergreen PitchBuilder usa IA pra criar o script de vendas ideal pro seu produto, seu cliente e seu canal.
+              O EverGreen PitchBuilder usa IA pra criar o script de vendas ideal pro seu produto, seu cliente e seu canal.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2 text-base" style={{ color: amareloBaunilha }}>
