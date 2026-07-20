@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import CornerBrackets from './CornerBrackets'
 
 /**
  * Cabeçalho padrão das páginas internas — mesma linguagem do hero da home:
@@ -25,7 +26,8 @@ export default function PageHeader({
 
   return (
     <header className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden border-b hairline bg-[radial-gradient(60%_60%_at_85%_0%,rgba(58,201,123,0.08),transparent_70%)]">
-      <div className="container mx-auto px-6 md:px-12">
+      <CornerBrackets />
+      <div className="container relative z-[2] mx-auto px-6 md:px-12">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

@@ -68,12 +68,12 @@ function ComingSoon() {
       <div className="relative">
         <p className="mono-label text-menta mb-5">Em breve</p>
         <h2 className="text-2xl md:text-4xl font-bold text-baunilha tracking-tight mb-5 max-w-2xl mx-auto text-balance">
-          Estamos calibrando os primeiros benchmarks.
+          Consolidando dados do ecossistema B2B.
         </h2>
         <p className="text-baunilha/70 max-w-xl mx-auto mb-10">
-          Assim que cada segmento reunir base suficiente para preservar o anonimato (mínimo de{' '}
-          {MIN_SAMPLE} operações), publicamos aqui as faixas de previsibilidade por pilar —
-          Oferta, Demanda e Conversão.
+          Nossa inteligência cruza dados reais de dezenas de operações de vendas e marketing. 
+          O painel público está sendo atualizado para refletir o cenário mais recente de previsibilidade 
+          (Oferta, Demanda e Conversão), aplicando regras estritas de k-anonimato para proteger o sigilo de nossos clientes.
         </p>
         <Link
           href="/contato"
