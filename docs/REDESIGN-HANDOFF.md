@@ -141,7 +141,31 @@ via Playwright e auto-corrigir (principalmente a geometria do E-escada e respons
 
 ---
 
-## 7. Fase 2 — Copy & arquitetura de informação — NÃO INICIADA
+## 7. Fase 2 — Copy & arquitetura de informação — GRANDE PARTE FEITA (18/07)
+
+**Feito** (commits `daf611d`, `85cd536`, `55fc9f7`):
+- **Sistema Raiz está no site.** Home: hero nomeia o método; os 4 cards viram Raiz/Tronco/Ramos/Copa
+  (a numeração 01–04 passou a ser sequência real, não enfeite).
+- **`/servicos` reestruturado na escada de ofertas** (Raio-X → Sprint → Retainer), cada degrau com sua
+  garantia de execução. Saíram as submarcas descartadas (Máquina de Vendas / Growth Engine / EG.Tech).
+  Nova seção deixa explícito que ferramenta (tráfego, CRM, automação) é **meio de entrega**, não cardápio —
+  e que a frente tecnológica ainda não tem régua fechada como o Raio-X comercial.
+- **`/niveis-de-cliente`**: funil de 5 níveis aposentado (resolvia a colisão "Raiz" e prometia Discord,
+  mastermind, equity, acesso vitalício). Entraram os 4 oficiais — Semente/Muda/Árvore/Floresta — sem
+  prometer benefício não-operante.
+- **Riscos de copy eliminados**: afirmação falsa no Benchmark ("dezenas de operações" com tabela vazia)
+  e promessas de faturamento na home e nos valores.
+- **SEO/GEO**: title/description agora nomeiam Sistema Raiz, Raio-X Comercial e os 3 pilares.
+- **28 componentes órfãos** movidos para `_legacy`; `tsconfig` passou a excluir `_legacy`/`poc-hub`/`out`.
+
+**Pendente nesta frente:**
+- `/autoridade` (511 linhas, WP) e `/blog` — conteúdo e estilo antigos.
+- Verificar se os números dos cases em `/autoridade` (ex.: "+350% em leads", "ROI positivo na 2ª campanha")
+  estão verificados e autorizados pelos clientes citados. **Não alterei** — é dado factual de terceiro.
+- Decidir o verbo do CTA: o site convida para "diagnóstico" em toda página, mas o Raio-X é a Oferta 1 **paga**.
+  Hoje os CTAs dizem "Falar com a EverGreen" / "Quero meu Raio-X" — falta a decisão de exibir preço ou não.
+
+### Fase 2 — escopo original (referência)
 
 Reescrever home/`/servicos`/`/niveis-de-cliente` em torno de **Sistema Raiz** (Raiz→Tronco→Ramos→Copa),
 **Raio-X Comercial** (3 pilares: Oferta/Demanda/Conversão) e a **escada de ofertas** paga (Diagnóstico →
