@@ -16,33 +16,37 @@ const marqueeItems = [
   'Previsibilidade',
 ]
 
+/**
+ * Sistema Raiz EG — as quatro fases do método (Documento-Mestre §9).
+ * Aqui a numeração é legítima: é sequência de verdade, não enfeite.
+ */
 const pillars = [
   {
     num: '01',
-    title: 'Estratégias de Growth',
-    desc: 'Aceleração de vendas B2B previsível — demanda, conversão e jornada tratadas como sistema.',
+    title: 'Raiz — Diagnosticar',
+    desc: 'Ler a operação e achar onde a receita vaza. É o Raio-X Comercial: Oferta, Demanda e Conversão medidos, com nota e mapa de gargalos.',
   },
   {
     num: '02',
-    title: 'Automação Comercial',
-    desc: 'Redução de CAC e aumento de conversão com processo, CRM e cadência estruturada.',
+    title: 'Tronco — Priorizar',
+    desc: 'Atacar primeiro o gargalo de maior impacto. Não fazemos tudo ao mesmo tempo — fazemos o que destrava.',
   },
   {
     num: '03',
-    title: 'Inteligência Artificial aplicada',
-    desc: 'IA em marketing, vendas e atendimento — invisível no processo, visível no resultado.',
+    title: 'Ramos — Estruturar',
+    desc: 'Construir o que sustenta o crescimento: processo comercial, CRM, cadência, follow-up e os ritos de gestão.',
   },
   {
     num: '04',
-    title: 'Desenvolvimento de Ferramentas',
-    desc: 'Plataformas digitais, protótipos e MVPs que provam a tese antes de escalar.',
+    title: 'Copa — Evoluir',
+    desc: 'Otimizar e escalar o que já funciona. A Copa não termina: é melhoria contínua, revisão e composição ao longo do tempo.',
   },
 ]
 
 const heroLines = [
-  { text: 'Cresça de forma inteligente.', accent: false },
-  { text: 'Venda com tecnologia.', accent: false },
-  { text: 'Escale com IA.', accent: true },
+  { text: 'Achamos onde a receita vaza.', accent: false },
+  { text: 'Priorizamos o que trava.', accent: false },
+  { text: 'Estruturamos o que sustenta.', accent: true },
 ]
 
 export default function Home() {
@@ -106,8 +110,9 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="max-w-lg text-base md:text-lg text-baunilha/70 mb-8"
             >
-              Somos a força por trás do crescimento previsível de negócios B2B. Sistemas de
-              marketing, vendas e tecnologia — com inteligência artificial e automação.
+              Consultoria boutique de estrutura comercial e tecnológica. Entramos com método,
+              cadência e tecnologia aplicada para transformar operação em previsibilidade — não
+              em promessa.
             </motion.p>
 
             <motion.div
@@ -189,9 +194,9 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
             <div>
-              <p className="mono-label text-menta mb-4">01 — O que fazemos</p>
+              <p className="mono-label text-menta mb-4">Sistema Raiz EG</p>
               <h2 className="text-3xl md:text-5xl font-bold text-baunilha tracking-tight max-w-2xl">
-                Da aquisição ao crescimento, com inteligência.
+                Raiz sustenta o que aparece. Trabalhamos embaixo da superfície primeiro.
               </h2>
             </div>
             <Link
@@ -222,7 +227,7 @@ export default function Home() {
           </div>
 
           <p className="mono-label text-baunilha/40 text-center mt-10">
-            Tudo integrado. Tudo medido. Nada no improviso.
+            O improviso levou você até aqui. Ele não leva além.
           </p>
         </div>
       </section>
@@ -271,7 +276,7 @@ export default function Home() {
           aria-hidden
         />
         <div className="container relative z-[2] mx-auto px-6 md:px-12 text-center">
-          <p className="mono-label text-menta mb-6">02 — Próximo passo</p>
+          <p className="mono-label text-menta mb-6">Começa pela Raiz</p>
           <h2 className="text-[clamp(1.9rem,4.6vw,4rem)] leading-[1.06] tracking-tight font-bold text-baunilha max-w-4xl mx-auto mb-8">
             Pronto para tirar o crescimento do{' '}
             <span className="text-menta">improviso?</span>

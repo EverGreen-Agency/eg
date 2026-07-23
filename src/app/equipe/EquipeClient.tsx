@@ -25,7 +25,7 @@ const founderCards = [
     nome: 'Gustavo Fugulin Soares da Silva',
     cargo: 'CTO',
     foto: '/images/gustavo.jpg',
-    tagline: 'Cérebro técnico por trás da arquitetura EG Tech.',
+    tagline: 'Cérebro técnico por trás da plataforma e das automações da EG.',
     bio: 'Gustavo é o responsável por transformar a visão em tecnologia real. Especialista em IA, automações e análise de dados, lidera o desenvolvimento das soluções que fazem a EG entregar resultado com escala.',
     skills: [
       'Machine Learning & Deep Learning',

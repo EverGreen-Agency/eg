@@ -1,489 +1,126 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
-import { useRef } from 'react'
-import { SparklesIcon, GlobeAltIcon, AcademicCapIcon, CheckCircleIcon, StarIcon, BuildingLibraryIcon, LockOpenIcon, GiftIcon } from '@heroicons/react/24/outline'
-import CTASection from '@/components/CTASection'
+import PageHeader from '@/components/brand/PageHeader'
+
+/**
+ * Níveis de cliente EG (Documento-Mestre §15.1).
+ *
+ * Nível reflete PROFUNDIDADE DE RELAÇÃO, não tempo de casa nem volume gasto.
+ * São quatro — Semente, Muda, Árvore, Floresta.
+ *
+ * Importante: o eixo de cultura interna (Broto/Raiz/Tronco/Guardião) é de
+ * funcionário e NÃO aparece aqui. "Raiz" fica reservado à primeira fase do
+ * Sistema Raiz — por isso não existe nível "Cliente Raiz".
+ *
+ * Os benefícios por nível ainda estão em construção: descrevemos a direção,
+ * sem prometer perk específico que não esteja operante.
+ */
+const niveis = [
+  {
+    nome: 'Semente',
+    gatilho: 'Diagnóstico ou primeiro projeto',
+    desc: 'O início da relação. Medimos a operação, entregamos o Raio-X e o plano de 90 dias. Daqui em diante, continuar é escolha — não obrigação contratual.',
+  },
+  {
+    nome: 'Muda',
+    gatilho: 'Sprint consolidada ou início de retainer',
+    desc: 'A relação criou raiz. A estrutura mínima está de pé e começa a rodar com cadência. É onde a operação deixa de depender de esforço heroico.',
+  },
+  {
+    nome: 'Árvore',
+    gatilho: 'Retainer maduro, com dados fluindo',
+    desc: 'Alta aderência, indicadores acompanhados de perto e resultados medidos. O trabalho migra de construir para compor — a fase Copa do Sistema Raiz.',
+  },
+  {
+    nome: 'Floresta',
+    gatilho: 'Parceria de alta profundidade',
+    desc: 'Cliente-âncora, com relação de longo prazo e influência real sobre a operação. Integra o ecossistema da EG e costuma gerar indicações.',
+  },
+]
 
 export default function NiveisDeCliente() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
-
-  const x = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8], [0, -300, -600, -900, -1200])
+  const reduce = useReducedMotion()
 
   return (
-    <div className="min-h-screen bg-[#09231B]">
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl sm:text-5xl font-bold text-[#3AC97B] mb-6"
-          >
-            EverGreen Journey
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-[#FFF4C7] mb-8"
-          >
-            Crescimento é jornada. E cada jornada tem níveis.
-          </motion.p>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg text-[#FFF4C7]/80 mb-12"
-          >
-            Na EverGreen, acreditamos que cada cliente é único — mas todos percorrem um caminho em comum: a jornada de evolução.
-            Quanto mais você avança, mais ferramentas, suporte e poder de execução você desbloqueia.
-          </motion.p>
-          <motion.blockquote 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl italic text-[#3AC97B] mb-12"
-          >
-            "Não se trata de onde você começa. Se trata de até onde está disposto a crescer."
-          </motion.blockquote>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <Link 
-              href="/contato"
-              className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-colors shadow-lg hover:shadow-xl"
-            >
-              Quero começar minha jornada
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+    <main className="bg-musgo grain min-h-screen">
+      <PageHeader
+        eyebrow="Níveis de cliente"
+        title="Nível não é tempo de casa. É "
+        accent="profundidade de relação."
+        subtitle="Todo cliente começa no mesmo lugar e avança conforme a relação ganha profundidade — mais dados, mais aderência, mais influência da EG sobre a operação. Não é programa de fidelidade: é o retrato de quão fundo o trabalho chegou."
+      />
 
-      {/* Como Funciona Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#09231B]/80">
-        <div className="max-w-4xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-[#3AC97B] mb-12 text-center"
-          >
-            Como funciona
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <div className="mb-4 flex justify-center"><SparklesIcon className="h-8 w-8 text-[#3AC97B]" /></div>
-              <h3 className="text-xl font-semibold mb-2 text-[#FFF4C7]">Semente</h3>
-              <p className="text-[#FFF4C7]/80">Implantando os primeiros sistemas de crescimento e tecnologia.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <div className="mb-4 flex justify-center"><GlobeAltIcon className="h-8 w-8 text-[#3AC97B]" /></div>
-              <h3 className="text-xl font-semibold mb-2 text-[#FFF4C7]">Floresta Jovem</h3>
-              <p className="text-[#FFF4C7]/80">Processos maduros, receita previsível e execução alinhada.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <div className="mb-4 flex justify-center"><AcademicCapIcon className="h-8 w-8 text-[#3AC97B]" /></div>
-              <h3 className="text-xl font-semibold mb-2 text-[#FFF4C7]">Floresta Milenar</h3>
-              <p className="text-[#FFF4C7]/80">Dominando aquisição, retenção e expansão com inteligência e escala.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Níveis Detalhados */}
-      <section 
-        ref={containerRef} 
-        className="h-[400vh] relative"
-      >
-        <div className="sticky top-0 h-screen flex items-center overflow-hidden bg-[#09231B]">
-          <div className="max-w-7xl mx-auto px-4">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-3xl font-bold text-[#3AC97B] mb-12 text-center"
-            >
-              A Jornada EG
-            </motion.h2>
-
-            {/* Container de Scroll Horizontal */}
-            <div className="relative">
-              {/* Scroll Container */}
-              <motion.div 
-                style={{ x }}
-                className="flex gap-16 pb-8"
+      {/* Os quatro níveis */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-12">
+          <ol className="grid md:grid-cols-2 gap-px bg-menta/15 border hairline">
+            {niveis.map((n, i) => (
+              <motion.li
+                key={n.nome}
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.7, delay: i * 0.08 }}
+                className="group bg-musgo p-8 md:p-12 hover:bg-musgo-deep transition-colors duration-300"
               >
-                {/* Nível 1 */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="w-[400px] flex-shrink-0"
-                >
-                  <div className="bg-[#09231B] rounded-xl shadow-lg p-8 h-full border border-[#3AC97B]/20 transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center mb-6">
-                      <motion.div 
-                        className="text-4xl mr-4 flex items-center justify-center"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <SparklesIcon className="h-8 w-8 text-[#3AC97B]" />
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-[#FFF4C7]">Cliente Semente</h3>
-                    </div>
-                    <h4 className="text-xl font-semibold text-[#3AC97B] mb-4">Entrada no ecossistema EG</h4>
-                    <p className="text-[#FFF4C7]/80 mb-4">Começou com um infoproduto, newsletter ou primeiro contato.</p>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🔓 Gatilho</h5>
-                      <p className="text-[#FFF4C7]/80">Compra ou inscrição</p>
-                    </div>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🎁 Benefícios</h5>
-                      <ul className="space-y-2 text-[#FFF4C7]/80">
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Canal fechado no Discord
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Cupons exclusivos
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Acesso à newsletter
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Nível 2 */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="w-[400px] flex-shrink-0"
-                >
-                  <div className="bg-[#09231B] rounded-xl shadow-lg p-8 h-full border border-[#3AC97B]/20 transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center mb-6">
-                      <motion.div 
-                        className="text-4xl mr-4 flex items-center justify-center"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <CheckCircleIcon className="h-8 w-8 text-[#3AC97B]" />
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-[#FFF4C7]">Cliente Raiz</h3>
-                    </div>
-                    <h4 className="text-xl font-semibold text-[#3AC97B] mb-4">Começou a aplicar</h4>
-                    <p className="text-[#FFF4C7]/80 mb-4">Comprou consultoria ou diagnóstico, deu feedback, participou ativamente.</p>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🔓 Gatilho</h5>
-                      <p className="text-[#FFF4C7]/80">Feedback, aplicação, envio de case</p>
-                    </div>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🎁 Benefícios</h5>
-                      <ul className="space-y-2 text-[#FFF4C7]/80">
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Diagnóstico gratuito
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Convite a eventos
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Bônus secretos
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Nível 3 */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="w-[400px] flex-shrink-0"
-                >
-                  <div className="bg-[#09231B] rounded-xl shadow-lg p-8 h-full border border-[#3AC97B]/20 transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center mb-6">
-                      <motion.div 
-                        className="text-4xl mr-4 flex items-center justify-center"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <GlobeAltIcon className="h-8 w-8 text-[#3AC97B]" />
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-[#FFF4C7]">Cliente Floresta</h3>
-                    </div>
-                    <h4 className="text-xl font-semibold text-[#3AC97B] mb-4">Crescimento ativo</h4>
-                    <p className="text-[#FFF4C7]/80 mb-4">Contratou serviços recorrentes, tem resultados comprovados.</p>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🔓 Gatilho</h5>
-                      <p className="text-[#FFF4C7]/80">Contrato ativo + case de sucesso</p>
-                    </div>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🎁 Benefícios</h5>
-                      <ul className="space-y-2 text-[#FFF4C7]/80">
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Acesso a produtos beta
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Mentoria exclusiva
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Prioridade no suporte
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Nível 4 */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="w-[400px] flex-shrink-0"
-                >
-                  <div className="bg-[#09231B] rounded-xl shadow-lg p-8 h-full border border-[#3AC97B]/20 transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center mb-6">
-                      <motion.div 
-                        className="text-4xl mr-4 flex items-center justify-center"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <StarIcon className="h-8 w-8 text-[#3AC97B]" />
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-[#FFF4C7]">Cliente Estratégico</h3>
-                    </div>
-                    <h4 className="text-xl font-semibold text-[#3AC97B] mb-4">Virou promotor da marca</h4>
-                    <p className="text-[#FFF4C7]/80 mb-4">Indicou, deu depoimento, participou de case oficial.</p>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🔓 Gatilho</h5>
-                      <p className="text-[#FFF4C7]/80">Indicação, NPS alto, depoimento</p>
-                    </div>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🎁 Benefícios</h5>
-                      <ul className="space-y-2 text-[#FFF4C7]/80">
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Mastermind fechado
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Badge oficial
-                        </li>
-                        <li className="flex items-center">
-                          <span className="mr-2">•</span>
-                          Destaque no site
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Nível 5 */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="w-[400px] flex-shrink-0"
-                >
-                  <div className="bg-[#09231B] rounded-xl shadow-lg p-8 h-full border border-[#3AC97B]/20 transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center mb-6">
-                      <motion.div 
-                        className="text-4xl mr-4 flex items-center justify-center"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <BuildingLibraryIcon className="h-8 w-8 text-[#3AC97B]" />
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-[#FFF4C7]">Cliente Legacy</h3>
-                    </div>
-                    <h4 className="text-xl font-semibold text-[#3AC97B] mb-4">Faz parte do jogo de longo prazo</h4>
-                    <p className="text-[#FFF4C7]/80 mb-4">Tem contrato de equity ou participa de co-criação com a EG.</p>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🔓 Gatilho</h5>
-                      <p className="text-[#FFF4C7]/80">Contrato de longo prazo ou equity</p>
-                    </div>
-                    <div className="mb-6">
-                      <h5 className="font-semibold text-[#FFF4C7] mb-2">🎁 Benefícios</h5>
-                      <ul className="space-y-2 text-[#FFF4C7]/80">
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Acesso vitalício a produtos
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Posição como insider
-                        </li>
-                        <li className="flex items-center">
-                          <CheckCircleIcon className="h-5 w-5 text-[#3AC97B] mr-2" />
-                          Co-criação
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              {/* Indicador de Progresso */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-emerald-500"
-                  style={{ 
-                    scaleX: scrollYProgress,
-                    transformOrigin: "left"
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+                <p className="mono-label text-menta mb-6">{String(i + 1).padStart(2, '0')}</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-baunilha mb-2 group-hover:text-menta transition-colors duration-300">
+                  {n.nome}
+                </h2>
+                <p className="mono-label text-baunilha/40 mb-4">{n.gatilho}</p>
+                <p className="text-baunilha/70 leading-relaxed">{n.desc}</p>
+              </motion.li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* Benefícios Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#09231B]">
-        <div className="max-w-4xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-[#3AC97B] mb-12 text-center"
-          >
-            Benefícios de Subir de Nível
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <h3 className="text-xl font-semibold mb-4 text-[#FFF4C7]">Prioridade em Novos Projetos</h3>
-              <p className="text-[#FFF4C7]/80">Acesso antecipado a novas soluções e frameworks exclusivos da EverGreen.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <h3 className="text-xl font-semibold mb-4 text-[#FFF4C7]">Eventos Exclusivos</h3>
-              <p className="text-[#FFF4C7]/80">Convites para workshops, eventos e masterminds fechados com a equipe EG.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <h3 className="text-xl font-semibold mb-4 text-[#FFF4C7]">Consultoria Estratégica</h3>
-              <p className="text-[#FFF4C7]/80">Acesso direto à consultoria estratégica com os founders da EverGreen.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-[#09231B] border border-[#3AC97B]/20"
-            >
-              <h3 className="text-xl font-semibold mb-4 text-[#FFF4C7]">Comunidade Premium</h3>
-              <p className="text-[#FFF4C7]/80">Acesso a uma rede exclusiva de clientes avançados para troca de experiências.</p>
-            </motion.div>
-          </div>
+      {/* O que muda entre níveis */}
+      <section className="py-16 md:py-20 border-t hairline">
+        <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-baunilha tracking-tight mb-5">
+            O que muda conforme se avança
+          </h2>
+          <p className="text-baunilha/70 mb-4">
+            Quanto mais fundo a relação, mais a EG consegue operar com autonomia — e mais o cliente
+            ganha em prioridade, condições e acesso antecipado ao que estamos construindo.
+          </p>
+          <p className="text-baunilha/70">
+            Os benefícios formais de cada nível estão sendo desenhados conforme a EG cresce.
+            Preferimos anunciar o que já está de pé a publicar uma tabela de vantagens que ainda não
+            existe.
+          </p>
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#09231B]">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-[#3AC97B] mb-6"
-          >
-            Vamos plantar sua semente?
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-xl text-[#FFF4C7]/80 mb-12"
-          >
-            Cada cliente começa pequeno. O que importa é o quanto está disposto a crescer.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row justify-center gap-4"
-          >
-            <Link 
+      {/* CTA */}
+      <section className="py-24 text-center border-t hairline">
+        <div className="container mx-auto px-6 md:px-12">
+          <p className="mono-label text-menta mb-6">Começa pela Raiz</p>
+          <h2 className="text-2xl md:text-4xl font-bold text-baunilha tracking-tight mb-6 max-w-2xl mx-auto text-balance">
+            Toda floresta começa com uma semente.
+          </h2>
+          <p className="text-baunilha/70 mb-10 max-w-xl mx-auto">
+            O primeiro nível se abre com o diagnóstico — o Raio-X Comercial da sua operação.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
               href="/contato"
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3AC97B]"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-baunilha text-musgo text-base font-semibold hover:bg-menta transition-colors duration-300"
             >
-              Agendar Diagnóstico
+              Falar com a EverGreen
             </Link>
-            <Link 
+            <Link
               href="/servicos"
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-xl text-[#3AC97B] bg-[#09231B] border border-[#3AC97B]/20 hover:bg-[#09231B]/80 transition-colors"
+              className="mono-label inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
             >
-              Ver Serviços
+              Ver a escada de ofertas <span aria-hidden>→</span>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
-    </div>
+    </main>
   )
-} 
+}

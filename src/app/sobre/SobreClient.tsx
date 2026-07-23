@@ -7,16 +7,12 @@ import PageHeader from '@/components/brand/PageHeader'
 const valores = [
   { title: 'Inovação', description: 'Fazemos o que ninguém fez, antes que todos queiram.' },
   { title: 'Evidência', description: 'Medimos o que combinamos e mostramos o número — bom ou ruim.' },
-  { title: 'Transparência', description: 'Comunicação real. Sem enrolação. Sem bullshit.' },
+  { title: 'Transparência', description: 'Comunicação direta, número na mesa e escopo escrito. Sem rodeio.' },
 ]
 
-const jornada = [
-  { periodo: 'Q1 2024', evento: 'Fundação da EverGreen MKT' },
-  { periodo: 'Q2 2024', evento: 'Primeiros projetos com IA aplicada em funil de vendas' },
-  { periodo: 'Q3 2024', evento: 'Sistema EG Systems validado com PMEs em expansão' },
-  { periodo: 'Q4 2024', evento: 'Início da construção da marca como autoridade digital' },
-  { periodo: 'Q1 2025', evento: 'Busca de expansão de mercados' },
-]
+// NOTA: a linha do tempo antiga foi removida — parava em Q1/2025 (18 meses
+// desatualizada, dava impressão de empresa parada) e citava "EG Systems",
+// nome que não existe mais. Para voltar, precisa dos marcos reais verificados.
 
 export default function SobrePage() {
   const reduce = useReducedMotion()
@@ -45,12 +41,12 @@ export default function SobrePage() {
               {
                 titulo: 'Nossa Missão',
                 texto:
-                  'Transformar empresas em ecossistemas de crescimento sustentável, unindo estratégia, automação e inteligência artificial para escalar resultados com previsibilidade.',
+                  'Transformar demanda, jornada comercial e operação em previsibilidade e controle — com método, cadência e inteligência aplicada.',
               },
               {
                 titulo: 'Nossa Visão',
                 texto:
-                  'Ser a referência global em soluções integradas de growth, IA e operações de receita para empresas B2B e B2C.',
+                  'Ser a consultoria de referência para empresas B2B que querem crescer com estrutura — poucos clientes certos, método visível e profundidade em cada relação.',
               },
             ].map((item) => (
               <div key={item.titulo} className="bg-musgo p-8 md:p-12">
@@ -121,30 +117,6 @@ export default function SobrePage() {
             Porque autoridade não é comprada.
             <br />É construída. E a gente já começou.
           </p>
-        </div>
-      </section>
-
-      {/* Jornada */}
-      <section className="py-16 md:py-24 border-t hairline">
-        <div className="container mx-auto px-6 md:px-12 max-w-3xl">
-          <p className="mono-label text-menta mb-3">03 — Trajetória</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-baunilha tracking-tight mb-12">Nossa jornada até aqui</h2>
-          <ol className="relative border-l hairline ml-2">
-            {jornada.map((item, i) => (
-              <motion.li
-                key={item.periodo}
-                initial={reduce ? false : { opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                className="relative pl-8 pb-10 last:pb-0"
-              >
-                <span className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-menta" aria-hidden />
-                <span className="mono-label text-menta block mb-2">{item.periodo}</span>
-                <span className="text-baunilha/80">{item.evento}</span>
-              </motion.li>
-            ))}
-          </ol>
         </div>
       </section>
 
