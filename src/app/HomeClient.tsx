@@ -222,7 +222,7 @@ export default function Home() {
           </div>
 
           <p className="mono-label text-baunilha/40 text-center mt-10">
-            Tudo integrado. Tudo focado em gerar receita real.
+            Tudo integrado. Tudo medido. Nada no improviso.
           </p>
         </div>
       </section>
@@ -273,24 +273,19 @@ export default function Home() {
         <div className="container relative z-[2] mx-auto px-6 md:px-12 text-center">
           <p className="mono-label text-menta mb-6">02 — Próximo passo</p>
           <h2 className="text-[clamp(1.9rem,4.6vw,4rem)] leading-[1.06] tracking-tight font-bold text-baunilha max-w-4xl mx-auto mb-8">
-            Pronto para escalar sua receita de forma{' '}
-            <span className="text-menta">inteligente?</span>
+            Pronto para tirar o crescimento do{' '}
+            <span className="text-menta">improviso?</span>
           </h2>
           <p className="text-baunilha/70 text-lg mb-10 max-w-xl mx-auto">
-            Vamos desenhar o sistema que vai destravar seu crescimento.
+            Começa com um diagnóstico da sua operação comercial — onde a receita vaza e o que
+            atacar primeiro.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link
               href="/contato"
               className="inline-flex items-center justify-center px-10 py-5 rounded-full bg-baunilha text-musgo text-lg font-semibold hover:bg-menta transition-colors duration-300"
             >
-              Agendar Diagnóstico
-            </Link>
-            <Link
-              href="/contato"
-              className="mono-label inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full border border-menta/30 text-baunilha hover:border-menta hover:text-menta transition-colors duration-300"
-            >
-              Falar com um especialista
+              Falar com a EverGreen
             </Link>
           </div>
         </div>

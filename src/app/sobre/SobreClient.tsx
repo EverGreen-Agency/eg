@@ -6,7 +6,7 @@ import PageHeader from '@/components/brand/PageHeader'
 
 const valores = [
   { title: 'Inovação', description: 'Fazemos o que ninguém fez, antes que todos queiram.' },
-  { title: 'Resultados', description: 'Se não gera ROI, não tem espaço aqui.' },
+  { title: 'Evidência', description: 'Medimos o que combinamos e mostramos o número — bom ou ruim.' },
   { title: 'Transparência', description: 'Comunicação real. Sem enrolação. Sem bullshit.' },
 ]
 
