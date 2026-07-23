@@ -77,13 +77,37 @@ Tokens e utilitários já no código — **usar sempre estes, não hex solto:**
   - `.animate-marquee` — marquee infinito (respeita `prefers-reduced-motion`).
 - **Motion:** framer-motion. Padrões usados: headline entrando linha-a-linha com máscara
   (`overflow-hidden` + `y:110%→0%`), reveal por scroll (`whileInView`), `useReducedMotion` sempre.
-- **Marca animada:** `EStaircaseMark` — o E-escada surge de baixo p/ cima (`clip-path inset(100%→0%)`)
-  + float sutil + parallax no scroll. Geometria = polígono de 6 pontos por lado (fácil de recalibrar).
+- **Marca animada:** `EStaircaseMark` — **reescrita pelo CTO em 18/07** (commits `d36571b`, `5615819`,
+  `5f21de4`) e é hoje o ativo visual mais original do site: contorno neon com *stroke-drawing*
+  sequenciado (3 barras → espinha), filtros de glow SVG, stage em 3D com rotação idle e reflexo.
+  Geometria correta do ícone oficial. **Manter e construir a partir dela.**
 
-### Vocabulário visual do hero (padrão a repetir nas outras páginas)
-Eyebrow `.mono-label` menta com traço → headline gigante `clamp()` → parágrafo curto baunilha/70 →
-botões (pílula baunilha sólida + pílula outline menta) → cantoneiras de instrumento → marquee.
-Cards = grid de linha fina (`gap-px bg-menta/15`), numerados `01–04`, hover escurece + acende título menta.
+### ⚠️ Vocabulário visual — NÃO replicar como estava
+
+**Esta seção era um guia de "repita este padrão em toda página". Isso foi rejeitado — e com razão.**
+
+Em 18/07 o CTO apontou que o site ficou com cara de "feito por IA". A crítica é procedente e
+quantificável (auditoria completa: `https://claude.ai/code/artifact/175db309-e79b-4a0a-b040-f4ec0af9a0bc`):
+
+| Padrão | Ocorrências | Problema |
+|---|---|---|
+| `.mono-label` (eyebrow mono CAIXA ALTA) | 48× | É o tell nº 1 de design gerado por IA |
+| Numeração `01 02 03` | 7 blocos | Usada em conteúdo que **não é sequência** (decoração fingindo informação) |
+| Grid de cards com fio 1px (`gap-px`) | 8× | Mesmo dispositivo em 6 páginas |
+| Brilho radial atrás de CTA | 11× | Mesmo truque repetido |
+| Par de botões pílula | 16× | Idêntico em todas as páginas |
+| Cantoneiras de instrumento | — | Copiadas do 21hrs.space; não derivam da marca EG |
+
+**A raiz do problema não é nenhum elemento isolado — é um só template carimbado em 7 páginas.**
+Toda página tem o mesmo ritmo. Trocar token ou cor não resolve; **quebrar a repetição resolve**.
+Design de verdade diferencia o ritmo conforme o trabalho que cada página faz.
+
+**Divisão de trabalho acordada (18/07):** estilização e identidade são do **CTO**; copy, estrutura e
+alinhamento factual são do assistente. Ao retomar: **não** reintroduzir os padrões da tabela acima
+sem falar com o CTO.
+
+*(Observação: parte da numeração `01–04` deixou de ser enfeite quando a home passou a listar as 4
+fases reais do Sistema Raiz — ali é sequência de verdade. O problema é usar numeração onde não há ordem.)*
 
 ---
 
@@ -93,10 +117,11 @@ Cards = grid de linha fina (`gap-px bg-menta/15`), numerados `01–04`, hover es
 |---|---|---|
 | `/` (home) | ✅ Refeita | `HomeClient.tsx` — hero E-escada, marquee, cards numerados, Kommo, CTA. |
 | `/portfolio` | ✅ Refeita | `PortfolioClient.tsx` + `src/config/portfolio.ts`. |
-| `/sobre` `/contato` `/servicos` `/equipe` | ✅ Refeitas | Via `PageHeader` compartilhado. Copy preservada (rewrite = Fase 2). |
-| `/benchmark` | ✅ Refeita + ligada ao Bioma | Split client/server; consome `/public/benchmark` do Bioma, estado "Em Breve" data-driven. |
-| `/niveis-de-cliente` | ❌ Estilo antigo | **Bloqueada por decisão de conteúdo:** o funil de 5 níveis atual (Semente→Raiz→…) vai ser substituído por Semente/Muda/Árvore/Floresta (resolução da colisão "Raiz"). Restilizar só na Fase 2, junto com a troca de conteúdo — não polir o que será removido. |
-| `/blog` `/autoridade` `/kommo_partners` | ❌ Estilo antigo | `/autoridade` é pesada (511 linhas, integração WP). Menor prioridade. |
+| `/servicos` | ✅ Estrutura + copy refeitas | **Reescrita na escada de ofertas real** (Raio-X → Sprint → Retainer, com garantias). Saíram as submarcas descartadas. |
+| `/niveis-de-cliente` | ✅ Conteúdo refeito | Funil de 5 níveis aposentado; entraram os 4 oficiais (Semente/Muda/Árvore/Floresta). Colisão "Raiz" resolvida. |
+| `/sobre` `/contato` `/equipe` | ✅ Refeitas | Via `PageHeader`. `/sobre` teve missão/visão realinhadas e a linha do tempo **removida** (ver §7). |
+| `/benchmark` | ✅ Refeita + ligada ao Bioma | Split client/server; consome `/public/benchmark`, estado "Em Breve" data-driven. Copy corrigida (afirmação falsa). |
+| `/blog` `/autoridade` `/kommo_partners` | ❌ Antigos (estilo **e** conteúdo) | `/autoridade` é pesada (511 linhas, WP) e contém números de case **não verificados**. Ver §7. |
 | Navbar/Footer | ✅ | Navbar (CTA pílula + item Portfólio) e Footer (tokens de marca + Portfólio) atualizados. |
 
 **Split client/server:** toda página com `'use client'` foi dividida em `page.tsx` (servidor, exporta
@@ -125,16 +150,20 @@ padrão ao criar páginas novas (necessário para SEO — Fase 0).
 
 ---
 
-## 6. Fase 1 — Transformação visual — EM ANDAMENTO
+## 6. Fase 1 — Transformação visual — AGORA É DO CTO
 
-**Feito:** fundação (tokens, fontes, grain, marquee), home inteira, Navbar parcial, marca E-escada
-animada, poc-hub (ver §8). **A fazer:** replicar a linguagem em `/portfolio`, `/sobre`, `/contato`,
-`/servicos`, `/equipe`, `/autoridade`, `/niveis-de-cliente`, `/benchmark`; Footer; revisar mobile.
+**Feito:** fundação (tokens, fontes, grain, marquee), todas as páginas principais repaginadas,
+Navbar + Footer, poc-hub (ver §8). A marca (`EStaircaseMark`) foi reescrita pelo CTO e é o melhor
+ativo visual do site.
 
-⚠️ **Verificação visual:** nesta sessão não foi possível tirar screenshot do localhost (Playwright e
-Higgsfield MCP registrados no meio da sessão — precisam de restart do Claude Code). A home foi validada
-por `tsc --noEmit` + HTTP 200, mas **não** por inspeção de pixel. Na próxima sessão, tirar screenshot
-via Playwright e auto-corrigir (principalmente a geometria do E-escada e responsividade).
+⚠️ **Mudança de responsabilidade (18/07):** a crítica do CTO (§3) foi aceita. **Estilização e
+identidade visual passaram a ser dele.** O assistente não deve mais propor/aplicar tratamento visual
+sem alinhamento — a contribuição daqui pra frente é copy, estrutura, dado e verdade factual.
+
+⚠️ **Verificação visual:** até 18/07 nenhuma sessão do assistente conseguiu tirar screenshot do
+localhost (Playwright registrado no meio da sessão, precisa de restart). Tudo foi validado por
+`tsc --noEmit` + `npm run build` + HTTP 200 — **nunca por inspeção de pixel**. Se for validar visual,
+usar Playwright numa sessão nova.
 
 **Dev server:** `cd C:\Users\Lenovo\Desktop\EG\eg && npm run dev` → normalmente `http://localhost:3000`
 (caiu em `:3001` nesta sessão porque a 3000 estava ocupada). Hot reload ativo.
@@ -216,6 +245,39 @@ página `/portfolio` no site principal (indexável); os PoCs individuais seguem 
 
 ⚠️ Regra permanente: **nunca** publicar PoC de cliente **ativo**; PoC de lead exige status "perdido" + registro.
 
+### ⚠️ Portfólio é 100% hardcoded — dívida técnica conhecida
+
+Não há automação: `portfolioItems` é um array TypeScript editado à mão, com commit a cada projeto novo.
+Os campos de `leadConsent` (data de perda do lead, aviso de cortesia) são digitados manualmente.
+
+**Isso é inconsistente com o Benchmark** (§10b), que segue a arquitetura correta: Bioma é a fonte,
+agrega/valida no backend, site só lê. O dado que hoje é digitado à mão — "lead perdido em tal data" —
+**o CRM do Bioma já tem**.
+
+**Decisão (18/07):** manter hardcoded por ora. Com 1 item, automatizar é over-engineering.
+**Quando passar de ~5 itens**, portar para o mesmo padrão do benchmark: endpoint público no Bioma +
+toggle de publicar/ocultar, lendo `clients`/leads com status "perdido" e flag de consentimento.
+
+---
+
+## 9b. CMS / Blog — decidido em princípio, NADA implementado
+
+**Estado real:** o WordPress (`cms.evergreenmkt.com.br`, HostGator) continua sendo o backend vivo de
+**`/blog` E `/autoridade`** — fetch em runtime via `wordpressService`. **Não existe MDX nem pasta de
+conteúdo local no repo.**
+
+**Recomendação revisada (18/07)** — substitui a anterior, que dizia "migrar para MDX no repo":
+
+O Eduardo confirmou que **squads vão escrever, com picos de volume**. MDX no repositório significa um
+PR por post — atrito alto para quem não é dev, justamente o perfil que vai produzir. As duas saídas
+melhores:
+
+- **(a) Manter o WordPress só como editor** e seguir consumindo via API. Custo zero de migração, mas
+  mantém a dependência e o problema de segurança (senha ainda não rotacionada — §5).
+- **(b) Headless leve** (Sanity/Storyblok): editor decente para não-dev e tira o WP da jogada.
+
+**Não decidido.** Em qualquer cenário, a rotação da senha do WordPress continua pendente.
+
 ---
 
 ## 10. Bridge Bioma ↔ Site — ESPECIFICADO, não implementado
@@ -288,15 +350,35 @@ Arquitetura decidida (**Bioma é a fonte; agrega e anonimiza no backend; o site 
 
 ---
 
-## 12. Próximos passos (ordem acordada com o Eduardo)
+## 12. Próximos passos — atualizado 18/07
 
-1. ✅ Este handoff.
-2. ✅ poc-hub pronto para deploy (Eduardo faz Vercel + DNS).
-3. ⏭️ **Replicar a linguagem visual** nas páginas restantes (começar por `/portfolio`, `/sobre`, `/contato`).
-4. ⏭️ **Implementar o bridge Bioma↔benchmark público** (§10b) — feature no repo `bioma` + consumo no site.
-5. (depois) Fase 2 — copy/arquitetura Sistema Raiz.
-6. (humano) Rotação da senha do WordPress; confirmar env var de produção; deploy do site em produção
-   (mecanismo de deploy do site principal ainda não confirmado — hoje é upload manual do `out/` na HostGator?).
+**Concluído:** handoff · poc-hub pronto · linguagem visual replicada · bridge do benchmark (backend) ·
+Fase 2 (Sistema Raiz + escada de ofertas no site) · riscos de copy eliminados · 28 órfãos limpos.
+
+### Decisões que dependem do Eduardo (bloqueiam trabalho)
+1. **Verbo do CTA.** O site convida para "diagnóstico" em toda página, mas o Raio-X é a Oferta 1
+   **paga**. Exibir preço? Qualificar antes? Hoje os CTAs dizem "Falar com a EverGreen" / "Quero meu Raio-X".
+2. **Números dos cases em `/autoridade`** ("+350% em leads", "ROI positivo na 2ª campanha", CAC
+   R$200→R$92): verificados e autorizados pelos clientes citados? **Não foram alterados** — é dado
+   factual de terceiro, não cabe ao assistente reescrever.
+3. **Linha do tempo do `/sobre`**: removida (parava em Q1/2025, citava "EG Systems" extinto). Para
+   voltar, precisa dos marcos reais.
+4. **CMS** (§9b): manter WordPress como editor ou migrar para headless leve.
+
+### Trabalho do CTO
+5. Estilização/identidade (§3) — arrancar os tells, quebrar a repetição de ritmo entre páginas.
+
+### Trabalho do assistente (não bloqueado)
+6. `/autoridade` e `/blog`: revisar conteúdo e estrutura (estilo fica com o CTO).
+7. Portar o Portfólio para o Bioma quando passar de ~5 itens (§9).
+
+### Operacional (humano)
+8. **Rotação da senha do WordPress** + salts (§5) — pendente desde 17/07.
+9. Deploy do `poc-hub` (Vercel + CNAME dedicado, §8).
+10. Ativar o benchmark em produção: migration `0012`, **CORS com as origens do site**, semear scores,
+    virar o toggle (§10b).
+11. Confirmar a env var do WordPress no build de produção e **como o site é publicado hoje**
+    (mecanismo ainda não confirmado — upload manual do `out/` na HostGator?).
 
 **Memória persistente** (contexto entre sessões) em
 `C:\Users\Lenovo\.claude\projects\c--Users-Lenovo-Desktop-EG-evergreen-ai-os\memory\eg-site-redesign.md`.
