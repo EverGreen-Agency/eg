@@ -3,7 +3,7 @@
 > Documento vivo. Ponto de continuação para qualquer IA/dev retomar o redesenho do site
 > institucional da EverGreen do ponto exato onde paramos. Atualizar ao fim de cada rodada.
 >
-> **Última atualização:** 2026-07-18 · **Branch de trabalho:** `main` (site) · **HEAD:** `4afcbea`
+> **Última atualização:** 2026-07-23 · **Branch:** `main` (site) · **HEAD:** `ff9fa09`
 
 ---
 
@@ -11,10 +11,20 @@
 
 A EverGreen está saindo de "agência de marketing/growth 360" para **boutique de consultoria
 comercial + tecnológica** (método próprio: **Sistema Raiz**). O site institucional
-(`evergreenmkt.com.br`) ainda vendia a empresa antiga. Este trabalho faz, em fases:
-**Fase 0** (higiene/segurança/SEO — CONCLUÍDA), **Fase 1** (transformação visual — EM ANDAMENTO),
-**Fase 2** (rewrite de copy/arquitetura de informação em torno do Sistema Raiz — NÃO INICIADA),
-e um **bridge Site↔Bioma** (portal de cliente + benchmark público — ESPECIFICADO, não implementado).
+(`evergreenmkt.com.br`) vendia a empresa antiga. Estado em 23/07:
+
+- **Fase 0** (higiene/segurança/SEO) — ✅ concluída.
+- **Fase 1** (transformação visual) — ✅ aplicada em todas as páginas principais, mas **a direção
+  visual foi criticada e passou a ser responsabilidade do CTO** (ver §3, é a seção mais importante
+  para quem vai mexer no visual).
+- **Fase 2** (copy/arquitetura no Sistema Raiz) — ✅ grande parte feita: o método está no site, a
+  escada de ofertas substituiu as submarcas, riscos de copy eliminados (§7).
+- **Bridge Site↔Bioma** — benchmark público: backend ✅ implementado, falta ligar em produção (§10b).
+  Portal do cliente + NFC: ainda só especificado (§10a).
+
+⚠️ **Não confirmado: como o site vai para produção.** Há `.htaccess` de Apache e build estático em
+`out/`, sem CI. Se a publicação for upload manual na HostGator, **todo este trabalho está commitado
+mas possivelmente não publicado** — o site no ar pode ainda ser o antigo. Confirmar antes de tudo.
 
 Regra de ouro do projeto: **o site é a fachada pública do Bioma** (a plataforma multitenant que
 a EG constrói no outro repo), não um projeto isolado. Decisões de nomenclatura e posicionamento
@@ -77,7 +87,7 @@ Tokens e utilitários já no código — **usar sempre estes, não hex solto:**
   - `.animate-marquee` — marquee infinito (respeita `prefers-reduced-motion`).
 - **Motion:** framer-motion. Padrões usados: headline entrando linha-a-linha com máscara
   (`overflow-hidden` + `y:110%→0%`), reveal por scroll (`whileInView`), `useReducedMotion` sempre.
-- **Marca animada:** `EStaircaseMark` — **reescrita pelo CTO em 18/07** (commits `d36571b`, `5615819`,
+- **Marca animada:** `EStaircaseMark` — **reescrita pelo CTO entre 18 e 20/07** (commits `d36571b`, `5615819`,
   `5f21de4`) e é hoje o ativo visual mais original do site: contorno neon com *stroke-drawing*
   sequenciado (3 barras → espinha), filtros de glow SVG, stage em 3D com rotação idle e reflexo.
   Geometria correta do ícone oficial. **Manter e construir a partir dela.**
@@ -86,7 +96,7 @@ Tokens e utilitários já no código — **usar sempre estes, não hex solto:**
 
 **Esta seção era um guia de "repita este padrão em toda página". Isso foi rejeitado — e com razão.**
 
-Em 18/07 o CTO apontou que o site ficou com cara de "feito por IA". A crítica é procedente e
+Em 23/07 o CTO apontou que o site ficou com cara de "feito por IA". A crítica é procedente e
 quantificável (auditoria completa: `https://claude.ai/code/artifact/175db309-e79b-4a0a-b040-f4ec0af9a0bc`):
 
 | Padrão | Ocorrências | Problema |
@@ -102,7 +112,7 @@ quantificável (auditoria completa: `https://claude.ai/code/artifact/175db309-e7
 Toda página tem o mesmo ritmo. Trocar token ou cor não resolve; **quebrar a repetição resolve**.
 Design de verdade diferencia o ritmo conforme o trabalho que cada página faz.
 
-**Divisão de trabalho acordada (18/07):** estilização e identidade são do **CTO**; copy, estrutura e
+**Divisão de trabalho acordada (23/07):** estilização e identidade são do **CTO**; copy, estrutura e
 alinhamento factual são do assistente. Ao retomar: **não** reintroduzir os padrões da tabela acima
 sem falar com o CTO.
 
@@ -156,11 +166,11 @@ padrão ao criar páginas novas (necessário para SEO — Fase 0).
 Navbar + Footer, poc-hub (ver §8). A marca (`EStaircaseMark`) foi reescrita pelo CTO e é o melhor
 ativo visual do site.
 
-⚠️ **Mudança de responsabilidade (18/07):** a crítica do CTO (§3) foi aceita. **Estilização e
+⚠️ **Mudança de responsabilidade (23/07):** a crítica do CTO (§3) foi aceita. **Estilização e
 identidade visual passaram a ser dele.** O assistente não deve mais propor/aplicar tratamento visual
 sem alinhamento — a contribuição daqui pra frente é copy, estrutura, dado e verdade factual.
 
-⚠️ **Verificação visual:** até 18/07 nenhuma sessão do assistente conseguiu tirar screenshot do
+⚠️ **Verificação visual:** até 23/07 nenhuma sessão do assistente conseguiu tirar screenshot do
 localhost (Playwright registrado no meio da sessão, precisa de restart). Tudo foi validado por
 `tsc --noEmit` + `npm run build` + HTTP 200 — **nunca por inspeção de pixel**. Se for validar visual,
 usar Playwright numa sessão nova.
@@ -170,7 +180,7 @@ usar Playwright numa sessão nova.
 
 ---
 
-## 7. Fase 2 — Copy & arquitetura de informação — GRANDE PARTE FEITA (18/07)
+## 7. Fase 2 — Copy & arquitetura de informação — GRANDE PARTE FEITA (23/07)
 
 **Feito** (commits `daf611d`, `85cd536`, `55fc9f7`):
 - **Sistema Raiz está no site.** Home: hero nomeia o método; os 4 cards viram Raiz/Tronco/Ramos/Copa
@@ -254,7 +264,7 @@ Os campos de `leadConsent` (data de perda do lead, aviso de cortesia) são digit
 agrega/valida no backend, site só lê. O dado que hoje é digitado à mão — "lead perdido em tal data" —
 **o CRM do Bioma já tem**.
 
-**Decisão (18/07):** manter hardcoded por ora. Com 1 item, automatizar é over-engineering.
+**Decisão (23/07):** manter hardcoded por ora. Com 1 item, automatizar é over-engineering.
 **Quando passar de ~5 itens**, portar para o mesmo padrão do benchmark: endpoint público no Bioma +
 toggle de publicar/ocultar, lendo `clients`/leads com status "perdido" e flag de consentimento.
 
@@ -266,7 +276,7 @@ toggle de publicar/ocultar, lendo `clients`/leads com status "perdido" e flag de
 **`/blog` E `/autoridade`** — fetch em runtime via `wordpressService`. **Não existe MDX nem pasta de
 conteúdo local no repo.**
 
-**Recomendação revisada (18/07)** — substitui a anterior, que dizia "migrar para MDX no repo":
+**Recomendação revisada (23/07)** — substitui a anterior, que dizia "migrar para MDX no repo":
 
 O Eduardo confirmou que **squads vão escrever, com picos de volume**. MDX no repositório significa um
 PR por post — atrito alto para quem não é dev, justamente o perfil que vai produzir. As duas saídas
@@ -280,7 +290,7 @@ melhores:
 
 ---
 
-## 10. Bridge Bioma ↔ Site — ESPECIFICADO, não implementado
+## 10. Bridge Bioma ↔ Site — 10a especificado · 10b implementado
 
 Duas features futuras que ligam o site à plataforma. **Ambas são trabalho no repo `bioma` + consumo no site.**
 
@@ -350,7 +360,7 @@ Arquitetura decidida (**Bioma é a fonte; agrega e anonimiza no backend; o site 
 
 ---
 
-## 12. Próximos passos — atualizado 18/07
+## 12. Próximos passos — atualizado 23/07
 
 **Concluído:** handoff · poc-hub pronto · linguagem visual replicada · bridge do benchmark (backend) ·
 Fase 2 (Sistema Raiz + escada de ofertas no site) · riscos de copy eliminados · 28 órfãos limpos.
@@ -373,7 +383,7 @@ Fase 2 (Sistema Raiz + escada de ofertas no site) · riscos de copy eliminados �
 7. Portar o Portfólio para o Bioma quando passar de ~5 itens (§9).
 
 ### Operacional (humano)
-8. **Rotação da senha do WordPress** + salts (§5) — pendente desde 17/07.
+8. **Rotação da senha do WordPress** + salts (§5) — pendente desde 18/07.
 9. Deploy do `poc-hub` (Vercel + CNAME dedicado, §8).
 10. Ativar o benchmark em produção: migration `0012`, **CORS com as origens do site**, semear scores,
     virar o toggle (§10b).
