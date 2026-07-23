@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import HomeClient from './HomeClient'
 
 export const metadata: Metadata = {
-  title: 'EverGreen MKT | Consultoria de Crescimento Comercial e Tecnologia para Empresas B2B',
-  description: 'Diagnóstico, estruturação e acompanhamento comercial e tecnológico para empresas B2B com potencial real de crescimento.',
+  title: 'EverGreen | Consultoria de Previsibilidade Comercial e Tecnológica para B2B',
+  description: 'Consultoria boutique que transforma operação em previsibilidade. Pelo Sistema Raiz EG: diagnosticamos onde a receita vaza (Raio-X Comercial), priorizamos o gargalo de maior impacto e estruturamos a operação que sustenta o crescimento.',
 }
 
 export default function Page() {
