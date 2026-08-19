@@ -10,22 +10,23 @@ function FacebookPixelInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [loaded, setLoaded] = useState(false);
+  const disabledForImmersiveExperience = pathname === '/growth' || pathname.startsWith('/growth/');
 
   useEffect(() => {
     // Quando o componente for montado, carregue o script do Facebook Pixel
-    if (!loaded && fbq.FB_PIXEL_ID) {
+    if (!disabledForImmersiveExperience && !loaded && fbq.FB_PIXEL_ID) {
       setLoaded(true);
     }
-  }, [loaded]);
+  }, [disabledForImmersiveExperience, loaded]);
 
   useEffect(() => {
     // Registrar uma pageview sempre que a URL mudar
-    if (fbq.FB_PIXEL_ID) {
+    if (!disabledForImmersiveExperience && fbq.FB_PIXEL_ID) {
       fbq.pageview();
     }
-  }, [pathname, searchParams]);
+  }, [disabledForImmersiveExperience, pathname, searchParams]);
 
-  if (!fbq.FB_PIXEL_ID) {
+  if (disabledForImmersiveExperience || !fbq.FB_PIXEL_ID) {
     return null;
   }
 

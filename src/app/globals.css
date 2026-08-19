@@ -4,7 +4,8 @@
 
 @layer base {
   :root {
-    --font-sans: 'Helvetica Neue', Helvetica, var(--font-inter), Arial, sans-serif;
+    --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
     --musgo: #09231B;
     --musgo-deep: #05170F;
     --menta: #3AC97B;
@@ -257,4 +258,4 @@
   .blog-content em {
     @apply text-gray-200 italic;
   }
-} 
+}
