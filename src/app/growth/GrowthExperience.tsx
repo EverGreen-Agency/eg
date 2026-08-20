@@ -274,38 +274,130 @@ export default function GrowthExperience() {
           track('section_viewed', { section: section.id })
           if (section.id === 'contato') track('presentation_completed')
         }
-      }, { threshold: .55 })
+      }, { threshold: [0.2, 0.45], rootMargin: '-10% 0px -10% 0px' })
       observer.observe(element)
       return observer
     })
     return () => observers.forEach(observer => observer?.disconnect())
   }, [sections])
 
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { setMethod(null); setCaseId(null); setNavOpen(false); return }
-      if (method || caseId) return
-      if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(event.key)) { event.preventDefault(); scrollTo(activeSection + 1) }
-      if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); scrollTo(activeSection - 1) }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [activeSection, caseId, method, scrollTo])
-
-  const openMethod = (key: MethodKey) => {
-    setMethod(key); track('method_viewed', { method: key })
+  const openMethod = useCallback((key: MethodKey) => {
+    setMethod(key)
+    track('method_viewed', { method: key })
     replaceExperienceUrl(`${window.location.pathname}?explore=${key}#metodo`)
-  }
-  const closeMethod = () => { setMethod(null); replaceExperienceUrl(`${window.location.pathname}#metodo`) }
+  }, [])
+
+  const closeMethod = useCallback(() => {
+    setMethod(null)
+    replaceExperienceUrl(`${window.location.pathname}#metodo`)
+  }, [])
+
   const openCase = (id: string) => {
-    setCaseId(id); setCaseStep(0); track('case_viewed', { case: id })
+    setCaseId(id)
+    setCaseStep(0)
+    track('case_viewed', { case: id })
     replaceExperienceUrl(`${window.location.pathname}?case=${id}#evidencias`)
   }
+
   const currentCase = useMemo(() => cases.find(item => item.id === caseId), [caseId, cases])
+
+  const methodKeys = useMemo<MethodKey[]>(() => ['diagnostico', 'arquitetura', 'implementacao', 'operacao', 'evolucao'], [])
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const isFormElement = ['INPUT', 'TEXTAREA', 'SELECT'].includes((event.target as HTMLElement)?.tagName)
+      if (isFormElement) return
+
+      if (event.key === 'Escape') {
+        setMethod(null)
+        setCaseId(null)
+        setNavOpen(false)
+        replaceExperienceUrl(window.location.pathname)
+        return
+      }
+
+      const isNext = ['ArrowDown', 'ArrowRight', 'PageDown'].includes(event.key)
+      const isPrev = ['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)
+
+      // 1. Navigation inside open Case Study modal
+      if (caseId && currentCase) {
+        if (isNext) {
+          event.preventDefault()
+          if (caseStep < currentCase.sections.length - 1) {
+            setCaseStep(s => s + 1)
+          } else {
+            setCaseId(null)
+            replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+          }
+          return
+        }
+        if (isPrev) {
+          event.preventDefault()
+          if (caseStep > 0) {
+            setCaseStep(s => s - 1)
+          } else {
+            setCaseId(null)
+            replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+          }
+          return
+        }
+      }
+
+      // 2. Navigation inside open Method Module modal
+      if (method) {
+        const currentIndex = methodKeys.indexOf(method)
+        if (isNext) {
+          event.preventDefault()
+          if (currentIndex < methodKeys.length - 1) {
+            openMethod(methodKeys[currentIndex + 1])
+          } else {
+            closeMethod()
+          }
+          return
+        }
+        if (isPrev) {
+          event.preventDefault()
+          if (currentIndex > 0) {
+            openMethod(methodKeys[currentIndex - 1])
+          } else {
+            closeMethod()
+          }
+          return
+        }
+      }
+
+      // 3. Presentation slide deck section navigation
+      if (isNext) {
+        event.preventDefault()
+        scrollTo(activeSection + 1)
+        return
+      }
+      if (isPrev) {
+        event.preventDefault()
+        scrollTo(activeSection - 1)
+        return
+      }
+      if (event.key === 'Home') {
+        event.preventDefault()
+        scrollTo(0)
+        return
+      }
+      if (event.key === 'End') {
+        event.preventDefault()
+        scrollTo(sections.length - 1)
+        return
+      }
+    }
+
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections])
   const visibleLever = hoveredLever ?? (systemEngaged ? lever : -1)
   const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : leverRelations[visibleLever]) : []
   const visibleCapability = hoveredCapability ?? capability
   const relatedCapabilities = capabilityRelations[visibleCapability]
+
+  const isLightSection = ['gargalo', 'tempo', 'evidencias', 'padrao'].includes(sections[activeSection]?.id)
 
   return (
     <main className={`${styles.experience} grain`}>
@@ -318,7 +410,7 @@ export default function GrowthExperience() {
         <button className={styles.menuButton} onClick={() => setNavOpen(!navOpen)} aria-label={t.navMapTitle}><Menu size={20} /><span>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span></button>
       </header>
 
-      <nav className={styles.progress} aria-label="Progresso da apresentação">
+      <nav className={`${styles.progress} ${isLightSection ? styles.lightProgress : ''}`} aria-label="Progresso da apresentação">
         {sections.map((section, i) => <button key={section.id} aria-label={section.label} className={i === activeSection ? styles.current : ''} onClick={() => scrollTo(i)}><i /><span>{section.label}</span></button>)}
       </nav>
 
