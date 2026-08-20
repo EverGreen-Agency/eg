@@ -251,6 +251,7 @@ export default function GrowthExperience() {
 
   const scrollTo = useCallback((index: number) => {
     const next = Math.max(0, Math.min(sections.length - 1, index))
+    setCardIndex(null)
     document.getElementById(sections[next].id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })
     setNavOpen(false)
   }, [reduceMotion, sections])
@@ -271,6 +272,7 @@ export default function GrowthExperience() {
       const observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
           setActiveSection(index)
+          setCardIndex(null)
           track('section_viewed', { section: section.id })
           if (section.id === 'contato') track('presentation_completed')
         }
@@ -318,20 +320,14 @@ export default function GrowthExperience() {
   const getSectionCardCount = useCallback((sectionIdx: number) => {
     switch (sectionIdx) {
       case 1: return problems.length
-      case 2: return systemLevers.length
       case 3: return 5
-      case 4: return 4
-      case 5: return capabilities.length
-      case 6: return 2
       case 7: return cases.length
       default: return 0
     }
-  }, [problems.length, systemLevers.length, capabilities.length, cases.length])
+  }, [problems.length, cases.length])
 
   const syncSectionCardState = useCallback((sectionIdx: number, cIdx: number) => {
     if (sectionIdx === 1) setProblem(cIdx)
-    if (sectionIdx === 2) { setLever(cIdx); setSystemEngaged(true) }
-    if (sectionIdx === 5) setCapability(cIdx)
   }, [])
 
   useEffect(() => {
@@ -343,7 +339,6 @@ export default function GrowthExperience() {
         setMethod(null)
         setCaseId(null)
         setNavOpen(false)
-        setCardIndex(null)
         replaceExperienceUrl(window.location.pathname)
         return
       }
@@ -351,15 +346,19 @@ export default function GrowthExperience() {
       const isNext = ['ArrowDown', 'ArrowRight', 'PageDown'].includes(event.key)
       const isPrev = ['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)
 
-      // 1. Navigation inside open Case Study modal
+      // 1. Navigation inside open Case Study modal (step-by-step & case-to-case)
       if (caseId && currentCase) {
+        const cIdx = cases.findIndex(c => c.id === caseId)
         if (isNext) {
           event.preventDefault()
           if (caseStep < currentCase.sections.length - 1) {
             setCaseStep(s => s + 1)
+          } else if (cIdx >= 0 && cIdx < cases.length - 1) {
+            openCase(cases[cIdx + 1].id)
           } else {
             setCaseId(null)
             replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+            scrollTo(8)
           }
           return
         }
@@ -367,6 +366,10 @@ export default function GrowthExperience() {
           event.preventDefault()
           if (caseStep > 0) {
             setCaseStep(s => s - 1)
+          } else if (cIdx > 0) {
+            const prevCase = cases[cIdx - 1]
+            openCase(prevCase.id)
+            setCaseStep(prevCase.sections.length - 1)
           } else {
             setCaseId(null)
             replaceExperienceUrl(`${window.location.pathname}#evidencias`)
@@ -375,22 +378,23 @@ export default function GrowthExperience() {
         }
       }
 
-      // 2. Navigation inside open Method Module modal
+      // 2. Navigation inside open Method Module modal (module-by-module)
       if (method) {
-        const currentIndex = methodKeys.indexOf(method)
+        const mIdx = methodKeys.indexOf(method)
         if (isNext) {
           event.preventDefault()
-          if (currentIndex < methodKeys.length - 1) {
-            openMethod(methodKeys[currentIndex + 1])
+          if (mIdx < methodKeys.length - 1) {
+            openMethod(methodKeys[mIdx + 1])
           } else {
             closeMethod()
+            scrollTo(4)
           }
           return
         }
         if (isPrev) {
           event.preventDefault()
-          if (currentIndex > 0) {
-            openMethod(methodKeys[currentIndex - 1])
+          if (mIdx > 0) {
+            openMethod(methodKeys[mIdx - 1])
           } else {
             closeMethod()
           }
@@ -398,65 +402,54 @@ export default function GrowthExperience() {
         }
       }
 
-      // Enter or Space triggers action on focused card
-      if (['Enter', ' '].includes(event.key) && cardIndex !== null) {
-        event.preventDefault()
-        if (activeSection === 3) openMethod(methodKeys[cardIndex])
-        if (activeSection === 7) openCase(cases[cardIndex].id)
-        if (activeSection === 1) setProblem(cardIndex)
-        if (activeSection === 2) { setLever(cardIndex); setSystemEngaged(true) }
-        if (activeSection === 5) setCapability(cardIndex)
-        return
-      }
-
-      // 3. Card-by-card sequential arrow navigation & slide deck section navigation
-      const cardCount = getSectionCardCount(activeSection)
-
+      // 3. Slide deck section & automatic card/modal experience navigation
       if (isNext) {
         event.preventDefault()
-        if (cardCount > 0) {
-          if (cardIndex === null) {
-            setCardIndex(0)
-            syncSectionCardState(activeSection, 0)
-          } else if (cardIndex < cardCount - 1) {
-            const nextIdx = cardIndex + 1
-            setCardIndex(nextIdx)
-            syncSectionCardState(activeSection, nextIdx)
+        if (activeSection === 1) {
+          if (problem < problems.length - 1) {
+            setProblem(p => p + 1)
           } else {
-            setCardIndex(null)
-            scrollTo(activeSection + 1)
+            scrollTo(2)
           }
-        } else {
-          scrollTo(activeSection + 1)
+          return
         }
+        if (activeSection === 3 && !method) {
+          openMethod(methodKeys[0])
+          return
+        }
+        if (activeSection === 7 && !caseId && cases.length > 0) {
+          openCase(cases[0].id)
+          return
+        }
+        scrollTo(activeSection + 1)
         return
       }
 
       if (isPrev) {
         event.preventDefault()
-        if (cardIndex !== null) {
-          if (cardIndex > 0) {
-            const prevIdx = cardIndex - 1
-            setCardIndex(prevIdx)
-            syncSectionCardState(activeSection, prevIdx)
+        if (activeSection === 1) {
+          if (problem > 0) {
+            setProblem(p => p - 1)
           } else {
-            setCardIndex(null)
+            scrollTo(0)
           }
-        } else {
-          scrollTo(activeSection - 1)
+          return
         }
+        scrollTo(activeSection - 1)
         return
       }
 
       if (event.key === 'Home') {
         event.preventDefault()
-        setCardIndex(null)
+        setMethod(null)
+        setCaseId(null)
         scrollTo(0)
         return
       }
       if (event.key === 'End') {
         event.preventDefault()
-        setCardIndex(null)
+        setMethod(null)
+        setCaseId(null)
         scrollTo(sections.length - 1)
         return
       }
@@ -464,7 +457,7 @@ export default function GrowthExperience() {
 
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cardIndex, getSectionCardCount, syncSectionCardState, cases])
+  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cases, problems.length, problem])
   const visibleLever = hoveredLever ?? (systemEngaged ? lever : -1)
   const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : leverRelations[visibleLever]) : []
   const visibleCapability = hoveredCapability ?? capability
