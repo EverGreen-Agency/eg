@@ -265,7 +265,7 @@ export default function GrowthExperience() {
   return (
     <main className={`${styles.experience} grain`}>
       <header className={styles.topbar}>
-        <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/Evergreen - Horizontal.png" alt="EverGreen — Crescimento previsível, escalável e tecnológico" /></a>
+        <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/evergreen-horizontal.png" alt="EverGreen — Crescimento previsível, escalável e tecnológico" /></a>
         <div className={`${styles.modeSwitch} ${styles.exploreControl}`}>
           <button className={styles.selected} onClick={() => setNavOpen(true)} aria-label="Explorar mapa da experiência"><Compass size={14} /> Explorar</button>
         </div>

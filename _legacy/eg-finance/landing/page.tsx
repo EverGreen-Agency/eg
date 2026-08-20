@@ -112,7 +112,7 @@ export default function EgFinanceLanding() {
         <div className="max-w-4xl mx-auto text-center">
           <motion.div className="mb-6 flex flex-col items-center" variants={fadeInUp}>
             <Image 
-              src="/images/EverGreen - Horizontal.png" 
+              src="/images/evergreen-horizontal.png" 
               alt="EverGreen" 
               width={240} 
               height={60} 

@@ -19,7 +19,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/EverGreen - Horizontal.png"
+                src="/images/evergreen-horizontal.png"
                 alt="EverGreen MKT"
                 width={180}
                 height={40}
