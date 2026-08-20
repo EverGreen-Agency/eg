@@ -299,9 +299,40 @@ export default function GrowthExperience() {
     replaceExperienceUrl(`${window.location.pathname}?case=${id}#evidencias`)
   }
 
+  const [cardIndex, setCardIndex] = useState<number | null>(null)
+
   const currentCase = useMemo(() => cases.find(item => item.id === caseId), [caseId, cases])
 
   const methodKeys = useMemo<MethodKey[]>(() => ['diagnostico', 'arquitetura', 'implementacao', 'operacao', 'evolucao'], [])
+
+  useEffect(() => {
+    setCardIndex(null)
+  }, [activeSection])
+
+  useEffect(() => {
+    const onWheel = () => setCardIndex(null)
+    window.addEventListener('wheel', onWheel, { passive: true })
+    return () => window.removeEventListener('wheel', onWheel)
+  }, [])
+
+  const getSectionCardCount = useCallback((sectionIdx: number) => {
+    switch (sectionIdx) {
+      case 1: return problems.length
+      case 2: return systemLevers.length
+      case 3: return 5
+      case 4: return 4
+      case 5: return capabilities.length
+      case 6: return 2
+      case 7: return cases.length
+      default: return 0
+    }
+  }, [problems.length, systemLevers.length, capabilities.length, cases.length])
+
+  const syncSectionCardState = useCallback((sectionIdx: number, cIdx: number) => {
+    if (sectionIdx === 1) setProblem(cIdx)
+    if (sectionIdx === 2) { setLever(cIdx); setSystemEngaged(true) }
+    if (sectionIdx === 5) setCapability(cIdx)
+  }, [])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -312,6 +343,7 @@ export default function GrowthExperience() {
         setMethod(null)
         setCaseId(null)
         setNavOpen(false)
+        setCardIndex(null)
         replaceExperienceUrl(window.location.pathname)
         return
       }
@@ -366,24 +398,65 @@ export default function GrowthExperience() {
         }
       }
 
-      // 3. Presentation slide deck section navigation
+      // Enter or Space triggers action on focused card
+      if (['Enter', ' '].includes(event.key) && cardIndex !== null) {
+        event.preventDefault()
+        if (activeSection === 3) openMethod(methodKeys[cardIndex])
+        if (activeSection === 7) openCase(cases[cardIndex].id)
+        if (activeSection === 1) setProblem(cardIndex)
+        if (activeSection === 2) { setLever(cardIndex); setSystemEngaged(true) }
+        if (activeSection === 5) setCapability(cardIndex)
+        return
+      }
+
+      // 3. Card-by-card sequential arrow navigation & slide deck section navigation
+      const cardCount = getSectionCardCount(activeSection)
+
       if (isNext) {
         event.preventDefault()
-        scrollTo(activeSection + 1)
+        if (cardCount > 0) {
+          if (cardIndex === null) {
+            setCardIndex(0)
+            syncSectionCardState(activeSection, 0)
+          } else if (cardIndex < cardCount - 1) {
+            const nextIdx = cardIndex + 1
+            setCardIndex(nextIdx)
+            syncSectionCardState(activeSection, nextIdx)
+          } else {
+            setCardIndex(null)
+            scrollTo(activeSection + 1)
+          }
+        } else {
+          scrollTo(activeSection + 1)
+        }
         return
       }
+
       if (isPrev) {
         event.preventDefault()
-        scrollTo(activeSection - 1)
+        if (cardIndex !== null) {
+          if (cardIndex > 0) {
+            const prevIdx = cardIndex - 1
+            setCardIndex(prevIdx)
+            syncSectionCardState(activeSection, prevIdx)
+          } else {
+            setCardIndex(null)
+          }
+        } else {
+          scrollTo(activeSection - 1)
+        }
         return
       }
+
       if (event.key === 'Home') {
         event.preventDefault()
+        setCardIndex(null)
         scrollTo(0)
         return
       }
       if (event.key === 'End') {
         event.preventDefault()
+        setCardIndex(null)
         scrollTo(sections.length - 1)
         return
       }
@@ -391,7 +464,7 @@ export default function GrowthExperience() {
 
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections])
+  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cardIndex, getSectionCardCount, syncSectionCardState, cases])
   const visibleLever = hoveredLever ?? (systemEngaged ? lever : -1)
   const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : leverRelations[visibleLever]) : []
   const visibleCapability = hoveredCapability ?? capability
@@ -435,7 +508,7 @@ export default function GrowthExperience() {
         <div className={styles.chapterInner}>
           <SectionTitle eyebrow={`01 — ${t.bottleneckEyebrow}`}>{t.bottleneckTitle}</SectionTitle>
           <div className={styles.problemStage}>
-            <div className={styles.problemTabs}>{problems.map((item, i) => <button key={item.request} onClick={() => setProblem(i)} className={problem === i ? styles.active : ''}><span>0{i + 1}</span>{item.request}</button>)}</div>
+            <div className={styles.problemTabs}>{problems.map((item, i) => <button key={item.request} onClick={() => setProblem(i)} className={`${problem === i ? styles.active : ''} ${activeSection === 1 && cardIndex === i ? styles.cardFocused : ''}`}><span>0{i + 1}</span>{item.request}</button>)}</div>
             <AnimatePresence mode="wait"><motion.div key={problem} className={styles.problemFlow} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: .35 }}>
               <div><small>{t.reqLabel}</small><strong>{problems[problem].request}</strong></div><ChevronRight />
               <div><small>{t.sympLabel}</small><strong>{problems[problem].symptom}</strong></div><ChevronRight />
@@ -470,7 +543,7 @@ export default function GrowthExperience() {
             </div>
           </div>
           <div className={styles.discovery}><p>{lang === 'en' ? 'Does more leads always equal more growth?' : 'Mais leads sempre significam mais crescimento?'}</p><div><button onClick={() => setAnswered(true)}>{lang === 'en' ? 'Yes' : 'Sim'}</button><button onClick={() => setAnswered(false)}>{lang === 'en' ? 'Not necessarily' : 'Não necessariamente'}</button></div>
-            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacity' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
+            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacidade' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
           </div>
         </div>
       </section>
@@ -481,7 +554,7 @@ export default function GrowthExperience() {
           <div className={styles.methodShell}>
             <AnimatePresence mode="wait">
               {method ? <MethodDetail key={method} method={method} onClose={closeMethod} data={methodModules[method]} lang={lang} /> : <motion.div className={styles.methodOverview} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data]) => <motion.button layoutId={`method-${key}`} key={key} onClick={() => openMethod(key)}><span>{data.number}</span><div><strong>{data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
+                {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data], i) => <motion.button layoutId={`method-${key}`} key={key} onClick={() => openMethod(key)} className={activeSection === 3 && cardIndex === i ? styles.cardFocused : ''}><span>{data.number}</span><div><strong>{data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
               </motion.div>}
             </AnimatePresence>
           </div>
