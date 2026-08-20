@@ -249,9 +249,12 @@ export default function GrowthExperience() {
     }
   }, [caseId])
 
+  const [caseSummaryVisible, setCaseSummaryVisible] = useState(false)
+
   const scrollTo = useCallback((index: number) => {
     const next = Math.max(0, Math.min(sections.length - 1, index))
     setCardIndex(null)
+    setCaseSummaryVisible(false)
     document.getElementById(sections[next].id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })
     setNavOpen(false)
   }, [reduceMotion, sections])
@@ -273,6 +276,7 @@ export default function GrowthExperience() {
         if (entry.isIntersecting) {
           setActiveSection(index)
           setCardIndex(null)
+          setCaseSummaryVisible(false)
           track('section_viewed', { section: section.id })
           if (section.id === 'contato') track('presentation_completed')
         }
@@ -294,12 +298,12 @@ export default function GrowthExperience() {
     replaceExperienceUrl(`${window.location.pathname}#metodo`)
   }, [])
 
-  const openCase = (id: string) => {
+  const openCase = useCallback((id: string) => {
     setCaseId(id)
     setCaseStep(0)
     track('case_viewed', { case: id })
     replaceExperienceUrl(`${window.location.pathname}?case=${id}#evidencias`)
-  }
+  }, [])
 
   const [cardIndex, setCardIndex] = useState<number | null>(null)
 
@@ -312,7 +316,10 @@ export default function GrowthExperience() {
   }, [activeSection])
 
   useEffect(() => {
-    const onWheel = () => setCardIndex(null)
+    const onWheel = () => {
+      setCardIndex(null)
+      setCaseSummaryVisible(false)
+    }
     window.addEventListener('wheel', onWheel, { passive: true })
     return () => window.removeEventListener('wheel', onWheel)
   }, [])
@@ -340,6 +347,7 @@ export default function GrowthExperience() {
         setCaseId(null)
         setNavOpen(false)
         setCardIndex(null)
+        setCaseSummaryVisible(false)
         replaceExperienceUrl(window.location.pathname)
         return
       }
@@ -347,31 +355,90 @@ export default function GrowthExperience() {
       const isNext = ['ArrowDown', 'ArrowRight', 'PageDown'].includes(event.key)
       const isPrev = ['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)
 
-      // 1. Navigation inside open Case Study modal
-      if (caseId && currentCase) {
+      // 1. Navigation inside Cases section (Section 7: #evidencias)
+      if (activeSection === 7 || caseId !== null) {
         if (isNext) {
           event.preventDefault()
-          if (caseStep < currentCase.sections.length - 1) {
-            setCaseStep(s => s + 1)
+          if (caseId && currentCase) {
+            if (caseStep < currentCase.sections.length - 1) {
+              setCaseStep(s => s + 1)
+            } else {
+              const currentCaseIdx = cases.findIndex(item => item.id === caseId)
+              setCaseId(null)
+              if (currentCaseIdx >= 0 && currentCaseIdx < cases.length - 1) {
+                openCase(cases[currentCaseIdx + 1].id)
+              } else {
+                replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+                document.querySelector('.' + styles.caseCommon)?.scrollIntoView({ behavior: 'smooth' })
+                setCaseSummaryVisible(true)
+              }
+            }
+          } else if (!caseSummaryVisible) {
+            openCase(cases[0].id)
           } else {
-            setCaseId(null)
-            replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+            setCaseSummaryVisible(false)
+            scrollTo(8)
           }
           return
         }
+
         if (isPrev) {
           event.preventDefault()
-          if (caseStep > 0) {
-            setCaseStep(s => s - 1)
+          if (caseId && currentCase) {
+            if (caseStep > 0) {
+              setCaseStep(s => s - 1)
+            } else {
+              const currentCaseIdx = cases.findIndex(item => item.id === caseId)
+              setCaseId(null)
+              if (currentCaseIdx > 0) {
+                openCase(cases[currentCaseIdx - 1].id)
+              } else {
+                replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+                scrollTo(7)
+              }
+            }
+          } else if (caseSummaryVisible) {
+            setCaseSummaryVisible(false)
+            openCase(cases[cases.length - 1].id)
           } else {
-            setCaseId(null)
-            replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+            scrollTo(6)
           }
           return
         }
       }
 
-      // 2. Navigation inside Method section (Section 3: #metodo)
+      // 2. Navigation inside System Wheel section (Section 2: #sistema)
+      if (activeSection === 2) {
+        if (isNext) {
+          event.preventDefault()
+          if (!systemEngaged) {
+            setLever(0)
+            setSystemEngaged(true)
+            setSystemSimulation(false)
+          } else if (lever < systemLevers.length - 1) {
+            setLever(l => l + 1)
+            setSystemSimulation(false)
+          } else {
+            setSystemEngaged(false)
+            scrollTo(3)
+          }
+          return
+        }
+        if (isPrev) {
+          event.preventDefault()
+          if (systemEngaged && lever > 0) {
+            setLever(l => l - 1)
+            setSystemSimulation(false)
+          } else if (systemEngaged && lever === 0) {
+            setSystemEngaged(false)
+          } else {
+            scrollTo(1)
+          }
+          return
+        }
+      }
+
+      // 3. Navigation inside Method section (Section 3: #metodo)
       if (activeSection === 3 || method !== null) {
         if (isNext) {
           event.preventDefault()
@@ -399,6 +466,28 @@ export default function GrowthExperience() {
             } else {
               closeMethod()
             }
+          }
+          return
+        }
+      }
+
+      // 4. Navigation inside Capabilities Wheel section (Section 5: #capacidades)
+      if (activeSection === 5) {
+        if (isNext) {
+          event.preventDefault()
+          if (capability < capabilities.length - 1) {
+            setCapability(c => c + 1)
+          } else {
+            scrollTo(6)
+          }
+          return
+        }
+        if (isPrev) {
+          event.preventDefault()
+          if (capability > 0) {
+            setCapability(c => c - 1)
+          } else {
+            scrollTo(4)
           }
           return
         }
