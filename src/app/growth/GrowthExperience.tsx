@@ -299,8 +299,8 @@ export default function GrowthExperience() {
   }, [])
 
   const openCase = useCallback((id: string) => {
-    setCaseId(id)
     setCaseStep(0)
+    setCaseId(id)
     track('case_viewed', { case: id })
     replaceExperienceUrl(`${window.location.pathname}?case=${id}#evidencias`)
   }, [])
@@ -561,9 +561,9 @@ export default function GrowthExperience() {
     return () => window.removeEventListener('keydown', onKey)
   }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cardIndex, getSectionCardCount, syncSectionCardState, cases])
   const visibleLever = hoveredLever ?? (systemEngaged ? lever : -1)
-  const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : leverRelations[visibleLever]) : []
+  const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : (leverRelations[visibleLever] || [])) : []
   const visibleCapability = hoveredCapability ?? capability
-  const relatedCapabilities = capabilityRelations[visibleCapability]
+  const relatedCapabilities = capabilityRelations[visibleCapability] || []
 
   const isLightSection = ['gargalo', 'tempo', 'evidencias', 'padrao'].includes(sections[activeSection]?.id)
 
@@ -605,9 +605,9 @@ export default function GrowthExperience() {
           <div className={styles.problemStage}>
             <div className={styles.problemTabs}>{problems.map((item, i) => <button key={item.request} onClick={() => setProblem(i)} className={`${problem === i ? styles.active : ''} ${activeSection === 1 && cardIndex === i ? styles.cardFocused : ''}`}><span>0{i + 1}</span>{item.request}</button>)}</div>
             <AnimatePresence mode="wait"><motion.div key={problem} className={styles.problemFlow} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: .35 }}>
-              <div><small>{t.reqLabel}</small><strong>{problems[problem].request}</strong></div><ChevronRight />
-              <div><small>{t.sympLabel}</small><strong>{problems[problem].symptom}</strong></div><ChevronRight />
-              <div className={styles.rootCause}><small>{t.causeLabel}</small><strong>{problems[problem].cause}</strong></div>
+              <div><small>{t.reqLabel}</small><strong>{problems[problem]?.request}</strong></div><ChevronRight />
+              <div><small>{t.sympLabel}</small><strong>{problems[problem]?.symptom}</strong></div><ChevronRight />
+              <div className={styles.rootCause}><small>{t.causeLabel}</small><strong>{problems[problem]?.cause}</strong></div>
             </motion.div></AnimatePresence>
           </div>
           <div className={styles.statement}>{lang === 'en' ? 'We don’t sell isolated tools.' : 'Não vendemos uma ferramenta isolada.'}<b>{lang === 'en' ? ' We solve real bottlenecks.' : ' Encontramos o gargalo real.'}</b></div>
@@ -621,7 +621,7 @@ export default function GrowthExperience() {
             <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="System wheel">
               {systemLevers.map((item, i) => {
                 const isActive = visibleLever === i
-                const isRelated = relatedLevers.includes(i)
+                const isRelated = (relatedLevers || []).includes(i)
                 const point = sectorLabelPoint(i, systemLevers.length)
                 const sectorClass = `${styles.wheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${visibleLever >= 0 && !isActive && !isRelated ? styles.dimmed : ''}`
                 return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.note}`} aria-pressed={lever === i && systemEngaged} onClick={() => { setLever(i); setSystemEngaged(true); setSystemSimulation(false) }} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setLever(i); setSystemEngaged(true); setSystemSimulation(false) } }} onPointerEnter={() => setHoveredLever(i)} onFocus={() => setHoveredLever(i)} onBlur={() => setHoveredLever(null)}>
@@ -633,7 +633,7 @@ export default function GrowthExperience() {
             </svg>
             <div className={styles.revenueCore}>
               <AnimatePresence mode="wait">
-                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {relatedLevers.map(index => systemLevers[index].name).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
+                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 && systemLevers[visibleLever] ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {(relatedLevers || []).map(index => systemLevers[index]?.name).filter(Boolean).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
               </AnimatePresence>
             </div>
           </div>
@@ -675,7 +675,7 @@ export default function GrowthExperience() {
               <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="Capabilities wheel">
                 {capabilities.map((item, i) => {
                   const isActive = visibleCapability === i
-                  const isRelated = relatedCapabilities.includes(i)
+                  const isRelated = (relatedCapabilities || []).includes(i)
                   const point = capabilityLabelPoint(i, capabilities.length)
                   const sectorClass = `${styles.wheelSector} ${styles.capabilityWheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${!isActive && !isRelated ? styles.dimmed : ''}`
                   return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.use}`} aria-pressed={capability === i} onClick={() => setCapability(i)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setCapability(i) } }} onPointerEnter={() => setHoveredCapability(i)} onFocus={() => setHoveredCapability(i)} onBlur={() => setHoveredCapability(null)}>
@@ -686,13 +686,13 @@ export default function GrowthExperience() {
                 <circle className={styles.wheelInnerRing} cx="50" cy="50" r="19" />
               </svg>
               <div className={styles.revenueCore}>
-                <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{capabilityPositions[visibleCapability].group}</small><strong>{capabilities[visibleCapability].name}</strong><span>{capabilities[visibleCapability].use}</span></motion.div></AnimatePresence>
+                <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{capabilityPositions[visibleCapability]?.group ?? ''}</small><strong>{capabilities[visibleCapability]?.name ?? ''}</strong><span>{capabilities[visibleCapability]?.use ?? ''}</span></motion.div></AnimatePresence>
               </div>
             </div>
             <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.capabilityPanel} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: .28, ease }}>
-              <small>{lang === 'en' ? 'CAPABILITY' : 'CAPACIDADE'} {String(visibleCapability + 1).padStart(2, '0')} · {capabilityPositions[visibleCapability].group}</small><h3>{capabilities[visibleCapability].name}</h3><p>{capabilities[visibleCapability].use}</p>
-              <div><span>{lang === 'en' ? 'WHEN TO USE' : 'QUANDO ENTRA'}</span>{capabilities[visibleCapability].yes}</div><div className={styles.no}><span>{lang === 'en' ? 'WHEN NOT TO USE' : 'QUANDO NÃO ENTRA'}</span>{capabilities[visibleCapability].no}</div>
-              <footer><b>{lang === 'en' ? 'Relates to' : 'Relaciona com'}</b>{relatedCapabilities.map(index => <button key={capabilities[index].name} onClick={() => setCapability(index)}>{capabilities[index].name}</button>)}</footer>
+              <small>{lang === 'en' ? 'CAPABILITY' : 'CAPACIDADE'} {String(visibleCapability + 1).padStart(2, '0')} · {capabilityPositions[visibleCapability]?.group ?? ''}</small><h3>{capabilities[visibleCapability]?.name ?? ''}</h3><p>{capabilities[visibleCapability]?.use ?? ''}</p>
+              <div><span>{lang === 'en' ? 'WHEN TO USE' : 'QUANDO ENTRA'}</span>{capabilities[visibleCapability]?.yes ?? ''}</div><div className={styles.no}><span>{lang === 'en' ? 'WHEN NOT TO USE' : 'QUANDO NÃO ENTRA'}</span>{capabilities[visibleCapability]?.no ?? ''}</div>
+              <footer><b>{lang === 'en' ? 'Relates to' : 'Relaciona com'}</b>{(relatedCapabilities || []).map(index => capabilities[index] ? <button key={capabilities[index].name} onClick={() => setCapability(index)}>{capabilities[index].name}</button> : null)}</footer>
             </motion.div></AnimatePresence>
           </div>
         </div>
@@ -743,11 +743,11 @@ export default function GrowthExperience() {
           <button className={styles.closeButton} aria-label="Close case study" onClick={() => { setCaseId(null); replaceExperienceUrl(`${window.location.pathname}#evidencias`) }}><X /></button>
           <div className={styles.caseHeading}><Eyebrow>{lang === 'en' ? 'Inside the operation' : 'Por dentro da operação'}</Eyebrow><span>{currentCase.category}</span><h3>{currentCase.name}</h3><strong>{currentCase.headline}</strong><b>{currentCase.metric}</b><p>{currentCase.evidence}</p></div>
           <div className={styles.caseSteps}>{currentCase.sections.map((step, i) => <button key={step.label} className={caseStep === i ? styles.active : ''} onClick={() => setCaseStep(i)}><span>{String(i + 1).padStart(2, '0')}</span>{step.label}</button>)}</div>
-          <motion.div key={`${currentCase.id}-${caseStep}`} className={styles.caseContent} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}>
+          {currentCase.sections[caseStep] && <motion.div key={`${currentCase.id}-${caseStep}`} className={styles.caseContent} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}>
             <small>{currentCase.sections[caseStep].label}</small>
             <CaseSectionCopy section={currentCase.sections[caseStep]} />
-            <div className={styles.caseControls}><button aria-label="Previous step" disabled={caseStep === 0} onClick={() => setCaseStep(caseStep - 1)}><ArrowLeft /></button><button aria-label="Next step" disabled={caseStep === currentCase.sections.length - 1} onClick={() => setCaseStep(caseStep + 1)}><ArrowRight /></button></div>
-          </motion.div>
+            <div className={styles.caseControls}><button aria-label="Previous step" disabled={caseStep === 0} onClick={() => setCaseStep(s => Math.max(0, s - 1))}><ArrowLeft /></button><button aria-label="Next step" disabled={caseStep >= currentCase.sections.length - 1} onClick={() => setCaseStep(s => Math.min(currentCase.sections.length - 1, s + 1))}><ArrowRight /></button></div>
+          </motion.div>}
         </motion.div>}</AnimatePresence>
       </section>
 
