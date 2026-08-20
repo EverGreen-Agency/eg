@@ -78,8 +78,9 @@
 @media (max-width:520px){.teamCard:first-child .teamPortrait img{object-position:58% 29%}}
 
 .exploreControl{padding:3px}.exploreControl button{padding-inline:16px}.exploreControl .selected{background:var(--cream);color:var(--ink)}
-@media (max-width:900px){.exploreControl{display:flex}.exploreControl button{padding:8px 11px}}
-@media (max-width:520px){.exploreControl button{font-size:0;padding:9px}.exploreControl button svg{width:15px;height:15px}}
+.langSwitch{padding:3px;display:flex;align-items:center}.langSwitch button{padding:6px 12px;font-weight:600;transition:all .2s ease}.langSwitch .selected{background:var(--cream);color:var(--ink);font-weight:700}
+@media (max-width:900px){.exploreControl{display:flex}.exploreControl button{padding:8px 11px}.langSwitch{display:flex}.langSwitch button{padding:6px 10px}}
+@media (max-width:520px){.exploreControl button{font-size:0;padding:9px}.exploreControl button svg{width:15px;height:15px}.langSwitch button{padding:5px 8px;font-size:9px}}
 
 .partnerCredential{position:absolute;z-index:3;right:8vw;top:13vh;display:grid;grid-template-columns:auto auto;align-items:center;gap:5px 14px;padding:13px 16px;border:1px solid var(--line);background:rgba(255,244,199,.025);backdrop-filter:blur(12px)}.partnerCredential>span{grid-column:1/-1;font:7px var(--font-mono);letter-spacing:.16em;color:var(--mint)}.partnerCredential img{display:block;width:128px;height:auto}.partnerCredential small{max-width:145px;font-size:9px;line-height:1.35;color:rgba(255,244,199,.48)}
 @media (max-width:1200px){.partnerCredential{top:12vh}.partnerCredential img{width:105px}.partnerCredential small{display:none}}

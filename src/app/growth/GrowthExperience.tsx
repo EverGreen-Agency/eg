@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, CircleDot, Compass, Menu, MousePointer2, X } from 'lucide-react'
-import { capabilities, cases, caseSummary, manifesto, methodModules, problems, sections, systemLevers, type CaseContentSection, type MethodKey } from './data'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, CircleDot, Menu, MousePointer2, X } from 'lucide-react'
+import { getGrowthData, type CaseContentSection, type Language, type MethodKey, type MethodModule } from './data'
 import styles from './growth.module.css'
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -44,15 +44,14 @@ const capabilityRelations: Record<number, number[]> = {
 
 function polarPoint(radius: number, angle: number) {
   const radians = (angle - 90) * Math.PI / 180
-  // Stable precision avoids server/client SVG hydration mismatches.
   return {
     x: Number((50 + radius * Math.cos(radians)).toFixed(5)),
     y: Number((50 + radius * Math.sin(radians)).toFixed(5)),
   }
 }
 
-function sectorPath(index: number, expanded = false) {
-  const span = 360 / systemLevers.length
+function sectorPath(index: number, totalLevers: number, expanded = false) {
+  const span = 360 / totalLevers
   const startAngle = index * span + 1.2
   const endAngle = (index + 1) * span - 1.2
   const outerRadius = expanded ? 49 : 45.5
@@ -64,13 +63,13 @@ function sectorPath(index: number, expanded = false) {
   return `M ${outerStart.x} ${outerStart.y} A ${outerRadius} ${outerRadius} 0 0 1 ${outerEnd.x} ${outerEnd.y} L ${innerEnd.x} ${innerEnd.y} A ${innerRadius} ${innerRadius} 0 0 0 ${innerStart.x} ${innerStart.y} Z`
 }
 
-function sectorLabelPoint(index: number) {
-  const span = 360 / systemLevers.length
+function sectorLabelPoint(index: number, totalLevers: number) {
+  const span = 360 / totalLevers
   return polarPoint(33, index * span + span / 2)
 }
 
-function capabilitySectorPath(index: number, expanded = false) {
-  const span = 360 / capabilities.length
+function capabilitySectorPath(index: number, totalCaps: number, expanded = false) {
+  const span = 360 / totalCaps
   const startAngle = index * span + 1
   const endAngle = (index + 1) * span - 1
   const outerRadius = expanded ? 49 : 45.5
@@ -82,8 +81,8 @@ function capabilitySectorPath(index: number, expanded = false) {
   return `M ${outerStart.x} ${outerStart.y} A ${outerRadius} ${outerRadius} 0 0 1 ${outerEnd.x} ${outerEnd.y} L ${innerEnd.x} ${innerEnd.y} A ${innerRadius} ${innerRadius} 0 0 0 ${innerStart.x} ${innerStart.y} Z`
 }
 
-function capabilityLabelPoint(index: number) {
-  const span = 360 / capabilities.length
+function capabilityLabelPoint(index: number, totalCaps: number) {
+  const span = 360 / totalCaps
   return polarPoint(33, index * span + span / 2)
 }
 
@@ -96,8 +95,6 @@ function track(event: string, data: Record<string, unknown> = {}) {
 
 function replaceExperienceUrl(url: string) {
   if (typeof window === 'undefined') return
-  // Next.js stores router metadata in history.state. Replacing it with null
-  // corrupts the App Router state and can cause duplicate DOM removals.
   window.history.replaceState(window.history.state, '', url)
 }
 
@@ -135,8 +132,14 @@ function EGMark() {
   )
 }
 
-function DiagnosticSimulation() {
-  const rows = [
+function DiagnosticSimulation({ lang }: { lang: Language }) {
+  const rows = lang === 'en' ? [
+    { label: 'Leads', value: 120, rate: '100%', loss: 0 },
+    { label: 'Initiated contacts', value: 82, rate: '68%', loss: 38 },
+    { label: 'Qualified leads', value: 46, rate: '56%', loss: 36, alert: true },
+    { label: 'Proposals', value: 18, rate: '39%', loss: 28 },
+    { label: 'Sales', value: 5, rate: '28%', loss: 13 },
+  ] : [
     { label: 'Leads', value: 120, rate: '100%', loss: 0 },
     { label: 'Contatos iniciados', value: 82, rate: '68%', loss: 38 },
     { label: 'Leads qualificados', value: 46, rate: '56%', loss: 36, alert: true },
@@ -146,38 +149,38 @@ function DiagnosticSimulation() {
   const [active, setActive] = useState(2)
   return (
     <div className={styles.simulation}>
-      <div className={styles.simHeader}><span>SIMULAÇÃO CONCEITUAL</span><span>Foco: vazamento</span></div>
+      <div className={styles.simHeader}><span>{lang === 'en' ? 'CONCEPTUAL SIMULATION' : 'SIMULAÇÃO CONCEITUAL'}</span><span>{lang === 'en' ? 'Focus: leakage' : 'Foco: vazamento'}</span></div>
       <div className={styles.funnel}>
         {rows.map((row, index) => <button key={row.label} onClick={() => setActive(index)} className={`${styles.funnelRow} ${active === index ? styles.active : ''} ${row.alert ? styles.alert : ''}`}>
-          <span>{row.label}</span><strong>{row.value}</strong><small>{row.rate} passagem</small>
+          <span>{row.label}</span><strong>{row.value}</strong><small>{row.rate} {lang === 'en' ? 'pass' : 'passagem'}</small>
         </button>)}
       </div>
       <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={styles.insight}>
         <CircleDot size={16} />
-        <div><b>{active === 2 ? 'O maior vazamento não está na geração.' : `${rows[active].loss} oportunidades não avançaram aqui.`}</b><p>{active === 2 ? 'Comprar mais mídia antes de corrigir atendimento → qualificação provavelmente aumentaria desperdício.' : 'A taxa precisa ser lida com contexto antes de virar uma decisão.'}</p></div>
+        <div><b>{active === 2 ? (lang === 'en' ? 'The main leak is not in demand generation.' : 'O maior vazamento não está na geração.') : `${rows[active].loss} ${lang === 'en' ? 'opportunities dropped off here.' : 'oportunidades não avançaram aqui.'}`}</b><p>{active === 2 ? (lang === 'en' ? 'Buying more ads before fixing sales response → qualification will likely increase waste.' : 'Comprar mais mídia antes de corrigir atendimento → qualificação provavelmente aumentaria desperdício.') : (lang === 'en' ? 'Read rates in context before turning them into decisions.' : 'A taxa precisa ser lida com contexto antes de virar uma decisão.')}</p></div>
       </motion.div>
     </div>
   )
 }
 
-function MethodDetail({ method, onClose }: { method: MethodKey; onClose: () => void }) {
-  const data = methodModules[method]
+function MethodDetail({ method, onClose, data, lang }: { method: MethodKey; onClose: () => void; data: MethodModule; lang: Language }) {
   return (
     <motion.div layoutId={`method-${method}`} className={styles.methodDetail}>
-      <button className={styles.closeButton} onClick={onClose} aria-label="Fechar detalhe"><X size={19} /></button>
-      <div className={styles.methodDetailIntro}><span>{data.number} / MÉTODO EG</span><h3>{data.title}</h3><p>{data.headline}</p></div>
+      <button className={styles.closeButton} onClick={onClose} aria-label="Close detail"><X size={19} /></button>
+      <div className={styles.methodDetailIntro}><span>{data.number} / {lang === 'en' ? 'EG METHOD' : 'MÉTODO EG'}</span><h3>{data.title}</h3><p>{data.headline}</p></div>
       <div className={styles.methodGroups}>{data.groups.map(group => <div key={group.title}><small>{group.title}</small>{group.items.map(item => <span key={item}>{item}</span>)}</div>)}</div>
-      {method === 'diagnostico' && <DiagnosticSimulation />}
-      {method === 'arquitetura' && <div className={styles.architectureMap}>{['Lead source', 'Landing page', 'CRM', 'Pipeline', 'Atendimento', 'Follow-up', 'Dashboard'].map((n, i) => <div key={n} style={{ '--i': i } as React.CSSProperties}>{n}</div>)}</div>}
-      {method === 'implementacao' && <div className={styles.priorityNote}>Priorizar <ChevronRight size={16} /> impacto <ChevronRight size={16} /> esforço <ChevronRight size={16} /> urgência</div>}
-      {method === 'operacao' && <div className={styles.sparkline}><svg viewBox="0 0 500 100"><motion.path d="M0 84 C70 70 90 82 145 55 S245 70 290 38 S380 51 500 8" fill="none" stroke="currentColor" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} /></svg><span>Exemplo de acompanhamento · tendência + hipótese + ação</span></div>}
-      {method === 'evolucao' && <div className={styles.liveRoadmap}>{['Agora', '30 dias', '90 dias', 'Trimestre', '12 meses'].map((item, i) => <div key={item}><i /><span>{item}</span><small>{i < 2 ? 'Estruturar' : i < 4 ? 'Validar' : 'Escalar'}</small></div>)}</div>}
+      {method === 'diagnostico' && <DiagnosticSimulation lang={lang} />}
+      {method === 'arquitetura' && <div className={styles.architectureMap}>{['Lead source', 'Landing page', 'CRM', 'Pipeline', 'Sales response', 'Follow-up', 'Dashboard'].map((n, i) => <div key={n} style={{ '--i': i } as React.CSSProperties}>{n}</div>)}</div>}
+      {method === 'implementacao' && <div className={styles.priorityNote}>{lang === 'en' ? 'Prioritize' : 'Priorizar'} <ChevronRight size={16} /> {lang === 'en' ? 'impact' : 'impacto'} <ChevronRight size={16} /> {lang === 'en' ? 'effort' : 'esforço'} <ChevronRight size={16} /> {lang === 'en' ? 'urgency' : 'urgência'}</div>}
+      {method === 'operacao' && <div className={styles.sparkline}><svg viewBox="0 0 500 100"><motion.path d="M0 84 C70 70 90 82 145 55 S245 70 290 38 S380 51 500 8" fill="none" stroke="currentColor" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} /></svg><span>{lang === 'en' ? 'Tracking example · trend + hypothesis + action' : 'Exemplo de acompanhamento · tendência + hipótese + ação'}</span></div>}
+      {method === 'evolucao' && <div className={styles.liveRoadmap}>{(lang === 'en' ? ['Now', '30 days', '90 days', 'Quarter', '12 months'] : ['Agora', '30 dias', '90 dias', 'Trimestre', '12 meses']).map((item, i) => <div key={item}><i /><span>{item}</span><small>{i < 2 ? (lang === 'en' ? 'Structure' : 'Estruturar') : i < 4 ? (lang === 'en' ? 'Validate' : 'Validar') : (lang === 'en' ? 'Scale' : 'Escalar')}</small></div>)}</div>}
     </motion.div>
   )
 }
 
 export default function GrowthExperience() {
   const reduceMotion = useReducedMotion()
+  const [lang, setLang] = useState<Language>('pt')
   const [activeSection, setActiveSection] = useState(0)
   const [navOpen, setNavOpen] = useState(false)
   const [problem, setProblem] = useState(0)
@@ -191,6 +194,37 @@ export default function GrowthExperience() {
   const [caseId, setCaseId] = useState<string | null>(null)
   const [caseStep, setCaseStep] = useState(0)
   const [answered, setAnswered] = useState<boolean | null>(null)
+
+  const { sections, problems, systemLevers, methodModules, capabilities, cases, caseSummary, manifesto, t } = useMemo(() => getGrowthData(lang), [lang])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const urlLang = params.get('lang')
+    if (urlLang === 'en' || urlLang === 'pt') {
+      setLang(urlLang)
+    } else {
+      const savedLang = localStorage.getItem('eg_lang')
+      if (savedLang === 'en' || savedLang === 'pt') {
+        setLang(savedLang)
+      }
+    }
+  }, [])
+
+  const changeLang = (newLang: Language) => {
+    setLang(newLang)
+    try {
+      localStorage.setItem('eg_lang', newLang)
+    } catch {}
+    const params = new URLSearchParams(window.location.search)
+    if (newLang === 'en') {
+      params.set('lang', 'en')
+    } else {
+      params.delete('lang')
+    }
+    const newQuery = params.toString() ? `?${params.toString()}` : ''
+    replaceExperienceUrl(`${window.location.pathname}${newQuery}${window.location.hash}`)
+  }
 
   useEffect(() => {
     if (!caseId) return
@@ -208,7 +242,7 @@ export default function GrowthExperience() {
     const next = Math.max(0, Math.min(sections.length - 1, index))
     document.getElementById(sections[next].id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })
     setNavOpen(false)
-  }, [reduceMotion])
+  }, [reduceMotion, sections])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -217,7 +251,7 @@ export default function GrowthExperience() {
     if (explore && methodModules[explore]) { setMethod(explore); setTimeout(() => scrollTo(3), 100) }
     if (requestedCase && cases.some(item => item.id === requestedCase)) { setCaseId(requestedCase); setTimeout(() => scrollTo(7), 100) }
     track('presentation_started')
-  }, [scrollTo])
+  }, [scrollTo, methodModules, cases])
 
   useEffect(() => {
     const observers = sections.map((section, index) => {
@@ -234,7 +268,7 @@ export default function GrowthExperience() {
       return observer
     })
     return () => observers.forEach(observer => observer?.disconnect())
-  }, [])
+  }, [sections])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -256,7 +290,7 @@ export default function GrowthExperience() {
     setCaseId(id); setCaseStep(0); track('case_viewed', { case: id })
     replaceExperienceUrl(`${window.location.pathname}?case=${id}#evidencias`)
   }
-  const currentCase = useMemo(() => cases.find(item => item.id === caseId), [caseId])
+  const currentCase = useMemo(() => cases.find(item => item.id === caseId), [caseId, cases])
   const visibleLever = hoveredLever ?? (systemEngaged ? lever : -1)
   const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : leverRelations[visibleLever]) : []
   const visibleCapability = hoveredCapability ?? capability
@@ -265,11 +299,12 @@ export default function GrowthExperience() {
   return (
     <main className={`${styles.experience} grain`}>
       <header className={styles.topbar}>
-        <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/evergreen-horizontal.png" alt="EverGreen — Crescimento previsível, escalável e tecnológico" /></a>
-        <div className={`${styles.modeSwitch} ${styles.exploreControl}`}>
-          <button className={styles.selected} onClick={() => setNavOpen(true)} aria-label="Explorar mapa da experiência"><Compass size={14} /> Explorar</button>
+        <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
+        <div className={`${styles.modeSwitch} ${styles.langSwitch}`} role="group" aria-label="Seletor de idioma / Language selector">
+          <button className={lang === 'pt' ? styles.selected : ''} onClick={() => changeLang('pt')} aria-label="Português BR">PT</button>
+          <button className={lang === 'en' ? styles.selected : ''} onClick={() => changeLang('en')} aria-label="English">EN</button>
         </div>
-        <button className={styles.menuButton} onClick={() => setNavOpen(!navOpen)} aria-label="Abrir mapa da apresentação"><Menu size={20} /><span>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span></button>
+        <button className={styles.menuButton} onClick={() => setNavOpen(!navOpen)} aria-label={t.navMapTitle}><Menu size={20} /><span>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span></button>
       </header>
 
       <nav className={styles.progress} aria-label="Progresso da apresentação">
@@ -277,49 +312,49 @@ export default function GrowthExperience() {
       </nav>
 
       <AnimatePresence>{navOpen && <motion.div className={styles.navMap} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <button className={styles.closeButton} onClick={() => setNavOpen(false)}><X /></button><Eyebrow>Mapa da experiência</Eyebrow>
+        <button className={styles.closeButton} onClick={() => setNavOpen(false)}><X /></button><Eyebrow>{t.navMapTitle}</Eyebrow>
         <div>{sections.map((section, i) => <button key={section.id} onClick={() => scrollTo(i)}><span>{String(i + 1).padStart(2, '0')}</span>{section.label}<ArrowUpRight /></button>)}</div>
       </motion.div>}</AnimatePresence>
 
       <section id="inicio" className={`${styles.chapter} ${styles.hero}`}>
         <div className={styles.heroGrid} aria-hidden="true" />
         <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease }}>
-          <Eyebrow>Boutique de crescimento, tecnologia e inteligência aplicada</Eyebrow>
-          <h1>Consultoria Executiva<br />de <em>Growth.</em></h1>
-          <p>Estratégia, estrutura e previsibilidade para empresas que precisam crescer com método.</p>
-          <button className={styles.exploreCue} onClick={() => scrollTo(1)}>Descobrir o gargalo <ArrowDown size={18} /></button>
+          <Eyebrow>{t.heroEyebrow}</Eyebrow>
+          <h1>{lang === 'en' ? 'Executive Growth' : 'Consultoria Executiva'}<br />{lang === 'en' ? 'Consulting.' : 'de '}<em>Growth.</em></h1>
+          <p>{t.heroSubtitle}</p>
+          <button className={styles.exploreCue} onClick={() => scrollTo(1)}>{lang === 'en' ? 'Uncover the bottleneck' : 'Descobrir o gargalo'} <ArrowDown size={18} /></button>
         </motion.div>
         <EGMark />
-        <div className={styles.heroFoot}><span>CRESCIMENTO PREVISÍVEL, ESCALÁVEL E TECNOLÓGICO.</span><span>SCROLL OU SETAS</span></div>
+        <div className={styles.heroFoot}><span>{lang === 'en' ? 'PREDICTABLE, SCALABLE, AND TECH-DRIVEN GROWTH.' : 'CRESCIMENTO PREVISÍVEL, ESCALÁVEL E TECNOLÓGICO.'}</span><span>{lang === 'en' ? 'SCROLL OR ARROWS' : 'SCROLL OU SETAS'}</span></div>
       </section>
 
       <section id="gargalo" className={`${styles.chapter} ${styles.lightChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="01 — Sintoma ≠ causa">Quando a tarefa contratada<br />não é o problema real.</SectionTitle>
+          <SectionTitle eyebrow={`01 — ${t.bottleneckEyebrow}`}>{t.bottleneckTitle}</SectionTitle>
           <div className={styles.problemStage}>
             <div className={styles.problemTabs}>{problems.map((item, i) => <button key={item.request} onClick={() => setProblem(i)} className={problem === i ? styles.active : ''}><span>0{i + 1}</span>{item.request}</button>)}</div>
             <AnimatePresence mode="wait"><motion.div key={problem} className={styles.problemFlow} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: .35 }}>
-              <div><small>PEDIDO APARENTE</small><strong>{problems[problem].request}</strong></div><ChevronRight />
-              <div><small>O QUE OBSERVAMOS</small><strong>{problems[problem].symptom}</strong></div><ChevronRight />
-              <div className={styles.rootCause}><small>CAUSA RAIZ</small><strong>{problems[problem].cause}</strong></div>
+              <div><small>{t.reqLabel}</small><strong>{problems[problem].request}</strong></div><ChevronRight />
+              <div><small>{t.sympLabel}</small><strong>{problems[problem].symptom}</strong></div><ChevronRight />
+              <div className={styles.rootCause}><small>{t.causeLabel}</small><strong>{problems[problem].cause}</strong></div>
             </motion.div></AnimatePresence>
           </div>
-          <div className={styles.statement}>Não vendemos uma ferramenta isolada.<b>Encontramos o gargalo real.</b></div>
+          <div className={styles.statement}>{lang === 'en' ? 'We don’t sell isolated tools.' : 'Não vendemos uma ferramenta isolada.'}<b>{lang === 'en' ? ' We solve real bottlenecks.' : ' Encontramos o gargalo real.'}</b></div>
         </div>
       </section>
 
       <section id="sistema" className={`${styles.chapter} ${styles.systemChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="02 — Visão sistêmica" lead="Melhorar uma peça isolada não garante que o sistema avance.">Growth começa antes<br />da campanha.</SectionTitle>
+          <SectionTitle eyebrow={`02 — ${t.systemEyebrow}`} lead={lang === 'en' ? 'Optimizing an isolated piece does not advance the system.' : 'Melhorar uma peça isolada não garante que o sistema avance.'}>{t.systemTitle}</SectionTitle>
           <div className={`${styles.systemMap} ${styles.wheelMap} ${systemSimulation ? styles.simulating : ''}`} onPointerLeave={() => setHoveredLever(null)}>
-            <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="Roda interativa do sistema de receita">
+            <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="System wheel">
               {systemLevers.map((item, i) => {
                 const isActive = visibleLever === i
                 const isRelated = relatedLevers.includes(i)
-                const point = sectorLabelPoint(i)
+                const point = sectorLabelPoint(i, systemLevers.length)
                 const sectorClass = `${styles.wheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${visibleLever >= 0 && !isActive && !isRelated ? styles.dimmed : ''}`
                 return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.note}`} aria-pressed={lever === i && systemEngaged} onClick={() => { setLever(i); setSystemEngaged(true); setSystemSimulation(false) }} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setLever(i); setSystemEngaged(true); setSystemSimulation(false) } }} onPointerEnter={() => setHoveredLever(i)} onFocus={() => setHoveredLever(i)} onBlur={() => setHoveredLever(null)}>
-                  <motion.path initial={false} animate={{ d: sectorPath(i, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
+                  <motion.path initial={false} animate={{ d: sectorPath(i, systemLevers.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
                   <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
                 </motion.g>
               })}
@@ -327,53 +362,53 @@ export default function GrowthExperience() {
             </svg>
             <div className={styles.revenueCore}>
               <AnimatePresence mode="wait">
-                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>RESTRIÇÃO</small><strong>200 → 80</strong><span>demanda ≠ capacidade</span><button onClick={() => setSystemSimulation(false)}>Encerrar</button></motion.div> : visibleLever >= 0 ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>Conecta: {relatedLevers.map(index => systemLevers[index].name).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>Simular gargalo</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>OBJETIVO DO SISTEMA</small><strong>Receita</strong><span>previsível</span></motion.div>}
+                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {relatedLevers.map(index => systemLevers[index].name).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
               </AnimatePresence>
             </div>
           </div>
-          <div className={styles.discovery}><p>Mais leads sempre significam mais crescimento?</p><div><button onClick={() => setAnswered(true)}>Sim</button><button onClick={() => setAnswered(false)}>Não necessariamente</button></div>
-            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>Capacidade <b>80</b></span><strong>{answered ? 'A restrição também cresceu.' : 'Exato: escalar uma restrição escala desperdício.'}</strong></motion.aside>}</AnimatePresence>
+          <div className={styles.discovery}><p>{lang === 'en' ? 'Does more leads always equal more growth?' : 'Mais leads sempre significam mais crescimento?'}</p><div><button onClick={() => setAnswered(true)}>{lang === 'en' ? 'Yes' : 'Sim'}</button><button onClick={() => setAnswered(false)}>{lang === 'en' ? 'Not necessarily' : 'Não necessariamente'}</button></div>
+            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacity' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
           </div>
         </div>
       </section>
 
       <section id="metodo" className={`${styles.chapter} ${styles.methodChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="03 — Framework proprietário" lead="Da leitura do gargalo à evolução contínua.">Método EG de<br />Previsibilidade Comercial.</SectionTitle>
+          <SectionTitle eyebrow={`03 — ${t.methodEyebrow}`} lead={lang === 'en' ? 'From bottleneck identification to continuous evolution.' : 'Da leitura do gargalo à evolução contínua.'}>{t.methodTitle}</SectionTitle>
           <div className={styles.methodShell}>
             <AnimatePresence mode="wait">
-              {method ? <MethodDetail key={method} method={method} onClose={closeMethod} /> : <motion.div className={styles.methodOverview} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              {method ? <MethodDetail key={method} method={method} onClose={closeMethod} data={methodModules[method]} lang={lang} /> : <motion.div className={styles.methodOverview} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data]) => <motion.button layoutId={`method-${key}`} key={key} onClick={() => openMethod(key)}><span>{data.number}</span><div><strong>{data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
               </motion.div>}
             </AnimatePresence>
           </div>
-          {!method && <p className={styles.clickHint}><MousePointer2 size={15} /> Selecione uma etapa para explorar o sistema.</p>}
+          {!method && <p className={styles.clickHint}><MousePointer2 size={15} /> {t.methodInstruction}</p>}
         </div>
       </section>
 
       <section id="tempo" className={`${styles.chapter} ${styles.lightChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="04 — Ritmo operacional">Direção longa. Execução curta.<br />Aprendizado contínuo.</SectionTitle>
+          <SectionTitle eyebrow={`04 — ${t.timeEyebrow}`}>{t.timeTitle}</SectionTitle>
           <div className={styles.timeZoom}>
-            {[['12 meses', 'Direção estratégica', '01'], ['Trimestre', 'Transformações', '04'], ['Sprint', 'Prioridade', '30/60/90'], ['Semana', 'Gestão e decisões', '52']].map((item, i) => <motion.div key={item[0]} whileHover={{ y: -8 }}><span>{item[2]}</span><small>NÍVEL {i + 1}</small><h3>{item[0]}</h3><p>{item[1]}</p></motion.div>)}
+            {(lang === 'en' ? [['12 months', 'Strategic direction', '01'], ['Quarter', 'Transformations', '04'], ['Sprint', 'Priority focus', '30/60/90'], ['Week', 'Execution & decisions', '52']] : [['12 meses', 'Direção estratégica', '01'], ['Trimestre', 'Transformações', '04'], ['Sprint', 'Prioridade', '30/60/90'], ['Semana', 'Gestão e decisões', '52']]).map((item, i) => <motion.div key={item[0]} whileHover={{ y: -8 }}><span>{item[2]}</span><small>{lang === 'en' ? 'LEVEL' : 'NÍVEL'} {i + 1}</small><h3>{item[0]}</h3><p>{item[1]}</p></motion.div>)}
           </div>
-          <div className={styles.timeFooter}><span>PLANO ANUAL</span><i /><span>SPRINTS PRIORITÁRIAS</span><i /><span>REVISÃO CONTÍNUA</span></div>
+          <div className={styles.timeFooter}><span>{lang === 'en' ? 'ANNUAL PLAN' : 'PLANO ANUAL'}</span><i /><span>{lang === 'en' ? 'PRIORITY SPRINTS' : 'SPRINTS PRIORITÁRIAS'}</span><i /><span>{lang === 'en' ? 'CONTINUOUS REVIEW' : 'REVISÃO CONTÍNUA'}</span></div>
         </div>
       </section>
 
       <section id="capacidades" className={styles.chapter}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="05 — Capacidades" lead="O problema define quais capacidades entram no projeto.">Uma tese central.<br />Diferentes instrumentos.</SectionTitle>
+          <SectionTitle eyebrow={`05 — ${t.capEyebrow}`} lead={lang === 'en' ? 'The problem dictates which capabilities enter the engagement.' : 'O problema define quais capacidades entram no projeto.'}>{t.capTitle}</SectionTitle>
           <div className={styles.capabilityLayout}>
             <div className={`${styles.capabilityWheel} ${styles.wheelMap}`} onPointerLeave={() => setHoveredCapability(null)}>
-              <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="Roda interativa de capacidades EverGreen">
+              <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="Capabilities wheel">
                 {capabilities.map((item, i) => {
                   const isActive = visibleCapability === i
                   const isRelated = relatedCapabilities.includes(i)
-                  const point = capabilityLabelPoint(i)
+                  const point = capabilityLabelPoint(i, capabilities.length)
                   const sectorClass = `${styles.wheelSector} ${styles.capabilityWheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${!isActive && !isRelated ? styles.dimmed : ''}`
                   return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.use}`} aria-pressed={capability === i} onClick={() => setCapability(i)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setCapability(i) } }} onPointerEnter={() => setHoveredCapability(i)} onFocus={() => setHoveredCapability(i)} onBlur={() => setHoveredCapability(null)}>
-                    <motion.path initial={false} animate={{ d: capabilitySectorPath(i, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
+                    <motion.path initial={false} animate={{ d: capabilitySectorPath(i, capabilities.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
                     <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
                   </motion.g>
                 })}
@@ -384,9 +419,9 @@ export default function GrowthExperience() {
               </div>
             </div>
             <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.capabilityPanel} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: .28, ease }}>
-              <small>CAPACIDADE {String(visibleCapability + 1).padStart(2, '0')} · {capabilityPositions[visibleCapability].group}</small><h3>{capabilities[visibleCapability].name}</h3><p>{capabilities[visibleCapability].use}</p>
-              <div><span>QUANDO ENTRA</span>{capabilities[visibleCapability].yes}</div><div className={styles.no}><span>QUANDO NÃO ENTRA</span>{capabilities[visibleCapability].no}</div>
-              <footer><b>Relaciona com</b>{relatedCapabilities.map(index => <button key={capabilities[index].name} onClick={() => setCapability(index)}>{capabilities[index].name}</button>)}</footer>
+              <small>{lang === 'en' ? 'CAPABILITY' : 'CAPACIDADE'} {String(visibleCapability + 1).padStart(2, '0')} · {capabilityPositions[visibleCapability].group}</small><h3>{capabilities[visibleCapability].name}</h3><p>{capabilities[visibleCapability].use}</p>
+              <div><span>{lang === 'en' ? 'WHEN TO USE' : 'QUANDO ENTRA'}</span>{capabilities[visibleCapability].yes}</div><div className={styles.no}><span>{lang === 'en' ? 'WHEN NOT TO USE' : 'QUANDO NÃO ENTRA'}</span>{capabilities[visibleCapability].no}</div>
+              <footer><b>{lang === 'en' ? 'Relates to' : 'Relaciona com'}</b>{relatedCapabilities.map(index => <button key={capabilities[index].name} onClick={() => setCapability(index)}>{capabilities[index].name}</button>)}</footer>
             </motion.div></AnimatePresence>
           </div>
         </div>
@@ -394,30 +429,30 @@ export default function GrowthExperience() {
 
       <section id="equipe" className={`${styles.chapter} ${styles.teamChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="06 — Quem pensa e executa">Estratégia e tecnologia<br />na mesma mesa.</SectionTitle>
+          <SectionTitle eyebrow={`06 — ${t.teamEyebrow}`}>{t.teamTitle}</SectionTitle>
           <div className={styles.credentialsStack}>
-            <div className={styles.partnerCredential}><span>PARCERIA OFICIAL</span><img src="/images/kommopartner.png" alt="EverGreen MKT é Kommo Partner" /><small>CRM, automação e operação comercial.</small></div>
-            <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>CERTIFICAÇÃO GOOGLE</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva · válida até fev/2027</small></div><ArrowUpRight size={14} /></a>
+            <div className={styles.partnerCredential}><span>{t.officialPartner}</span><img src="/images/kommopartner.png" alt="EverGreen MKT é Kommo Partner" /><small>{lang === 'en' ? 'CRM, automation, and commercial operation.' : 'CRM, automação e operação comercial.'}</small></div>
+            <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>{t.googleCert}</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva · {lang === 'en' ? 'valid thru Feb/2027' : 'válida até fev/2027'}</small></div><ArrowUpRight size={14} /></a>
           </div>
           <div className={styles.teamGrid}>
             <article className={styles.teamCard}>
               <figure className={styles.teamPortrait}><img src="/images/eduardo-profile-v2.png" alt="Eduardo Ferreira de Mattos" /><span>EG / 01</span></figure>
-              <div className={styles.teamBody}><span>01 / ESTRATÉGIA</span><h3>Eduardo<br />Ferreira de Mattos</h3><p>Founder & CEO</p><strong>Engenheiro por formação.<br />Executor por vocação.</strong><div className={styles.teamBio}>Lidera diagnóstico e direção de crescimento. Reúne processos, vendas e marketing orientado a dados para transformar ambição em prioridades comerciais executáveis.</div><div className={styles.teamSkills}>Growth Strategy · Revenue · CRM · Mídia · Produto</div><blockquote>“Se não mexe no gráfico, a gente nem começa.”</blockquote></div>
+              <div className={styles.teamBody}><span>01 / {lang === 'en' ? 'STRATEGY' : 'ESTRATÉGIA'}</span><h3>Eduardo<br />Ferreira de Mattos</h3><p>Founder & CEO</p><strong>{lang === 'en' ? 'Engineer by training.' : 'Engenheiro por formação.'}<br />{lang === 'en' ? 'Builder by vocation.' : 'Executor por vocação.'}</strong><div className={styles.teamBio}>{lang === 'en' ? 'Leads diagnostic and growth direction. Aligns processes, sales, and data-driven marketing to convert ambitious goals into actionable priorities.' : 'Lidera diagnóstico e direção de crescimento. Reúne processos, vendas e marketing orientado a dados para transformar ambição em prioridades comerciais executáveis.'}</div><div className={styles.teamSkills}>Growth Strategy · Revenue · CRM · {lang === 'en' ? 'Media' : 'Mídia'} · {lang === 'en' ? 'Product' : 'Produto'}</div><blockquote>{lang === 'en' ? '“If it doesn’t move the needle, we don’t even start.”' : '“Se não mexe no gráfico, a gente nem começa.”'}</blockquote></div>
             </article>
-            <div className={styles.teamBridge}><i /><strong>CONTEXTO<br />COMPARTILHADO</strong><i /></div>
+            <div className={styles.teamBridge}><i /><strong>{lang === 'en' ? 'SHARED' : 'CONTEXTO'}<br />{lang === 'en' ? 'CONTEXT' : 'COMPARTILHADO'}</strong><i /></div>
             <article className={styles.teamCard}>
               <figure className={styles.teamPortrait}><img src="/images/gustavo.jpg" alt="Gustavo Fugulin Soares da Silva" /><span>EG / 02</span></figure>
-              <div className={styles.teamBody}><span>02 / TECNOLOGIA</span><h3>Gustavo Fugulin<br />Soares da Silva</h3><p>Founder & CTO</p><strong>Visão transformada<br />em tecnologia real.</strong><div className={styles.teamBio}>Lidera a arquitetura técnica e a implementação. Conecta software, dados, IA e automação para construir operações que entregam resultado com escala.</div><div className={styles.teamSkills}>Software · Dados · IA · Automação · Integrações</div><blockquote>“Tecnologia boa some — e aparece no resultado.”</blockquote></div>
+              <div className={styles.teamBody}><span>02 / {lang === 'en' ? 'TECHNOLOGY' : 'TECNOLOGIA'}</span><h3>Gustavo Fugulin<br />Soares da Silva</h3><p>Founder & CTO</p><strong>{lang === 'en' ? 'Turning vision' : 'Visão transformada'}<br />{lang === 'en' ? 'into real tech.' : 'em tecnologia real.'}</strong><div className={styles.teamBio}>{lang === 'en' ? 'Leads technical architecture and engineering. Connects software, data, AI, and automation to build scalable operations.' : 'Lidera a arquitetura técnica e a implementação. Conecta software, dados, IA e automação para construir operações que entregam resultado com escala.'}</div><div className={styles.teamSkills}>Software · {lang === 'en' ? 'Data' : 'Dados'} · AI · {lang === 'en' ? 'Automation' : 'Automação'} · {lang === 'en' ? 'Integrations' : 'Integrações'}</div><blockquote>{lang === 'en' ? '“Great technology disappears — and shines in results.”' : '“Tecnologia boa some — e aparece no resultado.”'}</blockquote></div>
             </article>
           </div>
-          <div className={styles.teamStatement}>A estratégia não termina no deck.<br /><b>A execução não começa sem contexto.</b></div>
+          <div className={styles.teamStatement}>{lang === 'en' ? 'Strategy doesn’t end in slides.' : 'A estratégia não termina no deck.'}<br /><b>{lang === 'en' ? 'Execution doesn’t start without context.' : 'A execução não começa sem contexto.'}</b></div>
         </div>
       </section>
 
       <section id="evidencias" className={`${styles.chapter} ${styles.lightChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="07 — Cases" lead="Marketing, comercial, experiência digital e tecnologia entram de formas diferentes em cada operação.">Não mostramos só o que entregamos.<br />Mostramos o que conseguimos transformar.</SectionTitle>
-          <p className={styles.caseThesis}>O ponto em comum é o mesmo: entender o problema real, estruturar a solução e assumir responsabilidade pela evolução.</p>
+          <SectionTitle eyebrow={`07 — ${t.evidEyebrow}`} lead={lang === 'en' ? 'Marketing, sales, digital experience, and tech take different shapes in each business.' : 'Marketing, comercial, experiência digital e tecnologia entram de formas diferentes em cada operação.'}>{t.evidTitle}</SectionTitle>
+          <p className={styles.caseThesis}>{lang === 'en' ? 'The common ground is clear: understand the real problem, architect the solution, and own the evolution.' : 'O ponto em comum é o mesmo: entender o problema real, estruturar a solução e assumir responsabilidade pela evolução.'}</p>
           <div className={styles.caseGrid}>{cases.map((item, i) => <motion.button whileHover={{ y: -6 }} key={item.id} onClick={() => openCase(item.id)}>
             <span className={styles.caseIndex}>0{i + 1} / {item.name}</span>
             <small>{item.category}</small>
@@ -425,7 +460,7 @@ export default function GrowthExperience() {
             <strong className={styles.caseMetric}>{item.metric}</strong>
             <p>{item.evidence}</p>
             <span className={styles.caseHighlights}>{item.highlights.map(highlight => <b key={highlight}>{highlight}</b>)}</span>
-            <span className={styles.caseCta}>Ver o que fizemos <ArrowUpRight size={17} /></span>
+            <span className={styles.caseCta}>{t.openCase} <ArrowUpRight size={17} /></span>
           </motion.button>)}</div>
           <div className={styles.caseCommon}>
             <small>{caseSummary.title}</small>
@@ -434,30 +469,30 @@ export default function GrowthExperience() {
           </div>
         </div>
         <AnimatePresence>{currentCase && <motion.div className={styles.caseOverlay} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button className={styles.closeButton} aria-label="Fechar case" onClick={() => { setCaseId(null); replaceExperienceUrl(`${window.location.pathname}#evidencias`) }}><X /></button>
-          <div className={styles.caseHeading}><Eyebrow>Por dentro da operação</Eyebrow><span>{currentCase.category}</span><h3>{currentCase.name}</h3><strong>{currentCase.headline}</strong><b>{currentCase.metric}</b><p>{currentCase.evidence}</p></div>
+          <button className={styles.closeButton} aria-label="Close case study" onClick={() => { setCaseId(null); replaceExperienceUrl(`${window.location.pathname}#evidencias`) }}><X /></button>
+          <div className={styles.caseHeading}><Eyebrow>{lang === 'en' ? 'Inside the operation' : 'Por dentro da operação'}</Eyebrow><span>{currentCase.category}</span><h3>{currentCase.name}</h3><strong>{currentCase.headline}</strong><b>{currentCase.metric}</b><p>{currentCase.evidence}</p></div>
           <div className={styles.caseSteps}>{currentCase.sections.map((step, i) => <button key={step.label} className={caseStep === i ? styles.active : ''} onClick={() => setCaseStep(i)}><span>{String(i + 1).padStart(2, '0')}</span>{step.label}</button>)}</div>
           <motion.div key={`${currentCase.id}-${caseStep}`} className={styles.caseContent} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}>
             <small>{currentCase.sections[caseStep].label}</small>
             <CaseSectionCopy section={currentCase.sections[caseStep]} />
-            <div className={styles.caseControls}><button aria-label="Etapa anterior" disabled={caseStep === 0} onClick={() => setCaseStep(caseStep - 1)}><ArrowLeft /></button><button aria-label="Próxima etapa" disabled={caseStep === currentCase.sections.length - 1} onClick={() => setCaseStep(caseStep + 1)}><ArrowRight /></button></div>
+            <div className={styles.caseControls}><button aria-label="Previous step" disabled={caseStep === 0} onClick={() => setCaseStep(caseStep - 1)}><ArrowLeft /></button><button aria-label="Next step" disabled={caseStep === currentCase.sections.length - 1} onClick={() => setCaseStep(caseStep + 1)}><ArrowRight /></button></div>
           </motion.div>
         </motion.div>}</AnimatePresence>
       </section>
 
       <section id="padrao" className={`${styles.chapter} ${styles.manifestoChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow="08 — Nosso padrão">Menos improviso.<br />Mais método.</SectionTitle>
+          <SectionTitle eyebrow={`08 — ${t.patternEyebrow}`}>{t.patternTitle}</SectionTitle>
           <div className={styles.manifesto}>{manifesto.map((line, i) => <motion.div key={line[0]} initial={{ opacity: .25 }} whileInView={{ opacity: 1 }} viewport={{ amount: .8 }}><span>0{i + 1}</span><strong>{line[0]}</strong><em>{line[1]}</em></motion.div>)}</div>
         </div>
       </section>
 
       <section id="contato" className={`${styles.chapter} ${styles.closing}`}>
         <div className={styles.closingOrb} aria-hidden="true" />
-        <div><Eyebrow>Próximo movimento</Eyebrow><h2>Não competimos para ser<br />a opção mais barata.</h2><motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: .35 }}>Competimos para ser a<br /><em>decisão mais segura.</em></motion.h3><p>Se o objetivo é entender o problema, estruturar a solução e construir crescimento com lógica, vale conversar.</p>
-          <div className={styles.ctas}><a href={whatsappUrl} target={whatsappUrl.startsWith('http') ? '_blank' : undefined} rel={whatsappUrl.startsWith('http') ? 'noreferrer' : undefined} onClick={() => track('whatsapp_clicked')}>Falar com a EverGreen <ArrowUpRight /></a><a href="https://evergreenmkt.com.br" onClick={() => track('cta_clicked')}>evergreenmkt.com.br</a></div>
+        <div><Eyebrow>{t.contactEyebrow}</Eyebrow><h2>{lang === 'en' ? 'We don’t compete to be' : 'Não competimos para ser'}<br />{lang === 'en' ? 'the cheapest option.' : 'a opção mais barata.'}</h2><motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: .35 }}>{lang === 'en' ? 'We compete to be the' : 'Competimos para ser a'}<br /><em>{lang === 'en' ? 'safest decision.' : 'decisão mais segura.'}</em></motion.h3><p>{t.contactSubtitle}</p>
+          <div className={styles.ctas}><a href={whatsappUrl} target={whatsappUrl.startsWith('http') ? '_blank' : undefined} rel={whatsappUrl.startsWith('http') ? 'noreferrer' : undefined} onClick={() => track('whatsapp_clicked')}>{t.ctaPrimary} <ArrowUpRight /></a><a href="https://evergreenmkt.com.br" onClick={() => track('cta_clicked')}>evergreenmkt.com.br</a></div>
         </div>
-        <footer><span>EVERGREEN MKT © {new Date().getFullYear()}</span><span>CLAREZA · ESTRUTURA · PREVISIBILIDADE</span></footer>
+        <footer><span>EVERGREEN MKT © {new Date().getFullYear()}</span><span>{lang === 'en' ? 'CLARITY · STRUCTURE · PREDICTABILITY' : 'CLAREZA · ESTRUTURA · PREVISIBILIDADE'}</span></footer>
       </section>
     </main>
   )

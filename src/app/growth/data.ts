@@ -1,6 +1,8 @@
 export type MethodKey = 'diagnostico' | 'arquitetura' | 'implementacao' | 'operacao' | 'evolucao'
 
-export const sections = [
+export type Language = 'pt' | 'en'
+
+export const sectionsPt = [
   { id: 'inicio', label: 'Início' },
   { id: 'gargalo', label: 'O gargalo' },
   { id: 'sistema', label: 'Como pensamos' },
@@ -13,13 +15,32 @@ export const sections = [
   { id: 'contato', label: 'Contato' },
 ]
 
-export const problems = [
+export const sectionsEn = [
+  { id: 'inicio', label: 'Home' },
+  { id: 'gargalo', label: 'The Bottleneck' },
+  { id: 'sistema', label: 'Our Thinking' },
+  { id: 'metodo', label: 'EG Method' },
+  { id: 'tempo', label: 'Over Time' },
+  { id: 'capacidades', label: 'Capabilities' },
+  { id: 'equipe', label: 'Team' },
+  { id: 'evidencias', label: 'Evidence' },
+  { id: 'padrao', label: 'Our Standard' },
+  { id: 'contato', label: 'Contact' },
+]
+
+export const problemsPt = [
   { request: '“Quero Google Ads.”', symptom: 'Leads entram, mas o atendimento demora.', cause: 'Jornada e processo.' },
   { request: '“Quero CRM.”', symptom: 'Não existe cadência nem critério comercial.', cause: 'Operação comercial.' },
   { request: '“Quero automação.”', symptom: 'O fluxo já nasce confuso.', cause: 'Arquitetura do processo.' },
 ]
 
-export const systemLevers = [
+export const problemsEn = [
+  { request: '“I need Google Ads.”', symptom: 'Leads come in, but sales response is delayed.', cause: 'Journey and process.' },
+  { request: '“I need a CRM.”', symptom: 'No sales cadence or qualification criteria.', cause: 'Sales operation.' },
+  { request: '“I need automation.”', symptom: 'The workflow is flawed from inception.', cause: 'Process architecture.' },
+]
+
+export const systemLeversPt = [
   { name: 'Oferta', note: 'Clareza de valor e aderência ao mercado.' },
   { name: 'Aquisição', note: 'Demanda mensurável, não volume vazio.' },
   { name: 'Experiência', note: 'Uma jornada sem atritos desnecessários.' },
@@ -29,13 +50,25 @@ export const systemLevers = [
   { name: 'Processo', note: 'Cadência que transforma intenção em receita.' },
 ]
 
-export const methodModules: Record<MethodKey, {
+export const systemLeversEn = [
+  { name: 'Offer', note: 'Value clarity and market fit.' },
+  { name: 'Acquisition', note: 'Measurable demand, not empty volume.' },
+  { name: 'Experience', note: 'A journey without unnecessary friction.' },
+  { name: 'Data', note: 'Evidence to decide the next move.' },
+  { name: 'Technology', note: 'Infrastructure sustaining the process.' },
+  { name: 'People', note: 'Clear roles, context, and ownership.' },
+  { name: 'Process', note: 'Cadence turning intent into revenue.' },
+]
+
+export type MethodModule = {
   number: string
   title: string
   short: string
   headline: string
   groups: { title: string; items: string[] }[]
-}> = {
+}
+
+export const methodModulesPt: Record<MethodKey, MethodModule> = {
   diagnostico: {
     number: '01', title: 'Diagnóstico', short: 'Encontrar onde a receita escapa.',
     headline: 'Antes de decidir o que fazer, descobrimos onde a receita está escapando.',
@@ -83,7 +116,55 @@ export const methodModules: Record<MethodKey, {
   },
 }
 
-export const capabilities = [
+export const methodModulesEn: Record<MethodKey, MethodModule> = {
+  diagnostico: {
+    number: '01', title: 'Diagnostic', short: 'Locating where revenue leaks.',
+    headline: 'Before deciding what to build, we uncover where revenue is leaking.',
+    groups: [
+      { title: 'What we analyze', items: ['Offer', 'Acquisition', 'Customer Journey', 'Sales Response', 'Sales Process', 'Data'] },
+      { title: 'What we look for', items: ['Bottlenecks', 'Leaks', 'Friction', 'Lack of cadence', 'Inconsistent data'] },
+      { title: 'Outputs', items: ['Baseline', 'Bottleneck Map', 'Initial Score', 'Priority Hypotheses', 'Action Plan'] },
+    ],
+  },
+  arquitetura: {
+    number: '02', title: 'Architecture', short: 'Designing the blueprint system.',
+    headline: 'We connect journey, process, data, and tech before accelerating.',
+    groups: [
+      { title: 'System', items: ['Lead source', 'Landing page', 'CRM', 'Pipeline', 'Sales Response', 'Follow-up'] },
+      { title: 'Decisions', items: ['Roles', 'SLA', 'Criteria', 'Cadence', 'Tracking'] },
+      { title: 'Outputs', items: ['Funnel Map', 'Sales Process', 'Data Architecture', 'Priorities'] },
+    ],
+  },
+  implementacao: {
+    number: '03', title: 'Implementation', short: 'Activating priority levers.',
+    headline: 'Great implementation is also choosing what NOT to do now.',
+    groups: [
+      { title: 'Priority 01', items: ['Tracking', 'High impact', 'Low complexity'] },
+      { title: 'Priority 02', items: ['Sales Pipeline', 'High impact', 'Medium complexity'] },
+      { title: 'Priority 03', items: ['Campaigns', 'Medium impact', 'Medium complexity'] },
+    ],
+  },
+  operacao: {
+    number: '04', title: 'Operation', short: 'Measure, learn, and decide.',
+    headline: 'Metrics only deliver value when driving concrete decisions.',
+    groups: [
+      { title: 'Scorecard', items: ['Leads', 'Qualification', 'Pipeline', 'Conversion', 'CAC', 'Revenue'] },
+      { title: 'Rhythm', items: ['Routines', 'Tests', 'Hypotheses', 'Next Actions'] },
+      { title: 'Learning', items: ['Trend', 'Context', 'Decision', 'Owner'] },
+    ],
+  },
+  evolucao: {
+    number: '05', title: 'Evolution', short: 'Turning learning into scale.',
+    headline: 'The system never ends: it gains new capabilities.',
+    groups: [
+      { title: 'Now', items: ['Remove bottlenecks', 'Build baseline'] },
+      { title: '90 Days', items: ['Validate hypotheses', 'Consolidate cadence'] },
+      { title: 'Horizon', items: ['Automation', 'New modules', 'Sustainable scale'] },
+    ],
+  },
+}
+
+export const capabilitiesPt = [
   { name: 'CRM', use: 'Pipeline, cadência e próximo passo.', yes: 'Quando falta visibilidade e processo comercial.', no: 'Quando se espera que a ferramenta corrija uma operação sem dono.' },
   { name: 'Mídia', use: 'Demanda mensurável e qualificada.', yes: 'Com oferta validada e capacidade de atendimento.', no: 'Quando mais demanda ampliaria um gargalo existente.' },
   { name: 'CRO', use: 'Reduzir fricção em jornadas críticas.', yes: 'Quando há tráfego e uma hipótese mensurável.', no: 'Quando o problema principal está depois da conversão.' },
@@ -93,6 +174,18 @@ export const capabilities = [
   { name: 'IA', use: 'Ampliar capacidade com contexto e controle.', yes: 'Quando há tarefa, dado e critério de qualidade definidos.', no: 'Quando IA é tratada como estratégia por si só.' },
   { name: 'RevOps', use: 'Alinhar marketing, vendas e receita.', yes: 'Quando áreas otimizam métricas desconectadas.', no: 'Quando não há compromisso executivo com o processo.' },
   { name: 'Produto', use: 'Construir infraestrutura sob medida.', yes: 'Quando software cria vantagem operacional real.', no: 'Quando uma solução pronta resolve melhor e mais rápido.' },
+]
+
+export const capabilitiesEn = [
+  { name: 'CRM', use: 'Pipeline, cadence, and next step.', yes: 'When commercial visibility and process are missing.', no: 'When expecting software to fix an unowned operation.' },
+  { name: 'Media', use: 'Measurable and qualified demand.', yes: 'With validated offer and sales capacity.', no: 'When more demand would amplify an existing bottleneck.' },
+  { name: 'CRO', use: 'Reduce friction in critical user journeys.', yes: 'When there is traffic and a measurable hypothesis.', no: 'When the main issue lies post-conversion.' },
+  { name: 'Web', use: 'Decision-oriented digital experiences.', yes: 'When UI must clarify, prove, or convert.', no: 'When a new page merely masks a confusing offer.' },
+  { name: 'Data', use: 'Transform signals into decisions.', yes: 'When recurring decisions lack reliable evidence.', no: 'When measuring everything replaces key actionable KPIs.' },
+  { name: 'Automation', use: 'Reduce friction and manual labor.', yes: 'When the process is already clear and repeatable.', no: 'When automating a workflow that is still fundamentally flawed.' },
+  { name: 'AI', use: 'Scale capacity with context and control.', yes: 'When task, data, and quality criteria are well-defined.', no: 'When AI is treated as a standalone strategy.' },
+  { name: 'RevOps', use: 'Align marketing, sales, and revenue.', yes: 'When departments optimize disconnected metrics.', no: 'When executive commitment to process is absent.' },
+  { name: 'Product', use: 'Build bespoke digital infrastructure.', yes: 'When software creates genuine operational advantage.', no: 'When off-the-shelf software solves it better and faster.' },
 ]
 
 export type CaseContentBlock =
@@ -117,7 +210,7 @@ export type CaseStudy = {
   sections: CaseContentSection[]
 }
 
-export const cases: CaseStudy[] = [
+export const casesPt: CaseStudy[] = [
   {
     id: 'sara',
     name: 'Dra. Sara Michelon',
@@ -333,7 +426,127 @@ export const cases: CaseStudy[] = [
   },
 ]
 
-export const caseSummary = {
+export const casesEn: CaseStudy[] = [
+  {
+    id: 'sara',
+    name: 'Dr. Sara Michelon',
+    category: 'Performance & Growth · Healthcare',
+    headline: 'From a stalled ad account to steady high-ticket patient acquisition.',
+    metric: '16 → 8 → 4 → 2',
+    evidence: 'WhatsApp clicks → conversations → qualified patients → closed treatments',
+    highlights: ['~R$ 350/week media budget', 'R$ 564 media cost per closed patient', 'Target tickets from R$ 1.9k to R$ 55k'],
+    sections: [
+      {
+        label: 'The Challenge',
+        title: 'Performance in one of the most competitive healthcare markets.',
+        blocks: [
+          { type: 'paragraph', text: 'Dr. Sara operates in aesthetic dentistry, implants, and facial procedures — high-value services with sensitive decisions and heavy local competition in Florianópolis.' },
+          { type: 'paragraph', text: 'Beyond media costs, healthcare advertising faces strict platform policy restrictions.' },
+          { type: 'paragraph', text: 'When we stepped in, the ad account suffered from delivery issues, policy flags, unreliable tracking, and zero post-click visibility.' },
+          { type: 'lead', text: 'The goal was not just to launch ads, but to turn Google Ads into a measurable revenue channel.' },
+        ],
+      },
+      {
+        label: 'What EG Did',
+        blocks: [
+          { type: 'paragraph', text: 'First, we rebuilt the foundations:' },
+          { type: 'points', items: ['Fixed policy and messaging issues', 'Overhauled website experience and copy', 'Implemented clean WhatsApp tracking', 'New search campaign architecture', 'Exact search intent targeting', 'Negative keyword management', 'Separated Dental vs Aesthetics streams', 'Weekly joint operational review'] },
+          { type: 'paragraph', text: 'We looked far beyond Google Ads metrics, building full-funnel tracking:' },
+          { type: 'flow', items: ['Click', 'Conversation', 'Lead', 'Qualification', 'Booking', 'Attendance', 'Close'] },
+          { type: 'lead', text: 'Because at EG: a Google conversion is not revenue.' },
+        ],
+      },
+      {
+        label: 'The Impact',
+        blocks: [
+          { type: 'paragraph', text: 'In the first validated commercial funnel:' },
+          { type: 'flow', items: ['16 people clicked to WhatsApp', '8 initiated conversation', '8 were new leads', '4 were qualified', '4 booked appointments', '4 attended', '2 closed treatments'] },
+          { type: 'lead', text: 'Blended media acquisition cost per closed treatment stood at ~R$ 564.' },
+          { type: 'quote', text: 'Acquiring high-ticket patients with a lean ad spend by connecting digital acquisition to real revenue.' },
+        ],
+      },
+      {
+        label: 'Next Bottleneck',
+        title: 'Value creation does not end at acquisition.',
+        blocks: [
+          { type: 'paragraph', text: 'Full funnel measurement revealed the next bottleneck: half of WhatsApp clicks had drop-offs before initiating conversation. Identifying this shifted focus.' },
+          { type: 'group', title: 'The question moved from', text: '“How do we get more clicks?”' },
+          { type: 'group', title: 'To', text: '“How do we better convert the demand we generate?”' },
+          { type: 'lead', text: 'That is the difference between media buying and growth management.' },
+        ],
+      },
+      {
+        label: 'What It Proves',
+        blocks: [
+          { type: 'quote', text: 'EG does not optimize ad accounts for vanity metrics. We align media, sales response, and revenue to uncover true acquisition costs and unlock growth.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'kontes',
+    name: 'Kontes Express',
+    category: 'Integrated Growth · B2B & Retail',
+    headline: 'From fragmented campaigns to an acquisition ecosystem.',
+    metric: '2 sites + Google Ads + Meta Ads + Social + Local',
+    evidence: 'A multi-touchpoint growth operation.',
+    highlights: ['2 digital properties', 'Meta + Google Media', 'Acquisition + Content + Reputation'],
+    sections: [
+      {
+        label: 'The Challenge',
+        title: 'Multiple business lines competing within the same brand.',
+        blocks: [
+          { type: 'paragraph', text: 'Kontes operates diverse units with distinct audiences, order values, and buyer journeys.' },
+          { type: 'group', title: 'Corporate Uniforms', text: 'High-volume B2B sales.' },
+          { type: 'group', title: 'DTF Express', text: 'Technical printing services for apparel brands.' },
+          { type: 'group', title: 'Kontes Store', text: 'Resale products and opportunities.' },
+          { type: 'lead', text: 'The challenge shifted from managing ads to architecting how the company is found, perceived, and converted across all channels.' },
+        ],
+      },
+      {
+        label: 'Google Ads',
+        blocks: [
+          { type: 'paragraph', text: 'Restructured search campaigns to capture high-intent active demand.' },
+          { type: 'metrics', items: ['52.9% of budget was wasted on a single broad keyword', '93% of spend concentrated in 5 broad terms', '110 non-converting display clicks eliminated'] },
+          { type: 'lead', text: 'We did not raise budget. First, we regained control.' },
+        ],
+      },
+      {
+        label: 'Meta Ads & Web',
+        blocks: [
+          { type: 'paragraph', text: 'Meta ads drive demand creation and discovery, while Google captures active searches. Two dedicated web properties deliver tailored landing experiences.' },
+        ],
+      },
+      {
+        label: 'What It Proves',
+        blocks: [
+          { type: 'quote', text: 'Growth is not choosing between Google, Meta, or Content. It is orchestrating each channel to power the exact same buyer journey.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'univet',
+    name: 'Univet',
+    category: 'Growth + Product + Engineering',
+    headline: 'From growth marketing to mission-critical custom software.',
+    metric: '2 Operations. 1 Partner.',
+    evidence: 'Growth for consultative sales. Software for enterprise logistics.',
+    highlights: ['R$ 8k–20k products', 'Site + CRM + Growth', 'Web & Mobile app delivered'],
+    sections: [
+      {
+        label: 'Two Problems',
+        title: 'One client. Two completely different challenges.',
+        blocks: [
+          { type: 'paragraph', text: 'Our engagement with Univet demonstrates the depth of EG.' },
+          { type: 'lead', text: 'We do not sell pre-packaged tools; we enter the business problem and build strategy, growth, and custom software to solve it.' },
+        ],
+      },
+    ],
+  },
+]
+
+export const caseSummaryPt = {
   title: 'O que nossos cases têm em comum?',
   items: [
     ['Sara', 'Transformamos mídia em pacientes e aprendizado comercial.'],
@@ -343,7 +556,17 @@ export const caseSummary = {
   closing: ['Diferentes problemas.', 'Diferentes soluções.', 'O mesmo método para encontrar o que realmente move o negócio.'],
 }
 
-export const manifesto = [
+export const caseSummaryEn = {
+  title: 'What do our case studies share in common?',
+  items: [
+    ['Sara', 'Transformed ad spend into qualified patients and commercial clarity.'],
+    ['Kontes', 'Architected and operated an integrated multi-channel acquisition engine.'],
+    ['Univet', 'Connected growth, consultative buyer journeys, and custom software.'],
+  ],
+  closing: ['Different problems.', 'Different solutions.', 'The exact same methodology to unlock business revenue.'],
+}
+
+export const manifestoPt = [
   ['Clareza', 'antes de execução.'],
   ['Escopo', 'antes de entusiasmo.'],
   ['Método', 'antes de improviso.'],
@@ -351,3 +574,116 @@ export const manifesto = [
   ['Documentação', 'antes de opinião.'],
   ['Evidência', 'antes de escala.'],
 ]
+
+export const manifestoEn = [
+  ['Clarity', 'before execution.'],
+  ['Scope', 'before hype.'],
+  ['Method', 'before guesswork.'],
+  ['Cadence', 'before gut feeling.'],
+  ['Documentation', 'before opinion.'],
+  ['Evidence', 'before scale.'],
+]
+
+export const uiStrings = {
+  pt: {
+    brandAlt: 'EverGreen — Crescimento previsível, escalável e tecnológico',
+    navMapTitle: 'Mapa da experiência',
+    heroEyebrow: 'MÉTODO & EVIDÊNCIAS DE CRESCIMENTO',
+    heroTitle: 'A força por trás de crescimentos previsíveis, escaláveis e tecnológicos.',
+    heroSubtitle: 'Não vendemos horas, ferramentas nem relatórios bonitos. Construímos a infraestrutura de dados, processo e aquisição que transforma operações B2B.',
+    ctaPrimary: 'Agendar diagnóstico estratégico',
+    ctaSecondary: 'Entender o método',
+    bottleneckEyebrow: 'O SINTOMA VS A CAUSA',
+    bottleneckTitle: 'Toda empresa tentando crescer esbarra no mesmo problema:',
+    bottleneckSubtitle: 'Achar que o problema é mídia quando na verdade é processo, mensagem ou jornada.',
+    reqLabel: 'PEDIDO COMUM',
+    sympLabel: 'SINTOMA REAL',
+    causeLabel: 'CAUSA RAIZ',
+    systemEyebrow: 'SISTEMA DE CRESCIMENTO',
+    systemTitle: 'Crescimento não é sorte. É um sistema de 7 alavancas interligadas.',
+    systemInstruction: 'Clique ou passe o cursor sobre as alavancas para ver como elas se conectam.',
+    methodEyebrow: 'EXAGERO DE EXECUÇÃO',
+    methodTitle: 'Como a EverGreen atua na sua operação',
+    methodInstruction: 'Clique para explorar o módulo em detalhes',
+    timeEyebrow: 'EVOLUÇÃO CONTÍNUA',
+    timeTitle: 'O tempo a favor do seu crescimento',
+    capEyebrow: 'CAPACIDADES TÉCNICAS',
+    capTitle: 'Nossas competências a serviço do seu sistema',
+    teamEyebrow: 'QUEM EXECUTA',
+    teamTitle: 'Liderança técnica e estratégica em cada projeto',
+    evidEyebrow: 'RESULTADOS REAIS',
+    evidTitle: 'Casos de estudo e evidências de impacto',
+    patternEyebrow: 'CULTURA & PRINCÍPIOS',
+    patternTitle: 'Nosso padrão de atuação',
+    contactEyebrow: 'PRÓXIMO PASSO',
+    contactTitle: 'Pronto para transformar sua operação comercial?',
+    contactSubtitle: 'Agende um diagnóstico com nossos especialistas.',
+    exploreMap: 'Explorar',
+    openCase: 'Ver estudo completo',
+    officialPartner: 'PARCERIA OFICIAL',
+    googleCert: 'CERTIFICAÇÃO GOOGLE',
+  },
+  en: {
+    brandAlt: 'EverGreen — Predictable, scalable, and tech-driven growth',
+    navMapTitle: 'Experience map',
+    heroEyebrow: 'GROWTH METHOD & EVIDENCE',
+    heroTitle: 'The force behind predictable, scalable, and tech-driven growth.',
+    heroSubtitle: 'We do not sell hours, tools, or vanity reports. We build the data, process, and acquisition infrastructure that transforms B2B operations.',
+    ctaPrimary: 'Schedule strategic diagnostic',
+    ctaSecondary: 'Understand our method',
+    bottleneckEyebrow: 'SYMPTOM VS ROOT CAUSE',
+    bottleneckTitle: 'Every growing business hits the exact same roadblock:',
+    bottleneckSubtitle: 'Believing the problem is ad spend when it is actually process, messaging, or journey.',
+    reqLabel: 'COMMON REQUEST',
+    sympLabel: 'REAL SYMPTOM',
+    causeLabel: 'ROOT CAUSE',
+    systemEyebrow: 'GROWTH SYSTEM',
+    systemTitle: 'Growth is not luck. It is a system of 7 interconnected levers.',
+    systemInstruction: 'Click or hover over levers to explore how they connect.',
+    methodEyebrow: 'EXECUTION RIGOR',
+    methodTitle: 'How EverGreen operates in your company',
+    methodInstruction: 'Click to explore module in detail',
+    timeEyebrow: 'CONTINUOUS EVOLUTION',
+    timeTitle: 'Time working for your compounding growth',
+    capEyebrow: 'TECHNICAL CAPABILITIES',
+    capTitle: 'Our capabilities powering your growth engine',
+    teamEyebrow: 'WHO EXECUTES',
+    teamTitle: 'Technical and strategic leadership in every project',
+    evidEyebrow: 'REAL RESULTS',
+    evidTitle: 'Case studies and proven evidence of impact',
+    patternEyebrow: 'CULTURE & PRINCIPLES',
+    patternTitle: 'Our operating standard',
+    contactEyebrow: 'NEXT STEP',
+    contactTitle: 'Ready to transform your commercial operation?',
+    contactSubtitle: 'Schedule a diagnostic session with our specialists.',
+    exploreMap: 'Explore',
+    openCase: 'View full case study',
+    officialPartner: 'OFFICIAL PARTNER',
+    googleCert: 'GOOGLE CERTIFICATION',
+  },
+}
+
+export function getGrowthData(lang: Language = 'pt') {
+  const isEn = lang === 'en'
+  return {
+    sections: isEn ? sectionsEn : sectionsPt,
+    problems: isEn ? problemsEn : problemsPt,
+    systemLevers: isEn ? systemLeversEn : systemLeversPt,
+    methodModules: isEn ? methodModulesEn : methodModulesPt,
+    capabilities: isEn ? capabilitiesEn : capabilitiesPt,
+    cases: isEn ? casesEn : casesPt,
+    caseSummary: isEn ? caseSummaryEn : caseSummaryPt,
+    manifesto: isEn ? manifestoEn : manifestoPt,
+    t: isEn ? uiStrings.en : uiStrings.pt,
+  }
+}
+
+// Backward compatibility exports
+export const sections = sectionsPt
+export const problems = problemsPt
+export const systemLevers = systemLeversPt
+export const methodModules = methodModulesPt
+export const capabilities = capabilitiesPt
+export const cases = casesPt
+export const caseSummary = caseSummaryPt
+export const manifesto = manifestoPt
