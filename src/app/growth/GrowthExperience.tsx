@@ -195,7 +195,18 @@ export default function GrowthExperience() {
   const [caseStep, setCaseStep] = useState(0)
   const [answered, setAnswered] = useState<boolean | null>(null)
 
+  const [scrolled, setScrolled] = useState(false)
+
   const { sections, problems, systemLevers, methodModules, capabilities, cases, caseSummary, manifesto, t } = useMemo(() => getGrowthData(lang), [lang])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -298,7 +309,7 @@ export default function GrowthExperience() {
 
   return (
     <main className={`${styles.experience} grain`}>
-      <header className={styles.topbar}>
+      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''}`}>
         <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
         <div className={`${styles.modeSwitch} ${styles.langSwitch}`} role="group" aria-label="Seletor de idioma / Language selector">
           <button className={lang === 'pt' ? styles.selected : ''} onClick={() => changeLang('pt')} aria-label="Português BR">PT</button>
