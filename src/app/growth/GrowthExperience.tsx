@@ -253,6 +253,7 @@ export default function GrowthExperience() {
 
   const scrollTo = useCallback((index: number) => {
     const next = Math.max(0, Math.min(sections.length - 1, index))
+    setActiveSection(next)
     setCardIndex(null)
     setCaseSummaryVisible(false)
     setSystemEngaged(false)
