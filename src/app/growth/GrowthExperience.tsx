@@ -412,7 +412,31 @@ export default function GrowthExperience() {
         }
       }
 
-      // 2. Navigation inside System Wheel section (Section 2: #sistema)
+      // 2. Navigation inside Bottlenecks section (Section 1: #gargalo)
+      if (activeSection === 1) {
+        if (isNext) {
+          event.preventDefault()
+          if (problem < problems.length - 1) {
+            setProblem(p => p + 1)
+          } else {
+            setProblem(0)
+            scrollTo(2)
+          }
+          return
+        }
+        if (isPrev) {
+          event.preventDefault()
+          if (problem > 0) {
+            setProblem(p => p - 1)
+          } else {
+            setProblem(0)
+            scrollTo(0)
+          }
+          return
+        }
+      }
+
+      // 3. Navigation inside System Wheel section (Section 2: #sistema)
       if (activeSection === 2) {
         if (isNext) {
           event.preventDefault()
@@ -447,7 +471,7 @@ export default function GrowthExperience() {
         }
       }
 
-      // 3. Navigation inside Method section (Section 3: #metodo)
+      // 4. Navigation inside Method section (Section 3: #metodo)
       if (activeSection === 3 || method !== null) {
         if (isNext) {
           event.preventDefault()
@@ -480,7 +504,7 @@ export default function GrowthExperience() {
         }
       }
 
-      // 4. Navigation inside Capabilities Wheel section (Section 5: #capacidades)
+      // 5. Navigation inside Capabilities Wheel section (Section 5: #capacidades)
       if (activeSection === 5) {
         if (isNext) {
           event.preventDefault()
@@ -506,53 +530,15 @@ export default function GrowthExperience() {
         }
       }
 
-      // Enter or Space triggers action on focused card
-      if (['Enter', ' '].includes(event.key) && cardIndex !== null) {
-        event.preventDefault()
-        if (activeSection === 3) openMethod(methodKeys[cardIndex])
-        if (activeSection === 7) openCase(cases[cardIndex].id)
-        if (activeSection === 1) setProblem(cardIndex)
-        if (activeSection === 2) { setLever(cardIndex); setSystemEngaged(true) }
-        if (activeSection === 5) setCapability(cardIndex)
-        return
-      }
-
-      // 3. Card-by-card sequential arrow navigation & slide deck section navigation
-      const cardCount = getSectionCardCount(activeSection)
-
+      // 6. Section transition fallback for standard slides (0, 4, 6, 8, 9)
       if (isNext) {
         event.preventDefault()
-        if (cardCount > 0) {
-          if (cardIndex === null) {
-            setCardIndex(0)
-            syncSectionCardState(activeSection, 0)
-          } else if (cardIndex < cardCount - 1) {
-            const nextIdx = cardIndex + 1
-            setCardIndex(nextIdx)
-            syncSectionCardState(activeSection, nextIdx)
-          } else {
-            setCardIndex(null)
-            scrollTo(activeSection + 1)
-          }
-        } else {
-          scrollTo(activeSection + 1)
-        }
+        scrollTo(activeSection + 1)
         return
       }
-
       if (isPrev) {
         event.preventDefault()
-        if (cardIndex !== null) {
-          if (cardIndex > 0) {
-            const prevIdx = cardIndex - 1
-            setCardIndex(prevIdx)
-            syncSectionCardState(activeSection, prevIdx)
-          } else {
-            setCardIndex(null)
-          }
-        } else {
-          scrollTo(activeSection - 1)
-        }
+        scrollTo(activeSection - 1)
         return
       }
 
@@ -572,7 +558,7 @@ export default function GrowthExperience() {
 
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cardIndex, getSectionCardCount, syncSectionCardState, cases, systemEngaged, lever, systemLevers.length, capability, capabilities.length, caseSummaryVisible])
+  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cases, problem, problems.length, systemEngaged, lever, systemLevers.length, capability, capabilities.length, caseSummaryVisible])
   const visibleLever = hoveredLever !== null ? Math.min(systemLevers.length - 1, Math.max(0, hoveredLever)) : (systemEngaged ? Math.min(systemLevers.length - 1, Math.max(0, lever)) : -1)
   const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : (leverRelations[visibleLever] || [])) : []
   const visibleCapability = Math.min(capabilities.length - 1, Math.max(0, hoveredCapability ?? capability))
