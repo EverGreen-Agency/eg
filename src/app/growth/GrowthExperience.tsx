@@ -255,6 +255,11 @@ export default function GrowthExperience() {
     const next = Math.max(0, Math.min(sections.length - 1, index))
     setCardIndex(null)
     setCaseSummaryVisible(false)
+    setSystemEngaged(false)
+    setHoveredLever(null)
+    setHoveredCapability(null)
+    setLever(0)
+    setCapability(0)
     document.getElementById(sections[next].id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })
     setNavOpen(false)
   }, [reduceMotion, sections])
@@ -411,26 +416,30 @@ export default function GrowthExperience() {
       if (activeSection === 2) {
         if (isNext) {
           event.preventDefault()
+          setHoveredLever(null)
           if (!systemEngaged) {
             setLever(0)
             setSystemEngaged(true)
             setSystemSimulation(false)
           } else if (lever < systemLevers.length - 1) {
-            setLever(l => l + 1)
+            setLever(l => Math.min(systemLevers.length - 1, l + 1))
             setSystemSimulation(false)
           } else {
             setSystemEngaged(false)
+            setLever(0)
             scrollTo(3)
           }
           return
         }
         if (isPrev) {
           event.preventDefault()
+          setHoveredLever(null)
           if (systemEngaged && lever > 0) {
-            setLever(l => l - 1)
+            setLever(l => Math.max(0, l - 1))
             setSystemSimulation(false)
           } else if (systemEngaged && lever === 0) {
             setSystemEngaged(false)
+            setLever(0)
           } else {
             scrollTo(1)
           }
@@ -475,18 +484,22 @@ export default function GrowthExperience() {
       if (activeSection === 5) {
         if (isNext) {
           event.preventDefault()
+          setHoveredCapability(null)
           if (capability < capabilities.length - 1) {
-            setCapability(c => c + 1)
+            setCapability(c => Math.min(capabilities.length - 1, c + 1))
           } else {
+            setCapability(0)
             scrollTo(6)
           }
           return
         }
         if (isPrev) {
           event.preventDefault()
+          setHoveredCapability(null)
           if (capability > 0) {
-            setCapability(c => c - 1)
+            setCapability(c => Math.max(0, c - 1))
           } else {
+            setCapability(capabilities.length - 1)
             scrollTo(4)
           }
           return
@@ -559,10 +572,10 @@ export default function GrowthExperience() {
 
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cardIndex, getSectionCardCount, syncSectionCardState, cases])
-  const visibleLever = hoveredLever ?? (systemEngaged ? lever : -1)
+  }, [activeSection, caseId, caseStep, currentCase, method, methodKeys, openMethod, closeMethod, scrollTo, sections, cardIndex, getSectionCardCount, syncSectionCardState, cases, systemEngaged, lever, systemLevers.length, capability, capabilities.length, caseSummaryVisible])
+  const visibleLever = hoveredLever !== null ? Math.min(systemLevers.length - 1, Math.max(0, hoveredLever)) : (systemEngaged ? Math.min(systemLevers.length - 1, Math.max(0, lever)) : -1)
   const relatedLevers = visibleLever >= 0 ? (systemSimulation ? [0, 2, 3, 6] : (leverRelations[visibleLever] || [])) : []
-  const visibleCapability = hoveredCapability ?? capability
+  const visibleCapability = Math.min(capabilities.length - 1, Math.max(0, hoveredCapability ?? capability))
   const relatedCapabilities = capabilityRelations[visibleCapability] || []
 
   const isLightSection = ['gargalo', 'tempo', 'evidencias', 'padrao'].includes(sections[activeSection]?.id)
