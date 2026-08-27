@@ -4,13 +4,14 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState, Suspense } from 'react';
 import * as fbq from '../lib/fpixel';
+import { isImmersiveRoute } from '@/components/deck/routes';
 
 // Componente interno que usa useSearchParams
 function FacebookPixelInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [loaded, setLoaded] = useState(false);
-  const disabledForImmersiveExperience = pathname === '/growth' || pathname.startsWith('/growth/');
+  const disabledForImmersiveExperience = isImmersiveRoute(pathname);
 
   useEffect(() => {
     // Quando o componente for montado, carregue o script do Facebook Pixel

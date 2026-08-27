@@ -1,6 +1,8 @@
-export type MethodKey = 'diagnostico' | 'arquitetura' | 'implementacao' | 'operacao' | 'evolucao'
+import type { CaseStudy, Language, RaizPhase } from '@/components/deck/types'
 
-export type Language = 'pt' | 'en'
+export type { CaseContentBlock, CaseContentSection, CaseStudy, Language } from '@/components/deck/types'
+
+export type MethodKey = 'diagnostico' | 'arquitetura' | 'implementacao' | 'operacao' | 'evolucao'
 
 export const sectionsPt = [
   { id: 'inicio', label: 'Início' },
@@ -71,7 +73,7 @@ export const systemLeversEn: SystemLever[] = [
 export type MethodModule = {
   number: string
   /** Fase do Sistema Raiz EG (Documento-Mestre §9) a que este modulo pertence. */
-  phase: 'Raiz' | 'Tronco' | 'Ramos' | 'Copa'
+  phase: RaizPhase
   /** Verbo da fase, igual ao usado na home: Diagnosticar / Priorizar / Estruturar / Evoluir. */
   action: string
   title: string
@@ -203,28 +205,6 @@ export const capabilitiesEn = [
   { name: 'RevOps', use: 'Align marketing, sales, and revenue.', yes: 'When departments optimize disconnected metrics.', no: 'When executive commitment to process is absent.' },
   { name: 'Product', use: 'Build bespoke digital infrastructure.', yes: 'When software creates genuine operational advantage.', no: 'When off-the-shelf software solves it better and faster.' },
 ]
-
-export type CaseContentBlock =
-  | { type: 'lead' | 'paragraph' | 'quote'; text: string }
-  | { type: 'points' | 'metrics' | 'flow'; items: string[] }
-  | { type: 'group'; title: string; text?: string; items?: string[] }
-
-export type CaseContentSection = {
-  label: string
-  title?: string
-  blocks: CaseContentBlock[]
-}
-
-export type CaseStudy = {
-  id: string
-  name: string
-  category: string
-  headline: string
-  metric: string
-  evidence: string
-  highlights: string[]
-  sections: CaseContentSection[]
-}
 
 export const casesPt: CaseStudy[] = [
   {

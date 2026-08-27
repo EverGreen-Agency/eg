@@ -354,3 +354,14 @@
   .caseFlow{align-items:flex-start;flex-direction:column}
   .caseFlow span:not(:last-child):after{content:"↓"}
 }
+
+/* escada de ofertas (/tech) — cartoes nao clicaveis, entao nao reusam .caseGrid>button */
+.ladderGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6vh}
+.ladderCard{min-height:300px;padding:26px;border:1px solid rgba(9,35,27,.18);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.ladderCard>span{font:10px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:#147b4a}
+.ladderCard h3{font-size:clamp(20px,2vw,27px);line-height:1.1;letter-spacing:-.02em;margin:0}
+.ladderCard p{font-size:14px;line-height:1.55;opacity:.78;margin:0}
+.ladderGuarantee{margin-top:auto;padding-top:14px;border-top:1px solid rgba(9,35,27,.14);width:100%}
+.ladderGuarantee>b{display:block;font:9px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:#147b4a;margin-bottom:6px}
+.ladderGuarantee>span{font-size:12.5px;line-height:1.5;opacity:.66}
+@media (max-width:900px){.ladderGrid{grid-template-columns:1fr}.ladderCard{min-height:0}}

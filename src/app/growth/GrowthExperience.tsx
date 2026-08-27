@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, CircleDot, Menu, MousePointer2, X } from 'lucide-react'
-import { getGrowthData, type CaseContentSection, type Language, type MethodKey, type MethodModule } from './data'
-import styles from './growth.module.css'
+import { getGrowthData, type Language, type MethodKey, type MethodModule } from './data'
+import { ease, replaceExperienceUrl, sectorLabelPoint, sectorPath, setProspectTag, track } from '@/components/deck/deck'
+import { CaseSectionCopy, Eyebrow, SectionTitle } from '@/components/deck/DeckPrimitives'
+import styles from '@/components/deck/deck.module.css'
 
-const ease = [0.22, 1, 0.36, 1] as const
 /** A validade some sozinha quando vencer, em vez de a pagina seguir afirmando algo falso. */
 const GOOGLE_CERT_EXPIRES = Date.parse('2027-03-01T00:00:00Z')
 const WHATSAPP_NUMBER = '5511989966989'
@@ -45,113 +46,6 @@ const capabilityRelations: Record<number, number[]> = {
   6: [4, 5, 8],       // IA
   7: [0, 1, 4],       // RevOps
   8: [3, 4, 6],       // Produto
-}
-
-function polarPoint(radius: number, angle: number) {
-  const radians = (angle - 90) * Math.PI / 180
-  return {
-    x: Number((50 + radius * Math.cos(radians)).toFixed(5)),
-    y: Number((50 + radius * Math.sin(radians)).toFixed(5)),
-  }
-}
-
-function sectorPath(index: number, totalLevers: number, expanded = false) {
-  const span = 360 / totalLevers
-  const startAngle = index * span + 1.2
-  const endAngle = (index + 1) * span - 1.2
-  const outerRadius = expanded ? 49 : 45.5
-  const innerRadius = expanded ? 18.5 : 20
-  const outerStart = polarPoint(outerRadius, startAngle)
-  const outerEnd = polarPoint(outerRadius, endAngle)
-  const innerEnd = polarPoint(innerRadius, endAngle)
-  const innerStart = polarPoint(innerRadius, startAngle)
-  return `M ${outerStart.x} ${outerStart.y} A ${outerRadius} ${outerRadius} 0 0 1 ${outerEnd.x} ${outerEnd.y} L ${innerEnd.x} ${innerEnd.y} A ${innerRadius} ${innerRadius} 0 0 0 ${innerStart.x} ${innerStart.y} Z`
-}
-
-function sectorLabelPoint(index: number, totalLevers: number) {
-  const span = 360 / totalLevers
-  return polarPoint(33, index * span + span / 2)
-}
-
-function capabilitySectorPath(index: number, totalCaps: number, expanded = false) {
-  const span = 360 / totalCaps
-  const startAngle = index * span + 1
-  const endAngle = (index + 1) * span - 1
-  const outerRadius = expanded ? 49 : 45.5
-  const innerRadius = expanded ? 18.5 : 20
-  const outerStart = polarPoint(outerRadius, startAngle)
-  const outerEnd = polarPoint(outerRadius, endAngle)
-  const innerEnd = polarPoint(innerRadius, endAngle)
-  const innerStart = polarPoint(innerRadius, startAngle)
-  return `M ${outerStart.x} ${outerStart.y} A ${outerRadius} ${outerRadius} 0 0 1 ${outerEnd.x} ${outerEnd.y} L ${innerEnd.x} ${innerEnd.y} A ${innerRadius} ${innerRadius} 0 0 0 ${innerStart.x} ${innerStart.y} Z`
-}
-
-function capabilityLabelPoint(index: number, totalCaps: number) {
-  const span = 360 / totalCaps
-  return polarPoint(33, index * span + span / 2)
-}
-
-/**
- * Etiqueta de quem recebeu o link (?p=). A peca e anexo de proposta: sem isto o
- * analytics responde "23 pessoas viram a secao 5" quando a pergunta real e
- * "o Rian abriu, e ate onde foi?". Fica em modulo porque track() e chamada de
- * varios pontos e o valor nao muda depois do carregamento.
- */
-let prospectTag: string | null = null
-
-/** So letras, numeros, hifen e underscore. O valor vai parar em relatorio. */
-function sanitizeProspect(raw: string | null) {
-  if (!raw) return null
-  const clean = raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40)
-  return clean || null
-}
-
-function track(event: string, data: Record<string, unknown> = {}) {
-  if (typeof window === 'undefined') return
-  const target = window as typeof window & { dataLayer?: Record<string, unknown>[] }
-  target.dataLayer = target.dataLayer || []
-  target.dataLayer.push({ event, ...(prospectTag ? { prospect: prospectTag } : {}), ...data })
-}
-
-/**
- * Reescreve a URL preservando os parametros que ja estavam la. A versao antiga
- * montava a URL a partir do pathname puro, entao abrir um modulo ou um case
- * apagava ?lang=en e ?p= — e um link copiado dali perdia idioma e etiqueta.
- * Passe null num parametro para remove-lo.
- */
-function replaceExperienceUrl(changes: Record<string, string | null> = {}, hash = '') {
-  if (typeof window === 'undefined') return
-  const params = new URLSearchParams(window.location.search)
-  for (const [key, value] of Object.entries(changes)) {
-    if (value === null) params.delete(key)
-    else params.set(key, value)
-  }
-  const query = params.toString() ? `?${params.toString()}` : ''
-  window.history.replaceState(window.history.state, '', `${window.location.pathname}${query}${hash}`)
-}
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <div className={styles.eyebrow}><span />{children}</div>
-}
-
-function SectionTitle({ eyebrow, children, lead }: { eyebrow: string; children: React.ReactNode; lead?: string }) {
-  return <div className={styles.titleBlock}><Eyebrow>{eyebrow}</Eyebrow><h2>{children}</h2>{lead && <p>{lead}</p>}</div>
-}
-
-function CaseSectionCopy({ section }: { section: CaseContentSection }) {
-  return <>
-    {section.title && <h4>{section.title}</h4>}
-    <div className={styles.caseBlocks}>{section.blocks.map((block, index) => {
-      if (block.type === 'lead') return <h5 key={index}>{block.text}</h5>
-      if (block.type === 'paragraph') return <p key={index}>{block.text}</p>
-      if (block.type === 'quote') return <blockquote key={index}>{block.text}</blockquote>
-      if (block.type === 'points') return <ul key={index}>{block.items.map(item => <li key={item}>{item}</li>)}</ul>
-      if (block.type === 'metrics') return <div key={index} className={styles.caseMetrics}>{block.items.map(item => <strong key={item}>{item}</strong>)}</div>
-      if (block.type === 'flow') return <div key={index} className={styles.caseFlow}>{block.items.map(item => <span key={item}>{item}</span>)}</div>
-      if (block.type === 'group') return <div key={index} className={styles.caseGroup}><strong>{block.title}</strong>{block.text && <p>{block.text}</p>}{block.items && <ul>{block.items.map(item => <li key={item}>{item}</li>)}</ul>}</div>
-      return null
-    })}</div>
-  </>
 }
 
 function EGMark() {
@@ -304,7 +198,7 @@ export default function GrowthExperience() {
     if (bootstrapped.current) return
     bootstrapped.current = true
     const params = new URLSearchParams(window.location.search)
-    prospectTag = sanitizeProspect(params.get('p'))
+    setProspectTag(params.get('p'))
     const explore = params.get('explore') as MethodKey | null
     const requestedCase = params.get('case')
     if (explore && methodModules[explore]) { setMethod(explore); setTimeout(() => scrollTo(3), 100) }
@@ -702,10 +596,10 @@ export default function GrowthExperience() {
                 {capabilities.map((item, i) => {
                   const isActive = visibleCapability === i
                   const isRelated = (relatedCapabilities || []).includes(i)
-                  const point = capabilityLabelPoint(i, capabilities.length)
+                  const point = sectorLabelPoint(i, capabilities.length)
                   const sectorClass = `${styles.wheelSector} ${styles.capabilityWheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${!isActive && !isRelated ? styles.dimmed : ''}`
                   return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.use}`} aria-pressed={capability === i} onClick={() => setCapability(i)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setCapability(i) } }} onPointerEnter={() => setHoveredCapability(i)} onFocus={() => setHoveredCapability(i)} onBlur={() => setHoveredCapability(null)}>
-                    <motion.path initial={false} animate={{ d: capabilitySectorPath(i, capabilities.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
+                    <motion.path initial={false} animate={{ d: sectorPath(i, capabilities.length, isActive, 1) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
                     <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
                   </motion.g>
                 })}
