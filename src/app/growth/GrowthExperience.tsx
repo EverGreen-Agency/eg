@@ -1,13 +1,30 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, CircleDot, Menu, MousePointer2, X } from 'lucide-react'
 import { getGrowthData, type CaseContentSection, type Language, type MethodKey, type MethodModule } from './data'
 import styles from './growth.module.css'
 
 const ease = [0.22, 1, 0.36, 1] as const
-const whatsappUrl = process.env.NEXT_PUBLIC_EG_WHATSAPP_URL || '/contato'
+/** A validade some sozinha quando vencer, em vez de a pagina seguir afirmando algo falso. */
+const GOOGLE_CERT_EXPIRES = Date.parse('2027-03-01T00:00:00Z')
+const WHATSAPP_NUMBER = '5511989966989'
+const whatsappMessage: Record<Language, string> = {
+  pt: 'Oi! Vi a apresentação da EverGreen e quero continuar a conversa sobre a proposta.',
+  en: 'Hi! I went through the EverGreen presentation and would like to continue our conversation about the proposal.',
+}
+
+/**
+ * O CTA principal precisa devolver a pessoa para a conversa que ja existe.
+ * A env var permite trocar o destino sem deploy; o fallback e um wa.me real,
+ * nunca /contato — que nao e rota imersiva e jogaria o prospect para fora do deck.
+ */
+function whatsappHref(lang: Language) {
+  const override = process.env.NEXT_PUBLIC_EG_WHATSAPP_URL
+  if (override) return override
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage[lang])}`
+}
 const leverRelations: Record<number, number[]> = {
   0: [1, 2],       // Oferta → Aquisição, Experiência
   1: [0, 2, 3, 6], // Aquisição → Oferta, Experiência, Dados, Processo
@@ -17,18 +34,6 @@ const leverRelations: Record<number, number[]> = {
   5: [4, 6],       // Pessoas → Tecnologia, Processo
   6: [1, 2, 3, 4, 5],
 }
-
-const capabilityPositions = [
-  { x: 16, y: 18, group: 'Receita' },
-  { x: 50, y: 9, group: 'Demanda' },
-  { x: 82, y: 20, group: 'Experiência' },
-  { x: 91, y: 52, group: 'Infraestrutura' },
-  { x: 76, y: 84, group: 'Inteligência' },
-  { x: 45, y: 92, group: 'Alavancagem' },
-  { x: 15, y: 80, group: 'Alavancagem' },
-  { x: 8, y: 51, group: 'Receita' },
-  { x: 68, y: 52, group: 'Produto' },
-]
 
 const capabilityRelations: Record<number, number[]> = {
   0: [4, 5, 7],       // CRM
@@ -166,8 +171,8 @@ function DiagnosticSimulation({ lang }: { lang: Language }) {
 function MethodDetail({ method, onClose, data, lang }: { method: MethodKey; onClose: () => void; data: MethodModule; lang: Language }) {
   return (
     <motion.div layoutId={`method-${method}`} className={styles.methodDetail}>
-      <button className={styles.closeButton} onClick={onClose} aria-label="Close detail"><X size={19} /></button>
-      <div className={styles.methodDetailIntro}><span>{data.number} / {lang === 'en' ? 'EG METHOD' : 'MÉTODO EG'}</span><h3>{data.title}</h3><p>{data.headline}</p></div>
+      <button className={styles.closeButton} onClick={onClose} aria-label={lang === 'en' ? 'Close detail' : 'Fechar detalhe'}><X size={19} /></button>
+      <div className={styles.methodDetailIntro}><span>{data.number} / {data.phase} · {data.action}</span><h3>{data.title}</h3><p>{data.headline}</p></div>
       <div className={styles.methodGroups}>{data.groups.map(group => <div key={group.title}><small>{group.title}</small>{group.items.map(item => <span key={item}>{item}</span>)}</div>)}</div>
       {method === 'diagnostico' && <DiagnosticSimulation lang={lang} />}
       {method === 'arquitetura' && <div className={styles.architectureMap}>{['Lead source', 'Landing page', 'CRM', 'Pipeline', 'Sales response', 'Follow-up', 'Dashboard'].map((n, i) => <div key={n} style={{ '--i': i } as React.CSSProperties}>{n}</div>)}</div>}
@@ -197,7 +202,7 @@ export default function GrowthExperience() {
 
   const [scrolled, setScrolled] = useState(false)
 
-  const { sections, problems, systemLevers, methodModules, capabilities, cases, caseSummary, manifesto, t } = useMemo(() => getGrowthData(lang), [lang])
+  const { sections, problems, systemLevers, methodModules, capabilities, capabilityGroups, cases, caseSummary, manifesto, t } = useMemo(() => getGrowthData(lang), [lang])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -221,6 +226,12 @@ export default function GrowthExperience() {
       }
     }
   }, [])
+
+  // O layout raiz fixa lang="pt-BR"; sem isto o leitor de tela le o ingles
+  // com fonetica portuguesa quando o visitante troca para EN.
+  useEffect(() => {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR'
+  }, [lang])
 
   const changeLang = (newLang: Language) => {
     setLang(newLang)
@@ -265,7 +276,13 @@ export default function GrowthExperience() {
     setNavOpen(false)
   }, [reduceMotion, sections])
 
+  // Trocar de idioma recria scrollTo/methodModules/cases, entao sem esta trava o
+  // efeito reprocessava ?explore= e ?case= (reabrindo modal ja fechado) e contava
+  // uma nova sessao a cada clique em PT/EN.
+  const bootstrapped = useRef(false)
   useEffect(() => {
+    if (bootstrapped.current) return
+    bootstrapped.current = true
     const params = new URLSearchParams(window.location.search)
     const explore = params.get('explore') as MethodKey | null
     const requestedCase = params.get('case')
@@ -328,19 +345,6 @@ export default function GrowthExperience() {
     }
     window.addEventListener('wheel', onWheel, { passive: true })
     return () => window.removeEventListener('wheel', onWheel)
-  }, [])
-
-  const getSectionCardCount = useCallback((sectionIdx: number) => {
-    switch (sectionIdx) {
-      case 1: return problems.length
-      case 3: return 5
-      case 7: return cases.length
-      default: return 0
-    }
-  }, [problems.length, cases.length])
-
-  const syncSectionCardState = useCallback((sectionIdx: number, cIdx: number) => {
-    if (sectionIdx === 1) setProblem(cIdx)
   }, [])
 
   useEffect(() => {
@@ -578,7 +582,7 @@ export default function GrowthExperience() {
         <button className={styles.menuButton} onClick={() => setNavOpen(!navOpen)} aria-label={t.navMapTitle}><Menu size={20} /><span>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span></button>
       </header>
 
-      <nav className={`${styles.progress} ${isLightSection ? styles.lightProgress : ''}`} aria-label="Progresso da apresentação">
+      <nav className={`${styles.progress} ${isLightSection ? styles.lightProgress : ''}`} aria-label={lang === 'en' ? 'Presentation progress' : 'Progresso da apresentação'}>
         {sections.map((section, i) => <button key={section.id} aria-label={section.label} className={i === activeSection ? styles.current : ''} onClick={() => scrollTo(i)}><i /><span>{section.label}</span></button>)}
       </nav>
 
@@ -591,7 +595,7 @@ export default function GrowthExperience() {
         <div className={styles.heroGrid} aria-hidden="true" />
         <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease }}>
           <Eyebrow>{t.heroEyebrow}</Eyebrow>
-          <h1>{lang === 'en' ? 'Executive Growth' : 'Consultoria Executiva'}<br />{lang === 'en' ? 'Consulting.' : 'de '}<em>Growth.</em></h1>
+          <h1>{lang === 'en' ? 'Executive' : 'Consultoria Executiva'}<br />{lang === 'en' ? 'Consulting.' : 'de '}<em>Growth.</em></h1>
           <p>{t.heroSubtitle}</p>
           <button className={styles.exploreCue} onClick={() => scrollTo(1)}>{lang === 'en' ? 'Uncover the bottleneck' : 'Descobrir o gargalo'} <ArrowDown size={18} /></button>
         </motion.div>
@@ -601,7 +605,7 @@ export default function GrowthExperience() {
 
       <section id="gargalo" className={`${styles.chapter} ${styles.lightChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow={`01 — ${t.bottleneckEyebrow}`}>{t.bottleneckTitle}</SectionTitle>
+          <SectionTitle eyebrow={`01 — ${t.bottleneckEyebrow}`} lead={t.bottleneckSubtitle}>{t.bottleneckTitle}</SectionTitle>
           <div className={styles.problemStage}>
             <div className={styles.problemTabs}>{problems.map((item, i) => <button key={item.request} onClick={() => setProblem(i)} className={`${problem === i ? styles.active : ''} ${activeSection === 1 && cardIndex === i ? styles.cardFocused : ''}`}><span>0{i + 1}</span>{item.request}</button>)}</div>
             <AnimatePresence mode="wait"><motion.div key={problem} className={styles.problemFlow} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: .35 }}>
@@ -633,12 +637,13 @@ export default function GrowthExperience() {
             </svg>
             <div className={styles.revenueCore}>
               <AnimatePresence mode="wait">
-                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 && systemLevers[visibleLever] ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {(relatedLevers || []).map(index => systemLevers[index]?.name).filter(Boolean).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
+                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 && systemLevers[visibleLever] ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].kind === 'pilar' ? (lang === 'en' ? 'PILLAR' : 'PILAR') : (lang === 'en' ? 'FOUNDATION' : 'SUSTENTAÇÃO')} · {systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {(relatedLevers || []).map(index => systemLevers[index]?.name).filter(Boolean).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
               </AnimatePresence>
             </div>
           </div>
+          <p className={styles.clickHint}><MousePointer2 size={15} /> {t.systemInstruction}</p>
           <div className={styles.discovery}><p>{lang === 'en' ? 'Does more leads always equal more growth?' : 'Mais leads sempre significam mais crescimento?'}</p><div><button onClick={() => setAnswered(true)}>{lang === 'en' ? 'Yes' : 'Sim'}</button><button onClick={() => setAnswered(false)}>{lang === 'en' ? 'Not necessarily' : 'Não necessariamente'}</button></div>
-            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacidade' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
+            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacity' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
           </div>
         </div>
       </section>
@@ -649,7 +654,7 @@ export default function GrowthExperience() {
           <div className={styles.methodShell}>
             <AnimatePresence mode="wait">
               {method ? <MethodDetail key={method} method={method} onClose={closeMethod} data={methodModules[method]} lang={lang} /> : <motion.div className={styles.methodOverview} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data], i) => <motion.button layoutId={`method-${key}`} key={key} onClick={() => openMethod(key)} className={activeSection === 3 && cardIndex === i ? styles.cardFocused : ''}><span>{data.number}</span><div><strong>{data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
+                {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data], i) => <motion.button layoutId={`method-${key}`} key={key} onClick={() => openMethod(key)} className={activeSection === 3 && cardIndex === i ? styles.cardFocused : ''}><span>{data.number}</span><div><strong>{data.phase} · {data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
               </motion.div>}
             </AnimatePresence>
           </div>
@@ -663,7 +668,7 @@ export default function GrowthExperience() {
           <div className={styles.timeZoom}>
             {(lang === 'en' ? [['12 months', 'Strategic direction', '01'], ['Quarter', 'Transformations', '04'], ['Sprint', 'Priority focus', '30/60/90'], ['Week', 'Execution & decisions', '52']] : [['12 meses', 'Direção estratégica', '01'], ['Trimestre', 'Transformações', '04'], ['Sprint', 'Prioridade', '30/60/90'], ['Semana', 'Gestão e decisões', '52']]).map((item, i) => <motion.div key={item[0]} whileHover={{ y: -8 }}><span>{item[2]}</span><small>{lang === 'en' ? 'LEVEL' : 'NÍVEL'} {i + 1}</small><h3>{item[0]}</h3><p>{item[1]}</p></motion.div>)}
           </div>
-          <div className={styles.timeFooter}><span>{lang === 'en' ? 'ANNUAL PLAN' : 'PLANO ANUAL'}</span><i /><span>{lang === 'en' ? 'PRIORITY SPRINTS' : 'SPRINTS PRIORITÁRIAS'}</span><i /><span>{lang === 'en' ? 'CONTINUOUS REVIEW' : 'REVISÃO CONTÍNUA'}</span></div>
+          <div className={styles.timeFooter}><span>{lang === 'en' ? 'COMMERCIAL X-RAY' : 'RAIO-X COMERCIAL'}</span><i /><span>{lang === 'en' ? 'STRUCTURING SPRINT' : 'SPRINT DE ESTRUTURAÇÃO'}</span><i /><span>{lang === 'en' ? 'PREDICTABILITY RETAINER' : 'RETAINER DE PREVISIBILIDADE'}</span></div>
         </div>
       </section>
 
@@ -686,11 +691,11 @@ export default function GrowthExperience() {
                 <circle className={styles.wheelInnerRing} cx="50" cy="50" r="19" />
               </svg>
               <div className={styles.revenueCore}>
-                <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{capabilityPositions[visibleCapability]?.group ?? ''}</small><strong>{capabilities[visibleCapability]?.name ?? ''}</strong><span>{capabilities[visibleCapability]?.use ?? ''}</span></motion.div></AnimatePresence>
+                <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{capabilityGroups[visibleCapability] ?? ''}</small><strong>{capabilities[visibleCapability]?.name ?? ''}</strong><span>{capabilities[visibleCapability]?.use ?? ''}</span></motion.div></AnimatePresence>
               </div>
             </div>
             <AnimatePresence mode="wait"><motion.div key={visibleCapability} className={styles.capabilityPanel} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: .28, ease }}>
-              <small>{lang === 'en' ? 'CAPABILITY' : 'CAPACIDADE'} {String(visibleCapability + 1).padStart(2, '0')} · {capabilityPositions[visibleCapability]?.group ?? ''}</small><h3>{capabilities[visibleCapability]?.name ?? ''}</h3><p>{capabilities[visibleCapability]?.use ?? ''}</p>
+              <small>{lang === 'en' ? 'CAPABILITY' : 'CAPACIDADE'} {String(visibleCapability + 1).padStart(2, '0')} · {capabilityGroups[visibleCapability] ?? ''}</small><h3>{capabilities[visibleCapability]?.name ?? ''}</h3><p>{capabilities[visibleCapability]?.use ?? ''}</p>
               <div><span>{lang === 'en' ? 'WHEN TO USE' : 'QUANDO ENTRA'}</span>{capabilities[visibleCapability]?.yes ?? ''}</div><div className={styles.no}><span>{lang === 'en' ? 'WHEN NOT TO USE' : 'QUANDO NÃO ENTRA'}</span>{capabilities[visibleCapability]?.no ?? ''}</div>
               <footer><b>{lang === 'en' ? 'Relates to' : 'Relaciona com'}</b>{(relatedCapabilities || []).map(index => capabilities[index] ? <button key={capabilities[index].name} onClick={() => setCapability(index)}>{capabilities[index].name}</button> : null)}</footer>
             </motion.div></AnimatePresence>
@@ -703,7 +708,7 @@ export default function GrowthExperience() {
           <SectionTitle eyebrow={`06 — ${t.teamEyebrow}`}>{t.teamTitle}</SectionTitle>
           <div className={styles.credentialsStack}>
             <div className={styles.partnerCredential}><span>{t.officialPartner}</span><img src="/images/kommopartner.png" alt="EverGreen MKT é Kommo Partner" /><small>{lang === 'en' ? 'CRM, automation, and commercial operation.' : 'CRM, automação e operação comercial.'}</small></div>
-            <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>{t.googleCert}</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva · {lang === 'en' ? 'valid thru Feb/2027' : 'válida até fev/2027'}</small></div><ArrowUpRight size={14} /></a>
+            <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>{t.googleCert}</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva{Date.now() < GOOGLE_CERT_EXPIRES ? (lang === 'en' ? ' · valid thru Feb/2027' : ' · válida até fev/2027') : ''}</small></div><ArrowUpRight size={14} /></a>
           </div>
           <div className={styles.teamGrid}>
             <article className={styles.teamCard}>
@@ -740,13 +745,13 @@ export default function GrowthExperience() {
           </div>
         </div>
         <AnimatePresence>{currentCase && <motion.div className={styles.caseOverlay} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button className={styles.closeButton} aria-label="Close case study" onClick={() => { setCaseId(null); replaceExperienceUrl(`${window.location.pathname}#evidencias`) }}><X /></button>
+          <button className={styles.closeButton} aria-label={lang === 'en' ? 'Close case study' : 'Fechar estudo de caso'} onClick={() => { setCaseId(null); replaceExperienceUrl(`${window.location.pathname}#evidencias`) }}><X /></button>
           <div className={styles.caseHeading}><Eyebrow>{lang === 'en' ? 'Inside the operation' : 'Por dentro da operação'}</Eyebrow><span>{currentCase.category}</span><h3>{currentCase.name}</h3><strong>{currentCase.headline}</strong><b>{currentCase.metric}</b><p>{currentCase.evidence}</p></div>
           <div className={styles.caseSteps}>{currentCase.sections.map((step, i) => <button key={step.label} className={caseStep === i ? styles.active : ''} onClick={() => setCaseStep(i)}><span>{String(i + 1).padStart(2, '0')}</span>{step.label}</button>)}</div>
           {currentCase.sections[caseStep] && <motion.div key={`${currentCase.id}-${caseStep}`} className={styles.caseContent} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}>
             <small>{currentCase.sections[caseStep].label}</small>
             <CaseSectionCopy section={currentCase.sections[caseStep]} />
-            <div className={styles.caseControls}><button aria-label="Previous step" disabled={caseStep === 0} onClick={() => setCaseStep(s => Math.max(0, s - 1))}><ArrowLeft /></button><button aria-label="Next step" disabled={caseStep >= currentCase.sections.length - 1} onClick={() => setCaseStep(s => Math.min(currentCase.sections.length - 1, s + 1))}><ArrowRight /></button></div>
+            <div className={styles.caseControls}><button aria-label={lang === 'en' ? 'Previous step' : 'Passo anterior'} disabled={caseStep === 0} onClick={() => setCaseStep(s => Math.max(0, s - 1))}><ArrowLeft /></button><button aria-label={lang === 'en' ? 'Next step' : 'Proximo passo'} disabled={caseStep >= currentCase.sections.length - 1} onClick={() => setCaseStep(s => Math.min(currentCase.sections.length - 1, s + 1))}><ArrowRight /></button></div>
           </motion.div>}
         </motion.div>}</AnimatePresence>
       </section>
@@ -761,7 +766,7 @@ export default function GrowthExperience() {
       <section id="contato" className={`${styles.chapter} ${styles.closing}`}>
         <div className={styles.closingOrb} aria-hidden="true" />
         <div><Eyebrow>{t.contactEyebrow}</Eyebrow><h2>{lang === 'en' ? 'We don’t compete to be' : 'Não competimos para ser'}<br />{lang === 'en' ? 'the cheapest option.' : 'a opção mais barata.'}</h2><motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: .35 }}>{lang === 'en' ? 'We compete to be the' : 'Competimos para ser a'}<br /><em>{lang === 'en' ? 'safest decision.' : 'decisão mais segura.'}</em></motion.h3><p>{t.contactSubtitle}</p>
-          <div className={styles.ctas}><a href={whatsappUrl} target={whatsappUrl.startsWith('http') ? '_blank' : undefined} rel={whatsappUrl.startsWith('http') ? 'noreferrer' : undefined} onClick={() => track('whatsapp_clicked')}>{t.ctaPrimary} <ArrowUpRight /></a><a href="https://evergreenmkt.com.br" onClick={() => track('cta_clicked')}>evergreenmkt.com.br</a></div>
+          <div className={styles.ctas}><a href={whatsappHref(lang)} target="_blank" rel="noreferrer" onClick={() => track('whatsapp_clicked')}>{t.ctaPrimary} <ArrowUpRight /></a><a href="https://evergreenmkt.com.br" onClick={() => track('cta_clicked')}>evergreenmkt.com.br</a></div>
         </div>
         <footer><span>EVERGREEN MKT © {new Date().getFullYear()}</span><span>{lang === 'en' ? 'CLARITY · STRUCTURE · PREDICTABILITY' : 'CLAREZA · ESTRUTURA · PREVISIBILIDADE'}</span></footer>
       </section>
