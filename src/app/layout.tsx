@@ -1,6 +1,7 @@
 import './globals.css'
 import CookieConsent from "@/components/CookieConsent";
 import FacebookPixel from '@/components/FacebookPixel';
+import GoogleTagManager from '@/components/GoogleTagManager';
 import ConditionalLayout from '@/components/ConditionalLayout';
 
 export const metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="font-sans min-h-screen bg-musgo antialiased">
+        <GoogleTagManager />
         <FacebookPixel />
         <ConditionalLayout>
           {children}

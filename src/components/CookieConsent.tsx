@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { CONSENT_EVENT } from "./GoogleTagManager";
 
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
@@ -12,16 +13,17 @@ export default function CookieConsent() {
   function handleConsent(accepted: boolean) {
     localStorage.setItem("cookie_consent", accepted ? "accepted" : "rejected");
     setShow(false);
-    // Aqui você pode disparar scripts/pixels se aceito
+    // O GoogleTagManager escuta este evento e so carrega o container apos o aceite.
+    window.dispatchEvent(new Event(CONSENT_EVENT));
   }
 
   if (!show) return null;
 
   return (
     <div className="fixed bottom-4 left-0 right-0 z-50 flex justify-center">
-      <div className="bg-[#092B1B] text-[#FFF4C7] rounded-xl shadow-lg p-6 max-w-xl w-full flex flex-col md:flex-row items-center gap-4 border border-emerald-400">
+      <div className="bg-[#09231B] text-[#FFF4C7] rounded-xl shadow-lg p-6 max-w-xl w-full flex flex-col md:flex-row items-center gap-4 border border-emerald-400">
         <span className="flex-1 text-base">
-          Utilizamos cookies para melhorar sua experiência, analisar o tráfego e personalizar conteúdo. Saiba mais na <a href="/politica-de-privacidade" className="underline text-emerald-300">Política de Privacidade</a>.
+          Utilizamos cookies para melhorar sua experiência, analisar o tráfego e personalizar conteúdo. Saiba mais na <a href="/legal/privacidade" className="underline text-emerald-300">Política de Privacidade</a>.
         </span>
         <div className="flex gap-2">
           <button
