@@ -26,9 +26,14 @@ arquivo — respondem em uma chamada o que levaria dezenas de greps.
 
 ONDE O TRABALHO PAROU
 
-Existe uma branch local `claude/growth-auditoria-ajustes`, com dois commits e
-SEM PUSH, à frente de `main`. Ela nasceu de uma auditoria completa da /growth
-(22 achados). O que ela já resolveu:
+Uma auditoria completa da /growth (22 achados) gerou quatro commits, já
+mergeados na `main` local e SEM PUSH. A `main` local está à frente da origin.
+Atenção: `main` é a branch que a Vercel publica — dar push nela publica.
+
+(A branch `develop` deste repo está 21 commits atrás e não contém a /growth.
+Ela não é usada aqui; o trabalho vai direto para `main`.)
+
+O que já foi resolvido:
 
 - CTA principal ia para /contato porque NEXT_PUBLIC_EG_WHATSAPP_URL nunca foi
   setada na Vercel; agora tem fallback wa.me real (5511989966989)
@@ -40,12 +45,19 @@ SEM PUSH, à frente de `main`. Ela nasceu de uma auditoria completa da /growth
 - a LP rodava uma metodologia própria; agora está ancorada no Sistema Raiz
 - deck em inglês estava pela metade; PT e EN agora têm as mesmas 20 seções
 - vários bugs de i18n, código morto e o H1 que renderizava "Consulting.Growth."
+- ?p= etiqueta quem recebeu o link e vai junto em todos os eventos, para o
+  analytics responder "o Rian abriu" em vez de só "23 pessoas viram"
+- replaceExperienceUrl apagava a query inteira ao abrir módulo ou case, então
+  quem trocava para EN perdia o ?lang=en no primeiro clique
 
 O QUE FALTA, EM ORDEM
 
 1. Fazer o build e revisar a /growth no navegador em PT e EN, desktop e mobile.
    Nada disso foi validado visualmente — só por tsc e build.
-2. Setar NEXT_PUBLIC_GTM_ID na Vercel. Sem isso o analytics continua sem chegar.
+2. Ligar o analytics — docs/ANALYTICS-GTM.md tem o passo a passo. São três elos
+   e nenhum deles é código: criar o container, setar NEXT_PUBLIC_GTM_ID na Vercel
+   E REDEPLOY (NEXT_PUBLIC_* é embutida no build), criar a tag do GA4 com o
+   gatilho de regex, e registrar as dimensões personalizadas no GA4.
 3. CSS órfão: .leverNote, .capabilityField, .capCore, .capabilityNetwork,
    .exploreControl, .fieldHint, .relationships — 21 regras de uma iteração que
    foi substituída pela roda atual. Está minificado com regras VIVAS na mesma
