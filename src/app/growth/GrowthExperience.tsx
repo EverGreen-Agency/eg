@@ -91,16 +91,43 @@ function capabilityLabelPoint(index: number, totalCaps: number) {
   return polarPoint(33, index * span + span / 2)
 }
 
+/**
+ * Etiqueta de quem recebeu o link (?p=). A peca e anexo de proposta: sem isto o
+ * analytics responde "23 pessoas viram a secao 5" quando a pergunta real e
+ * "o Rian abriu, e ate onde foi?". Fica em modulo porque track() e chamada de
+ * varios pontos e o valor nao muda depois do carregamento.
+ */
+let prospectTag: string | null = null
+
+/** So letras, numeros, hifen e underscore. O valor vai parar em relatorio. */
+function sanitizeProspect(raw: string | null) {
+  if (!raw) return null
+  const clean = raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40)
+  return clean || null
+}
+
 function track(event: string, data: Record<string, unknown> = {}) {
   if (typeof window === 'undefined') return
   const target = window as typeof window & { dataLayer?: Record<string, unknown>[] }
   target.dataLayer = target.dataLayer || []
-  target.dataLayer.push({ event, ...data })
+  target.dataLayer.push({ event, ...(prospectTag ? { prospect: prospectTag } : {}), ...data })
 }
 
-function replaceExperienceUrl(url: string) {
+/**
+ * Reescreve a URL preservando os parametros que ja estavam la. A versao antiga
+ * montava a URL a partir do pathname puro, entao abrir um modulo ou um case
+ * apagava ?lang=en e ?p= — e um link copiado dali perdia idioma e etiqueta.
+ * Passe null num parametro para remove-lo.
+ */
+function replaceExperienceUrl(changes: Record<string, string | null> = {}, hash = '') {
   if (typeof window === 'undefined') return
-  window.history.replaceState(window.history.state, '', url)
+  const params = new URLSearchParams(window.location.search)
+  for (const [key, value] of Object.entries(changes)) {
+    if (value === null) params.delete(key)
+    else params.set(key, value)
+  }
+  const query = params.toString() ? `?${params.toString()}` : ''
+  window.history.replaceState(window.history.state, '', `${window.location.pathname}${query}${hash}`)
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -238,14 +265,7 @@ export default function GrowthExperience() {
     try {
       localStorage.setItem('eg_lang', newLang)
     } catch {}
-    const params = new URLSearchParams(window.location.search)
-    if (newLang === 'en') {
-      params.set('lang', 'en')
-    } else {
-      params.delete('lang')
-    }
-    const newQuery = params.toString() ? `?${params.toString()}` : ''
-    replaceExperienceUrl(`${window.location.pathname}${newQuery}${window.location.hash}`)
+    replaceExperienceUrl({ lang: newLang === 'en' ? 'en' : null }, window.location.hash)
   }
 
   useEffect(() => {
@@ -284,6 +304,7 @@ export default function GrowthExperience() {
     if (bootstrapped.current) return
     bootstrapped.current = true
     const params = new URLSearchParams(window.location.search)
+    prospectTag = sanitizeProspect(params.get('p'))
     const explore = params.get('explore') as MethodKey | null
     const requestedCase = params.get('case')
     if (explore && methodModules[explore]) { setMethod(explore); setTimeout(() => scrollTo(3), 100) }
@@ -313,19 +334,19 @@ export default function GrowthExperience() {
   const openMethod = useCallback((key: MethodKey) => {
     setMethod(key)
     track('method_viewed', { method: key })
-    replaceExperienceUrl(`${window.location.pathname}?explore=${key}#metodo`)
+    replaceExperienceUrl({ explore: key, case: null }, '#metodo')
   }, [])
 
   const closeMethod = useCallback(() => {
     setMethod(null)
-    replaceExperienceUrl(`${window.location.pathname}#metodo`)
+    replaceExperienceUrl({ explore: null }, '#metodo')
   }, [])
 
   const openCase = useCallback((id: string) => {
     setCaseStep(0)
     setCaseId(id)
     track('case_viewed', { case: id })
-    replaceExperienceUrl(`${window.location.pathname}?case=${id}#evidencias`)
+    replaceExperienceUrl({ case: id, explore: null }, '#evidencias')
   }, [])
 
   const [cardIndex, setCardIndex] = useState<number | null>(null)
@@ -358,7 +379,7 @@ export default function GrowthExperience() {
         setNavOpen(false)
         setCardIndex(null)
         setCaseSummaryVisible(false)
-        replaceExperienceUrl(window.location.pathname)
+        replaceExperienceUrl({ explore: null, case: null })
         return
       }
 
@@ -378,7 +399,7 @@ export default function GrowthExperience() {
               if (currentCaseIdx >= 0 && currentCaseIdx < cases.length - 1) {
                 openCase(cases[currentCaseIdx + 1].id)
               } else {
-                replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+                replaceExperienceUrl({ case: null }, '#evidencias')
                 document.querySelector('.' + styles.caseCommon)?.scrollIntoView({ behavior: 'smooth' })
                 setCaseSummaryVisible(true)
               }
@@ -403,7 +424,7 @@ export default function GrowthExperience() {
               if (currentCaseIdx > 0) {
                 openCase(cases[currentCaseIdx - 1].id)
               } else {
-                replaceExperienceUrl(`${window.location.pathname}#evidencias`)
+                replaceExperienceUrl({ case: null }, '#evidencias')
                 scrollTo(7)
               }
             }
@@ -745,7 +766,7 @@ export default function GrowthExperience() {
           </div>
         </div>
         <AnimatePresence>{currentCase && <motion.div className={styles.caseOverlay} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button className={styles.closeButton} aria-label={lang === 'en' ? 'Close case study' : 'Fechar estudo de caso'} onClick={() => { setCaseId(null); replaceExperienceUrl(`${window.location.pathname}#evidencias`) }}><X /></button>
+          <button className={styles.closeButton} aria-label={lang === 'en' ? 'Close case study' : 'Fechar estudo de caso'} onClick={() => { setCaseId(null); replaceExperienceUrl({ case: null }, '#evidencias') }}><X /></button>
           <div className={styles.caseHeading}><Eyebrow>{lang === 'en' ? 'Inside the operation' : 'Por dentro da operação'}</Eyebrow><span>{currentCase.category}</span><h3>{currentCase.name}</h3><strong>{currentCase.headline}</strong><b>{currentCase.metric}</b><p>{currentCase.evidence}</p></div>
           <div className={styles.caseSteps}>{currentCase.sections.map((step, i) => <button key={step.label} className={caseStep === i ? styles.active : ''} onClick={() => setCaseStep(i)}><span>{String(i + 1).padStart(2, '0')}</span>{step.label}</button>)}</div>
           {currentCase.sections[caseStep] && <motion.div key={`${currentCase.id}-${caseStep}`} className={styles.caseContent} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}>

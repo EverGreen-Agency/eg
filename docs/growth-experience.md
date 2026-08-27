@@ -57,9 +57,11 @@ fora do deck, no site institucional.
 - `/growth?explore=diagnostico` — abre o módulo já expandido
 - `/growth?case=kontes` — abre o estudo de caso já aberto
 - `/growth?lang=en`
+- `/growth?p=rian` — etiqueta de quem recebeu o link, vai junto em todos os eventos
 
-Vale usar no envio: dá para mandar o link abrindo direto no case que interessa àquele
-prospect.
+Combinam entre si. `?p=univet&case=univet` manda o link já aberto no case que interessa
+àquela pessoa, e ainda diz nos relatórios que foi ela quem abriu. Os parâmetros sobrevivem
+à navegação — abrir um módulo ou um case reescreve a URL preservando `p` e `lang`.
 
 ## Idiomas
 
@@ -73,8 +75,14 @@ Textos, capacidades, cases e módulos ficam centralizados em `src/app/growth/dat
 
 ## Analytics
 
+**Configuração completa em [ANALYTICS-GTM.md](ANALYTICS-GTM.md)** — container, variável na
+Vercel, tag e gatilho no GTM, dimensões no GA4.
+
 A experiência envia eventos para `window.dataLayer`. **Eles só chegam ao GTM depois do
-aceite no banner de cookies** — antes disso o container nem carrega.
+aceite no banner de cookies** — antes disso o container nem carrega. E o GTM só carrega se
+`NEXT_PUBLIC_GTM_ID` existir no build.
+
+Todo evento carrega a etiqueta `prospect` quando o link foi enviado com `?p=`.
 
 - `presentation_started` — uma vez por sessão, não a cada troca de idioma
 - `section_viewed`
