@@ -210,7 +210,7 @@ export default function ServicosPage() {
           <p className="text-baunilha/60 mb-10 max-w-2xl leading-relaxed">
             A escada acima é como trabalhamos. Abaixo, cada peça dela por dentro.
           </p>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 href: '/consultoria-comercial',
@@ -226,6 +226,11 @@ export default function ServicosPage() {
                 href: '/processo-comercial',
                 titulo: 'Processo comercial',
                 texto: 'As sete etapas, o critério de passagem e o dono de cada uma.',
+              },
+              {
+                href: '/consultoria-crm',
+                titulo: 'Consultoria de CRM',
+                texto: 'Qual ferramenta serve para qual formato de operação — e quando nenhuma serve.',
               },
             ].map(item => (
               <Link

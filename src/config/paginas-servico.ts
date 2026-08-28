@@ -45,6 +45,29 @@ export type PaginaServico = {
   /** onde entra no Sistema Raiz e em qual degrau */
   metodo: { fase: string; texto: string }
 
+  /**
+   * Opcional. Presente so nas paginas de decisao, que comparam alternativas.
+   *
+   * Compara FORMATO DE PROBLEMA, nunca funcionalidade: dizer "a ferramenta X tem
+   * o recurso Y" exige verificar spec de produto de terceiro que muda sem aviso,
+   * e errar isso numa pagina publica e pior do que nao ter a pagina. Formato de
+   * problema a EG conhece de primeira mao.
+   */
+  comparativo?: {
+    titulo: string
+    intro: string
+    colunas: [string, string, string]
+    linhas: [string, string, string][]
+    nota: string
+  }
+
+  /** Opcional. Parcerias declaradas, com o aviso de conflito de interesse. */
+  parcerias?: {
+    titulo: string
+    intro: string
+    itens: { nome: string; situacao: string; href?: string }[]
+  }
+
   faq: ServicoFaq[]
 
   cta: { titulo: string; texto: string; botao: string }
@@ -359,6 +382,163 @@ export const paginasServico: PaginaServico[] = [
     cta: {
       titulo: 'Sem etapas escritas, “perdemos por preço” é conclusão, não observação.',
       texto: 'O Raio-X Comercial mostra em qual pilar o processo está custando receita.',
+      botao: 'Falar sobre o diagnóstico',
+    },
+  },
+
+  // ------------------------------------------------------------------ 4
+  {
+    slug: 'consultoria-crm',
+    keyword: 'consultoria crm',
+    volume: 110,
+    kd: 13,
+
+    metaTitle: 'Consultoria e implantação de CRM: como escolher | EverGreen',
+    metaDescription:
+      'Qual CRM serve para a sua operação depende do formato do problema, não do ranking de features. Como decidir, quando o CRM não é o próximo passo, e o que uma implantação precisa entregar.',
+
+    eyebrow: 'CONSULTORIA E IMPLANTAÇÃO DE CRM',
+    titulo: 'A pergunta não é qual CRM é melhor. É ',
+    acento: 'qual problema você tem.',
+    subtitulo:
+      'Comparativo de features envelhece em três meses e não decide nada. O que decide é o formato da sua operação — e é isso que esta página mapeia, antes de falar de qualquer ferramenta.',
+
+    sintoma: [
+      {
+        pedido: '“Qual CRM é o melhor?”',
+        sintoma: 'Cada comparativo aponta um vencedor diferente.',
+        causa: 'A pergunta não tem resposta sem o formato da operação.',
+      },
+      {
+        pedido: '“Já temos CRM e ninguém usa.”',
+        sintoma: 'O time mantém uma planilha paralela “só para organizar”.',
+        causa: 'O processo não existia antes; o CRM só tornou isso visível.',
+      },
+      {
+        pedido: '“Queremos trocar de CRM.”',
+        sintoma: 'A troca anterior também não resolveu.',
+        causa: 'O gargalo não estava na ferramenta nas duas vezes.',
+      },
+    ],
+
+    entregaTitulo: 'O que uma implantação precisa entregar',
+    entrega: [
+      {
+        titulo: 'O funil desenhado a partir da venda real',
+        texto:
+          'Descoberto olhando negócios ganhos e perdidos dos últimos meses — não perguntando ao time como deveria ser, que produz um mapa bonito de um território que não existe. As etapas de exemplo que vêm no produto servem para um negócio genérico que não é o seu.',
+      },
+      {
+        titulo: 'Um critério verificável de passagem entre etapas',
+        texto:
+          'É o que mais falta e o que mais dói depois. “Lead qualificado” precisa ser condição verificável, não sensação do vendedor. Sem isso, dois vendedores classificam o mesmo lead de formas diferentes e nenhum relatório do CRM significa coisa alguma.',
+      },
+      {
+        titulo: 'Migração que não traz a bagunça junto',
+        texto:
+          'Importar a planilha inteira reproduz no CRM o problema que existia na planilha. Migra-se o que tem chance real, com motivo de perda categorizado no que ficou para trás.',
+      },
+      {
+        titulo: 'Adoção assumida, não treinamento entregue',
+        texto:
+          'Implantação não termina quando o sistema está configurado; termina quando o time usa sem lembrete. Isso é acompanhamento nas primeiras semanas, ajuste do que atrita, e disposição de mudar o desenho quando a realidade discorda dele.',
+      },
+    ],
+
+    comparativo: {
+      titulo: 'Como escolher, por formato de operação',
+      intro:
+        'Esta tabela não rankeia ferramentas. Ela mapeia formatos de problema — que é o que a EverGreen conhece de primeira mão e o que não envelhece a cada release.',
+      colunas: ['Se a sua operação é assim', 'O que procurar no CRM', 'O que ignorar na decisão'],
+      linhas: [
+        [
+          'A oportunidade chega por mensagem e morre porque ninguém respondeu',
+          'Conversa como objeto central, não como integração anexada. Caixa unificada e automação disparada por etapa.',
+          'Profundidade de relatório. Não é aí que o seu dinheiro está sendo perdido.',
+        ],
+        [
+          'Ciclo longo, comitê de decisão, várias propostas por negócio',
+          'Modelagem separada de conta e oportunidade, e histórico por pessoa envolvida.',
+          'Facilidade de setup. Você vai investir semanas de qualquer forma.',
+        ],
+        [
+          'Volume alto e ticket baixo, com time grande',
+          'Automação de roteamento e disciplina de fila. Custo por usuário importa de verdade.',
+          'Personalização profunda. Ela vira dívida quando há muita gente operando.',
+        ],
+        [
+          'Poucos negócios, ticket muito alto, decisão consultiva',
+          'Registro rico de contexto e roteamento por representante.',
+          'Praticamente tudo que se vende como “escala”. Não é o seu problema.',
+        ],
+        [
+          'O peso está depois da venda — contrato, renovação, sucesso do cliente',
+          'Um CRM de aquisição provavelmente não é a ferramenta certa; o problema é de pós-venda.',
+          'Comparativos de CRM em geral. Você está na categoria errada.',
+        ],
+      ],
+      nota:
+        'Se nenhuma linha descreve a sua operação, o próximo passo não é escolher CRM — é medir onde a receita está sendo perdida. Escolher ferramenta antes de saber o gargalo é como comprar remédio antes do exame.',
+    },
+
+    parcerias: {
+      titulo: 'Nossas parcerias, declaradas',
+      intro:
+        'Somos parceiros de algumas das ferramentas que podemos recomendar. Isso é conflito de interesse e a forma de lidar com ele é declarar, não esconder — e manter, em cada página de parceiro, a seção que diz quando aquela ferramenta é a escolha errada.',
+      itens: [
+        {
+          nome: 'Kommo',
+          situacao: 'Parceiro oficial. Implantamos quando o gargalo está em Conversão e a operação vive de conversa.',
+          href: '/kommo_partners',
+        },
+      ],
+    },
+
+    naoServeTitulo: 'Quando o CRM não é o próximo passo',
+    naoServe: [
+      'Quando entram poucas oportunidades. CRM não gera demanda — ele organiza a escassez. O gargalo é anterior e mais barato de atacar.',
+      'Quando não existe processo. O CRM torna visível o processo que existe; quando não existe, torna visível a ausência, e o time reage criando uma planilha paralela. Planilha paralela é o atestado de óbito de uma implantação.',
+      'Quando ninguém vai ser dono. Sem alguém responsável por cobrar cadência, a melhor implantação do mundo é abandonada no segundo mês.',
+      'Quando a oferta é confusa. O funil vai mostrar isso com precisão cirúrgica e não vai consertar. Oferta se conserta na oferta.',
+    ],
+
+    metodo: {
+      fase: 'Ramos — estruturar',
+      texto:
+        'CRM é a terceira fase do Sistema Raiz, nunca a primeira. Se o Raio-X Comercial aponta que o pilar crítico é Oferta ou Demanda, implantar CRM não move o ponteiro. Ele é o movimento certo quando o gargalo está em Conversão: existe demanda chegando, existe oferta clara, e o que se perde está entre o primeiro contato e o fechamento.',
+    },
+
+    faq: [
+      {
+        pergunta: 'Qual é o melhor CRM?',
+        resposta:
+          'A pergunta não tem resposta sem o formato da operação. Um CRM excelente para uma venda por WhatsApp com ciclo de dias é uma escolha ruim para uma venda com comitê e ciclo de nove meses — e vice-versa. Comece descrevendo como a sua venda acontece hoje, não olhando comparativos.',
+      },
+      {
+        pergunta: 'Quanto custa a implantação de um CRM?',
+        resposta:
+          'A assinatura é a parte pequena. O custo que decide é o de implantação e o de adoção falhada: uma implantação que não pega custa a assinatura, mais os meses de time trabalhando em duplicidade, mais a confiança gasta. É esse número que precisa entrar na conta.',
+      },
+      {
+        pergunta: 'Vale contratar consultoria ou dá para implantar sozinho?',
+        resposta:
+          'Dá para fazer sozinho quando a empresa responde três perguntas com clareza: quais são as etapas reais do processo comercial, o que precisa ser verdade para um lead avançar, e quem é o dono de cada etapa. Se responde as três, contratar implantação é desperdício. Se não responde, o problema não é a ferramenta.',
+      },
+      {
+        pergunta: 'Trocar de CRM resolve?',
+        resposta:
+          'Raramente, e há um teste: se a troca anterior também não resolveu, o gargalo não estava na ferramenta nas duas vezes. Trocar sem diagnosticar reproduz o mesmo problema numa interface nova, com o custo adicional da migração.',
+      },
+      {
+        pergunta: 'Vocês recomendam a ferramenta de que são parceiros?',
+        resposta:
+          'Quando ela serve. Somos parceiros oficiais Kommo e isso é conflito de interesse declarado — a forma de lidar é manter, na própria página do Kommo, a seção que diz onde ele é a escolha errada. Se o seu caso cai numa dessas linhas, dizemos antes de vender.',
+      },
+    ],
+
+    cta: {
+      titulo: 'Escolher ferramenta antes de saber o gargalo é comprar remédio antes do exame.',
+      texto: 'O Raio-X Comercial mede Oferta, Demanda e Conversão — e diz se o CRM é mesmo o próximo passo.',
       botao: 'Falar sobre o diagnóstico',
     },
   },

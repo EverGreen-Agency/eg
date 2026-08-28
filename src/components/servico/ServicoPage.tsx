@@ -7,7 +7,8 @@ import type { PaginaServico } from '@/config/paginas-servico'
 /**
  * Layout único das páginas de serviço.
  *
- * Um componente, três rotas: `/consultoria-comercial`, `/estruturacao-comercial`
+ * Um componente, quatro rotas: `/consultoria-comercial`, `/estruturacao-comercial`,
+ * `/processo-comercial` e `/consultoria-crm` — diferem só no conteúdo
  * e `/processo-comercial` diferem só no conteúdo (`src/config/paginas-servico.ts`).
  * Triplicar markup aqui garantiria que as três divergissem na primeira edição —
  * e daria ao CTO três lugares para restilizar em vez de um.
@@ -96,6 +97,74 @@ export default function ServicoPage({ dados }: { dados: PaginaServico }) {
           </ul>
         </div>
       </section>
+
+      {/* comparativo — so nas paginas de decisao */}
+      {dados.comparativo && (
+        <section className="py-16 md:py-24 border-b hairline">
+          <div className="container mx-auto px-6 md:px-12">
+            <h2 className="text-[clamp(1.6rem,3.4vw,2.5rem)] leading-[1.12] tracking-tight font-bold text-baunilha mb-3 text-balance">
+              {dados.comparativo.titulo}
+            </h2>
+            <p className="text-baunilha/60 mb-10 max-w-2xl leading-relaxed">{dados.comparativo.intro}</p>
+
+            <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
+              <table className="w-full min-w-[46rem] border-collapse text-left">
+                <thead>
+                  <tr>
+                    {dados.comparativo.colunas.map(col => (
+                      <th
+                        key={col}
+                        className="text-[11px] tracking-[.12em] uppercase text-baunilha/40 font-semibold align-bottom pb-4 pr-6 border-b border-baunilha/15"
+                      >
+                        {col}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {dados.comparativo.linhas.map(linha => (
+                    <tr key={linha[0]} className="border-b border-baunilha/10 align-top">
+                      <td className="py-5 pr-6 text-baunilha font-medium leading-snug">{linha[0]}</td>
+                      <td className="py-5 pr-6 text-baunilha/70 text-sm leading-relaxed">{linha[1]}</td>
+                      <td className="py-5 text-baunilha/50 text-sm leading-relaxed">{linha[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="mt-8 text-baunilha/75 leading-relaxed max-w-3xl">{dados.comparativo.nota}</p>
+          </div>
+        </section>
+      )}
+
+      {/* parcerias declaradas */}
+      {dados.parcerias && (
+        <section className="py-16 md:py-20 border-b hairline">
+          <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+            <h2 className="text-[clamp(1.4rem,2.8vw,2rem)] leading-[1.15] tracking-tight font-bold text-baunilha mb-4 text-balance">
+              {dados.parcerias.titulo}
+            </h2>
+            <p className="text-baunilha/65 mb-8 leading-relaxed">{dados.parcerias.intro}</p>
+            <ul className="space-y-5">
+              {dados.parcerias.itens.map(item => (
+                <li key={item.nome} className="border-l-2 border-menta/40 pl-5">
+                  <p className="text-baunilha font-semibold mb-1">{item.nome}</p>
+                  <p className="text-baunilha/70 text-sm leading-relaxed">{item.situacao}</p>
+                  {item.href && (
+                    <Link
+                      href={item.href}
+                      className="inline-block mt-2 text-menta text-sm underline underline-offset-4 hover:text-menta/80 transition"
+                    >
+                      Ver quando serve e quando não serve
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       {/* onde entra no método */}
       <section className="py-16 md:py-20 border-b hairline">

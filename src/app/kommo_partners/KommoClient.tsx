@@ -182,6 +182,9 @@ export default function KommoClient() {
             <Link href="/servicos" className="text-menta underline underline-offset-4 hover:text-menta/80 transition">
               Ver a escada de ofertas
             </Link>
+            <Link href="/consultoria-crm" className="text-menta underline underline-offset-4 hover:text-menta/80 transition">
+              Comparar por formato de operação
+            </Link>
             <Link href="/processo-comercial" className="text-menta underline underline-offset-4 hover:text-menta/80 transition">
               As sete etapas do processo comercial
             </Link>
