@@ -365,3 +365,10 @@
 .ladderGuarantee>b{display:block;font:9px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:#147b4a;margin-bottom:6px}
 .ladderGuarantee>span{font-size:12.5px;line-height:1.5;opacity:.66}
 @media (max-width:900px){.ladderGrid{grid-template-columns:1fr}.ladderCard{min-height:0}}
+
+/* seletor de idioma: seis opcoes nao cabem num toggle segmentado, ainda menos em mobile */
+.langSelect{appearance:none;background:transparent;border:1px solid var(--line);border-radius:6px;color:inherit;font:11px/1 var(--font-mono);letter-spacing:.1em;padding:8px 26px 8px 11px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 10px) 52%;background-size:4px 4px,4px 4px;background-repeat:no-repeat}
+.langSelect:hover{border-color:rgba(58,201,123,.5)}
+.langSelect:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.langSelect option{background:var(--ink);color:var(--cream)}
+@media (max-width:520px){.langSelect{padding:7px 22px 7px 9px;font-size:10px}}

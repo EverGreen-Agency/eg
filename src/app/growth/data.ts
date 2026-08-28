@@ -1,4 +1,9 @@
 import type { CaseStudy, Language, RaizPhase } from '@/components/deck/types'
+import {
+  CASE_FALLBACK_LANGS, capabilitiesExtra, capabilityGroupsExtra, caseSummaryExtra,
+  leversExtra, manifestoExtra, problemsExtra, sectionsExtra, uiStringsExtra,
+} from './i18n'
+import { modulesExtra } from './i18n-modules'
 
 export type { CaseContentBlock, CaseContentSection, CaseStudy, Language } from '@/components/deck/types'
 
@@ -708,6 +713,7 @@ export const uiStrings = {
     contactEyebrow: 'PRÓXIMO PASSO',
     contactSubtitle: 'Se a proposta faz sentido, é só responder por lá.',
     openCase: 'Ver estudo completo',
+    caseFallbackNote: 'Os cases aparecem no idioma original.',
     officialPartner: 'PARCERIA OFICIAL',
     googleCert: 'CERTIFICAÇÃO GOOGLE',
   },
@@ -742,24 +748,43 @@ export const uiStrings = {
     contactEyebrow: 'NEXT STEP',
     contactSubtitle: 'If the proposal makes sense, just reply there.',
     openCase: 'View full case study',
+    caseFallbackNote: 'Cases are shown in the original language.',
     officialPartner: 'OFFICIAL PARTNER',
     googleCert: 'GOOGLE CERTIFICATION',
   },
 }
 
+/**
+ * Todo conteudo indexado por idioma. O `Record<Language, T>` e o que impede um
+ * idioma de ficar pela metade: falta uma chave, o build quebra.
+ *
+ * Os corpos dos cases nao existem em es/it/fr/de e caem para o ingles de forma
+ * declarada (ver `i18n.ts`) — a interface avisa o leitor pelo `caseFallbackNote`.
+ */
+const SECTIONS: Record<Language, typeof sectionsPt> = { pt: sectionsPt, en: sectionsEn, ...sectionsExtra }
+const PROBLEMS: Record<Language, typeof problemsPt> = { pt: problemsPt, en: problemsEn, ...problemsExtra }
+const LEVERS: Record<Language, SystemLever[]> = { pt: systemLeversPt, en: systemLeversEn, ...leversExtra }
+const MODULES: Record<Language, typeof methodModulesPt> = { pt: methodModulesPt, en: methodModulesEn, ...modulesExtra }
+const CAPABILITIES: Record<Language, typeof capabilitiesPt> = { pt: capabilitiesPt, en: capabilitiesEn, ...capabilitiesExtra }
+const CAP_GROUPS: Record<Language, string[]> = { pt: capabilityGroupsPt, en: capabilityGroupsEn, ...capabilityGroupsExtra }
+const MANIFESTO: Record<Language, string[][]> = { pt: manifestoPt, en: manifestoEn, ...manifestoExtra }
+const CASE_SUMMARY: Record<Language, typeof caseSummaryPt> = { pt: caseSummaryPt, en: caseSummaryEn, ...caseSummaryExtra }
+const STRINGS: Record<Language, typeof uiStrings.pt> = { pt: uiStrings.pt, en: uiStrings.en, ...uiStringsExtra }
+
 export function getGrowthData(lang: Language = 'pt') {
-  const isEn = lang === 'en'
+  const caseFallback = CASE_FALLBACK_LANGS.includes(lang)
   return {
-    sections: isEn ? sectionsEn : sectionsPt,
-    problems: isEn ? problemsEn : problemsPt,
-    systemLevers: isEn ? systemLeversEn : systemLeversPt,
-    methodModules: isEn ? methodModulesEn : methodModulesPt,
-    capabilities: isEn ? capabilitiesEn : capabilitiesPt,
-    capabilityGroups: isEn ? capabilityGroupsEn : capabilityGroupsPt,
-    cases: isEn ? casesEn : casesPt,
-    caseSummary: isEn ? caseSummaryEn : caseSummaryPt,
-    manifesto: isEn ? manifestoEn : manifestoPt,
-    t: isEn ? uiStrings.en : uiStrings.pt,
+    sections: SECTIONS[lang],
+    problems: PROBLEMS[lang],
+    systemLevers: LEVERS[lang],
+    methodModules: MODULES[lang],
+    capabilities: CAPABILITIES[lang],
+    capabilityGroups: CAP_GROUPS[lang],
+    cases: lang === 'pt' ? casesPt : casesEn,
+    caseFallback,
+    caseSummary: CASE_SUMMARY[lang],
+    manifesto: MANIFESTO[lang],
+    t: STRINGS[lang],
   }
 }
 

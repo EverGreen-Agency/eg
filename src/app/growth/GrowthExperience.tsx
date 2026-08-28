@@ -6,6 +6,7 @@ import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, CircleDot
 import { getGrowthData, type Language, type MethodKey, type MethodModule } from './data'
 import { ease, replaceExperienceUrl, sectorLabelPoint, sectorPath, setProspectTag, track } from '@/components/deck/deck'
 import { CaseSectionCopy, Eyebrow, SectionTitle } from '@/components/deck/DeckPrimitives'
+import { LANGUAGES, LANGUAGE_LABEL, LANGUAGE_NAME, LANGUAGE_TAG } from '@/components/deck/types'
 import styles from '@/components/deck/deck.module.css'
 
 /** A validade some sozinha quando vencer, em vez de a pagina seguir afirmando algo falso. */
@@ -14,6 +15,10 @@ const WHATSAPP_NUMBER = '5511989966989'
 const whatsappMessage: Record<Language, string> = {
   pt: 'Oi! Vi a apresentação da EverGreen e quero continuar a conversa sobre a proposta.',
   en: 'Hi! I went through the EverGreen presentation and would like to continue our conversation about the proposal.',
+  es: 'Hola. Vi la presentación de EverGreen y quiero seguir la conversación sobre la propuesta.',
+  it: 'Ciao! Ho visto la presentazione di EverGreen e vorrei continuare la conversazione sulla proposta.',
+  fr: 'Bonjour ! J’ai vu la présentation d’EverGreen et je souhaite poursuivre la conversation sur la proposition.',
+  de: 'Hallo! Ich habe die EverGreen-Präsentation gesehen und möchte das Gespräch zum Angebot fortsetzen.',
 }
 
 /**
@@ -123,7 +128,7 @@ export default function GrowthExperience() {
 
   const [scrolled, setScrolled] = useState(false)
 
-  const { sections, problems, systemLevers, methodModules, capabilities, capabilityGroups, cases, caseSummary, manifesto, t } = useMemo(() => getGrowthData(lang), [lang])
+  const { sections, problems, systemLevers, methodModules, capabilities, capabilityGroups, cases, caseFallback, caseSummary, manifesto, t } = useMemo(() => getGrowthData(lang), [lang])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,21 +142,21 @@ export default function GrowthExperience() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
+    const isLang = (v: string | null): v is Language => !!v && (LANGUAGES as readonly string[]).includes(v)
     const urlLang = params.get('lang')
-    if (urlLang === 'en' || urlLang === 'pt') {
-      setLang(urlLang)
-    } else {
-      const savedLang = localStorage.getItem('eg_lang')
-      if (savedLang === 'en' || savedLang === 'pt') {
-        setLang(savedLang)
-      }
+    if (isLang(urlLang)) setLang(urlLang)
+    else {
+      try {
+        const saved = localStorage.getItem('eg_lang')
+        if (isLang(saved)) setLang(saved)
+      } catch {}
     }
   }, [])
 
   // O layout raiz fixa lang="pt-BR"; sem isto o leitor de tela le o ingles
   // com fonetica portuguesa quando o visitante troca para EN.
   useEffect(() => {
-    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR'
+    document.documentElement.lang = LANGUAGE_TAG[lang]
   }, [lang])
 
   const changeLang = (newLang: Language) => {
@@ -159,7 +164,7 @@ export default function GrowthExperience() {
     try {
       localStorage.setItem('eg_lang', newLang)
     } catch {}
-    replaceExperienceUrl({ lang: newLang === 'en' ? 'en' : null }, window.location.hash)
+    replaceExperienceUrl({ lang: newLang === 'pt' ? null : newLang }, window.location.hash)
   }
 
   useEffect(() => {
@@ -490,10 +495,16 @@ export default function GrowthExperience() {
     <main className={`${styles.experience} grain`}>
       <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''}`}>
         <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
-        <div className={`${styles.modeSwitch} ${styles.langSwitch}`} role="group" aria-label="Seletor de idioma / Language selector">
-          <button className={lang === 'pt' ? styles.selected : ''} onClick={() => changeLang('pt')} aria-label="Português BR">PT</button>
-          <button className={lang === 'en' ? styles.selected : ''} onClick={() => changeLang('en')} aria-label="English">EN</button>
-        </div>
+        <select
+          className={styles.langSelect}
+          value={lang}
+          onChange={event => changeLang(event.target.value as Language)}
+          aria-label="Idioma / Language"
+        >
+          {LANGUAGES.map(code => (
+            <option key={code} value={code} title={LANGUAGE_NAME[code]}>{LANGUAGE_LABEL[code]}</option>
+          ))}
+        </select>
         <button className={styles.menuButton} onClick={() => setNavOpen(!navOpen)} aria-label={t.navMapTitle}><Menu size={20} /><span>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span></button>
       </header>
 
@@ -643,6 +654,7 @@ export default function GrowthExperience() {
       <section id="evidencias" className={`${styles.chapter} ${styles.lightChapter}`}>
         <div className={styles.chapterInner}>
           <SectionTitle eyebrow={`07 — ${t.evidEyebrow}`} lead={lang === 'en' ? 'Marketing, sales, digital experience, and tech take different shapes in each business.' : 'Marketing, comercial, experiência digital e tecnologia entram de formas diferentes em cada operação.'}>{t.evidTitle}</SectionTitle>
+          {caseFallback && <p className={styles.clickHint}>{t.caseFallbackNote}</p>}
           <p className={styles.caseThesis}>{lang === 'en' ? 'The common ground is clear: understand the real problem, architect the solution, and own the evolution.' : 'O ponto em comum é o mesmo: entender o problema real, estruturar a solução e assumir responsabilidade pela evolução.'}</p>
           <div className={styles.caseGrid}>{cases.map((item, i) => <motion.button whileHover={{ y: -6 }} key={item.id} onClick={() => openCase(item.id)}>
             <span className={styles.caseIndex}>0{i + 1} / {item.name}</span>

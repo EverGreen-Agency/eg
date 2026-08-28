@@ -21,6 +21,10 @@ export const metadata: Metadata = {
     languages: {
       'pt-BR': '/growth',
       en: '/growth?lang=en',
+      es: '/growth?lang=es',
+      it: '/growth?lang=it',
+      fr: '/growth?lang=fr',
+      de: '/growth?lang=de',
     },
   },
   openGraph: {

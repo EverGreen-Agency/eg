@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     languages: {
       'pt-BR': '/tech',
       en: '/tech?lang=en',
+      es: '/tech?lang=es',
+      it: '/tech?lang=it',
+      fr: '/tech?lang=fr',
+      de: '/tech?lang=de',
     },
   },
   openGraph: {

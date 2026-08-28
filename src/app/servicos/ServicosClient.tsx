@@ -190,9 +190,10 @@ export default function ServicosPage() {
             operação contínua no fim.
           </p>
           <p className="text-baunilha/70">
-            A diferença honesta: o lado tecnológico ainda é mais aberto que o comercial. O Raio-X
-            comercial tem régua fechada em três pilares; o diagnóstico tecnológico é mais amplo e
-            desenhado caso a caso. Preferimos dizer isso a fingir uma régua que ainda não existe.
+            As duas frentes têm régua fechada. O Raio-X Comercial mede três pilares — Oferta,
+            Demanda e Conversão. O Raio-X Tecnológico mede prontidão AI-First em sete dimensões:
+            Diagnóstico, Execução, Documentação, Dados, Automação, Qualidade e Margem. Mesma escala,
+            mesma nota de 0 a 10, mesma regra de atacar o gargalo primeiro.
           </p>
         </div>
       </section>

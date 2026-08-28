@@ -4,7 +4,8 @@ Apresentação da frente de Tecnologia da EverGreen. Mesmo formato da
 [`/growth`](growth-experience.md): anexo de proposta, imersiva, PT/EN, navegação
 por teclado, deep links e etiqueta `?p=`.
 
-> **NÃO PUBLICAR ainda.** Ver "O que trava" no fim deste arquivo.
+As sete dimensões foram confirmadas em 28/08/2026 — a régua está fechada e a página
+pode publicar.
 
 ## Método: o mesmo Sistema Raiz
 
@@ -54,17 +55,12 @@ foi quase o que aconteceu com esta.
 Os eventos de analytics carregam `deck: 'tech'`, então dá para separar os dois
 funis no GA4 sem criar tag nova. Ver [ANALYTICS-GTM.md](ANALYTICS-GTM.md).
 
-## O que trava a publicação
+## Sobre as 7 dimensões
 
-O Documento-Mestre §10.1 promete "score de maturidade AI-First em **7 dimensões**"
-como entregável do Tech 1, mas **as sete não estão escritas em lugar nenhum**. As
-que estão em `data.ts` são proposta, derivadas da lista "Diferencial tecnológico
-da EG" do mesmo documento — não recuperação de algo definido.
+Vieram de `EG_Raio-X_Tecnologico.md` (repo `evergreen-ai-os`), confirmadas em
+28/08/2026. Ao mexer nelas, mexa **junto**: o array `dimensionsPt`/`dimensionsEn`
+em `src/app/tech/data.ts`, o documento da régua, e a copy de `/servicos`. Foi a
+divergência entre esses três que travou a publicação por um dia.
 
-Enquanto isso não fecha, `/tech` **contradiz `/servicos`**, que afirma que o
-diagnóstico tecnológico não tem régua. Publicar as duas cria no domínio a mesma
-contradição que a auditoria da `/growth` acabou de resolver.
-
-Decisão registrada em `bioma/docs/DECISOES-ABERTAS.md`, no repo `evergreen-ai-os`.
-Ao fechar: confirmar ou trocar o array `dimensionsPt`/`dimensionsEn` em
-`src/app/tech/data.ts` **e** atualizar a copy de `/servicos` junto.
+A ordem das dimensões importa: `dimensionRelations` em `TechExperience.tsx` indexa
+por posição.

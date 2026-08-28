@@ -6,12 +6,17 @@ import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, Menu, Mou
 import { getTechData, type Language, type TechModule, type TechModuleKey } from './data'
 import { ease, replaceExperienceUrl, sectorLabelPoint, sectorPath, setProspectTag, track } from '@/components/deck/deck'
 import { CaseSectionCopy, Eyebrow, SectionTitle } from '@/components/deck/DeckPrimitives'
+import { LANGUAGES, LANGUAGE_LABEL, LANGUAGE_NAME, LANGUAGE_TAG } from '@/components/deck/types'
 import styles from '@/components/deck/deck.module.css'
 
 const WHATSAPP_NUMBER = '5511989966989'
 const whatsappMessage: Record<Language, string> = {
   pt: 'Oi! Vi a apresentação de tecnologia da EverGreen e quero continuar a conversa sobre a proposta.',
   en: 'Hi! I went through the EverGreen technology presentation and would like to continue our conversation about the proposal.',
+  es: 'Hola. Vi la presentación de tecnología de EverGreen y quiero seguir la conversación sobre la propuesta.',
+  it: 'Ciao! Ho visto la presentazione tecnologica di EverGreen e vorrei continuare la conversazione sulla proposta.',
+  fr: 'Bonjour ! J’ai vu la présentation technologique d’EverGreen et je souhaite poursuivre la conversation sur la proposition.',
+  de: 'Hallo! Ich habe die Technologie-Präsentation von EverGreen gesehen und möchte das Gespräch zum Angebot fortsetzen.',
 }
 
 function whatsappHref(lang: Language) {
@@ -68,7 +73,7 @@ export default function TechExperience() {
   const [caseId, setCaseId] = useState<string | null>(null)
   const [caseStep, setCaseStep] = useState(0)
 
-  const { sections, problems, dimensions, modules, ladder, capabilities, cases, manifesto, t } =
+  const { sections, problems, dimensions, modules, ladder, capabilities, cases, caseFallback, manifesto, t } =
     useMemo(() => getTechData(lang), [lang])
 
   useEffect(() => {
@@ -80,25 +85,26 @@ export default function TechExperience() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+    const isLang = (v: string | null): v is Language => !!v && (LANGUAGES as readonly string[]).includes(v)
     const urlLang = params.get('lang')
-    if (urlLang === 'en' || urlLang === 'pt') setLang(urlLang)
+    if (isLang(urlLang)) setLang(urlLang)
     else {
       try {
         const saved = localStorage.getItem('eg_lang')
-        if (saved === 'en' || saved === 'pt') setLang(saved)
+        if (isLang(saved)) setLang(saved)
       } catch {}
     }
   }, [])
 
   // O layout raiz fixa lang="pt-BR"; sem isto o leitor de tela le o ingles com fonetica portuguesa.
   useEffect(() => {
-    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR'
+    document.documentElement.lang = LANGUAGE_TAG[lang]
   }, [lang])
 
   const changeLang = (next: Language) => {
     setLang(next)
     try { localStorage.setItem('eg_lang', next) } catch {}
-    replaceExperienceUrl({ lang: next === 'en' ? 'en' : null }, window.location.hash)
+    replaceExperienceUrl({ lang: next === 'pt' ? null : next }, window.location.hash)
   }
 
   useEffect(() => {
@@ -280,10 +286,16 @@ export default function TechExperience() {
         <a className={styles.brand} href="#inicio" aria-label="EverGreen — início">
           <img src="/images/evergreen-horizontal.png" alt={t.brandAlt} />
         </a>
-        <div className={`${styles.modeSwitch} ${styles.langSwitch}`} role="group" aria-label="Seletor de idioma / Language selector">
-          <button className={lang === 'pt' ? styles.selected : ''} onClick={() => changeLang('pt')} aria-label="Português BR">PT</button>
-          <button className={lang === 'en' ? styles.selected : ''} onClick={() => changeLang('en')} aria-label="English">EN</button>
-        </div>
+        <select
+          className={styles.langSelect}
+          value={lang}
+          onChange={event => changeLang(event.target.value as Language)}
+          aria-label="Idioma / Language"
+        >
+          {LANGUAGES.map(code => (
+            <option key={code} value={code} title={LANGUAGE_NAME[code]}>{LANGUAGE_LABEL[code]}</option>
+          ))}
+        </select>
         <button className={styles.menuButton} onClick={() => setNavOpen(!navOpen)} aria-label={t.navMapTitle}>
           <Menu size={20} /><span>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span>
         </button>
@@ -515,6 +527,7 @@ export default function TechExperience() {
       <section id="evidencias" className={`${styles.chapter} ${styles.lightChapter}`}>
         <div className={styles.chapterInner}>
           <SectionTitle eyebrow={`07 — ${t.evidEyebrow}`} lead={lang === 'en' ? 'Delivered platforms, our own infrastructure, and a prototype shipped before the contract.' : 'Plataformas entregues, a nossa própria infraestrutura, e um protótipo entregue antes do contrato.'}>{t.evidTitle}</SectionTitle>
+          {caseFallback && <p className={styles.clickHint}>{t.caseFallbackNote}</p>}
           <div className={styles.caseGrid}>{cases.map((item, i) => (
             <motion.button whileHover={{ y: -6 }} key={item.id} onClick={() => openCase(item.id)}>
               <span className={styles.caseIndex}>0{i + 1} / {item.name}</span>

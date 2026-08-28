@@ -1,4 +1,8 @@
 import type { CaseStudy, Language, RaizPhase } from '@/components/deck/types'
+import {
+  capabilitiesExtra, dimensionsExtra, ladderExtra, manifestoExtra,
+  modulesExtra, problemsExtra, sectionsExtra, uiStringsExtra,
+} from './i18n'
 
 export type { CaseStudy, Language } from '@/components/deck/types'
 
@@ -47,10 +51,11 @@ export const problemsEn = [
 ]
 
 /**
- * As 7 dimensoes do Raio-X Tecnologico (Documento-Mestre §10.1: "score de
- * maturidade AI-First em 7 dimensoes"). O documento nomeia o entregavel mas nao
- * enumera as dimensoes; estas sao as sete de "Diferencial tecnologico da EG",
- * no mesmo documento. Confirmar com o Eduardo — ver DECISOES-ABERTAS.md.
+ * As 7 dimensoes do Raio-X Tecnologico, confirmadas em 2026-08-28. A regua
+ * completa (as 35 perguntas, o calculo e a PRECEDENCIA entre dimensoes) esta em
+ * EG_Raio-X_Tecnologico.md, no repo evergreen-ai-os.
+ *
+ * A ordem importa: dimensionRelations em TechExperience.tsx indexa por posicao.
  */
 export type TechDimension = { name: string; note: string; asks: string }
 
@@ -481,6 +486,7 @@ export const uiStrings = {
     contactEyebrow: 'PRÓXIMO PASSO',
     contactSubtitle: 'Se a proposta faz sentido, é só responder por lá.',
     openCase: 'Ver estudo completo',
+    caseFallbackNote: 'Os cases aparecem no idioma original.',
   },
   en: {
     brandAlt: 'EverGreen — Predictable, scalable, and tech-driven growth',
@@ -517,20 +523,38 @@ export const uiStrings = {
     contactEyebrow: 'NEXT STEP',
     contactSubtitle: 'If the proposal makes sense, just reply there.',
     openCase: 'View full case study',
+    caseFallbackNote: 'Cases are shown in the original language.',
   },
 }
 
+/**
+ * Conteudo indexado por idioma. `Record<Language, T>` obriga as seis chaves —
+ * faltar uma quebra o build, que e o oposto de um idioma ficar pela metade em
+ * silencio.
+ *
+ * Os corpos dos cases nao existem em es/it/fr/de e caem para o ingles de forma
+ * declarada; a interface avisa pelo `caseFallbackNote`.
+ */
+const SECTIONS: Record<Language, typeof sectionsPt> = { pt: sectionsPt, en: sectionsEn, ...sectionsExtra }
+const PROBLEMS: Record<Language, typeof problemsPt> = { pt: problemsPt, en: problemsEn, ...problemsExtra }
+const DIMENSIONS: Record<Language, TechDimension[]> = { pt: dimensionsPt, en: dimensionsEn, ...dimensionsExtra }
+const MODULES: Record<Language, typeof modulesPt> = { pt: modulesPt, en: modulesEn, ...modulesExtra }
+const LADDER: Record<Language, typeof ladderPt> = { pt: ladderPt, en: ladderEn, ...ladderExtra }
+const CAPABILITIES: Record<Language, typeof capabilitiesPt> = { pt: capabilitiesPt, en: capabilitiesEn, ...capabilitiesExtra }
+const MANIFESTO: Record<Language, string[][]> = { pt: manifestoPt, en: manifestoEn, ...manifestoExtra }
+const STRINGS: Record<Language, typeof uiStrings.pt> = { pt: uiStrings.pt, en: uiStrings.en, ...uiStringsExtra }
+
 export function getTechData(lang: Language = 'pt') {
-  const isEn = lang === 'en'
   return {
-    sections: isEn ? sectionsEn : sectionsPt,
-    problems: isEn ? problemsEn : problemsPt,
-    dimensions: isEn ? dimensionsEn : dimensionsPt,
-    modules: isEn ? modulesEn : modulesPt,
-    ladder: isEn ? ladderEn : ladderPt,
-    capabilities: isEn ? capabilitiesEn : capabilitiesPt,
-    cases: isEn ? casesEn : casesPt,
-    manifesto: isEn ? manifestoEn : manifestoPt,
-    t: isEn ? uiStrings.en : uiStrings.pt,
+    sections: SECTIONS[lang],
+    problems: PROBLEMS[lang],
+    dimensions: DIMENSIONS[lang],
+    modules: MODULES[lang],
+    ladder: LADDER[lang],
+    capabilities: CAPABILITIES[lang],
+    cases: lang === 'pt' ? casesPt : casesEn,
+    caseFallback: lang !== 'pt' && lang !== 'en',
+    manifesto: MANIFESTO[lang],
+    t: STRINGS[lang],
   }
 }
