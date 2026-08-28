@@ -27,15 +27,26 @@ function whatsappHref(lang: Language) {
 
 const moduleKeys: TechModuleKey[] = ['diagnostico', 'arquitetura', 'implementacao', 'operacao', 'evolucao']
 
-/** Cada dimensao puxa as vizinhas que ela destrava — documentacao destrava automacao, e assim por diante. */
+/**
+ * O grafo de precedencia entre dimensoes — §5 de `EG_Raio-X_Tecnologico.md`.
+ *
+ * Esta versao substitui a que eu tinha inventado antes de a regua existir, e que
+ * contradizia o documento em dois pontos: Diagnostico aparecia destravando so
+ * duas dimensoes quando o §5 diz que ele, baixo, invalida a leitura das outras
+ * SEIS; e Margem aparecia como se destravasse algo.
+ *
+ * Margem nao destrava nada — e sempre consequencia. A entrada dela aqui e o
+ * inverso: as dimensoes que a fazem subir. E por isso que, quando Margem e a
+ * menor nota, NAO e por ela que se comeca.
+ */
 const dimensionRelations: Record<number, number[]> = {
-  0: [2, 3],          // Diagnóstico → Documentação, Dados
-  1: [4, 5],          // Execução → Automação, Qualidade
-  2: [1, 4, 5],       // Documentação → Execução, Automação, Qualidade
-  3: [0, 4, 6],       // Dados → Diagnóstico, Automação, Margem
-  4: [1, 2, 3, 6],    // Automação → Execução, Documentação, Dados, Margem
-  5: [2, 4],          // Qualidade → Documentação, Automação
-  6: [3, 4],          // Margem → Dados, Automação
+  0: [1, 2, 3, 4, 5, 6], // Diagnóstico destrava tudo: sem ele a empresa não sabe o que não sabe
+  1: [6],                // Execução → Margem
+  2: [4, 5],             // Documentação destrava Automação e Qualidade
+  3: [0, 6],             // Dados destravam Diagnóstico e Margem
+  4: [6],                // Automação → Margem
+  5: [6],                // Qualidade → Margem
+  6: [3, 4],             // Margem: inverso — sobe quando Dados e Automação sobem
 }
 
 function ModuleDetail({ data, lang, onClose }: { data: TechModule; lang: Language; onClose: () => void }) {

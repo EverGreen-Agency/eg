@@ -31,14 +31,29 @@ function whatsappHref(lang: Language) {
   if (override) return override
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage[lang])}`
 }
+/**
+ * Qual sustentacao segura qual pilar — matriz do capitulo 3.4 de
+ * `EG_Playbook_Metodologia.md`.
+ *
+ * Substitui um grafo arbitrario que ligava pilar a pilar. Pilar nao destrava
+ * pilar: pilar diz ONDE a receita vaza, sustentacao diz POR QUE. Passar o cursor
+ * num pilar agora acende exatamente as causas possiveis dele.
+ *
+ * Oferta nao acende Tecnologia de proposito: Oferta baixa quase nunca e problema
+ * de ferramenta, e o capitulo 3.4 registra que diagnostico apontando Tecnologia
+ * ali merece desconfianca.
+ *
+ * Indices: 0 Oferta · 1 Demanda · 2 Conversao (pilares) · 3 Dados · 4 Tecnologia
+ * · 5 Pessoas · 6 Processo (sustentacoes).
+ */
 const leverRelations: Record<number, number[]> = {
-  0: [1, 2],       // Oferta → Aquisição, Experiência
-  1: [0, 2, 3, 6], // Aquisição → Oferta, Experiência, Dados, Processo
-  2: [0, 1, 6],    // Experiência → Oferta, Aquisição, Processo
-  3: [1, 4, 6],    // Dados → Aquisição, Tecnologia, Processo
-  4: [3, 5, 6],    // Tecnologia → Dados, Pessoas, Processo
-  5: [4, 6],       // Pessoas → Tecnologia, Processo
-  6: [1, 2, 3, 4, 5],
+  0: [6, 3, 5],       // Oferta ← Processo, Dados, Pessoas
+  1: [3, 4, 6, 5],    // Demanda ← Dados, Tecnologia, Processo, Pessoas
+  2: [6, 5, 4, 3],    // Conversão ← Processo, Pessoas, Tecnologia, Dados
+  3: [0, 1, 2],       // Dados sustentam os três pilares
+  4: [1, 2],          // Tecnologia sustenta Demanda e Conversão
+  5: [0, 1, 2],       // Pessoas sustentam os três
+  6: [0, 1, 2],       // Processo sustenta os três
 }
 
 const capabilityRelations: Record<number, number[]> = {
