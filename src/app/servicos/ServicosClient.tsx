@@ -198,6 +198,52 @@ export default function ServicosPage() {
         </div>
       </section>
 
+      {/* Aprofundamentos — as paginas por termo de busca.
+          A /servicos disputava quatro intencoes sozinha e perdia as quatro; estas
+          entram cada uma pelo termo que o mercado digita e fecham no metodo. Sem
+          este bloco elas nascem orfas, e pagina orfa nao ranqueia. */}
+      <section className="py-16 md:py-20 border-t hairline">
+        <div className="container mx-auto px-6 md:px-12">
+          <h2 className="text-[clamp(1.5rem,3.2vw,2.3rem)] leading-[1.12] tracking-tight font-bold text-baunilha mb-3 text-balance">
+            Aprofundar em cada frente
+          </h2>
+          <p className="text-baunilha/60 mb-10 max-w-2xl leading-relaxed">
+            A escada acima é como trabalhamos. Abaixo, cada peça dela por dentro.
+          </p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              {
+                href: '/consultoria-comercial',
+                titulo: 'Consultoria comercial',
+                texto: 'Como escolher, o que exigir de garantia e quando não contratar.',
+              },
+              {
+                href: '/estruturacao-comercial',
+                titulo: 'Estruturação comercial',
+                texto: 'A ordem que funciona quando a operação cresceu sem processo.',
+              },
+              {
+                href: '/processo-comercial',
+                titulo: 'Processo comercial',
+                texto: 'As sete etapas, o critério de passagem e o dono de cada uma.',
+              },
+            ].map(item => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group border hairline p-6 md:p-7 flex flex-col gap-3 hover:border-menta/40 transition-colors"
+              >
+                <h3 className="text-lg font-bold text-baunilha tracking-tight">{item.titulo}</h3>
+                <p className="text-baunilha/65 text-sm leading-relaxed">{item.texto}</p>
+                <span className="mt-auto pt-2 text-menta text-sm group-hover:translate-x-1 transition-transform">
+                  Ler &rarr;
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA final */}
       <section className="relative py-24 md:py-32 border-t hairline overflow-hidden">
         <div
