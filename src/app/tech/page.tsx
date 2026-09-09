@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import TechExperience from './TechExperience'
 
-const title = 'Raio-X Tecnológico e prontidão AI-First | EverGreen MKT'
+const title = 'Raio-X Tecnológico e prontidão AI-First | EverGreen'
 const description =
   'A frente de tecnologia da EverGreen: o Raio-X Tecnológico que mede prontidão AI-First em 7 dimensões, a Sprint de Estruturação e o Retainer de Operação — pelo mesmo Sistema Raiz.'
 
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description,
     url: '/tech',
     type: 'website',
-    siteName: 'EverGreen MKT',
+    siteName: 'EverGreen',
     locale: 'pt_BR',
   },
   twitter: {

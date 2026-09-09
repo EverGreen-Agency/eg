@@ -37,14 +37,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
     const post = await wordpressService.getPostBySlug(params.slug)
-    if (!post) return { title: 'Post não encontrado | EverGreen MKT' }
+    if (!post) return { title: 'Post não encontrado | EverGreen' }
 
     const title = texto(post.title.rendered, 70)
     const description = texto(post.excerpt.rendered, 160)
     const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url
 
     return {
-      title: `${title} | EverGreen MKT`,
+      title: `${title} | EverGreen`,
       description,
       alternates: { canonical: `/blog/${params.slug}` },
       openGraph: {
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         description,
         url: `/blog/${params.slug}`,
         type: 'article',
-        siteName: 'EverGreen MKT',
+        siteName: 'EverGreen',
         locale: 'pt_BR',
         publishedTime: post.date,
         ...(image ? { images: [{ url: image }] } : {}),

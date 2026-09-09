@@ -7,8 +7,8 @@ import ConditionalLayout from '@/components/ConditionalLayout';
 
 export const metadata = {
   metadataBase: new URL('https://www.evergreenmkt.com.br'),
-  title: 'EverGreen MKT | Growth, Tecnologia e Resultados',
-  description: 'Hub de autoridade em growth, tecnologia, IA e execução de resultados reais.',
+  title: 'EverGreen | Consultoria Comercial e Tecnologia',
+  description: 'Estruturação comercial, implementação de tecnologia aplicada e previsibilidade de vendas para empresas B2B.',
   icons: {
     icon: [
       { url: '/images/favicon.ico' },

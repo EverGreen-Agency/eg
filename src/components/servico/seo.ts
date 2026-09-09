@@ -17,7 +17,7 @@ export function servicoMetadata(slug: string): Metadata {
       description: p.metaDescription,
       url: `/${p.slug}`,
       type: 'website',
-      siteName: 'EverGreen MKT',
+      siteName: 'EverGreen',
       locale: 'pt_BR',
     },
     twitter: { card: 'summary_large_image', title: p.metaTitle, description: p.metaDescription },

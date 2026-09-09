@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import BlogClient from './BlogClient'
 
 export const metadata: Metadata = {
-  title: 'Blog | EverGreen MKT',
+  title: 'Blog & Artigos Técnicos | EverGreen',
   description: 'Conteúdo sobre crescimento comercial, tecnologia e execução para empresas B2B.',
 }
 

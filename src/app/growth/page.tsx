@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import GrowthExperience from './GrowthExperience'
 
-const title = 'Consultoria de Growth pelo Sistema Raiz | EverGreen MKT'
+const title = 'Consultoria de Growth pelo Sistema Raiz | EverGreen'
 const description =
   'A frente de Growth da EverGreen: o Sistema Raiz (Raiz, Tronco, Ramos, Copa), o Raio-X Comercial que mede Oferta, Demanda e Conversão, e os cases que provam o método.'
 
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description,
     url: '/growth',
     type: 'website',
-    siteName: 'EverGreen MKT',
+    siteName: 'EverGreen',
     locale: 'pt_BR',
   },
   twitter: {

@@ -20,7 +20,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/evergreen-horizontal.png"
-                alt="EverGreen MKT"
+                alt="EverGreen"
                 width={180}
                 height={40}
                 priority

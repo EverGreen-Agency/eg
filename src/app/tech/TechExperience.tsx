@@ -609,7 +609,7 @@ export default function TechExperience() {
           </div>
         </div>
         <footer>
-          <span>EVERGREEN MKT © {new Date().getFullYear()}</span>
+          <span>EVERGREEN © {new Date().getFullYear()}</span>
           <span>{lang === 'en' ? 'PROCESS · DATA · CONTEXT' : 'PROCESSO · DADO · CONTEXTO'}</span>
         </footer>
       </section>

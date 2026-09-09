@@ -509,7 +509,7 @@ export default function GrowthExperience() {
   return (
     <main className={`${styles.experience} grain`}>
       <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''}`}>
-        <a className={styles.brand} href="#inicio" aria-label="EverGreen MKT — início"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
+        <a className={styles.brand} href="#inicio" aria-label="EverGreen — início"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
         <select
           className={styles.langSelect}
           value={lang}
@@ -648,7 +648,7 @@ export default function GrowthExperience() {
         <div className={styles.chapterInner}>
           <SectionTitle eyebrow={`06 — ${t.teamEyebrow}`}>{t.teamTitle}</SectionTitle>
           <div className={styles.credentialsStack}>
-            <div className={styles.partnerCredential}><span>{t.officialPartner}</span><img src="/images/kommopartner.png" alt="EverGreen MKT é Kommo Partner" /><small>{lang === 'en' ? 'CRM, automation, and commercial operation.' : 'CRM, automação e operação comercial.'}</small></div>
+            <div className={styles.partnerCredential}><span>{t.officialPartner}</span><img src="/images/kommopartner.png" alt="EverGreen é Kommo Partner" /><small>{lang === 'en' ? 'CRM, automation, and commercial operation.' : 'CRM, automação e operação comercial.'}</small></div>
             <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>{t.googleCert}</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva{Date.now() < GOOGLE_CERT_EXPIRES ? (lang === 'en' ? ' · valid thru Feb/2027' : ' · válida até fev/2027') : ''}</small></div><ArrowUpRight size={14} /></a>
           </div>
           <div className={styles.teamGrid}>
@@ -710,7 +710,7 @@ export default function GrowthExperience() {
         <div><Eyebrow>{t.contactEyebrow}</Eyebrow><h2>{lang === 'en' ? 'We don’t compete to be' : 'Não competimos para ser'}<br />{lang === 'en' ? 'the cheapest option.' : 'a opção mais barata.'}</h2><motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: .35 }}>{lang === 'en' ? 'We compete to be the' : 'Competimos para ser a'}<br /><em>{lang === 'en' ? 'safest decision.' : 'decisão mais segura.'}</em></motion.h3><p>{t.contactSubtitle}</p>
           <div className={styles.ctas}><a href={whatsappHref(lang)} target="_blank" rel="noreferrer" onClick={() => track('whatsapp_clicked')}>{t.ctaPrimary} <ArrowUpRight /></a><a href="https://evergreenmkt.com.br" onClick={() => track('cta_clicked')}>evergreenmkt.com.br</a></div>
         </div>
-        <footer><span>EVERGREEN MKT © {new Date().getFullYear()}</span><span>{lang === 'en' ? 'CLARITY · STRUCTURE · PREDICTABILITY' : 'CLAREZA · ESTRUTURA · PREVISIBILIDADE'}</span></footer>
+        <footer><span>EVERGREEN © {new Date().getFullYear()}</span><span>{lang === 'en' ? 'CLARITY · STRUCTURE · PREDICTABILITY' : 'CLAREZA · ESTRUTURA · PREVISIBILIDADE'}</span></footer>
       </section>
     </main>
   )

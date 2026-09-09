@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'EverGreen',
   ],
   alternates: { canonical: '/kommo_partners' },
-  openGraph: { title, description, url: '/kommo_partners', type: 'website', siteName: 'EverGreen MKT', locale: 'pt_BR' },
+  openGraph: { title, description, url: '/kommo_partners', type: 'website', siteName: 'EverGreen', locale: 'pt_BR' },
   twitter: { card: 'summary_large_image', title, description },
 }
 
