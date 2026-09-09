@@ -69,6 +69,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/marca" className="text-baunilha/70 hover:text-menta transition-colors">
+                  BrandKit Oficial
+                </Link>
+              </li>
+              <li>
                 <Link href="/autoridade" className="text-baunilha/70 hover:text-menta transition-colors">
                   Autoridade
                 </Link>
