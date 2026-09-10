@@ -2,6 +2,10 @@
 node_modules
 .next
 .env
+/node_modules
+node_modules
+.next
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -10,3 +14,4 @@ node_modules
 # Segredos reais do WordPress nunca versionados — use wp-config.sample.php como template
 wp-config.php
 tsconfig.tsbuildinfo
+.codex-history/

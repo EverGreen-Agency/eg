@@ -1,7 +1,8 @@
 import './globals.css'
 import CookieConsent from "@/components/CookieConsent";
-import FacebookPixel from '@/components/FacebookPixel';
 import GoogleTagManager from '@/components/GoogleTagManager';
+import FacebookPixel from '@/components/FacebookPixel';
+import MicrosoftClarity from '@/components/MicrosoftClarity';
 import StructuredData from '@/components/StructuredData';
 import ConditionalLayout from '@/components/ConditionalLayout';
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         <StructuredData />
         <GoogleTagManager />
         <FacebookPixel />
+        <MicrosoftClarity />
         <ConditionalLayout>
           {children}
         </ConditionalLayout>
