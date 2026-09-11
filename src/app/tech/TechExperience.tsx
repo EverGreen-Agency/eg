@@ -15,7 +15,7 @@ const whatsappMessage: Record<Language, string> = {
   en: 'Hi! I went through the EverGreen technology presentation and would like to continue our conversation about the proposal.',
   es: 'Hola. Vi la presentación de tecnología de EverGreen y quiero seguir la conversación sobre la propuesta.',
   it: 'Ciao! Ho visto la presentazione tecnologica di EverGreen e vorrei continuare la conversazione sulla proposta.',
-  fr: 'Bonjour ! J’ai vu la présentation technologique d’EverGreen et je souhaite poursuivre la conversation sur la proposition.',
+  fr: 'Bonjour ! J’ai vu la présentation technologique d’EverGreen et je souhaite poursuivre la conversation sur la proposition.',
   de: 'Hallo! Ich habe die Technologie-Präsentation von EverGreen gesehen und möchte das Gespräch zum Angebot fortsetzen.',
 }
 
@@ -23,6 +23,16 @@ function whatsappHref(lang: Language) {
   const override = process.env.NEXT_PUBLIC_EG_WHATSAPP_URL
   if (override) return override
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage[lang])}`
+}
+
+function EGMark() {
+  return (
+    <div className={styles.markWrap} aria-hidden="true">
+      <motion.div className={styles.markGlow} animate={{ scale: [1, 1.12, 1], opacity: [.4, .72, .4] }} transition={{ duration: 6, repeat: Infinity }} />
+      <motion.img className={styles.mark} src="/images/evergreen-icon.png" alt="" initial={{ opacity: 0, scale: .88, rotateY: -20 }} animate={{ opacity: 1, scale: 1, rotateY: -10 }} transition={{ duration: 1.15, ease }} />
+      <div className={styles.orbit}><i /><i /><i /></div>
+    </div>
+  )
 }
 
 const moduleKeys: TechModuleKey[] = ['diagnostico', 'arquitetura', 'implementacao', 'operacao', 'evolucao']
@@ -83,6 +93,7 @@ export default function TechExperience() {
   const [capability, setCapability] = useState(0)
   const [caseId, setCaseId] = useState<string | null>(null)
   const [caseStep, setCaseStep] = useState(0)
+  const [isProposal, setIsProposal] = useState(false)
 
   const { sections, problems, dimensions, modules, ladder, capabilities, cases, caseFallback, manifesto, t } =
     useMemo(() => getTechData(lang), [lang])
@@ -111,6 +122,12 @@ export default function TechExperience() {
   useEffect(() => {
     document.documentElement.lang = LANGUAGE_TAG[lang]
   }, [lang])
+
+  // Detecta se e proposta personalizada (?p=) para manter o logo na LP
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setIsProposal(!!params.get('p'))
+  }, [])
 
   const changeLang = (next: Language) => {
     setLang(next)
@@ -294,7 +311,7 @@ export default function TechExperience() {
   return (
     <main className={`${styles.experience} grain`}>
       <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''}`}>
-        <a className={styles.brand} href="#inicio" aria-label="EverGreen — início">
+        <a className={styles.brand} href={isProposal ? '#inicio' : '/'} aria-label="EverGreen — retornar ao site">
           <img src="/images/evergreen-horizontal.png" alt={t.brandAlt} />
         </a>
         <select
@@ -341,6 +358,7 @@ export default function TechExperience() {
             {lang === 'en' ? 'Find the bottleneck' : 'Descobrir o gargalo'} <ArrowDown size={18} />
           </button>
         </motion.div>
+        <EGMark />
         <div className={styles.heroFoot}>
           <span>{lang === 'en' ? 'PREDICTABLE, SCALABLE, AND TECH-DRIVEN GROWTH.' : 'CRESCIMENTO PREVISÍVEL, ESCALÁVEL E TECNOLÓGICO.'}</span>
           <span>{lang === 'en' ? 'SCROLL OR ARROWS' : 'SCROLL OU SETAS'}</span>
@@ -408,7 +426,7 @@ export default function TechExperience() {
             </div>
           </div>
           <AnimatePresence mode="wait">
-            <motion.p key={visibleDimension} className={styles.caseThesis} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.p key={visibleDimension} className={styles.dimensionQuery} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <b>{t.dimAskLabel}</b> — {dimensions[visibleDimension]?.asks}
             </motion.p>
           </AnimatePresence>
@@ -474,17 +492,17 @@ export default function TechExperience() {
         <div className={styles.chapterInner}>
           <SectionTitle eyebrow={`05 — ${t.capEyebrow}`}>{t.capTitle}</SectionTitle>
           <div className={styles.capabilityLayout}>
-            <div className={styles.methodOverview}>
+            <div className={styles.techCapabilityList}>
               {capabilities.map((item, i) => (
                 <button key={item.name} onClick={() => setCapability(i)} className={capability === i ? styles.active : ''}>
                   <span>{String(i + 1).padStart(2, '0')}</span>
                   <div><strong>{item.name}</strong><small>{item.use}</small></div>
-                  <ChevronRight />
+                  <ChevronRight size={13} />
                 </button>
               ))}
             </div>
             <AnimatePresence mode="wait">
-              <motion.div key={capability} className={styles.capabilityPanel} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: .28, ease }}>
+              <motion.div key={capability} className={styles.techCapabilityPanel} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: .28, ease }}>
                 <small>{lang === 'en' ? 'CAPABILITY' : 'CAPACIDADE'} {String(capability + 1).padStart(2, '0')}</small>
                 <h3>{capabilities[capability]?.name}</h3>
                 <p>{capabilities[capability]?.use}</p>

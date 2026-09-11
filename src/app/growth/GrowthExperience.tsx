@@ -140,6 +140,7 @@ export default function GrowthExperience() {
   const [caseId, setCaseId] = useState<string | null>(null)
   const [caseStep, setCaseStep] = useState(0)
   const [answered, setAnswered] = useState<boolean | null>(null)
+  const [isProposal, setIsProposal] = useState(false)
 
   const [scrolled, setScrolled] = useState(false)
 
@@ -173,6 +174,13 @@ export default function GrowthExperience() {
   useEffect(() => {
     document.documentElement.lang = LANGUAGE_TAG[lang]
   }, [lang])
+
+  // Detecta se e proposta personalizada (?p=) para manter o logo na LP
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    setIsProposal(!!params.get('p'))
+  }, [])
 
   const changeLang = (newLang: Language) => {
     setLang(newLang)
@@ -509,7 +517,7 @@ export default function GrowthExperience() {
   return (
     <main className={`${styles.experience} grain`}>
       <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''}`}>
-        <a className={styles.brand} href="#inicio" aria-label="EverGreen — início"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
+        <a className={styles.brand} href={isProposal ? '#inicio' : '/'} aria-label="EverGreen — retornar ao site"><img src="/images/evergreen-horizontal.png" alt={t.brandAlt} /></a>
         <select
           className={styles.langSelect}
           value={lang}
