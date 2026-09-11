@@ -43,6 +43,12 @@ export default function ContactForm() {
       console.log('Resposta da API:', data);
 
       if (data.success) {
+        // Dispara o evento de lead para o GTM/GA4
+        try {
+          const target = window as typeof window & { dataLayer?: Record<string, unknown>[] }
+          target.dataLayer = target.dataLayer || []
+          target.dataLayer.push({ event: 'generate_lead', source: 'contact_form' })
+        } catch {}
         setStatus({
           loading: false,
           success: true,
@@ -138,6 +144,13 @@ export default function ContactForm() {
         href="https://wa.me/5511989966989"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => {
+          try {
+            const target = window as typeof window & { dataLayer?: Record<string, unknown>[] }
+            target.dataLayer = target.dataLayer || []
+            target.dataLayer.push({ event: 'whatsapp_clicked', source: 'contact_page' })
+          } catch {}
+        }}
         className="w-full flex items-center justify-center gap-3 px-8 py-4 text-lg font-medium rounded-xl text-[#FFF4C7] bg-[#25D366]/10 border border-[#25D366]/50 hover:bg-[#25D366]/20 transition-all duration-300"
       >
         <FaWhatsapp className="text-2xl text-[#25D366]" />
