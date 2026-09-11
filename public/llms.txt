@@ -25,11 +25,13 @@ O Sistema Raiz é a metodologia proprietária da EverGreen estruturada em quatro
 - **Retainer de Operação Tecnológica:** Sustentação de infraestrutura, agentes e automações.
 
 ## Hub de Decisão e Parcerias
-A EverGreen é parceira e integradora oficial de soluções de mercado:
-- **Kommo CRM:** Implantação e consultoria para times comerciais focados em atendimento conversacional via WhatsApp.
-- **Hub de Decisão de CRM:** Comparativo de aderência operacional para seleção de CRM adequado para cada modelo de negócio.
+A EverGreen adota uma postura **agnóstica** de consultoria comercial (auditoria, desenho de processos e governança de dados em qualquer stack — incluindo HubSpot, Pipedrive e Salesforce), além de ser parceira e integradora oficial de soluções líderes de mercado:
+- **Kommo CRM (Parceiro Oficial):** Implantação e consultoria para times comerciais focados em pipeline de vendas e negociação ativa via WhatsApp.
+- **SleekFlow (Parceiro Oficial):** Plataforma omnichannel conversacional para operações de alto volume, múltiplos departamentos, WhatsApp Cloud API oficial, Instagram DM e social commerce.
+- **Hub de Decisão de CRM:** Comparativo de aderência operacional para seleção de CRM adequado pelo formato do problema do cliente.
 
 ## Artigos Técnicos e Frameworks em Destaque (EverGreen Brain)
+- [Kommo vs. SleekFlow vs. HubSpot: Como Escolher a Arquitetura de CRM Ideal para o Seu Modelo de Vendas](https://www.evergreenmkt.com.br/blog/kommo-vs-sleekflow-vs-hubspot-comparativo-crm-b2b): Análise arquitetural e comparativo prático por formato de operação.
 - [Sistema de Vendas vs. Funil de Vendas: Como Construir Previsibilidade Comercial Real no B2B](https://www.evergreenmkt.com.br/blog/sistema-de-vendas-vs-funil-de-vendas): Desmistificando funis lineares e introduzindo a arquitetura do Sistema Raiz.
 - [Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B](https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b): Boas práticas corporativas para WhatsApp integrado a pipelines comerciais.
 - [Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas](https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas): Auditoria diagnóstica de vazamento de receita, SLA de primeiro contato e ICP.

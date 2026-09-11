@@ -482,14 +482,22 @@ export const paginasServico: PaginaServico[] = [
     },
 
     parcerias: {
-      titulo: 'Nossas parcerias, declaradas',
+      titulo: 'Nossas parcerias e postura agnóstica',
       intro:
-        'Somos parceiros de algumas das ferramentas que podemos recomendar. Isso é conflito de interesse e a forma de lidar com ele é declarar, não esconder — e manter, em cada página de parceiro, a seção que diz quando aquela ferramenta é a escolha errada.',
+        'Somos parceiros oficiais de ferramentas selecionadas de mensageria e vendas conversacionais, mas nossa consultoria é estritamente agnóstica ao software. Auditamos, estruturamos e integramos também operações em HubSpot, Pipedrive, Salesforce e outros CRMs com total transparência sobre onde cada plataforma funciona ou falha.',
       itens: [
         {
           nome: 'Kommo',
-          situacao: 'Parceiro oficial. Implantamos quando o gargalo está em Conversão e a operação vive de conversa.',
+          situacao: 'Parceiro oficial. Recomendamos quando a operação vive de vendas consultivas B2B via WhatsApp conduzidas por consultores (SDR/Closer).',
           href: '/kommo_partners',
+        },
+        {
+          nome: 'SleekFlow',
+          situacao: 'Parceiro oficial. Recomendamos para omnichannel em escala corporativa (WhatsApp Cloud API oficial, Instagram DM, chat de site) envolvendo múltiplos departamentos.',
+        },
+        {
+          nome: 'HubSpot, Pipedrive & Outros',
+          situacao: 'Consultoria agnóstica. Auditamos gargalos de processo, saneamos dados e conectamos canais de mensageria à arquitetura corporativa já contratada.',
         },
       ],
     },
@@ -532,7 +540,7 @@ export const paginasServico: PaginaServico[] = [
       {
         pergunta: 'Vocês recomendam a ferramenta de que são parceiros?',
         resposta:
-          'Quando ela serve. Somos parceiros oficiais Kommo e isso é conflito de interesse declarado — a forma de lidar é manter, na própria página do Kommo, a seção que diz onde ele é a escolha errada. Se o seu caso cai numa dessas linhas, dizemos antes de vender.',
+          'Apenas quando ela resolve exatamente o gargalo diagnosticado. Somos parceiros oficiais de Kommo e SleekFlow, mas nosso compromisso é com o resultado do processo comercial. Se o diagnóstico demonstrar que a sua empresa precisa de HubSpot, Pipedrive ou apenas de governança na ferramenta que você já paga, nós apontamos com clareza.',
       },
     ],
 

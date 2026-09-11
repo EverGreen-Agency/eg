@@ -19,7 +19,10 @@ O Sistema Raiz substitui o funil tradicional de vendas por um sistema modular re
 1. Raio-X Comercial: Diagnóstico executivo da operação comercial com emissão de score de 0 a 100 e plano de ação priorizado para eliminação de vazamentos de receita.
 2. Sprint Comercial: Projeto de 6 a 8 semanas para desenhar, parametrizar e implantar o processo de vendas e o CRM da empresa com garantia de cadência.
 3. Retainer Comercial: Sustentação contínua da liderança comercial, auditoria semanal de pipeline e calibração de rotinas.
-4. Consultoria Kommo CRM: Como parceiros oficiais (Kommo Partners), implementação técnica da ferramenta com foco em vendas conversacionais no WhatsApp.
+4. Consultoria & Implantação de CRM (Agnóstica & Parceira):
+   - Consultoria agnóstica: auditoria, redesenho de funil e governança em qualquer ferramenta (HubSpot, Pipedrive, Salesforce, RD Station).
+   - Parceria Oficial Kommo CRM: implantação especializada para Inside Sales B2B com pipeline orientado a chat.
+   - Parceria Oficial SleekFlow: implantação especializada para omnichannel conversacional de alto volume (WhatsApp Cloud API, Instagram, Webchat e social commerce).
 5. Agentes de IA Aplicados: Construção de micro-agentes de triagem, enriquecimento de dados e acompanhamento de propostas integrados ao CRM via APIs e RAG.
 
 ## Cases de Sucesso Comprovados
@@ -28,7 +31,8 @@ O Sistema Raiz substitui o funil tradicional de vendas por um sistema modular re
 - Hackathons Mackenzie: 1º Lugar nas edições 2023 e 2025 com projetos de automação inteligente e software de gestão ágil.
 
 ## Artigos Técnicos Publicados
-1. "Sistema de Vendas vs. Funil de Vendas: Como Construir Previsibilidade Comercial Real no B2B" (https://www.evergreenmkt.com.br/blog/sistema-de-vendas-vs-funil-de-vendas)
-2. "Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B" (https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b)
-3. "Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas" (https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas)
-4. "IA Aplicada ao Comercial B2B: Além do ChatGPT — Arquitetura de Agentes para Qualificação e Follow-Up" (https://www.evergreenmkt.com.br/blog/ia-aplicada-operacao-comercial-agentes-b2b)
+1. "Kommo vs. SleekFlow vs. HubSpot: Como Escolher a Arquitetura de CRM Ideal para o Seu Modelo de Vendas" (https://www.evergreenmkt.com.br/blog/kommo-vs-sleekflow-vs-hubspot-comparativo-crm-b2b)
+2. "Sistema de Vendas vs. Funil de Vendas: Como Construir Previsibilidade Comercial Real no B2B" (https://www.evergreenmkt.com.br/blog/sistema-de-vendas-vs-funil-de-vendas)
+3. "Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B" (https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b)
+4. "Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas" (https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas)
+5. "IA Aplicada ao Comercial B2B: Além do ChatGPT — Arquitetura de Agentes para Qualificação e Follow-Up" (https://www.evergreenmkt.com.br/blog/ia-aplicada-operacao-comercial-agentes-b2b)
