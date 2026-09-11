@@ -35,11 +35,13 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'EverGreen',
     locale: 'pt_BR',
+    images: [{ url: '/images/tech.jpg', width: 1200, height: 630, alt: 'EverGreen Tecnologia — Raio-X Tecnológico e prontidão AI-First' }],
   },
   twitter: {
     card: 'summary_large_image',
     title,
     description,
+    images: ['/images/tech.jpg'],
   },
 }
 

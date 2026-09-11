@@ -18,6 +18,16 @@ export const metadata = {
     shortcut: '/images/favicon.ico',
     apple: '/images/favicon.ico',
   },
+  openGraph: {
+    siteName: 'EverGreen',
+    locale: 'pt_BR',
+    type: 'website' as const,
+    images: [{ url: '/images/evergreen-horizontal.png', width: 600, height: 200, alt: 'EverGreen — Consultoria Comercial e Tecnologia' }],
+  },
+  twitter: {
+    card: 'summary_large_image' as const,
+    images: ['/images/evergreen-horizontal.png'],
+  },
 }
 
 export default function RootLayout({
