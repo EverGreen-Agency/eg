@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import BenchmarkClient from './BenchmarkClient'
 
 export const metadata: Metadata = {
-  title: 'Benchmark | EverGreen MKT',
+  title: 'Benchmark de Previsibilidade Comercial | EverGreen',
   description: 'Benchmarks de previsibilidade comercial por segmento — dados agregados e anonimizados a partir da operação real dos clientes EverGreen.',
+  alternates: { canonical: '/benchmark' },
 }
 
 export default function Page() {

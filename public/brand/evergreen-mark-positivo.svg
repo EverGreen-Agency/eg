@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 616" width="100%" height="100%" fill="none">
+  <!-- Fundo quadrado menta oficial -->
+  <rect width="616" height="616" rx="96" fill="#3AC97B"/>
+  <!-- Símbolo E em Verde Musgo Profundo -->
+  <g stroke="#09231B" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#09231B" d="M43 498H365L435 420H136Z" />
+    <path fill="#09231B" d="M111 347H435L504 270H180Z" />
+    <path fill="#09231B" d="M180 196H504L573 119H250Z" />
+    <path fill="none" stroke-width="14" d="M250 119L180 197V270L111 347V420L43 498" />
+  </g>
+</svg>
