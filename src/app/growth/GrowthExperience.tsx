@@ -80,17 +80,17 @@ function EGMark() {
 
 function DiagnosticSimulation({ lang }: { lang: Language }) {
   const rows = lang === 'en' ? [
-    { label: 'Leads', value: 120, rate: null, loss: 0, width: 100 },
-    { label: 'Initiated contacts', value: 82, rate: '68%', loss: 38, width: 84 },
-    { label: 'Qualified leads', value: 46, rate: '56%', loss: 36, alert: true, width: 68 },
-    { label: 'Proposals', value: 18, rate: '39%', loss: 28, width: 52 },
-    { label: 'Sales', value: 5, rate: '28%', loss: 13, width: 38 },
+    { label: 'Leads', value: 120, rate: null, loss: 0, h: 96 },
+    { label: 'Initiated contacts', value: 82, rate: '68%', loss: 38, h: 84 },
+    { label: 'Qualified leads', value: 46, rate: '56%', loss: 36, alert: true, h: 74 },
+    { label: 'Proposals', value: 18, rate: '39%', loss: 28, h: 64 },
+    { label: 'Sales', value: 5, rate: '28%', loss: 13, h: 54 },
   ] : [
-    { label: 'Leads', value: 120, rate: null, loss: 0, width: 100 },
-    { label: 'Contatos iniciados', value: 82, rate: '68%', loss: 38, width: 84 },
-    { label: 'Leads qualificados', value: 46, rate: '56%', loss: 36, alert: true, width: 68 },
-    { label: 'Propostas', value: 18, rate: '39%', loss: 28, width: 52 },
-    { label: 'Vendas', value: 5, rate: '28%', loss: 13, width: 38 },
+    { label: 'Leads', value: 120, rate: null, loss: 0, h: 96 },
+    { label: 'Contatos iniciados', value: 82, rate: '68%', loss: 38, h: 84 },
+    { label: 'Leads qualificados', value: 46, rate: '56%', loss: 36, alert: true, h: 74 },
+    { label: 'Propostas', value: 18, rate: '39%', loss: 28, h: 64 },
+    { label: 'Vendas', value: 5, rate: '28%', loss: 13, h: 54 },
   ]
   const [active, setActive] = useState(2)
   return (
@@ -99,36 +99,28 @@ function DiagnosticSimulation({ lang }: { lang: Language }) {
         <span>{lang === 'en' ? 'CONCEPTUAL SIMULATION · COMMERCIAL FUNNEL' : 'SIMULAÇÃO CONCEITUAL · FUNIL COMERCIAL'}</span>
         <span>{lang === 'en' ? 'Focus: leakage & bottlenecks' : 'Foco: vazamento e gargalos'}</span>
       </div>
-      <div className={styles.funnel}>
+      <div className={styles.funnelHorizontal}>
         {rows.map((row, index) => (
           <button
             key={row.label}
             onClick={() => setActive(index)}
-            style={{ width: `${row.width}%` }}
-            className={`${styles.funnelRow} ${active === index ? styles.active : ''} ${row.alert ? styles.alert : ''}`}
+            style={{ '--stage-h': `${row.h}px` } as React.CSSProperties}
+            className={`${styles.funnelStage} ${active === index ? styles.active : ''} ${row.alert ? styles.alert : ''}`}
           >
-            <div className={styles.funnelRowContent}>
-              <span className={styles.funnelLabel}>{row.label}</span>
-              <strong className={styles.funnelValue}>{row.value}</strong>
-              {row.rate ? (
-                <span className={styles.funnelRate}>
-                  {row.rate} {lang === 'en' ? 'pass' : 'passagem'}
-                </span>
-              ) : (
-                <span className={styles.funnelRateTop}>
-                  {lang === 'en' ? 'Total inflow' : 'Entrada'}
-                </span>
-              )}
+            <div className={styles.funnelStageHead}>
+              <span className={styles.funnelStageLabel}>{row.label}</span>
+              {row.alert && <span className={styles.funnelStageBadge}>{lang === 'en' ? 'Leak' : 'Gargalo'}</span>}
             </div>
-            {row.alert && (
-              <span className={styles.funnelAlertBadge}>
-                {lang === 'en' ? 'Main leak' : 'Maior perda'}
-              </span>
+            <strong className={styles.funnelStageValue}>{row.value}</strong>
+            {row.rate ? (
+              <small className={styles.funnelStageRate}>{row.rate} {lang === 'en' ? 'pass' : 'passagem'}</small>
+            ) : (
+              <small className={styles.funnelStageRateTop}>{lang === 'en' ? 'Inflow' : 'Entrada'}</small>
             )}
           </button>
         ))}
       </div>
-      <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={styles.insight}>
+      <motion.div key={active} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className={styles.insight}>
         <CircleDot size={16} />
         <div>
           <b>{active === 2 ? (lang === 'en' ? 'The main leak is not in demand generation.' : 'O maior vazamento não está na geração.') : `${rows[active].loss} ${lang === 'en' ? 'opportunities dropped off here.' : 'oportunidades não avançaram aqui.'}`}</b>

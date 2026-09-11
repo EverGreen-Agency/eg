@@ -399,44 +399,57 @@ export default function TechExperience() {
       {/* 02 — as sete dimensoes */}
       <section id="maturidade" className={`${styles.chapter} ${styles.systemChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow={`02 — ${t.dimEyebrow}`} lead={t.dimLead}>{t.dimTitle}</SectionTitle>
-          <div className={`${styles.systemMap} ${styles.wheelMap}`} onPointerLeave={() => setHoveredDimension(null)}>
-            <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label={lang === 'en' ? 'Maturity wheel' : 'Roda de maturidade'}>
-              {dimensions.map((item, i) => {
-                const isActive = visibleDimension === i
-                const isRelated = relatedDimensions.includes(i)
-                const point = sectorLabelPoint(i, dimensions.length)
-                const cls = `${styles.wheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${!isActive && !isRelated ? styles.dimmed : ''}`
-                return (
-                  <motion.g key={item.name} className={cls} role="button" tabIndex={0}
-                    aria-label={`${item.name}: ${item.note}`} aria-pressed={dimension === i}
-                    onClick={() => setDimension(i)}
-                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDimension(i) } }}
-                    onPointerEnter={() => setHoveredDimension(i)}
-                    onFocus={() => setHoveredDimension(i)} onBlur={() => setHoveredDimension(null)}>
-                    <motion.path initial={false} animate={{ d: sectorPath(i, dimensions.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
-                    <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
-                  </motion.g>
-                )
-              })}
-              <circle className={styles.wheelInnerRing} cx="50" cy="50" r="19" />
-            </svg>
-            <div className={styles.revenueCore}>
-              <AnimatePresence mode="wait">
-                <motion.div key={visibleDimension} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}>
-                  <small>{lang === 'en' ? 'DIMENSION' : 'DIMENSÃO'} {String(visibleDimension + 1).padStart(2, '0')}/07</small>
-                  <strong>{dimensions[visibleDimension]?.note}</strong>
-                  <span>{dimensions[visibleDimension]?.name}</span>
-                </motion.div>
-              </AnimatePresence>
+          <div className={styles.systemStageLayout}>
+            <div className={styles.systemCopyCol}>
+              <SectionTitle eyebrow={`02 — ${t.dimEyebrow}`} lead={t.dimLead}>{t.dimTitle}</SectionTitle>
+              <div className={styles.dimensionQueryWrap}>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={visibleDimension}
+                    className={styles.dimensionQuery}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <b>{t.dimAskLabel}</b> — {dimensions[visibleDimension]?.asks}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+              <p className={styles.clickHint}><MousePointer2 size={15} /> {t.dimInstruction}</p>
+            </div>
+            <div className={`${styles.systemMap} ${styles.wheelMap}`} onPointerLeave={() => setHoveredDimension(null)}>
+              <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label={lang === 'en' ? 'Maturity wheel' : 'Roda de maturidade'}>
+                {dimensions.map((item, i) => {
+                  const isActive = visibleDimension === i
+                  const isRelated = relatedDimensions.includes(i)
+                  const point = sectorLabelPoint(i, dimensions.length)
+                  const cls = `${styles.wheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${!isActive && !isRelated ? styles.dimmed : ''}`
+                  return (
+                    <motion.g key={item.name} className={cls} role="button" tabIndex={0}
+                      aria-label={`${item.name}: ${item.note}`} aria-pressed={dimension === i}
+                      onClick={() => setDimension(i)}
+                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDimension(i) } }}
+                      onPointerEnter={() => setHoveredDimension(i)}
+                      onFocus={() => setHoveredDimension(i)} onBlur={() => setHoveredDimension(null)}>
+                      <motion.path initial={false} animate={{ d: sectorPath(i, dimensions.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
+                      <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
+                    </motion.g>
+                  )
+                })}
+                <circle className={styles.wheelInnerRing} cx="50" cy="50" r="19" />
+              </svg>
+              <div className={styles.revenueCore}>
+                <AnimatePresence mode="wait">
+                  <motion.div key={visibleDimension} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}>
+                    <small>{lang === 'en' ? 'DIMENSION' : 'DIMENSÃO'} {String(visibleDimension + 1).padStart(2, '0')}/07</small>
+                    <strong>{dimensions[visibleDimension]?.note}</strong>
+                    <span>{dimensions[visibleDimension]?.name}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
-          <AnimatePresence mode="wait">
-            <motion.p key={visibleDimension} className={styles.dimensionQuery} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-              <b>{t.dimAskLabel}</b> — {dimensions[visibleDimension]?.asks}
-            </motion.p>
-          </AnimatePresence>
-          <p className={styles.clickHint}><MousePointer2 size={15} /> {t.dimInstruction}</p>
         </div>
       </section>
 
