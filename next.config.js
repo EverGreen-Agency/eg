@@ -20,39 +20,50 @@ const nextConfig = {
   }
 }
 
-
 /**
- * As rotas abaixo foram movidas para `_legacy/` na Fase 0 (higiene de 2026-07-17)
- * e passaram a responder 404 — sem redirect. A auditoria de busca de 28/08/2026
- * mostrou que /investidores e /holding continuavam ranqueando: juntas seguravam
- * 3 das 16 keywords do dominio, incluindo a de maior volume (390/mes).
- *
- * 301 permanente: o destino e a pagina viva mais proxima em intencao.
+ * Redirecionamentos permanentes 301 para preservar SEO, links legados e remover páginas mortas/duplicadas.
  */
 nextConfig.redirects = async () => [
-  // institucional: quem procurava holding/investidores quer saber quem e a empresa
+  // Higienização de posts legados do WordPress
+  {
+    source: '/blog/teste',
+    destination: '/blog',
+    permanent: true
+  },
+  {
+    source: '/blog/ia-para-empresas-alem-do-chatgpt-automacoes-que-realmente-geram-roi-2',
+    destination: '/blog/ia-para-empresas-alem-do-chatgpt-automacoes-que-realmente-geram-roi',
+    permanent: true
+  },
+  {
+    source: '/blog/como-montar-sua-primeira-maquina-de-vendas-com-zero-equipe-2',
+    destination: '/blog/como-montar-sua-primeira-maquina-de-vendas-com-zero-equipe',
+    permanent: true
+  },
+
+  // Institucional: quem procurava holding/investidores quer saber quem é a empresa
   { source: '/investidores', destination: '/sobre', permanent: true },
   { source: '/holding', destination: '/sobre', permanent: true },
 
-  // submarcas descartadas: a oferta real vive em /servicos
+  // Submarcas descartadas: a oferta real vive em /servicos
   { source: '/eg-os', destination: '/servicos', permanent: true },
   { source: '/eg-os/:path*', destination: '/servicos', permanent: true },
   { source: '/eg-tech', destination: '/servicos', permanent: true },
   { source: '/eg-lab', destination: '/servicos', permanent: true },
   { source: '/eg-finance/:path*', destination: '/servicos', permanent: true },
 
-  // ferramentas gratuitas cortadas: a substituta e o Raio-X, que mora em /servicos
+  // Ferramentas gratuitas cortadas: a substituta é o Raio-X, que mora em /servicos
   { source: '/ferramentas', destination: '/servicos', permanent: true },
   { source: '/ferramentas/:path*', destination: '/servicos', permanent: true },
 
-  // produtos orfaos, sem sucessor no site
+  // Produtos orfãos, sem sucessor no site
   { source: '/agro-ai-guardian', destination: '/', permanent: true },
   { source: '/agro-ai-guardian/:path*', destination: '/', permanent: true },
   { source: '/caderno-memorias', destination: '/', permanent: true },
   { source: '/caderno-memorias/:path*', destination: '/', permanent: true },
 
-  // o banner de cookies apontou para esta URL por meses; ela nunca existiu
-  { source: '/politica-de-privacidade', destination: '/legal/privacidade', permanent: true },
+  // O banner de cookies apontou para esta URL por meses; ela nunca existiu
+  { source: '/politica-de-privacidade', destination: '/legal/privacidade', permanent: true }
 ]
 
 module.exports = nextConfig

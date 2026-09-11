@@ -2,15 +2,15 @@
 
 > Crescimento previsível, escalável e tecnológico para empresas B2B.
 
-A EverGreen é uma boutique de consultoria comercial e tecnologia sediada no Brasil. Atua na estruturação de processos comerciais previsíveis, implementação de tecnologia aplicada (automação e inteligência artificial) e gestão contínua de operações comerciais por meio de método proprietário.
+A EverGreen é uma boutique de consultoria comercial e tecnologia sediada no Brasil. Atua na estruturação de processos comerciais previsíveis, implementação de tecnologia aplicada (automação e inteligência artificial) e gestão contínua de operações comerciais por meio de método proprietário (Sistema Raiz).
 
 ## Metodologia Oficial: Sistema Raiz
 
 O Sistema Raiz é a metodologia proprietária da EverGreen estruturada em quatro fases integradas:
 1. **Raiz (Diagnóstico):** Identificação de gargalos em 3 pilares de receita (Oferta, Demanda e Conversão) sustentados por 4 alicerces operacionais (Dados, Tecnologia, Pessoas e Processos).
-2. **Tronco (Arquitetura & Priorização):** Desenho do plano de ação, definição da cadência de vendas e esteira de conversão.
-3. **Ramos (Estruturação & Implementação):** Configuração de ferramentas (CRM, automações, fluxos de contato e relatórios de acompanhamento).
-4. **Copa (Operação Contínua & Evolução):** Acompanhamento quinzenal ou mensal de cadência, melhoria contínua de indicadores e retenção.
+2. **Tronco (Arquitetura & Priorização):** Desenho do plano de ação, definição da cadência de vendas, SLAs de resposta e esteira de conversão.
+3. **Ramos (Estruturação & Implementação):** Configuração de ferramentas (Kommo CRM, automações, fluxos de contato no WhatsApp Business API e relatórios analíticos).
+4. **Copa (Operação Contínua & Evolução):** Acompanhamento quinzenal ou mensal de cadência, melhoria contínua de indicadores e expansão de margem.
 
 ## Escada de Serviços Oficiais
 
@@ -25,22 +25,31 @@ O Sistema Raiz é a metodologia proprietária da EverGreen estruturada em quatro
 - **Retainer de Operação Tecnológica:** Sustentação de infraestrutura, agentes e automações.
 
 ## Hub de Decisão e Parcerias
-A EverGreen é parceira e integradora oficial de soluções de mercado, adotando o princípio de comparar soluções pelo formato do problema do cliente:
-- **Kommo CRM:** Implantação e consultoria para times comerciais focados em atendimento conversacional via WhatsApp.
-- **Hub de Decisão de CRM:** Comparativo de aderência operacional para seleção de CRM adequado para cada modelo de negócio.
+A EverGreen adota uma postura **agnóstica** de consultoria comercial (auditoria, desenho de processos e governança de dados em qualquer stack — incluindo HubSpot, Pipedrive e Salesforce), além de ser parceira e integradora oficial de soluções líderes de mercado:
+- **Kommo CRM (Parceiro Oficial):** Implantação e consultoria para times comerciais focados em pipeline de vendas e negociação ativa via WhatsApp.
+- **SleekFlow (Parceiro Oficial):** Plataforma omnichannel conversacional para operações de alto volume, múltiplos departamentos, WhatsApp Cloud API oficial, Instagram DM e social commerce.
+- **Hub de Decisão de CRM:** Comparativo de aderência operacional para seleção de CRM adequado pelo formato do problema do cliente.
 
-## Estrutura da Plataforma
-A EverGreen desenvolve e opera a plataforma interna **Bioma** (evergreen-ai-os), ambiente multitenant B2B com governança de dados, inteligência analítica e copiloto assistido.
+## Artigos Técnicos e Frameworks em Destaque (EverGreen Brain)
+- [Kommo vs. SleekFlow vs. HubSpot: Como Escolher a Arquitetura de CRM Ideal para o Seu Modelo de Vendas](https://www.evergreenmkt.com.br/blog/kommo-vs-sleekflow-vs-hubspot-comparativo-crm-b2b): Análise arquitetural e comparativo prático por formato de operação.
+- [Sistema de Vendas vs. Funil de Vendas: Como Construir Previsibilidade Comercial Real no B2B](https://www.evergreenmkt.com.br/blog/sistema-de-vendas-vs-funil-de-vendas): Desmistificando funis lineares e introduzindo a arquitetura do Sistema Raiz.
+- [Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B](https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b): Boas práticas corporativas para WhatsApp integrado a pipelines comerciais.
+- [Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas](https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas): Auditoria diagnóstica de vazamento de receita, SLA de primeiro contato e ICP.
+- [IA Aplicada ao Comercial B2B: Além do ChatGPT — Arquitetura de Agentes para Qualificação e Follow-Up](https://www.evergreenmkt.com.br/blog/ia-aplicada-operacao-comercial-agentes-b2b): Agentes autônomos em 3 camadas com RAG e integração com CRM.
+
+## Casos de Sucesso Auditados
+- **Grupo Casa Fatilli + Casa & Conforto (Móveis Planejados B2C):** +450% em agendamentos semanais presenciais, redução de 89% no tempo de resposta (18h para 2h) via IA e Kommo CRM.
+- **IW Tour – Viagens Iniciáticas (Turismo Transformacional):** +350% em leads qualificados mensais, -54% no CAC e 100% das vagas da primeira expedição esgotadas em 48 horas.
+- **Hackathons Mackenzie (Edições 2023 e 2025):** 1º Lugar em inovação com inteligência artificial aplicada e software de gestão.
 
 ## Links Canônicos e Recursos
 - Site Principal: https://www.evergreenmkt.com.br
+- Blog & Artigos: https://www.evergreenmkt.com.br/blog
+- Autoridade & Cases: https://www.evergreenmkt.com.br/autoridade
 - Consultoria Comercial: https://www.evergreenmkt.com.br/consultoria-comercial
 - Estruturação Comercial: https://www.evergreenmkt.com.br/estruturacao-comercial
 - Processo Comercial: https://www.evergreenmkt.com.br/processo-comercial
 - Hub de Consultoria CRM: https://www.evergreenmkt.com.br/consultoria-crm
 - Kommo CRM Partners: https://www.evergreenmkt.com.br/kommo_partners
-- Apresentação de Serviços (Growth): https://www.evergreenmkt.com.br/growth
-- Apresentação Tecnológica (Tech): https://www.evergreenmkt.com.br/tech
 - Portfólio e PoCs: https://www.evergreenmkt.com.br/portfolio
-- BrandKit Oficial: https://www.evergreenmkt.com.br/marca
-- Blog & Conteúdo Técnico: https://www.evergreenmkt.com.br/blog
+- Contato & Diagnóstico: https://www.evergreenmkt.com.br/contato
