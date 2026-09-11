@@ -440,7 +440,16 @@
 
 /* Proteção de responsividade para notebooks e viewports compactos (alturas entre 550px e 750px) */
 @media (max-height: 750px) {
-  .chapter{padding-top:84px;padding-bottom:44px}
+  .chapter{padding-top:76px;padding-bottom:28px}
+  .titleBlock h2{font-size:clamp(28px,3.5vw,50px);margin:10px 0 6px;line-height:1.05}
+  .titleBlock>p{font-size:14px}
+  .problemStage{margin-top:2.5vh;gap:3vw}
+  .problemTabs button{padding:10px 8px;font-size:14px}
+  .problemTabs button span{margin-bottom:3px}
+  .problemFlow{gap:10px}
+  .problemFlow>div{min-height:120px;padding:14px 16px}
+  .problemFlow strong{font-size:clamp(14px,1.2vw,19px)}
+  .statement{margin-top:2.5vh;padding-top:12px;font-size:clamp(15px,1.5vw,22px)}
   .teamGrid{margin-top:2.5vh}
   .teamPortrait{min-height:270px}
   .closing h2{font-size:clamp(28px,3.8vw,52px);margin:10px 0 8px;line-height:1.08}
@@ -457,8 +466,16 @@
   .capabilityPanel>p{font-size:14px;margin-bottom:22px}
 }
 @media (max-height: 620px) {
-  .chapter{padding-top:70px;padding-bottom:32px}
-  .titleBlock h2{font-size:clamp(28px,3.8vw,44px);margin:10px 0 6px}
+  .chapter{padding-top:64px;padding-bottom:18px}
+  .titleBlock h2{font-size:clamp(24px,3vw,38px);margin:8px 0 4px}
+  .titleBlock>p{font-size:12.5px}
+  .problemStage{margin-top:1.5vh;gap:2vw}
+  .problemTabs button{padding:6px 6px;font-size:12px}
+  .problemFlow{gap:8px}
+  .problemFlow>div{min-height:95px;padding:10px 12px}
+  .problemFlow small{font-size:8px}
+  .problemFlow strong{font-size:13px}
+  .statement{margin-top:1.5vh;padding-top:8px;font-size:13px}
   .teamChapter .titleBlock h2{font-size:clamp(26px,3.4vw,40px)}
   .credentialsStack{top:8vh;width:220px}
   .closing h2{font-size:clamp(24px,3.4vw,42px);margin:6px 0}

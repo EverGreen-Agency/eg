@@ -141,7 +141,7 @@ export default function MarcaClient() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 border-b hairline overflow-hidden">
+      <section className="relative pt-8 pb-12 md:pt-12 md:pb-16 border-b hairline overflow-hidden">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] h-[380px] pointer-events-none opacity-30 blur-[140px] rounded-full"
           style={{
