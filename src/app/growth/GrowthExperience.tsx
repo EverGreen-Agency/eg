@@ -80,36 +80,84 @@ function EGMark() {
 
 function DiagnosticSimulation({ lang }: { lang: Language }) {
   const rows = lang === 'en' ? [
-    { label: 'Leads', value: 120, rate: '100%', loss: 0 },
-    { label: 'Initiated contacts', value: 82, rate: '68%', loss: 38 },
-    { label: 'Qualified leads', value: 46, rate: '56%', loss: 36, alert: true },
-    { label: 'Proposals', value: 18, rate: '39%', loss: 28 },
-    { label: 'Sales', value: 5, rate: '28%', loss: 13 },
+    { label: 'Leads', value: 120, rate: null, loss: 0, width: 100 },
+    { label: 'Initiated contacts', value: 82, rate: '68%', loss: 38, width: 84 },
+    { label: 'Qualified leads', value: 46, rate: '56%', loss: 36, alert: true, width: 68 },
+    { label: 'Proposals', value: 18, rate: '39%', loss: 28, width: 52 },
+    { label: 'Sales', value: 5, rate: '28%', loss: 13, width: 38 },
   ] : [
-    { label: 'Leads', value: 120, rate: '100%', loss: 0 },
-    { label: 'Contatos iniciados', value: 82, rate: '68%', loss: 38 },
-    { label: 'Leads qualificados', value: 46, rate: '56%', loss: 36, alert: true },
-    { label: 'Propostas', value: 18, rate: '39%', loss: 28 },
-    { label: 'Vendas', value: 5, rate: '28%', loss: 13 },
+    { label: 'Leads', value: 120, rate: null, loss: 0, width: 100 },
+    { label: 'Contatos iniciados', value: 82, rate: '68%', loss: 38, width: 84 },
+    { label: 'Leads qualificados', value: 46, rate: '56%', loss: 36, alert: true, width: 68 },
+    { label: 'Propostas', value: 18, rate: '39%', loss: 28, width: 52 },
+    { label: 'Vendas', value: 5, rate: '28%', loss: 13, width: 38 },
   ]
   const [active, setActive] = useState(2)
   return (
     <div className={styles.simulation}>
-      <div className={styles.simHeader}><span>{lang === 'en' ? 'CONCEPTUAL SIMULATION' : 'SIMULAÇÃO CONCEITUAL'}</span><span>{lang === 'en' ? 'Focus: leakage' : 'Foco: vazamento'}</span></div>
+      <div className={styles.simHeader}>
+        <span>{lang === 'en' ? 'CONCEPTUAL SIMULATION · COMMERCIAL FUNNEL' : 'SIMULAÇÃO CONCEITUAL · FUNIL COMERCIAL'}</span>
+        <span>{lang === 'en' ? 'Focus: leakage & bottlenecks' : 'Foco: vazamento e gargalos'}</span>
+      </div>
       <div className={styles.funnel}>
-        {rows.map((row, index) => <button key={row.label} onClick={() => setActive(index)} className={`${styles.funnelRow} ${active === index ? styles.active : ''} ${row.alert ? styles.alert : ''}`}>
-          <span>{row.label}</span><strong>{row.value}</strong><small>{row.rate} {lang === 'en' ? 'pass' : 'passagem'}</small>
-        </button>)}
+        {rows.map((row, index) => (
+          <button
+            key={row.label}
+            onClick={() => setActive(index)}
+            style={{ width: `${row.width}%` }}
+            className={`${styles.funnelRow} ${active === index ? styles.active : ''} ${row.alert ? styles.alert : ''}`}
+          >
+            <div className={styles.funnelRowContent}>
+              <span className={styles.funnelLabel}>{row.label}</span>
+              <strong className={styles.funnelValue}>{row.value}</strong>
+              {row.rate ? (
+                <span className={styles.funnelRate}>
+                  {row.rate} {lang === 'en' ? 'pass' : 'passagem'}
+                </span>
+              ) : (
+                <span className={styles.funnelRateTop}>
+                  {lang === 'en' ? 'Total inflow' : 'Entrada'}
+                </span>
+              )}
+            </div>
+            {row.alert && (
+              <span className={styles.funnelAlertBadge}>
+                {lang === 'en' ? 'Main leak' : 'Maior perda'}
+              </span>
+            )}
+          </button>
+        ))}
       </div>
       <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={styles.insight}>
         <CircleDot size={16} />
-        <div><b>{active === 2 ? (lang === 'en' ? 'The main leak is not in demand generation.' : 'O maior vazamento não está na geração.') : `${rows[active].loss} ${lang === 'en' ? 'opportunities dropped off here.' : 'oportunidades não avançaram aqui.'}`}</b><p>{active === 2 ? (lang === 'en' ? 'Buying more ads before fixing sales response → qualification will likely increase waste.' : 'Comprar mais mídia antes de corrigir atendimento → qualificação provavelmente aumentaria desperdício.') : (lang === 'en' ? 'Read rates in context before turning them into decisions.' : 'A taxa precisa ser lida com contexto antes de virar uma decisão.')}</p></div>
+        <div>
+          <b>{active === 2 ? (lang === 'en' ? 'The main leak is not in demand generation.' : 'O maior vazamento não está na geração.') : `${rows[active].loss} ${lang === 'en' ? 'opportunities dropped off here.' : 'oportunidades não avançaram aqui.'}`}</b>
+          <p>{active === 2 ? (lang === 'en' ? 'Buying more ads before fixing sales response → qualification will likely increase waste.' : 'Comprar mais mídia antes de corrigir atendimento → qualificação provavelmente aumentaria desperdício.') : (lang === 'en' ? 'Read rates in context before turning them into decisions.' : 'A taxa precisa ser lida com contexto antes de virar uma decisão.')}</p>
+        </div>
       </motion.div>
     </div>
   )
 }
 
 function MethodDetail({ method, onClose, data, lang }: { method: MethodKey; onClose: () => void; data: MethodModule; lang: Language }) {
+  const architectureSteps = lang === 'en' ? [
+    { step: '01', name: 'Lead source', desc: 'UTM & Media tracking' },
+    { step: '02', name: 'Landing page', desc: 'Conversion & Tagging' },
+    { step: '03', name: 'CRM', desc: 'Attribution & Tracking' },
+    { step: '04', name: 'Pipeline', desc: 'Deal stages & Rules' },
+    { step: '05', name: 'Sales response', desc: 'SLA speed to lead' },
+    { step: '06', name: 'Follow-up', desc: 'Active cadence automation' },
+    { step: '07', name: 'Dashboard', desc: 'Revenue & ROI metrics' },
+  ] : [
+    { step: '01', name: 'Origem do lead', desc: 'Tracking de UTM & Mídia' },
+    { step: '02', name: 'Landing page', desc: 'Conversão & Tagging' },
+    { step: '03', name: 'CRM integrado', desc: 'Centralização & Atribuição' },
+    { step: '04', name: 'Pipeline', desc: 'Etapas comerciais & Regras' },
+    { step: '05', name: 'Primeiro contato', desc: 'SLA & Velocidade de resposta' },
+    { step: '06', name: 'Follow-up', desc: 'Automação & Régua ativa' },
+    { step: '07', name: 'Dashboard', desc: 'Receita & Métricas de ROI' },
+  ]
+
   return (
     <motion.div
       className={styles.methodDetail}
@@ -122,7 +170,26 @@ function MethodDetail({ method, onClose, data, lang }: { method: MethodKey; onCl
       <div className={styles.methodDetailIntro}><span>{data.number} / {data.phase} · {data.action}</span><h3>{data.title}</h3><p>{data.headline}</p></div>
       <div className={styles.methodGroups}>{data.groups.map(group => <div key={group.title}><small>{group.title}</small>{group.items.map(item => <span key={item}>{item}</span>)}</div>)}</div>
       {method === 'diagnostico' && <DiagnosticSimulation lang={lang} />}
-      {method === 'arquitetura' && <div className={styles.architectureMap}>{['Lead source', 'Landing page', 'CRM', 'Pipeline', 'Sales response', 'Follow-up', 'Dashboard'].map((n, i) => <div key={n} style={{ '--i': i } as React.CSSProperties}>{n}</div>)}</div>}
+      {method === 'arquitetura' && (
+        <div className={styles.architectureShell}>
+          <div className={styles.archHeader}>
+            <span>{lang === 'en' ? 'TECHNICAL ARCHITECTURE PIPELINE · END-TO-END DATA & JOURNEY' : 'ESTEIRA DE ARQUITETURA TÉCNICA · DADOS & JORNADA DE PONTA A PONTA'}</span>
+            <small>{lang === 'en' ? 'Every stage mapped, connected and measured' : 'Cada etapa mapeada, conectada e mensurada'}</small>
+          </div>
+          <div className={styles.architectureTrack}>
+            {architectureSteps.map((item, i) => (
+              <div key={item.step} className={styles.archNode}>
+                <div className={styles.archNodeHeader}>
+                  <span>{item.step}</span>
+                  {i < architectureSteps.length - 1 && <i className={styles.archArrow}>→</i>}
+                </div>
+                <strong>{item.name}</strong>
+                <small>{item.desc}</small>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {method === 'implementacao' && <div className={styles.priorityNote}>{lang === 'en' ? 'Prioritize' : 'Priorizar'} <ChevronRight size={16} /> {lang === 'en' ? 'impact' : 'impacto'} <ChevronRight size={16} /> {lang === 'en' ? 'effort' : 'esforço'} <ChevronRight size={16} /> {lang === 'en' ? 'urgency' : 'urgência'}</div>}
       {method === 'operacao' && <div className={styles.sparkline}><svg viewBox="0 0 500 100"><motion.path d="M0 84 C70 70 90 82 145 55 S245 70 290 38 S380 51 500 8" fill="none" stroke="currentColor" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} /></svg><span>{lang === 'en' ? 'Tracking example · trend + hypothesis + action' : 'Exemplo de acompanhamento · tendência + hipótese + ação'}</span></div>}
       {method === 'evolucao' && <div className={styles.liveRoadmap}>{(lang === 'en' ? ['Now', '30 days', '90 days', 'Quarter', '12 months'] : ['Agora', '30 dias', '90 dias', 'Trimestre', '12 meses']).map((item, i) => <div key={item}><i /><span>{item}</span><small>{i < 2 ? (lang === 'en' ? 'Structure' : 'Estruturar') : i < 4 ? (lang === 'en' ? 'Validate' : 'Validar') : (lang === 'en' ? 'Scale' : 'Escalar')}</small></div>)}</div>}

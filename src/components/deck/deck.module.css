@@ -563,6 +563,132 @@
   border-color:var(--mint);
 }
 
+/* Espaçamento generoso entre a grade de módulos e a dica de navegação */
+.methodChapter .clickHint{
+  margin-top:30px;
+}
+
+/* Simulação Conceitual em Formato de Funil */
+.simulation{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:1.35fr 1fr;
+  gap:26px;
+  border-top:1px solid var(--line);
+  padding-top:22px;
+  margin-top:14px;
+  align-items:center;
+}
+.simHeader{
+  grid-column:1/-1;
+  display:flex;
+  justify-content:space-between;
+  font:8.5px var(--font-mono);
+  letter-spacing:.14em;
+  color:var(--mint);
+  opacity:.85;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.funnel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+  width:100%;
+}
+.funnelRow{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:0 auto;
+  padding:10px 18px;
+  background:rgba(255,244,199,.04);
+  border:1px solid rgba(255,244,199,.14);
+  color:var(--cream);
+  cursor:pointer;
+  transition:all .25s ease;
+  clip-path:polygon(1.5% 0%, 98.5% 0%, 97% 100%, 3% 100%);
+  min-height:48px;
+}
+.funnelRow:hover{
+  background:rgba(58,201,123,.12);
+  border-color:rgba(58,201,123,.45);
+  transform:translateY(-1px);
+}
+.funnelRow.active{
+  background:rgba(58,201,123,.2);
+  border-color:var(--mint);
+  box-shadow:0 0 24px rgba(58,201,123,.3), inset 0 0 0 1px var(--mint);
+}
+.funnelRow.alert{
+  border-color:rgba(245,158,11,.65);
+  background:rgba(245,158,11,.08);
+}
+.funnelRow.alert.active{
+  border-color:var(--mint);
+  background:rgba(58,201,123,.24);
+  box-shadow:0 0 24px rgba(58,201,123,.34), inset 0 0 0 1px var(--mint);
+}
+.funnelRowContent{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  gap:12px;
+}
+.funnelLabel{
+  font-size:12px;
+  letter-spacing:-.01em;
+  font-weight:500;
+  white-space:nowrap;
+}
+.funnelValue{
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:var(--mint);
+  margin-left:auto;
+  padding-right:12px;
+}
+.funnelRate{
+  font:8.5px var(--font-mono);
+  letter-spacing:.08em;
+  padding:3px 8px;
+  border-radius:4px;
+  background:rgba(255,244,199,.08);
+  color:rgba(255,244,199,.7);
+  white-space:nowrap;
+}
+.funnelRateTop{
+  font:8px var(--font-mono);
+  letter-spacing:.12em;
+  padding:3px 7px;
+  border-radius:4px;
+  background:rgba(58,201,123,.12);
+  color:var(--mint);
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.funnelRow.active .funnelRate{
+  background:rgba(58,201,123,.28);
+  color:var(--cream);
+}
+.funnelAlertBadge{
+  position:absolute;
+  right:-10px;
+  top:-8px;
+  background:#d97706;
+  color:#fff;
+  font:7px var(--font-mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:2px 6px;
+  border-radius:3px;
+  box-shadow:0 2px 6px rgba(0,0,0,.4);
+  z-index:2;
+}
 /* Proteção de responsividade para notebooks e viewports compactos (alturas entre 550px e 750px) */
 @media (max-height: 750px) {
   .chapter{padding-top:74px;padding-bottom:24px}
@@ -588,6 +714,7 @@
   .systemCopyCol .discovery aside strong{font-size:12px}
 
   /* Slide 03 — Metodo */
+  .methodChapter .clickHint{margin-top:18px}
   .methodShell{margin-top:1.8vh;min-height:0}
   .methodOverview button{min-height:210px;padding:14px}
   .methodOverview strong{font-size:clamp(15px,1.4vw,20px)}
@@ -599,6 +726,15 @@
   .methodGroups>div{padding-top:6px;gap:3px}
   .methodGroups small{margin-bottom:3px;font-size:7.5px}
   .methodGroups span{font-size:10px}
+  .simulation{margin-top:8px;padding-top:14px;gap:16px}
+  .funnelRow{padding:7px 14px;min-height:40px}
+  .funnelLabel{font-size:11px}
+  .funnelValue{font-size:15px}
+  .funnelRate{font-size:8px;padding:2px 6px}
+  .architectureShell{margin-top:6px;padding-top:12px;gap:8px}
+  .archNode{padding:8px}
+  .archNode strong{font-size:10px}
+  .archNode small{font-size:7.5px}
 
   /* Slide 04 — Tempo */
   .timeZoom{margin-top:2.5vh}
