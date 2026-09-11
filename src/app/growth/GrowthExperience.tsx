@@ -111,7 +111,13 @@ function DiagnosticSimulation({ lang }: { lang: Language }) {
 
 function MethodDetail({ method, onClose, data, lang }: { method: MethodKey; onClose: () => void; data: MethodModule; lang: Language }) {
   return (
-    <motion.div layoutId={`method-${method}`} className={styles.methodDetail}>
+    <motion.div
+      className={styles.methodDetail}
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    >
       <button className={styles.closeButton} onClick={onClose} aria-label={lang === 'en' ? 'Close detail' : 'Fechar detalhe'}><X size={19} /></button>
       <div className={styles.methodDetailIntro}><span>{data.number} / {data.phase} · {data.action}</span><h3>{data.title}</h3><p>{data.headline}</p></div>
       <div className={styles.methodGroups}>{data.groups.map(group => <div key={group.title}><small>{group.title}</small>{group.items.map(item => <span key={item}>{item}</span>)}</div>)}</div>
@@ -149,11 +155,15 @@ export default function GrowthExperience() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60
+      if (atBottom) {
+        setActiveSection(sections.length - 1)
+      }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [sections.length])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -569,30 +579,34 @@ export default function GrowthExperience() {
 
       <section id="sistema" className={`${styles.chapter} ${styles.systemChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow={`02 — ${t.systemEyebrow}`} lead={lang === 'en' ? 'Optimizing an isolated piece does not advance the system.' : 'Melhorar uma peça isolada não garante que o sistema avance.'}>{t.systemTitle}</SectionTitle>
-          <div className={`${styles.systemMap} ${styles.wheelMap} ${systemSimulation ? styles.simulating : ''}`} onPointerLeave={() => setHoveredLever(null)}>
-            <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="System wheel">
-              {systemLevers.map((item, i) => {
-                const isActive = visibleLever === i
-                const isRelated = (relatedLevers || []).includes(i)
-                const point = sectorLabelPoint(i, systemLevers.length)
-                const sectorClass = `${styles.wheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${visibleLever >= 0 && !isActive && !isRelated ? styles.dimmed : ''}`
-                return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.note}`} aria-pressed={lever === i && systemEngaged} onClick={() => { setLever(i); setSystemEngaged(true); setSystemSimulation(false) }} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setLever(i); setSystemEngaged(true); setSystemSimulation(false) } }} onPointerEnter={() => setHoveredLever(i)} onFocus={() => setHoveredLever(i)} onBlur={() => setHoveredLever(null)}>
-                  <motion.path initial={false} animate={{ d: sectorPath(i, systemLevers.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
-                  <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
-                </motion.g>
-              })}
-              <circle className={styles.wheelInnerRing} cx="50" cy="50" r="19" />
-            </svg>
-            <div className={styles.revenueCore}>
-              <AnimatePresence mode="wait">
-                {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 && systemLevers[visibleLever] ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].kind === 'pilar' ? (lang === 'en' ? 'PILLAR' : 'PILAR') : (lang === 'en' ? 'FOUNDATION' : 'SUSTENTAÇÃO')} · {systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {(relatedLevers || []).map(index => systemLevers[index]?.name).filter(Boolean).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
-              </AnimatePresence>
+          <div className={styles.systemStageLayout}>
+            <div className={styles.systemCopyCol}>
+              <SectionTitle eyebrow={`02 — ${t.systemEyebrow}`} lead={lang === 'en' ? 'Optimizing an isolated piece does not advance the system.' : 'Melhorar uma peça isolada não garante que o sistema avance.'}>{t.systemTitle}</SectionTitle>
+              <p className={styles.clickHint}><MousePointer2 size={15} /> {t.systemInstruction}</p>
+              <div className={styles.discovery}><p>{lang === 'en' ? 'Does more leads always equal more growth?' : 'Mais leads sempre significam mais crescimento?'}</p><div><button onClick={() => setAnswered(true)}>{lang === 'en' ? 'Yes' : 'Sim'}</button><button onClick={() => setAnswered(false)}>{lang === 'en' ? 'Not necessarily' : 'Não necessariamente'}</button></div>
+                <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacity' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
+              </div>
             </div>
-          </div>
-          <p className={styles.clickHint}><MousePointer2 size={15} /> {t.systemInstruction}</p>
-          <div className={styles.discovery}><p>{lang === 'en' ? 'Does more leads always equal more growth?' : 'Mais leads sempre significam mais crescimento?'}</p><div><button onClick={() => setAnswered(true)}>{lang === 'en' ? 'Yes' : 'Sim'}</button><button onClick={() => setAnswered(false)}>{lang === 'en' ? 'Not necessarily' : 'Não necessariamente'}</button></div>
-            <AnimatePresence>{answered !== null && <motion.aside initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}><span>Leads <b>100 → 200</b></span><span>{lang === 'en' ? 'Capacity' : 'Capacidade'} <b>80</b></span><strong>{answered ? (lang === 'en' ? 'The bottleneck also grew.' : 'A restrição também cresceu.') : (lang === 'en' ? 'Exactly: scaling a bottleneck scales waste.' : 'Exato: escalar uma restrição escala desperdício.')}</strong></motion.aside>}</AnimatePresence>
+            <div className={`${styles.systemMap} ${styles.wheelMap} ${systemSimulation ? styles.simulating : ''}`} onPointerLeave={() => setHoveredLever(null)}>
+              <svg className={styles.ecosystemWheel} viewBox="0 0 100 100" aria-label="System wheel">
+                {systemLevers.map((item, i) => {
+                  const isActive = visibleLever === i
+                  const isRelated = (relatedLevers || []).includes(i)
+                  const point = sectorLabelPoint(i, systemLevers.length)
+                  const sectorClass = `${styles.wheelSector} ${isActive ? styles.active : ''} ${isRelated ? styles.related : ''} ${visibleLever >= 0 && !isActive && !isRelated ? styles.dimmed : ''}`
+                  return <motion.g key={item.name} className={sectorClass} role="button" tabIndex={0} aria-label={`${item.name}: ${item.note}`} aria-pressed={lever === i && systemEngaged} onClick={() => { setLever(i); setSystemEngaged(true); setSystemSimulation(false) }} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setLever(i); setSystemEngaged(true); setSystemSimulation(false) } }} onPointerEnter={() => setHoveredLever(i)} onFocus={() => setHoveredLever(i)} onBlur={() => setHoveredLever(null)}>
+                    <motion.path initial={false} animate={{ d: sectorPath(i, systemLevers.length, isActive) }} transition={{ type: 'spring', stiffness: 240, damping: 24 }} />
+                    <text x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{item.name}</text>
+                  </motion.g>
+                })}
+                <circle className={styles.wheelInnerRing} cx="50" cy="50" r="19" />
+              </svg>
+              <div className={styles.revenueCore}>
+                <AnimatePresence mode="wait">
+                  {systemSimulation ? <motion.div key="simulation" className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{lang === 'en' ? 'RESTRICTION' : 'RESTRIÇÃO'}</small><strong>200 → 80</strong><span>{lang === 'en' ? 'demand ≠ capacity' : 'demanda ≠ capacidade'}</span><button onClick={() => setSystemSimulation(false)}>{lang === 'en' ? 'Close' : 'Encerrar'}</button></motion.div> : visibleLever >= 0 && systemLevers[visibleLever] ? <motion.div key={visibleLever} className={styles.wheelCoreInfo} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .92 }}><small>{systemLevers[visibleLever].kind === 'pilar' ? (lang === 'en' ? 'PILLAR' : 'PILAR') : (lang === 'en' ? 'FOUNDATION' : 'SUSTENTAÇÃO')} · {systemLevers[visibleLever].name}</small><strong>{systemLevers[visibleLever].note}</strong><span>{lang === 'en' ? 'Connects' : 'Conecta'}: {(relatedLevers || []).map(index => systemLevers[index]?.name).filter(Boolean).join(' · ')}</span><button onClick={() => { setLever(1); setSystemEngaged(true); setHoveredLever(null); setSystemSimulation(true) }}>{lang === 'en' ? 'Simulate bottleneck' : 'Simular gargalo'}</button></motion.div> : <motion.div key="revenue" className={styles.wheelCoreDefault} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><small>{lang === 'en' ? 'SYSTEM GOAL' : 'OBJETIVO DO SISTEMA'}</small><strong>{lang === 'en' ? 'Revenue' : 'Receita'}</strong><span>{lang === 'en' ? 'predictable' : 'previsível'}</span></motion.div>}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -602,8 +616,8 @@ export default function GrowthExperience() {
           <SectionTitle eyebrow={`03 — ${t.methodEyebrow}`} lead={lang === 'en' ? 'From bottleneck identification to continuous evolution.' : 'Da leitura do gargalo à evolução contínua.'}>{t.methodTitle}</SectionTitle>
           <div className={styles.methodShell}>
             <AnimatePresence mode="wait">
-              {method ? <MethodDetail key={method} method={method} onClose={closeMethod} data={methodModules[method]} lang={lang} /> : <motion.div className={styles.methodOverview} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data], i) => <motion.button layoutId={`method-${key}`} key={key} onClick={() => openMethod(key)} className={activeSection === 3 && cardIndex === i ? styles.cardFocused : ''}><span>{data.number}</span><div><strong>{data.phase} · {data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
+              {method ? <MethodDetail key={method} method={method} onClose={closeMethod} data={methodModules[method]} lang={lang} /> : <motion.div className={styles.methodOverview} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+                {(Object.entries(methodModules) as [MethodKey, typeof methodModules[MethodKey]][]).map(([key, data], i) => <motion.button whileHover={{ y: -6 }} key={key} onClick={() => openMethod(key)} className={activeSection === 3 && cardIndex === i ? styles.cardFocused : ''}><span>{data.number}</span><div><strong>{data.phase} · {data.title}</strong><small>{data.short}</small></div><ArrowUpRight /></motion.button>)}
               </motion.div>}
             </AnimatePresence>
           </div>
@@ -654,10 +668,12 @@ export default function GrowthExperience() {
 
       <section id="equipe" className={`${styles.chapter} ${styles.teamChapter}`}>
         <div className={styles.chapterInner}>
-          <SectionTitle eyebrow={`06 — ${t.teamEyebrow}`}>{t.teamTitle}</SectionTitle>
-          <div className={styles.credentialsStack}>
-            <div className={styles.partnerCredential}><span>{t.officialPartner}</span><img src="/images/kommopartner.png" alt="EverGreen é Kommo Partner" /><small>{lang === 'en' ? 'CRM, automation, and commercial operation.' : 'CRM, automação e operação comercial.'}</small></div>
-            <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>{t.googleCert}</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva{Date.now() < GOOGLE_CERT_EXPIRES ? (lang === 'en' ? ' · valid thru Feb/2027' : ' · válida até fev/2027') : ''}</small></div><ArrowUpRight size={14} /></a>
+          <div className={styles.teamHeaderRow}>
+            <SectionTitle eyebrow={`06 — ${t.teamEyebrow}`}>{t.teamTitle}</SectionTitle>
+            <div className={styles.credentialsStack}>
+              <div className={styles.partnerCredential}><span>{t.officialPartner}</span><img src="/images/kommopartner.png" alt="EverGreen é Kommo Partner" /><small>{lang === 'en' ? 'CRM, automation, and commercial operation.' : 'CRM, automação e operação comercial.'}</small></div>
+              <a className={styles.googleCredential} href="https://www.credential.net/dada6b71-4bff-467f-a775-ea559be3de45" target="_blank" rel="noreferrer" aria-label="Verificar certificação Google Conversion Optimization de Gustavo F. S. da Silva"><img src="/images/google_certification.png" alt="Certificado Google Conversion Optimization" /><div><span>{t.googleCert}</span><strong>Conversion Optimization</strong><small>Gustavo F. S. da Silva{Date.now() < GOOGLE_CERT_EXPIRES ? (lang === 'en' ? ' · valid thru Feb/2027' : ' · válida até fev/2027') : ''}</small></div><ArrowUpRight size={14} /></a>
+            </div>
           </div>
           <div className={styles.teamGrid}>
             <article className={styles.teamCard}>

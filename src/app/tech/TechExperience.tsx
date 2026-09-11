@@ -99,11 +99,17 @@ export default function TechExperience() {
     useMemo(() => getTechData(lang), [lang])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20)
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60
+      if (atBottom) {
+        setActiveSection(sections.length - 1)
+      }
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [sections.length])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)

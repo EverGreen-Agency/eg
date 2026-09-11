@@ -2,31 +2,8 @@
 User-agent: *
 Allow: /
 
-# Motores de IA e Agentes Generativos (GEO)
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
 # Host
 Host: https://www.evergreenmkt.com.br
 
-# Sitemaps & Contexto LLMs
+# Sitemaps
 Sitemap: https://www.evergreenmkt.com.br/sitemap.xml
-# llms.txt: https://www.evergreenmkt.com.br/llms.txt
