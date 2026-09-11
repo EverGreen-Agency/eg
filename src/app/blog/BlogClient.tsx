@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { wordpressService, type Post } from '@/services/wordpress'
+import type { BlogPost, BlogCategory } from '@/types/blog'
 import { 
   RocketLaunchIcon, 
   CpuChipIcon, 
@@ -20,55 +20,27 @@ import {
   MicrophoneIcon,
   XMarkIcon,
   GiftIcon,
-  HashtagIcon
+  HashtagIcon,
+  ClockIcon
 } from '@heroicons/react/24/outline'
 
 // Categorias do blog
-const CATEGORIAS = [
+const CATEGORIAS: { id: string; nome: string; icon: JSX.Element }[] = [
   { id: 'todos', nome: 'Todos', icon: <HashtagIcon className="h-5 w-5" /> },
-  { id: 'growth', nome: 'Growth & Aquisição', icon: <RocketLaunchIcon className="h-5 w-5" /> },
-  { id: 'ia', nome: 'IA Aplicada', icon: <CpuChipIcon className="h-5 w-5" /> },
-  { id: 'bastidores', nome: 'Bastidores EG', icon: <BuildingOfficeIcon className="h-5 w-5" /> },
   { id: 'comercial', nome: 'Estratégia Comercial', icon: <BriefcaseIcon className="h-5 w-5" /> },
-  { id: 'ferramentas', nome: 'Ferramentas & Templates', icon: <WrenchScrewdriverIcon className="h-5 w-5" /> },
+  { id: 'ia', nome: 'IA Aplicada', icon: <CpuChipIcon className="h-5 w-5" /> },
+  { id: 'growth', nome: 'Growth & Aquisição', icon: <RocketLaunchIcon className="h-5 w-5" /> },
   { id: 'funis', nome: 'Funis & Conversão', icon: <ChartBarIcon className="h-5 w-5" /> },
+  { id: 'bastidores', nome: 'Bastidores EG', icon: <BuildingOfficeIcon className="h-5 w-5" /> },
+  { id: 'ferramentas', nome: 'Ferramentas & Templates', icon: <WrenchScrewdriverIcon className="h-5 w-5" /> },
   { id: 'educacao', nome: 'Educação & Mercado', icon: <AcademicCapIcon className="h-5 w-5" /> }
 ]
 
-// Tipos de conteúdo
-const TIPOS_CONTEUDO = [
-  { id: 'framework', nome: 'Framework', icon: <DocumentTextIcon className="h-5 w-5" /> },
-  { id: 'video', nome: 'Vídeo', icon: <VideoCameraIcon className="h-5 w-5" /> },
-  { id: 'ferramenta', nome: 'Ferramenta', icon: <WrenchIcon className="h-5 w-5" /> },
-  { id: 'download', nome: 'Download', icon: <ArrowDownTrayIcon className="h-5 w-5" /> },
-  { id: 'bastidores', nome: 'Bastidores', icon: <MicrophoneIcon className="h-5 w-5" /> }
-]
-
-export default function BlogPage() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+export default function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
   const [categoriaAtiva, setCategoriaAtiva] = useState('todos')
   const [ordenacao, setOrdenacao] = useState<'recentes' | 'populares' | 'favoritos'>('recentes')
   const [showNewsletter, setShowNewsletter] = useState(false)
-
-  useEffect(() => {
-    async function loadPosts() {
-      try {
-        setLoading(true)
-        const data = await wordpressService.getPosts(1, 12)
-        setPosts(data)
-        setError(null)
-      } catch (err) {
-        console.error('Erro ao carregar posts:', err)
-        setError('Falha ao carregar os posts. Por favor, tente novamente mais tarde.')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadPosts()
-  }, [])
+  const [busca, setBusca] = useState('')
 
   // Monitora o scroll para exibir o popup da newsletter
   useEffect(() => {
@@ -84,105 +56,98 @@ export default function BlogPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [showNewsletter])
 
-  if (loading) {
-    return (
-      <div className="min-h-screen p-8 bg-[#09231B]">
-        <div className="animate-pulse flex flex-col items-center">
-          <div className="h-8 bg-[#3AC97B]/20 rounded w-64 mb-8"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div key={n} className="bg-[#3AC97B]/20 h-64 rounded-lg"></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen p-8 bg-[#09231B]">
-        <h1 className="text-2xl font-bold mb-4 text-red-500">Erro</h1>
-        <p className="text-[#FFF4C7]">{error}</p>
-      </div>
-    )
-  }
+  // Filtragem reativa
+  const postsFiltrados = useMemo(() => {
+    return initialPosts.filter((post) => {
+      const matchCategoria = categoriaAtiva === 'todos' || post.category === categoriaAtiva
+      const matchBusca =
+        busca.trim() === '' ||
+        post.title.toLowerCase().includes(busca.toLowerCase()) ||
+        post.description.toLowerCase().includes(busca.toLowerCase()) ||
+        post.tags.some((t) => t.toLowerCase().includes(busca.toLowerCase()))
+      return matchCategoria && matchBusca
+    })
+  }, [initialPosts, categoriaAtiva, busca])
 
   return (
     <div className="min-h-screen bg-[#09231B]">
       {/* Hero Section */}
       <section className="bg-[#09231B] py-20 px-8">
         <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3AC97B]/10 border border-[#3AC97B]/20 text-[#3AC97B] text-sm font-mono mb-6"
+          >
+            <span>EverGreen Brain</span>
+            <span>·</span>
+            <span>Engenharia & Previsibilidade B2B</span>
+          </motion.div>
+
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-bold mb-6 text-[#3AC97B]"
+            className="text-4xl md:text-6xl font-extrabold mb-6 text-[#FFF4C7] tracking-tight"
           >
-            EverGreen Brain
+            Conteúdo técnico que gera <span className="text-[#3AC97B]">crescimento real</span>.
           </motion.h1>
+
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-2xl font-semibold mb-6 text-[#FFF4C7]"
+            className="text-lg md:text-xl text-[#FFF4C7]/80 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            Conteúdo que gera crescimento real.
+            Frameworks de engenharia comercial, arquiteturas de CRM, agentes de IA e análises táticas que usamos todos os dias em operações B2B.
           </motion.p>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-lg text-[#FFF4C7]/80 mb-8"
-          >
-            Aqui você encontra frameworks, bastidores, guias e provocações que usamos todos os dias 
-            pra crescer empresas com tecnologia, IA e estratégia.
-          </motion.p>
+
           <motion.blockquote 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-xl italic text-[#FFF4C7] mb-8"
+            transition={{ delay: 0.3 }}
+            className="text-lg italic text-[#3AC97B] max-w-xl mx-auto mb-10"
           >
-            "Não escrevemos pra parecer inteligentes. Escrevemos pra fazer você crescer."
+            "Não escrevemos para parecer inteligentes. Escrevemos para a sua empresa crescer com previsibilidade."
           </motion.blockquote>
-        <motion.div
+
+          {/* Campo de Busca Rápida */}
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-4"
+            transition={{ delay: 0.4 }}
+            className="max-w-xl mx-auto relative mb-6"
           >
-            <button 
-              onClick={() => setShowNewsletter(true)}
-              className="bg-[#3AC97B] text-[#09231B] px-6 py-3 rounded-full hover:bg-[#3AC97B]/90 transition-colors"
-            >
-              Assinar Newsletter
-            </button>
-            <button 
-              onClick={() => {
-                setOrdenacao('populares');
-                window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-              }}
-              className="bg-[#09231B] text-[#3AC97B] px-6 py-3 rounded-full border border-[#3AC97B]/20 hover:bg-[#09231B]/80 transition-colors"
-            >
-              Ver Artigos Mais Lidos
-            </button>
+            <input
+              type="text"
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+              placeholder="Buscar por tema (ex: Kommo, Previsibilidade, IA, SLA, Gargalos)..."
+              className="w-full px-6 py-3.5 rounded-full bg-[#05130E] border border-[#3AC97B]/30 text-[#FFF4C7] placeholder-[#FFF4C7]/40 focus:outline-none focus:ring-2 focus:ring-[#3AC97B] text-sm md:text-base"
+            />
+            {busca && (
+              <button
+                onClick={() => setBusca('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#FFF4C7]/40 hover:text-[#FFF4C7]"
+              >
+                <XMarkIcon className="h-5 w-5" />
+              </button>
+            )}
           </motion.div>
         </div>
       </section>
 
-      {/* Filtros */}
-      <section className="py-8 px-8 bg-[#09231B] sticky top-0 z-10 shadow-sm border-t border-b border-[#3AC97B]/20">
+      {/* Filtros de Categoria */}
+      <section className="py-6 px-6 bg-[#071D16] sticky top-0 z-20 shadow-md border-t border-b border-[#3AC97B]/20 backdrop-blur-md bg-opacity-95">
         <div className="max-w-6xl mx-auto">
-          {/* Categorias */}
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
             {CATEGORIAS.map((categoria) => (
               <button
                 key={categoria.id}
                 onClick={() => setCategoriaAtiva(categoria.id)}
-                className={`px-4 py-2 rounded-full transition-colors flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all flex items-center gap-2 ${
                   categoriaAtiva === categoria.id
-                    ? 'bg-[#3AC97B] text-[#09231B]'
-                    : 'bg-[#09231B] text-[#FFF4C7] border border-[#3AC97B]/20 hover:bg-[#09231B]/80'
+                    ? 'bg-[#3AC97B] text-[#09231B] shadow-md shadow-[#3AC97B]/20 scale-105'
+                    : 'bg-[#09231B] text-[#FFF4C7]/80 border border-[#3AC97B]/20 hover:bg-[#09231B]/90 hover:text-[#FFF4C7]'
                 }`}
               >
                 <span>{categoria.icon}</span>
@@ -190,147 +155,167 @@ export default function BlogPage() {
               </button>
             ))}
           </div>
-          
-          {/* Ordenação */}
-          <div className="flex justify-center gap-4">
-            {[
-              { id: 'recentes', nome: 'Mais Recentes' },
-              { id: 'populares', nome: 'Mais Lidos' },
-              { id: 'favoritos', nome: 'Favoritos da Equipe' }
-            ].map((tipo) => (
-              <button
-                key={tipo.id}
-                onClick={() => setOrdenacao(tipo.id as any)}
-                className={`px-4 py-2 rounded-full text-sm transition-colors ${
-                  ordenacao === tipo.id
-                    ? 'bg-[#3AC97B] text-[#09231B]'
-                    : 'bg-[#09231B] text-[#FFF4C7] border border-[#3AC97B]/20 hover:bg-[#09231B]/80'
-                }`}
-              >
-                {tipo.nome}
-              </button>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Grid de Posts */}
-      <section className="py-12 px-8 bg-[#09231B]">
+      {/* Grid de Artigos */}
+      <section className="py-16 px-6 md:px-8 bg-[#09231B]">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -5 }}
-                className="bg-[#09231B] rounded-xl shadow-lg overflow-hidden border border-[#3AC97B]/20"
+          {postsFiltrados.length === 0 ? (
+            <div className="text-center py-20 border border-dashed border-[#3AC97B]/20 rounded-2xl p-12">
+              <p className="text-xl text-[#FFF4C7]/60 mb-4">Nenhum artigo encontrado para os critérios selecionados.</p>
+              <button
+                onClick={() => { setCategoriaAtiva('todos'); setBusca('') }}
+                className="px-6 py-2.5 rounded-full bg-[#3AC97B] text-[#09231B] font-semibold text-sm hover:bg-[#3AC97B]/90 transition-colors"
               >
-                <Link href={`/blog/${post.slug}`}>
-                  {post._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
-                    <div className="relative h-48 w-full">
+                Limpar Filtros
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {postsFiltrados.map((post, i) => (
+                <motion.article
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  whileHover={{ y: -6 }}
+                  className="group bg-[#071D16] rounded-2xl overflow-hidden border border-[#3AC97B]/20 hover:border-[#3AC97B]/50 transition-all duration-300 flex flex-col h-full shadow-lg"
+                >
+                  <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
+                    {/* Imagem de Capa */}
+                    <div className="relative h-52 w-full overflow-hidden bg-[#05130E]">
                       <Image
-                        src={post._embedded['wp:featuredmedia'][0].source_url}
-                        alt={post._embedded['wp:featuredmedia'][0].alt_text || post.title.rendered}
+                        src={post.featuredImage.url}
+                        alt={post.featuredImage.alt}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    {/* Tag de tipo de conteúdo */}
-                    <div className="flex gap-2 mb-3">
-                      <span className="bg-[#3AC97B]/10 text-[#3AC97B] px-3 py-1 rounded-full text-sm border border-[#3AC97B]/20">
-                        📘 Framework
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#071D16] via-transparent to-transparent opacity-80" />
+                      
+                      {/* Badge de Categoria */}
+                      <span className="absolute top-4 left-4 bg-[#09231B]/90 backdrop-blur-md text-[#3AC97B] text-xs font-semibold px-3 py-1 rounded-full border border-[#3AC97B]/30 shadow-sm">
+                        {post.categoryLabel}
                       </span>
                     </div>
-                    
-                    <h2 
-                      className="text-xl font-bold mb-2 text-[#FFF4C7]"
-                      dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                    />
-                    <div 
-                      className="text-[#FFF4C7]/80 line-clamp-2 mb-4"
-                      dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-                    />
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-[#FFF4C7]/60">
-                        {new Date(post.date).toLocaleDateString('pt-BR')}
-                </span>
-                      <span className="text-[#3AC97B] font-medium">Ler Agora →</span>
-                </div>
-              </div>
-                </Link>
-              </motion.article>
-            ))}
-          </div>
+
+                    {/* Conteúdo do Card */}
+                    <div className="p-6 flex flex-col flex-1">
+                      {/* Meta de leitura e data */}
+                      <div className="flex items-center gap-3 text-xs text-[#FFF4C7]/50 mb-3">
+                        <time dateTime={post.date}>
+                          {new Date(post.date + 'T00:00:00').toLocaleDateString('pt-BR', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric'
+                          })}
+                        </time>
+                        <span>•</span>
+                        <span className="inline-flex items-center gap-1">
+                          <ClockIcon className="h-3.5 w-3.5" />
+                          {post.readingTime}
+                        </span>
+                      </div>
+
+                      <h2 className="text-xl font-bold text-[#FFF4C7] mb-3 group-hover:text-[#3AC97B] transition-colors line-clamp-2 leading-snug">
+                        {post.title}
+                      </h2>
+
+                      <p className="text-[#FFF4C7]/70 text-sm line-clamp-3 mb-6 flex-1 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="pt-4 border-t border-[#3AC97B]/10 flex items-center justify-between text-sm">
+                        <span className="text-xs text-[#FFF4C7]/60 font-medium">
+                          {post.author.name}
+                        </span>
+                        <span className="text-[#3AC97B] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                          Ler Artigo →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Newsletter Popup */}
+      {/* Popup de Newsletter */}
       {showNewsletter && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-8 right-8 bg-[#09231B] p-6 rounded-xl shadow-2xl max-w-md z-50 border border-[#3AC97B]/20"
+          className="fixed bottom-6 right-6 bg-[#071D16] p-6 rounded-2xl shadow-2xl max-w-md z-50 border border-[#3AC97B]/40 backdrop-blur-lg"
         >
           <button 
             onClick={() => setShowNewsletter(false)}
-            className="absolute top-4 right-4 text-[#FFF4C7]/60 hover:text-[#FFF4C7]"
+            className="absolute top-4 right-4 text-[#FFF4C7]/50 hover:text-[#FFF4C7] transition-colors"
+            aria-label="Fechar"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-3">
             <GiftIcon className="h-6 w-6 text-[#3AC97B]" />
-            <h3 className="text-xl font-bold text-[#3AC97B]">Receba conteúdos inéditos antes de todo mundo</h3>
+            <h3 className="text-lg font-bold text-[#3AC97B]">EverGreen Weekly</h3>
           </div>
-          <p className="text-[#FFF4C7]/80 mb-4">
-            Assine a EverGreen Weekly e receba insights táticos direto da nossa mesa de operação.
-            Sem enrolação. Só coisa aplicável.
+          <p className="text-sm text-[#FFF4C7]/80 mb-4 leading-relaxed">
+            Receba frameworks inéditos, bastidores de automação comercial e análises de mercado direto da nossa mesa de operação.
           </p>
-          <form className="flex gap-2">
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault()
+              alert('Obrigado por assinar! Você receberá nossos próximos artigos em primeira mão.')
+              setShowNewsletter(false)
+            }}
+            className="flex gap-2"
+          >
             <input
               type="email"
-              placeholder="Seu melhor e-mail"
-              className="flex-1 px-4 py-2 rounded-full bg-[#09231B] border border-[#3AC97B]/20 text-[#FFF4C7] placeholder-[#FFF4C7]/50 focus:outline-none focus:ring-2 focus:ring-[#3AC97B]"
+              required
+              placeholder="Seu melhor e-mail corporativo"
+              className="flex-1 px-4 py-2 rounded-full bg-[#05130E] border border-[#3AC97B]/30 text-sm text-[#FFF4C7] placeholder-[#FFF4C7]/40 focus:outline-none focus:ring-2 focus:ring-[#3AC97B]"
             />
             <button 
               type="submit"
-              className="bg-[#3AC97B] text-[#09231B] px-6 py-2 rounded-full hover:bg-[#3AC97B]/90 transition-colors"
+              className="bg-[#3AC97B] text-[#09231B] text-xs font-bold px-5 py-2 rounded-full hover:bg-[#3AC97B]/90 transition-colors"
             >
-              Quero Receber
+              Assinar
             </button>
           </form>
         </motion.div>
       )}
 
       {/* CTA Final */}
-      <section className="py-16 px-8 bg-[#09231B] border-t border-[#3AC97B]/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <RocketLaunchIcon className="h-8 w-8 text-[#3AC97B]" />
-            <h2 className="text-3xl font-bold text-[#3AC97B]">Pronto pra aplicar o que aprendeu?</h2>
+      <section className="py-20 px-8 bg-[#071D16] border-t border-[#3AC97B]/20 text-center">
+        <div className="max-w-3xl mx-auto">
+          <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#3AC97B]/10 text-[#3AC97B] mb-6 border border-[#3AC97B]/20">
+            <RocketLaunchIcon className="h-8 w-8" />
           </div>
-          <p className="text-lg mb-8 text-[#FFF4C7]/80">
-            Transforme ideias em execução com os sistemas da EverGreen.<br />
-            Descubra como levamos o conteúdo à prática — com crescimento real.
+          <h2 className="text-3xl md:text-4xl font-bold text-[#FFF4C7] mb-4 tracking-tight">
+            Pronto para transformar conteúdo em <span className="text-[#3AC97B]">previsibilidade comercial</span>?
+          </h2>
+          <p className="text-base md:text-lg mb-8 text-[#FFF4C7]/80 leading-relaxed">
+            Conheça o Sistema Raiz e descubra como organizamos cadência, tecnologia e processos para empresas B2B.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/autoridade"
-              className="bg-[#09231B] text-[#3AC97B] px-8 py-3 rounded-full border border-[#3AC97B]/20 hover:bg-[#09231B]/80 transition-colors"
+              className="bg-[#09231B] text-[#3AC97B] px-8 py-3.5 rounded-full border border-[#3AC97B]/30 hover:bg-[#3AC97B]/10 transition-colors font-semibold text-sm"
             >
               Ver Casos de Sucesso
             </Link>
             <Link 
               href="/contato"
-              className="bg-[#3AC97B] text-[#09231B] px-8 py-3 rounded-full hover:bg-[#3AC97B]/90 transition-colors"
+              className="bg-[#3AC97B] text-[#09231B] px-8 py-3.5 rounded-full hover:bg-[#3AC97B]/90 transition-colors font-bold text-sm shadow-lg shadow-[#3AC97B]/20"
             >
-              Agendar Diagnóstico
+              Agendar Diagnóstico Gratuito
             </Link>
           </div>
-      </div>
-    </section>
+        </div>
+      </section>
     </div>
   )
-} 
+}

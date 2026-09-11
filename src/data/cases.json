@@ -1,0 +1,208 @@
+[
+  {
+    "id": "casa-fatilli",
+    "slug": "grupo-casa-fatilli-automacao-comercial-ia",
+    "client": "Grupo Casa Fatilli + Casa & Conforto",
+    "industry": "Móveis Planejados & Decoração de Alto Padrão",
+    "category": "B2C",
+    "projectDuration": "6 meses",
+    "roi": "+450%",
+    "challenge": "Time comercial sobrecarregado, tempo de resposta superior a 18 horas e baixa conversão no WhatsApp. A empresa enfrentava dificuldades para atender a demanda crescente de leads qualificados, com perda de oportunidades e estresse na equipe de vendas.",
+    "solution": "Desenvolvimento de arquitetura de SDR automatizado com IA generativa contextual + integração profunda ao Kommo CRM. Criação de esteira de qualificação automática por canal, triagem inteligente de orçamento e direcionamento em tempo real para os consultores de venda.",
+    "implementation": [
+      "Diagnóstico e mapeamento de gargalos no funil de atendimento WhatsApp",
+      "Arquitetura de chatbot com IA generativa para primeiro contato e filtro de interesse",
+      "Integração bidirecional com Kommo CRM e sincronização de dados cadastrais",
+      "Esteiras automatizadas de nutrição e reativação de orçamentos parados",
+      "Sistema de pontuação e scoring de leads com base no perfil de compra",
+      "Treinamento operacional da equipe de vendas na nova cadência comercial",
+      "Dashboard analítico de conversão por etapa e velocidade de resposta"
+    ],
+    "metrics": {
+      "agendamentos_semanais": {
+        "before": "10",
+        "after": "55",
+        "improvement": "+450%"
+      },
+      "tempo_resposta": {
+        "before": "18h",
+        "after": "2h",
+        "improvement": "-89%"
+      },
+      "taxa_qualificacao": {
+        "before": "25%",
+        "after": "60%",
+        "improvement": "+140%"
+      },
+      "conversao_whatsapp": {
+        "before": "8%",
+        "after": "23%",
+        "improvement": "+188%"
+      }
+    },
+    "results": [
+      "Redução de 89% no tempo médio de resposta no primeiro contato",
+      "Aumento de mais de 5x no volume de agendamentos presenciais na loja",
+      "Padronização absoluta da régua de atendimento e triagem com IA",
+      "Mais de R$ 1.8M em pipeline destravado nos primeiros 90 dias",
+      "Alívio operacional de 60% na carga de triagem manual dos consultores"
+    ],
+    "technologies": [
+      "IA Generativa",
+      "Kommo CRM",
+      "WhatsApp Business API",
+      "Webhooks & Automações",
+      "Lead Scoring Preditivo",
+      "Dashboards Analíticos"
+    ],
+    "testimonial": {
+      "quote": "A EverGreen não só entregou tecnologia, mas reestruturou a cultura da nossa operação de vendas. Saímos do caos do WhatsApp manual para uma previsibilidade de visitas e vendas que nossa diretoria nunca tinha visto.",
+      "author": "Carlos Fatilli",
+      "position": "Diretor Comercial, Grupo Casa Fatilli"
+    },
+    "timeline": [
+      {
+        "phase": "Diagnóstico & Mapeamento",
+        "duration": "2 semanas",
+        "description": "Auditoria de atendimento, mapeamento de gargalos e definição da arquitetura do funil."
+      },
+      {
+        "phase": "Desenvolvimento do Sistema",
+        "duration": "8 semanas",
+        "description": "Construção do agente de triagem, parametrização do Kommo CRM e testes de fluxo."
+      },
+      {
+        "phase": "Homologação & Go-Live",
+        "duration": "4 semanas",
+        "description": "Treinamento do time, pilotos com tráfego real e ajustes de copywriting dos bots."
+      },
+      {
+        "phase": "Acompanhamento de Cadência",
+        "duration": "Contínuo",
+        "description": "Otimização semanal de taxas de conversão e expansão da base de atendimento."
+      }
+    ],
+    "featuredImage": "/images/maquinadeVendas.jpg",
+    "date": "2025-06-15"
+  },
+  {
+    "id": "iw-tour",
+    "slug": "iw-tour-viagens-iniciaticas-tracao-previsibilidade",
+    "client": "IW Tour – Viagens Iniciáticas",
+    "industry": "Turismo Transformacional & Vivências de Imersão",
+    "category": "B2C",
+    "projectDuration": "4 meses",
+    "roi": "+350%",
+    "challenge": "Dependência exclusiva de indicações boca a boca, sazonalidade extrema de turmas e ausência de previsibilidade na geração de novos viajantes. Alto custo de atendimento por interessado e baixo aproveitamento da base.",
+    "solution": "Estruturação de funil com landing pages de alta conversão, narrativas de valor por arquétipos de viajante, campanhas de aquisição direcionadas e automações de nutrição com esteiras de e-mail e mensagens de aproximação.",
+    "implementation": [
+      "Pesquisa profunda de público e personas para viagens de imersão",
+      "Desenvolvimento de landing page de alta conversão com design responsivo",
+      "Configuração de campanhas de atração com foco em interesse e intenção",
+      "Automação de régua de nutrição emocional e educativa sobre os destinos",
+      "Setup de CRM para rastreamento de status de vaga e pagamento de reserva"
+    ],
+    "metrics": {
+      "leads_mensais": {
+        "before": "60",
+        "after": "270",
+        "improvement": "+350%"
+      },
+      "cac": {
+        "before": "R$ 200",
+        "after": "R$ 92",
+        "improvement": "-54%"
+      },
+      "vagas_preenchidas": {
+        "before": "8",
+        "after": "20",
+        "improvement": "+150%"
+      },
+      "taxa_conversao": {
+        "before": "3%",
+        "after": "12%",
+        "improvement": "+300%"
+      }
+    },
+    "results": [
+      "Primeira turma pós-estruturação teve 100% das vagas esgotadas em 48 horas",
+      "Redução de 54% no custo de aquisição por viajante confirmado",
+      "Aumento de 350% no volume de contatos qualificados mensais",
+      "Fila de espera ativa criada para as duas expedições seguintes"
+    ],
+    "technologies": [
+      "Landing Page Headless",
+      "CRO & Testes A/B",
+      "E-mail Marketing Automatizado",
+      "Meta Ads & Google Ads",
+      "Google Analytics 4"
+    ],
+    "testimonial": {
+      "quote": "A EverGreen entendeu com precisão a sensibilidade do nosso produto. Eles construíram um canal que atrai exatamente quem tem a sintonia para as nossas viagens, com previsibilidade de turmas cheias.",
+      "author": "Marina Santos",
+      "position": "Fundadora & Diretora, IW Tour"
+    },
+    "timeline": [
+      {
+        "phase": "Estratégia & Personas",
+        "duration": "3 semanas",
+        "description": "Definição dos arquétipos e storytelling da experiência."
+      },
+      {
+        "phase": "Construção de Landing Pages",
+        "duration": "3 semanas",
+        "description": "Design e implementação da página de captura e reservas."
+      },
+      {
+        "phase": "Lançamento & Otimização",
+        "duration": "6 semanas",
+        "description": "Ativação de campanhas de tráfego pago e automação de e-mails."
+      }
+    ],
+    "featuredImage": "/images/growthEngine.jpg",
+    "date": "2025-07-20"
+  },
+  {
+    "id": "mackenzie-hackathons",
+    "slug": "premiacoes-mackenzie-hackathon",
+    "client": "Hackathons Mackenzie (Edições 2023 e 2025)",
+    "industry": "Inovação, Inteligência Artificial & Engenharia de Software",
+    "category": "Autoral",
+    "projectDuration": "48 horas cada",
+    "roi": "Top 1 & Premiação Oficial",
+    "challenge": "Desenvolver soluções tecnológicas funcionais, escaláveis e integradas com modelos avançados de IA em ambientes de maratona com bancas examinadoras de mercado e academia.",
+    "solution": "Criação de protótipos de alta complexidade técnica com arquiteturas distribuídas, modelos de linguagem aplicados à tomada de decisão e interfaces fluidas de validação de valor em tempo real.",
+    "implementation": [
+      "Modelagem de dados e arquitetura de microsserviços em tempo recorde",
+      "Integração com APIs de LLMs e automação de fluxos operacionais",
+      "Design de interfaces com foco em usabilidade e validação de produto",
+      "Apresentação executiva e validação com banca examinadora"
+    ],
+    "metrics": {
+      "posicionamento": {
+        "before": "Desafio Inicial",
+        "after": "Pódio / Premiação",
+        "improvement": "1º Lugar"
+      },
+      "tempo_entrega": {
+        "before": "72h limite",
+        "after": "40h protótipo 100% funcional",
+        "improvement": "-44%"
+      }
+    },
+    "results": [
+      "Reconhecimento institucional pela excelência técnica e velocidade de entrega",
+      "Validação das bases de código que originaram módulos proprietários da EverGreen",
+      "Testes de estresse de arquitetura aplicados a casos reais de negócio"
+    ],
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "APIs de LLM (OpenAI / Anthropic)",
+      "Python / FastAPI",
+      "Tailwind CSS"
+    ],
+    "featuredImage": "/images/tech.jpg",
+    "date": "2025-05-10"
+  }
+]

@@ -1,0 +1,34 @@
+# EverGreen — Manual Completo de Contexto para Inteligência Artificial (llms-full.txt)
+
+## Identidade Corporativa e Posicionamento
+- Nome Oficial: EverGreen Consultoria Comercial & Tecnologia (EverGreen MKT)
+- Categoria de Mercado: Consultoria Boutique de Previsibilidade Comercial e Tecnologia B2B
+- Sede: São Paulo, Brasil
+- Website Canônico: https://www.evergreenmkt.com.br
+- Slogan: "Crescimento previsível, escalável e tecnológico para empresas B2B."
+- Missão: Transformar o caos de vendas em operações comerciais previsíveis, governadas por dados, processos auditáveis e automação com inteligência artificial.
+
+## Metodologia Proprietária: Sistema Raiz
+O Sistema Raiz substitui o funil tradicional de vendas por um sistema modular retroalimentado dividido em 4 camadas:
+1. Raiz (Diagnóstico): Avaliação da integridade de 3 pilares de receita (Oferta, Demanda e Conversão) e 4 alicerces operacionais (Dados, Tecnologia, Pessoas e Processos).
+2. Tronco (Arquitetura): Definição de critérios estritos de ICP (Perfil de Cliente Ideal), SLA de tempo de resposta (< 5 minutos no WhatsApp) e esteira de apresentação diagnóstica de propostas.
+3. Ramos (Implementação): Implantação e integração do Kommo CRM com WhatsApp Business API, Salesbots de triagem inteligente e esteiras de follow-up multicanal.
+4. Copa (Operação Contínua): Rituais semanais de pipeline review, previsão matemática de faturamento baseada em taxas históricas de conversão e expansão de margem.
+
+## Portfólio de Serviços Oficiais
+1. Raio-X Comercial: Diagnóstico executivo da operação comercial com emissão de score de 0 a 100 e plano de ação priorizado para eliminação de vazamentos de receita.
+2. Sprint Comercial: Projeto de 6 a 8 semanas para desenhar, parametrizar e implantar o processo de vendas e o CRM da empresa com garantia de cadência.
+3. Retainer Comercial: Sustentação contínua da liderança comercial, auditoria semanal de pipeline e calibração de rotinas.
+4. Consultoria Kommo CRM: Como parceiros oficiais (Kommo Partners), implementação técnica da ferramenta com foco em vendas conversacionais no WhatsApp.
+5. Agentes de IA Aplicados: Construção de micro-agentes de triagem, enriquecimento de dados e acompanhamento de propostas integrados ao CRM via APIs e RAG.
+
+## Cases de Sucesso Comprovados
+- Grupo Casa Fatilli + Casa & Conforto: Móveis Planejados B2C. Redução de 89% no tempo de resposta (18h para 2h), aumento de mais de 5x nos agendamentos semanais na loja física e +R$ 1.8M em pipeline destravado.
+- IW Tour – Viagens Iniciáticas: Turismo Transformacional. Redução de 54% no Custo de Aquisição de Clientes (CAC), aumento de 350% em leads qualificados e turmas com 100% de vagas esgotadas em 48 horas.
+- Hackathons Mackenzie: 1º Lugar nas edições 2023 e 2025 com projetos de automação inteligente e software de gestão ágil.
+
+## Artigos Técnicos Publicados
+1. "Sistema de Vendas vs. Funil de Vendas: Como Construir Previsibilidade Comercial Real no B2B" (https://www.evergreenmkt.com.br/blog/sistema-de-vendas-vs-funil-de-vendas)
+2. "Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B" (https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b)
+3. "Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas" (https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas)
+4. "IA Aplicada ao Comercial B2B: Além do ChatGPT — Arquitetura de Agentes para Qualificação e Follow-Up" (https://www.evergreenmkt.com.br/blog/ia-aplicada-operacao-comercial-agentes-b2b)
