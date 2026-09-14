@@ -66,4 +66,15 @@ nextConfig.redirects = async () => [
   { source: '/politica-de-privacidade', destination: '/legal/privacidade', permanent: true }
 ]
 
+nextConfig.rewrites = async () => [
+  {
+    source: '/univet',
+    destination: '/univet/index.html'
+  },
+  {
+    source: '/univet/',
+    destination: '/univet/index.html'
+  }
+]
+
 module.exports = nextConfig
