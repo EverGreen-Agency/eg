@@ -98,10 +98,11 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-hairline);
       border-radius: var(--radius-lg);
-      padding: 40px 48px;
+      padding: clamp(20px, 2.8vh, 32px) clamp(24px, 3vw, 42px);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 12px;
       overflow-y: auto;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
@@ -128,16 +129,16 @@
       align-items: center;
       gap: 8px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       color: var(--accent-menta);
       background: var(--accent-menta-soft);
       border: 1px solid var(--border-accent);
-      padding: 5px 12px;
+      padding: 3px 10px;
       border-radius: var(--radius-pill);
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       width: fit-content;
     }
     .eyebrow::before {
@@ -150,48 +151,48 @@
     }
 
     h1.slide-title {
-      font-size: clamp(32px, 3.8vw, 48px);
+      font-size: clamp(30px, 3.5vw, 44px);
       line-height: 1.05;
       font-weight: 800;
       letter-spacing: -0.035em;
       color: var(--text-white);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     h1.slide-title span {
       color: var(--accent-menta);
     }
 
     h2.slide-heading {
-      font-size: clamp(26px, 2.6vw, 36px);
+      font-size: clamp(22px, 2.2vw, 30px);
       line-height: 1.15;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--text-white);
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     h2.slide-heading span {
       color: var(--accent-menta);
     }
 
     p.slide-lead {
-      font-size: clamp(14px, 1.2vw, 16px);
-      line-height: 1.5;
+      font-size: clamp(12.5px, 1.05vw, 14px);
+      line-height: 1.4;
       color: var(--text-secondary);
       max-width: 960px;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
 
     /* Grids & Cards */
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
 
     .card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-hairline);
       border-radius: var(--radius-md);
-      padding: 20px;
+      padding: 14px 18px;
       position: relative;
       transition: border-color 0.2s, transform 0.2s, background 0.2s;
     }
@@ -211,47 +212,47 @@
 
     .card .tag-num {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--accent-menta);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .card h3 {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text-white);
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       line-height: 1.25;
     }
     .card h4 {
-      font-size: 15px;
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text-baunilha);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .card p {
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 12.5px;
+      line-height: 1.4;
       color: var(--text-secondary);
     }
     .card ul {
-      margin-top: 10px;
-      padding-left: 18px;
-      font-size: 12.5px;
+      margin-top: 6px;
+      padding-left: 16px;
+      font-size: 12px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.45;
     }
 
     /* Metric badges */
     .metric-big {
-      font-size: clamp(26px, 2.5vw, 36px);
+      font-size: clamp(24px, 2.2vw, 32px);
       font-weight: 800;
       color: var(--text-white);
       letter-spacing: -0.03em;
       line-height: 1.1;
-      margin: 8px 0;
+      margin: 6px 0;
     }
     .metric-big span {
       color: var(--accent-menta);
@@ -261,33 +262,34 @@
     .custom-table-wrapper {
       width: 100%;
       border: 1px solid var(--border-hairline);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-sm);
       overflow: hidden;
       background: rgba(0, 0, 0, 0.25);
+      margin-bottom: 6px;
     }
     .custom-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 13px;
+      font-size: 12px;
     }
     .custom-table th {
       background: rgba(255, 255, 255, 0.05);
       color: var(--text-baunilha);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      padding: 12px 14px;
+      padding: 8px 12px;
       border-bottom: 1px solid var(--border-hairline);
     }
     .custom-table td {
-      padding: 12px 14px;
+      padding: 6px 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       color: var(--text-secondary);
-      vertical-align: top;
-      line-height: 1.45;
+      vertical-align: middle;
+      line-height: 1.35;
     }
     .custom-table tr:last-child td {
       border-bottom: none;
@@ -624,6 +626,48 @@
         display: none;
       }
     }
+  
+    /* Language Switcher */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-hairline);
+      padding: 3px 6px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .btn-lang {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 3px 7px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: 1;
+    }
+    .btn-lang:hover {
+      color: var(--text-white);
+    }
+    .btn-lang.active {
+      background: var(--accent-menta);
+      color: #050E09;
+      box-shadow: 0 0 10px rgba(58, 201, 123, 0.4);
+    }
+    .lang-divider {
+      color: var(--text-muted);
+      font-size: 10px;
+      user-select: none;
+    }
+
   </style>
 </head>
 <body>
@@ -711,8 +755,8 @@
         <div class="grid-5">
           <div class="card">
             <div class="tag-num" style="color:#68D99A;">ETAPA 1</div>
-            <h3>1. Aware</h3>
-            <h4>Ser Lembrado</h4>
+            <h3>1. Assimilação</h3>
+            <h4>Aware · Ser Lembrado</h4>
             <ul>
               <li>Vídeos demonstrativos</li>
               <li>Conteúdo de precisão</li>
@@ -722,8 +766,8 @@
           </div>
           <div class="card">
             <div class="tag-num" style="color:#3AC97B;">ETAPA 2</div>
-            <h3>2. Appeal</h3>
-            <h4>Gerar Preferência</h4>
+            <h3>2. Atração</h3>
+            <h4>Appeal · Preferência</h4>
             <ul>
               <li>Design & tecnologia italiana</li>
               <li>Ergonomia e conforto</li>
@@ -733,8 +777,8 @@
           </div>
           <div class="card">
             <div class="tag-num" style="color:#4AE08E;">ETAPA 3</div>
-            <h3>3. Ask</h3>
-            <h4>Tirar Dúvidas</h4>
+            <h3>3. Arguição</h3>
+            <h4>Ask · Tirar Dúvidas</h4>
             <ul>
               <li>Google Search intencional</li>
               <li>Comparativos & FAQs</li>
@@ -744,8 +788,8 @@
           </div>
           <div class="card highlight">
             <div class="tag-num" style="color:var(--text-baunilha);">ETAPA 4</div>
-            <h3>4. Act</h3>
-            <h4>Converter</h4>
+            <h3>4. Ação</h3>
+            <h4>Act · Converter</h4>
             <ul>
               <li>LPs focadas em consulta</li>
               <li>Fluxo direto para WhatsApp</li>
@@ -755,8 +799,8 @@
           </div>
           <div class="card">
             <div class="tag-num" style="color:#A7F3D0;">ETAPA 5</div>
-            <h3>5. Advocate</h3>
-            <h4>Gerar Prova</h4>
+            <h3>5. Apologia</h3>
+            <h4>Advocate · Gerar Prova</h4>
             <ul>
               <li>Depoimentos cirúrgicos</li>
               <li>Cases por procedimento</li>
@@ -1239,36 +1283,36 @@
           <h2 class="slide-heading">Pontos de Decisão com a <span>Liderança Univet</span></h2>
           <p class="slide-lead">Definições estratégicas fundamentais que alinharemos na reunião para orientar os primeiros disparos de campanha:</p>
         </div>
-        <div class="grid-2" style="font-size: 13px;">
-          <div class="card">
-            <p><b>1. Linha Prioritária:</b> Qual produto deve receber maior tração inicial — lupas odontológicas, cirúrgicas ou fotóforos?</p>
+        <div class="grid-2" style="gap: 8px 12px;">
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">1. Linha Prioritária:</b> Qual produto deve receber maior tração inicial — lupas odontológicas, cirúrgicas ou fotóforos?</p>
           </div>
-          <div class="card">
-            <p><b>2. Praças Foco:</b> Quais regiões geográficas têm melhor rede de atendimento dos representantes para absorver demanda?</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">2. Praças Foco:</b> Quais regiões geográficas têm melhor rede de atendimento dos representantes para absorver demanda?</p>
           </div>
-          <div class="card">
-            <p><b>3. Distribuição de Budget:</b> Autonomia para remanejar investimento entre Google e Meta com base no custo por oportunidade.</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">3. Distribuição de Budget:</b> Autonomia para remanejar investimento entre Google e Meta com base no CPO.</p>
           </div>
-          <div class="card">
-            <p><b>4. Chamada de Conversão:</b> CTA preferencial — agendar demonstração presencial, falar com especialista ou orçamento?</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">4. Chamada de Conversão:</b> CTA preferencial — agendar demonstração presencial, falar com especialista ou orçamento?</p>
           </div>
-          <div class="card">
-            <p><b>5. Definição de Lead Qualificado:</b> Critérios inegociáveis para um contato ser considerado um MQL legítimo.</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">5. Lead Qualificado:</b> Critérios inegociáveis para um contato ser considerado um MQL legítimo.</p>
           </div>
-          <div class="card">
-            <p><b>6. Especialidades-Chave:</b> Cirurgia plástica, implantodontia, vascular ou endodontia como ponto de partida?</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">6. Especialidades-Chave:</b> Cirurgia plástica, implantodontia, vascular ou endodontia como ponto de partida?</p>
           </div>
-          <div class="card">
-            <p><b>7. Objeções Mais Frequentes:</b> O que mais barra o fechamento — preço, curva de adaptação ou prazos de entrega?</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">7. Objeções Frequentes:</b> O que mais barra o fechamento — preço, curva de adaptação ou prazos de entrega?</p>
           </div>
-          <div class="card">
-            <p><b>8. Acesso ao Histórico:</b> Liberação de acessos às contas de anúncio e CRM para auditoria no primeiro dia.</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">8. Acesso ao Histórico:</b> Liberação de acessos às contas de anúncio e CRM para auditoria no D1.</p>
           </div>
-          <div class="card">
-            <p><b>9. Inventário de Ativos:</b> Mapeamento de quais vídeos e fotos da Itália estão imediatamente disponíveis para uso.</p>
+          <div class="card" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-white);">9. Inventário de Ativos:</b> Mapeamento de quais vídeos e fotos da Itália estão imediatamente disponíveis.</p>
           </div>
-          <div class="card highlight">
-            <p><b>10. Produção Sob Demanda:</b> Abertura da Univet para gravar vídeos pontuais recomendados pela EverGreen quando necessário.</p>
+          <div class="card highlight" style="padding: 8px 14px;">
+            <p style="font-size: 12px; line-height: 1.35;"><b style="color:var(--text-baunilha);">10. Produção Sob Demanda:</b> Abertura da Univet para gravar vídeos pontuais recomendados pela EverGreen.</p>
           </div>
         </div>
       </section>
@@ -1341,6 +1385,13 @@
     </div>
 
     <div class="controls-right">
+
+        <div class="lang-switcher" id="lang-switcher" title="Alternar Idioma / Cambia Lingua">
+          <button class="btn-lang active" data-lang="pt" id="lang-btn-pt">PT</button>
+          <span class="lang-divider">/</span>
+          <button class="btn-lang" data-lang="it" id="lang-btn-it">IT</button>
+        </div>
+
       <button class="btn-control" id="fullscreenBtn" title="Tela cheia (Atalho: F)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
         Tela cheia
@@ -1477,7 +1528,638 @@
         if (e.target === drawerOverlay) closeDrawer();
       });
 
-      // Keyboard navigation
+      
+  // ==========================================
+  // BILINGUAL (PT / IT) TRANSLATION ENGINE
+  // ==========================================
+  let currentLang = 'pt';
+  const originalPT = {};
+
+  const translationsIT = {
+    // UI Elements
+    ui: {
+      docTitle: "Univet × EverGreen — Piano di Growth, SEO & Implementazione | 30 giorni",
+      slidesBtn: "Slides",
+      drawerTitle: "Indice dei Contenuti",
+      drawerSub: "15 sezioni strategiche per il ciclo di 30 giorni",
+      counterOf: "di"
+    },
+    // Titles for drawer
+    drawerTitles: [
+      "Apertura · Growth & Revenue",
+      "01 · Nord Strategico",
+      "02 · Strategia di Funnel (5A)",
+      "03 · Ipotesi di Crescita",
+      "04 · Tesi di Validazione",
+      "05 · Strategia dei Canali",
+      "06 · Sprint 1 (Giorni 1–15)",
+      "07 · Sprint 2 (Giorni 16–30)",
+      "08 · Contenuti & Asset",
+      "09 · Dati & Infrastruttura",
+      "10 · Backlog Esecutivo",
+      "11 · Cadenza Operativa",
+      "12 · Input Necessari",
+      "13 · Decisioni di Kickoff",
+      "14 · Consegne & Visione Finale"
+    ],
+    // Slide contents
+    slides: {
+      0: {
+        eyebrow: "Univet Brasil × EverGreen Mkt · Q3/Q4 2026",
+        title: "Univet <span>×</span> EverGreen",
+        subtitle: "Piano di Growth, SEO & Implementazione Commerciale",
+        lead: "Ciclo iniziale di 30 giorni per allineare canali di acquisizione, tracking accurato e pipeline B2B per l'ottica chirurgica di precisione.",
+        pill1: "Ottica Chirurgica & Dentale",
+        pill2: "Ingegneria Italiana",
+        pill3: "Pipeline B2B & Vendite",
+        pill4: "Ciclo Sprint 30 Giorni",
+        badge1: "Univet Optical Technologies",
+        badge1Sub: "Eccellenza Globale in Sistemi Ingrandenti & DPI",
+        badge2: "EverGreen Mkt",
+        badge2Sub: "Architettura di Crescita, SEO & RevOps B2B"
+      },
+      1: {
+        eyebrow: "01 · Nord Strategico",
+        heading: "Cosa Vogliamo Costruire nel <span>Primo Mese</span>",
+        lead: "Il primo ciclo non è orientato a metriche di vanità. L'obiettivo primario è validare il posizionamento, azzerare le inefficienze di tracking e avviare una pipeline commerciale prevedibile per i rappresentanti.",
+        c1Tag: "Pilastro 01",
+        c1H3: "Posizionamento & SEO",
+        c1H4: "Domanda di Alta Intenzione",
+        c1P: "Posizionare Univet come riferimento assoluto in ottica chirurgica ed ergonomia, intercettando chi già cerca soluzioni professionali su Google Search.",
+        c2Tag: "Pilastro 02",
+        c2H3: "Pipeline B2B Predittiva",
+        c2H4: "Lead Qualificati (MQL)",
+        c2P: "Costruire flussi di acquisizione a pagamento mirati su chirurghi e odontoiatri con elevata propensione alla spesa, riducendo l'attrito d'ingresso verso WhatsApp.",
+        c3Tag: "Pilastro 03",
+        c3H3: "Tracking & Tracciabilità",
+        c3H4: "Trasparenza Decisionale",
+        c3P: "Configurare l'infrastruttura completa con Google Analytics 4, Tag Manager e integrazione con Kommo CRM per misurare il ritorno di ogni centesimo investito."
+      },
+      2: {
+        eyebrow: "02 · Strategia di Funnel",
+        heading: "Architettura di Conversione <span>(Modello 5A di Kotler)</span>",
+        lead: "Strutturiamo la customer journey per generare desiderio e autorevolezza prima di richiedere la decisione d'acquisto. Ogni fase assolve a una funzione misurabile.",
+        e1Tag: "FASE 1",
+        e1H3: "1. Assimilazione",
+        e1H4: "Aware · Farsi Notare",
+        e1Ul: "<li>Video dimostrativi</li><li>Contenuti di precisione</li><li>Copertura professionale</li><li>SEO informativo</li>",
+        e2Tag: "FASE 2",
+        e2H3: "2. Attrazione",
+        e2H4: "Appeal · Preferenza",
+        e2Ul: "<li>Design & tecnologia italiana</li><li>Ergonomia e comfort</li><li>Ottica ad alta risoluzione</li><li>Prestigio del brand</li>",
+        e3Tag: "FASE 3",
+        e3H3: "3. Ricerca",
+        e3H4: "Ask · Risolvere Dubbi",
+        e3Ul: "<li>Google Search intenzionale</li><li>Confronti & FAQ tecniche</li><li>Pagine per specialità</li><li>Remarketing consultivo</li>",
+        e4Tag: "FASE 4",
+        e4H3: "4. Azione",
+        e4H4: "Act · Convertire",
+        e4Ul: "<li>LP mirate alla consulenza</li><li>Flusso diretto su WhatsApp</li><li>Instradamento su Kommo</li><li>Follow-up tempestivo</li>",
+        e5Tag: "FASE 5",
+        e5H3: "5. Fedeltà",
+        e5H4: "Advocate · Prove Reali",
+        e5Ul: "<li>Testimonianze chirurgiche</li><li>Casi clinici applicati</li><li>UGC di specialisti</li><li>Passaparola tra colleghi</li>"
+      },
+      3: {
+        eyebrow: "03 · Ipotesi di Crescita",
+        heading: "Matrice: <span>Pubblici × Angoli di Comunicazione</span>",
+        lead: "L'apprendimento rapido dipende dall'incrocio mirato tra cluster di audience e narrative di valore differenzianti.",
+        c1Tag: "CLUSTER 01 & 02",
+        c1H3: "Odontoiatria & Chirurgia",
+        c1P: "Implantologia, chirurgia plastica, vascolare e maxillo-facciale in cui ingrandimento e luce influenzano direttamente l'esito clinico.",
+        c2Tag: "CLUSTER 03 & 04",
+        c2H3: "Ergonomia & Performance",
+        c2P: "Professionisti con dolori posturali e cervicali alla ricerca di longevità professionale e massimo controllo visivo.",
+        c3Tag: "CLUSTER 05 & 06",
+        c3H3: "Segmento Premium & Base Storica",
+        c3P: "Chirurghi che apprezzano design raffinato e customizzazione, integrati con retargeting di visitatori e contatti precedenti.",
+        a1Tag: "ANGOLO A",
+        a1H3: "Precisione Clinica",
+        a1P1: "“Vedi meglio. Opera con controllo assoluto.”",
+        a1P2: "Dimostrazione di nitidezza ottica, ampiezza di campo e profondità di fuoco.",
+        a2Tag: "ANGOLO B",
+        a2H3: "Ergonomia & Salute",
+        a2P1: "“Ergonomia chirurgica per chi trascorre ore in sala operatoria.”",
+        a2P2: "Postura corretta, bilanciamento del peso e comfort prolungato.",
+        a3Tag: "ANGOLO C",
+        a3H3: "Autorità & Design Italiano",
+        a3P1: "“Ingegneria e ottica italiana di riferimento globale.”",
+        a3P2: "Validazione autorevole tra pari, riconoscimenti di design ed eleganza costruttiva."
+      },
+      4: {
+        eyebrow: "04 · Tesi del Primo Ciclo",
+        heading: "Ipotesi di <span>Validazione Commerciale</span>",
+        lead: "Nessun investimento senza una tesi. L'obiettivo di questo mese è validare quali narrative generano reale avanzamento nel pipeline.",
+        th1: "Tesi", th2: "Ipotesi", th3: "Come Validare", th4: "Segnale di Successo",
+        r1T: "T1 · Precisione clinica",
+        r1H: "I professionisti con requisiti visivi elevati convertono meglio ponendo enfasi su nitidezza ottica e controllo.",
+        r1V: "Search intenzionale + inserzioni segmentate per procedura chirurgica.",
+        r1S: "<span class='prio-badge prio-p2'>Alta qualifica</span> e appuntamenti.",
+        r2T: "T2 · Ergonomia",
+        r2H: "I dolori posturali rappresentano una forte leva per considerare la sostituzione degli strumenti attuali.",
+        r2V: "Campagne video su Meta + contenuti comparativi sulla postura.",
+        r2S: "Tempo di visione e click su pagine di prodotto ergonomiche.",
+        r3T: "T3 · Autorità di Brand",
+        r3H: "L'eredità manifatturiera e il design italiano riducono l'attrito sul prezzo per ticket elevati.",
+        r3V: "Remarketing con certificazioni, premi e testimonianze di riferimento.",
+        r3S: "Minore tasso di obiezioni nel contatto commerciale.",
+        r4T: "T4 · Specializzazione",
+        r4H: "Una comunicazione personalizzata per sotto-nicchia supera ampiamente annunci generici.",
+        r4V: "Creatività e pagine dedicate per branca (es. parodontologia, chirurgia plastica).",
+        r4S: "CTR e tasso di risposta nettamente superiori alla media.",
+        r5T: "T5 · Intenzione > Volume",
+        r5H: "Intercettare traffico ad alta intenzione genera più fatturato rispetto a campagne di massa non profilate.",
+        r5V: "Focus su parole chiave transazionali e audience simili altamente qualificate.",
+        r5S: "Costo per opportunità (CPO) sostenibile all'interno del CRM.",
+        ruleText: "<b>Regola Fondamentale:</b> Ogni azione pubblicitaria, pagina web o iniziativa SEO deve rispondere a una di queste tesi. Ciò che non genera dati utili o fatturato perde priorità."
+      },
+      5: {
+        eyebrow: "05 · Strategia dei Canali",
+        heading: "Distribuzione Strategica dei <span>Canali di Trazione</span>",
+        lead: "Ciascun canale assolve a una funzione precisa nella generazione della pipeline. Nessuna dispersione su attività senza attribuzione diretta.",
+        c1Tag: "CANALE 01 · SEARCH & SEO",
+        c1H3: "Catturare la Domanda Attiva",
+        c1P: "Presidiare le ricerche su Google quando il professionista cerca ingranditori ottici, sistemi luce o lenti ergonomiche.",
+        c1Ul: "<li>Google Ads (Termini ad alta intenzione)</li><li>SEO On-Page & architettura tecnica</li><li>Landing page dedicate per specialità</li>",
+        c2Tag: "CANALE 02 · META ADS",
+        c2H3: "Generare Desiderio & Riconoscimento",
+        c2P: "Mostrare la qualità ottica in azione, video dimostrativi e il design esclusivo italiano direttamente nel feed di chirurghi e dentisti.",
+        c2Ul: "<li>Inserzioni video con dimostrazione macro</li><li>Targeting profilato per professione</li><li>Remarketing continuo su chi ha interagito</li>",
+        c3Tag: "CANALE 03 · WHATSAPP DIRECT",
+        c3H3: "Conversione & Dialogo Diretto",
+        c3P: "Accorciare il percorso tra l'annuncio e il contatto qualificato, instradando ogni richiesta direttamente al team vendite.",
+        c3Ul: "<li>Click-to-WhatsApp profilato</li><li>Messaggi di benvenuto pre-compilati</li><li>Qualificazione rapida prima della demo</li>",
+        c4Tag: "CANALE 04 · CRM & REVOPS",
+        c4H3: "Tracciamento & Chiusura",
+        c4P: "Garantire che nessun lead venga tralasciato e monitorare il tempo di risposta dei rappresentanti fino alla vendita.",
+        c4Ul: "<li>Integrazione nativa con Kommo CRM</li><li>SLA di contatto entro 15 minuti</li><li>Attribuzione precisa della fonte del lead</li>"
+      },
+      6: {
+        eyebrow: "06 · Sprint 1 (Giorni 1–15)",
+        heading: "Giorni 1 a 15: <span>Fondamenta, Tracking e Lancio</span>",
+        lead: "Stabilire l'architettura tecnica essenziale per garantire che ogni dato raccolto sia affidabile, pubblicando il primo set di campagne mirate.",
+        c1Tag: "SETTIMANA 01 · G1 A G7",
+        c1H3: "Audit & Configurazione Tecnica",
+        c1Ul: "<li>Audit approfondito degli account Google Ads e Meta Ads</li><li>Configurazione di Google Tag Manager, GA4 e Conversion API</li><li>Standardizzazione dei parametri UTM e integrazione con Kommo CRM</li><li>Audit tecnico SEO e verifica di Google Search Console</li>",
+        c2Tag: "SETTIMANA 02 · G8 A G12",
+        c2H3: "Asset & Landing Page",
+        c2Ul: "<li>Ottimizzazione delle landing page con enfasi su conversione mobile</li><li>Selezione degli asset fotografici e video dall'archivio italiano</li><li>Sviluppo della copy matrix per i primi 3 cluster prioritari</li><li>Definizione dei flussi di risposta WhatsApp e pipeline CRM</li>",
+        c3Tag: "PUBBLICAZIONE · G13 A G15",
+        c3H3: "Lancio delle Prime Campagne",
+        c3Ul: "<li>Attivazione delle campagne Google Search su parole chiave ad alta intenzione</li><li>Lancio delle prime campagne video su Meta Ads per chirurgia e odontoiatria</li><li>Controllo orario dei lead generati e monitoraggio dell'instradamento su Kommo</li><li>Verifica dei primi dati di conversione reale</li>"
+      },
+      7: {
+        eyebrow: "07 · Sprint 2 (Giorni 16–30)",
+        heading: "Giorni 16 a 30: <span>Ottimizzazione, CRO e RevOps</span>",
+        lead: "Con i primi dati reali di interazione e vendita, ridistribuiamo il budget sulle tesi vincenti ed eliminiamo le dispersioni.",
+        c1Tag: "SETTIMANA 03 · G16 A G22",
+        c1H3: "Ottimizzazione & Riduzione Sprechi",
+        c1Ul: "<li>Esclusione sistematica di termini di ricerca non pertinenti</li><li>Pausa delle creatività e pubblici con CTR inferiore alla media</li><li>Incremento di budget sulle combinazioni con miglior costo per opportunità</li><li>Allineamento con i rappresentanti sulla qualità dei lead ricevuti</li>",
+        c2Tag: "SETTIMANA 04 · G23 A G28",
+        c2H3: "CRO & Consolidamento SEO",
+        c2Ul: "<li>Test A/B su titoli e chiamate all'azione delle landing page</li><li>Rafforzamento dei contenuti SEO tecnici per parole chiave transazionali</li><li>Calibrazione dei messaggi automatici di risposta su WhatsApp</li><li>Ottimizzazione del tempo di prima risposta dei commerciali</li>",
+        c3Tag: "CHIUSURA · G29 A G30",
+        c3H3: "Valutazione Finale & Piano Mese 2",
+        c3Ul: "<li>Report consolidato di acquisizione, metriche di funnel e CAC</li><li>Presentazione dei risultati alla direzione Univet (Brasile e Italia)</li><li>Pianificazione del budget e roadmap strategica per la fase di scale-up</li><li>Prioritizzazione dei nuovi test di prodotto e mercati geografici</li>"
+      },
+      8: {
+        eyebrow: "08 · Contenuti & Asset",
+        heading: "Il Contenuto come <span>Leva di Acquisizione</span>",
+        lead: "Non produciamo post generici per riempire feed social. Ogni singolo asset testuale, fotografico o video risponde a una domanda specifica del buyer chirurgico.",
+        c1Tag: "PILASTRO A",
+        c1H3: "Dimostrazione di Precisione",
+        c1H4: "Nitidezza Ottica & Dettaglio",
+        c1P: "Video macro che mostrano la brillantezza della lente, la fedeltà cromatica e la resa visiva durante interventi chirurgici realistici.",
+        c1Ul: "<li>Inquadrature in primo piano sulle ottiche</li><li>Confronto visivo senza ingrandimento vs Univet</li><li>Dettagli costruttivi e finiture della montatura</li>",
+        c2Tag: "PILASTRO B",
+        c2H3: "Ergonomia & Longevità",
+        c2H4: "Prevenzione dei Dolori Posturali",
+        c2P: "Contenuti educativi che evidenziano come una corretta postura chirurgica prevenga patologie cervicali e prolunghi la carriera.",
+        c2Ul: "<li>Analisi dell'angolo di declinazione della testa</li><li>Differenza tra posture scorrette ed ergonomiche</li><li>Testimonianze dirette di specialisti su fatica e resa</li>",
+        c3Tag: "PILASTRO C",
+        c3H3: "Autorevolezza & Fabbricazione",
+        c3H4: "DNA & Design Italiano",
+        c3P: "Rafforzare l'unicità di un'ottica sviluppata in Italia con standard medicali rigorosi, giustificando il posizionamento premium.",
+        c3Ul: "<li>Tradizione ottica ed eccellenza manifatturiera</li><li>Certificazioni internazionali di sicurezza e qualità</li><li>Impatto del design esclusivo sull'immagine del chirurgo</li>"
+      },
+      9: {
+        eyebrow: "09 · Dati & Infrastruttura",
+        heading: "Infrastruttura Tecnica & <span>Tracciabilità Totale</span>",
+        lead: "Eliminiamo le decisioni basate su opinioni. Ogni Real investito deve mostrare con trasparenza il suo contributo all'avanzamento della pipeline.",
+        c1Tag: "COMPONENTE 01",
+        c1H3: "Architettura di Tracking & Dati",
+        c1Ul: "<li><b>Google Tag Manager:</b> Contenitore unificato per gestire tag e trigger senza dipendenze IT</li><li><b>Meta CAPI & Pixel:</b> Tracciamento server-side per bypassare blocchi di tracciamento e iOS</li><li><b>Google Analytics 4:</b> Tracciamento dettagliato di eventi personalizzati (lead_submit, cta_click)</li><li><b>Tassonomia UTM:</b> Nomenclatura rigorosa per monitorare fonte, mezzo, campagna e contenuto</li>",
+        c2Tag: "COMPONENTE 02",
+        c2H3: "Integrazione CRM & Dashboard Operativa",
+        c2Ul: "<li><b>Kommo CRM Integration:</b> Ogni contatto web genera automaticamente una trattativa con attribuzione</li><li><b>Distribuzione Commerciale:</b> Regole di assegnazione rapida dei lead per area e rappresentante</li><li><b>SLA di Risposta:</b> Monitoraggio dell'intervallo tra generazione del lead e primo contatto</li><li><b>Dashboard in Tempo Reale:</b> Visione immediata di CPL, CPO e tasso di qualificazione per canale</li>"
+      },
+      10: {
+        eyebrow: "10 · Backlog Esecutivo",
+        heading: "Quadro delle <span>Consegne e Responsabilità</span>",
+        lead: "Ordine cronologico delle attività programmate per il ciclo di 30 giorni con relative finestre operative e titolarità.",
+        th1: "Priorità", th2: "Iniziativa / Deliverable", th3: "Responsabile", th4: "Finestra",
+        r1: "Accessi, baseline storico e audit degli account pubblicitari",
+        r2: "Mappa degli eventi, governance UTM e integrazione Kommo",
+        r3: "Ricerca di domanda chirurgica, cluster di parole chiave e copy matrix",
+        r4: "Audit SEO tecnico e configurazione Search Console",
+        r5: "Primo set di creatività con asset esistenti e ottimizzazione LP",
+        r6: "Lancio campagne Search ad alta intenzione e campagne Meta",
+        r7: "Ottimizzazione organica (SEO) e raccomandazioni per prova sociale",
+        r8: "Dashboard operativa e monitoraggio del funnel commerciale"
+      },
+      11: {
+        eyebrow: "11 · Cadência Operativa",
+        heading: "Come Lavoreremo <span>Giorno per Giorno</span>",
+        lead: "Comunicazione diretta, allineamenti mirati e rendicontazione continua senza disperdere tempo in riunioni superflue.",
+        c1Tag: "CADENZA 01",
+        c1H3: "Check-in Settimanale",
+        c1H4: "30 minuti · Lunedì o Venerdì",
+        c1Ul: "<li>Revisione delle metriche essenziali: spesa, lead, CPO e pipeline</li><li>Feedback della forza vendita sulla qualità dei contatti</li><li>Decisioni rapide di riallocazione budget e priorità di test</li>",
+        c2Tag: "CADENZA 02",
+        c2H3: "Canale Dedicato",
+        c2H4: "Slack o WhatsApp Operativo",
+        c2Ul: "<li>Approvazione rapida di nuovi annunci e materiali grafici</li><li>Risoluzione immediata di anomalie tecniche o di tracciamento</li><li>Scambio continuo di spunti e osservazioni di mercato</li>",
+        c3Tag: "CADENZA 03",
+        c3H3: "Reportistica & Cruscotto",
+        c3H4: "Accesso H24 + Report Finale",
+        c3Ul: "<li>Cruscotto interattivo consultabile in tempo reale dai manager</li><li>Sintesi settimanale asincrona con punti salienti e azioni intraprese</li><li>Report strategico dettagliato a chiusura dei 30 giorni</li>"
+      },
+      12: {
+        eyebrow: "12 · Input Necessari",
+        heading: "Cosa Serve da <span>Univet per Accelerare</span>",
+        lead: "Per garantire la massima velocità di trazione fin dal primo giorno, abbiamo identificato i prerequisiti fondamentali da sbloccare.",
+        c1Tag: "INPUT 01",
+        c1H3: "Accessi Amministrativi",
+        c1Ul: "<li>Google Ads, Meta Business Manager e Google Tag Manager</li><li>Google Analytics 4 e Google Search Console</li><li>Accesso configuratore / admin in Kommo CRM</li><li>Accesso al dominio o CMS delle landing page</li>",
+        c2Tag: "INPUT 02",
+        c2H3: "Archivio di Asset & Media",
+        c2Ul: "<li>Foto in alta risoluzione di lenti, montature e accessori</li><li>Video istituzionali o di prodotto prodotti da Univet Italia</li><li>Schede tecniche e cataloghi di riferimento per il mercato brasiliano</li><li>Loghi e linee guida visive del brand in formato vettoriale</li>",
+        c3Tag: "INPUT 03",
+        c3H3: "Allineamento Commerciale",
+        c3Ul: "<li>Definizione dei criteri condivisi per considerare un lead come MQL</li><li>Mappatura delle principali obiezioni riscontrate dai rappresentanti</li><li>Elenco delle regioni geografiche prioritarie per la forza vendita</li><li>Canale di feedback rapido tra commerciale e team di crescita</li>"
+      },
+      13: {
+        eyebrow: "13 · Decisioni di Kickoff",
+        heading: "Punti Decisionali con la <span>Leadership Univet</span>",
+        lead: "Definizioni strategiche essenziali da allineare durante l'incontro per orientare i primi lanci pubblicitari:",
+        d1: "<b>1. Linea Prioritaria:</b> Quale prodotto deve ricevere maggiore spinta iniziale — ingranditori dentali, chirurgici o sistemi luce?",
+        d2: "<b>2. Piazze Target:</b> Quali aree geografiche dispongono della migliore rete di rappresentanti per gestire la domanda?",
+        d3: "<b>3. Gestione Budget:</b> Autonomia nel riallocare investimenti tra Google e Meta in base al costo per opportunità (CPO).",
+        d4: "<b>4. Invito all'Azione (CTA):</b> CTA preferenziale — prenotare prova dal vivo, parlare con specialista o richiedere preventivo?",
+        d5: "<b>5. Definizione MQL:</b> Criteri non negoziabili per qualificare un contatto come lead valido per il marketing.",
+        d6: "<b>6. Specialità Chiave:</b> Chirurgia plastica, implantologia, vascolare o endodonzia come punto di partenza primario?",
+        d7: "<b>7. Obiezioni Frequenti:</b> Qual è il principale ostacolo alla chiusura — prezzo, curva di adattamento o tempi di consegna?",
+        d8: "<b>8. Accesso allo Storico:</b> Rilascio tempestivo delle credenziali pubblicitarie e CRM per audit al Giorno 1.",
+        d9: "<b>9. Inventario Asset:</b> Mappatura di quali video e foto dall'Italia sono immediatamente pronti all'uso.",
+        d10: "<b>10. Produzione Mirata:</b> Disponibilità di Univet a registrare brevi contributi video suggeriti da EverGreen se opportuno."
+      },
+      14: {
+        eyebrow: "14 · Consegne & Visione Finale",
+        heading: "Cosa Avremo Costruito al <span>Termine dei 30 Giorni</span>",
+        lead: "Al termine di questo ciclo inaugurale, Univet disporrà di un'infrastruttura commerciale digitale collaudata, misurabile e pronta a scalare.",
+        c1Tag: "CONSEGNA 01",
+        c1H3: "Macchina di Domanda Attiva",
+        c1Ul: "<li>Campagne Google Search e Meta Ads operative e profilate</li><li>Flusso continuo di lead qualificati instradati ai commerciali</li><li>Costo per opportunità (CPO) monitorato e sostenibile</li>",
+        c2Tag: "CONSEGNA 02",
+        c2H3: "Asset Digitali Consolidati",
+        c2Ul: "<li>Landing page ad alta conversione orientate all'ottica chirurgica</li><li>Presidio organico SEO avviato sulle principali query di settore</li><li>Canale WhatsApp strutturato con accoglienza mirata</li>",
+        c3Tag: "CONSEGNA 03",
+        c3H3: "Governance & Trasparenza",
+        c3Ul: "<li>Tracking end-to-end senza dispersione di dati tra click e vendita</li><li>Integrazione bidirezionale con Kommo CRM e dashboard KPI</li><li>Roadmap strategica validata per i trimestri successivi</li>",
+        bannerText: "Un'operazione di crescita moderna, rigorosa e trasparente per un marchio leader mondiale nell'ottica di precisione."
+      }
+    }
+  };
+
+  // Cache original Portuguese contents on boot
+  function cachePortugueseContent() {
+    originalPT.ui = {
+      docTitle: document.title,
+      slidesBtn: document.getElementById('btn-drawer') ? document.getElementById('btn-drawer').innerText.trim() : 'Slides',
+      drawerTitle: document.querySelector('.drawer-header h3') ? document.querySelector('.drawer-header h3').innerText : 'Índice de Slides',
+      drawerSub: document.querySelector('.drawer-header p') ? document.querySelector('.drawer-header p').innerText : '15 seções estratégicas estruturadas para o ciclo de 30 dias',
+      counterOf: 'de'
+    };
+
+    originalPT.drawerTitles = [];
+    document.querySelectorAll('.drawer-item-text').forEach((item) => {
+      originalPT.drawerTitles.push(item.innerText.trim());
+    });
+
+    originalPT.slidesHTML = {};
+    document.querySelectorAll('.slide').forEach((slide, idx) => {
+      originalPT.slidesHTML[idx] = slide.innerHTML;
+    });
+  }
+
+  // Language setter function
+  function setLanguage(lang) {
+    if (lang !== 'pt' && lang !== 'it') lang = 'pt';
+    currentLang = lang;
+
+    // Update switcher buttons
+    document.querySelectorAll('.btn-lang').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    document.documentElement.lang = lang === 'it' ? 'it' : 'pt-BR';
+    localStorage.setItem('univet_deck_lang', lang);
+
+    if (lang === 'pt') {
+      // Restore Portuguese
+      if (originalPT.ui) {
+        document.title = originalPT.ui.docTitle;
+        const drawerTitle = document.querySelector('.drawer-header h3');
+        if (drawerTitle) drawerTitle.innerText = originalPT.ui.drawerTitle;
+        const drawerSub = document.querySelector('.drawer-header p');
+        if (drawerSub) drawerSub.innerText = originalPT.ui.drawerSub;
+      }
+      if (originalPT.drawerTitles) {
+        document.querySelectorAll('.drawer-item-text').forEach((item, idx) => {
+          if (originalPT.drawerTitles[idx]) item.innerText = originalPT.drawerTitles[idx];
+        });
+      }
+      document.querySelectorAll('.slide').forEach((slide, idx) => {
+        if (originalPT.slidesHTML && originalPT.slidesHTML[idx]) {
+          slide.innerHTML = originalPT.slidesHTML[idx];
+        }
+      });
+      updateUI();
+      return;
+    }
+
+    // Apply Italian
+    document.title = translationsIT.ui.docTitle;
+    const drawerTitle = document.querySelector('.drawer-header h3');
+    if (drawerTitle) drawerTitle.innerText = translationsIT.ui.drawerTitle;
+    const drawerSub = document.querySelector('.drawer-header p');
+    if (drawerSub) drawerSub.innerText = translationsIT.ui.drawerSub;
+
+    document.querySelectorAll('.drawer-item-text').forEach((item, idx) => {
+      if (translationsIT.drawerTitles[idx]) item.innerText = translationsIT.drawerTitles[idx];
+    });
+
+    // Translate each slide
+    renderSlideItalian(0);
+    renderSlideItalian(1);
+    renderSlideItalian(2);
+    renderSlideItalian(3);
+    renderSlideItalian(4);
+    renderSlideItalian(5);
+    renderSlideItalian(6);
+    renderSlideItalian(7);
+    renderSlideItalian(8);
+    renderSlideItalian(9);
+    renderSlideItalian(10);
+    renderSlideItalian(11);
+    renderSlideItalian(12);
+    renderSlideItalian(13);
+    renderSlideItalian(14);
+
+    updateUI();
+  }
+
+  function renderSlideItalian(idx) {
+    const slide = document.querySelector(`.slide[data-slide-index="${idx}"]`);
+    if (!slide) return;
+    const t = translationsIT.slides[idx];
+    if (!t) return;
+
+    if (idx === 0) {
+      const eyebrow = slide.querySelector('.eyebrow');
+      if (eyebrow) eyebrow.innerText = t.eyebrow;
+      const title = slide.querySelector('h1.slide-title');
+      if (title) title.innerHTML = t.title;
+      const subtitle = slide.querySelector('.slide-lead b');
+      if (subtitle) subtitle.innerText = t.subtitle;
+      const leadText = slide.querySelector('.slide-lead span');
+      if (leadText) leadText.innerText = t.lead;
+      const pills = slide.querySelectorAll('.pill');
+      if (pills[0]) pills[0].innerText = t.pill1;
+      if (pills[1]) pills[1].innerText = t.pill2;
+      if (pills[2]) pills[2].innerText = t.pill3;
+      if (pills[3]) pills[3].innerText = t.pill4;
+      const b1 = slide.querySelectorAll('.brand-card-desc');
+      if (b1[0]) {
+        const strong = b1[0].querySelector('strong');
+        const p = b1[0].querySelector('p');
+        if (strong) strong.innerText = t.badge1;
+        if (p) p.innerText = t.badge1Sub;
+      }
+      if (b1[1]) {
+        const strong = b1[1].querySelector('strong');
+        const p = b1[1].querySelector('p');
+        if (strong) strong.innerText = t.badge2;
+        if (p) p.innerText = t.badge2Sub;
+      }
+    } else if (idx === 1) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) {
+        cards[0].querySelector('.tag-num').innerText = t.c1Tag;
+        cards[0].querySelector('h3').innerText = t.c1H3;
+        cards[0].querySelector('h4').innerText = t.c1H4;
+        cards[0].querySelector('p').innerText = t.c1P;
+      }
+      if (cards[1]) {
+        cards[1].querySelector('.tag-num').innerText = t.c2Tag;
+        cards[1].querySelector('h3').innerText = t.c2H3;
+        cards[1].querySelector('h4').innerText = t.c2H4;
+        cards[1].querySelector('p').innerText = t.c2P;
+      }
+      if (cards[2]) {
+        cards[2].querySelector('.tag-num').innerText = t.c3Tag;
+        cards[2].querySelector('h3').innerText = t.c3H3;
+        cards[2].querySelector('h4').innerText = t.c3H4;
+        cards[2].querySelector('p').innerText = t.c3P;
+      }
+    } else if (idx === 2) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) {
+        cards[0].querySelector('.tag-num').innerText = t.e1Tag;
+        cards[0].querySelector('h3').innerText = t.e1H3;
+        cards[0].querySelector('h4').innerText = t.e1H4;
+        cards[0].querySelector('ul').innerHTML = t.e1Ul;
+      }
+      if (cards[1]) {
+        cards[1].querySelector('.tag-num').innerText = t.e2Tag;
+        cards[1].querySelector('h3').innerText = t.e2H3;
+        cards[1].querySelector('h4').innerText = t.e2H4;
+        cards[1].querySelector('ul').innerHTML = t.e2Ul;
+      }
+      if (cards[2]) {
+        cards[2].querySelector('.tag-num').innerText = t.e3Tag;
+        cards[2].querySelector('h3').innerText = t.e3H3;
+        cards[2].querySelector('h4').innerText = t.e3H4;
+        cards[2].querySelector('ul').innerHTML = t.e3Ul;
+      }
+      if (cards[3]) {
+        cards[3].querySelector('.tag-num').innerText = t.e4Tag;
+        cards[3].querySelector('h3').innerText = t.e4H3;
+        cards[3].querySelector('h4').innerText = t.e4H4;
+        cards[3].querySelector('ul').innerHTML = t.e4Ul;
+      }
+      if (cards[4]) {
+        cards[4].querySelector('.tag-num').innerText = t.e5Tag;
+        cards[4].querySelector('h3').innerText = t.e5H3;
+        cards[4].querySelector('h4').innerText = t.e5H4;
+        cards[4].querySelector('ul').innerHTML = t.e5Ul;
+      }
+    } else if (idx === 3) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('p').innerText = t.c1P; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('p').innerText = t.c2P; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('p').innerText = t.c3P; }
+      if (cards[3]) {
+        cards[3].querySelector('.tag-num').innerText = t.a1Tag;
+        cards[3].querySelector('h3').innerText = t.a1H3;
+        const ps = cards[3].querySelectorAll('p');
+        if (ps[0]) ps[0].innerText = t.a1P1;
+        if (ps[1]) ps[1].innerText = t.a1P2;
+      }
+      if (cards[4]) {
+        cards[4].querySelector('.tag-num').innerText = t.a2Tag;
+        cards[4].querySelector('h3').innerText = t.a2H3;
+        const ps = cards[4].querySelectorAll('p');
+        if (ps[0]) ps[0].innerText = t.a2P1;
+        if (ps[1]) ps[1].innerText = t.a2P2;
+      }
+      if (cards[5]) {
+        cards[5].querySelector('.tag-num').innerText = t.a3Tag;
+        cards[5].querySelector('h3').innerText = t.a3H3;
+        const ps = cards[5].querySelectorAll('p');
+        if (ps[0]) ps[0].innerText = t.a3P1;
+        if (ps[1]) ps[1].innerText = t.a3P2;
+      }
+    } else if (idx === 4) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const ths = slide.querySelectorAll('th');
+      if (ths[0]) ths[0].innerText = t.th1;
+      if (ths[1]) ths[1].innerText = t.th2;
+      if (ths[2]) ths[2].innerText = t.th3;
+      if (ths[3]) ths[3].innerText = t.th4;
+      const trs = slide.querySelectorAll('tbody tr');
+      if (trs[0]) { trs[0].children[0].innerHTML = `<b>${t.r1T}</b>`; trs[0].children[1].innerText = t.r1H; trs[0].children[2].innerText = t.r1V; trs[0].children[3].innerHTML = t.r1S; }
+      if (trs[1]) { trs[1].children[0].innerHTML = `<b>${t.r2T}</b>`; trs[1].children[1].innerText = t.r2H; trs[1].children[2].innerText = t.r2V; trs[1].children[3].innerText = t.r2S; }
+      if (trs[2]) { trs[2].children[0].innerHTML = `<b>${t.r3T}</b>`; trs[2].children[1].innerText = t.r3H; trs[2].children[2].innerText = t.r3V; trs[2].children[3].innerText = t.r3S; }
+      if (trs[3]) { trs[3].children[0].innerHTML = `<b>${t.r4T}</b>`; trs[3].children[1].innerText = t.r4H; trs[3].children[2].innerText = t.r4V; trs[3].children[3].innerText = t.r4S; }
+      if (trs[4]) { trs[4].children[0].innerHTML = `<b>${t.r5T}</b>`; trs[4].children[1].innerText = t.r5H; trs[4].children[2].innerText = t.r5V; trs[4].children[3].innerText = t.r5S; }
+      const bottomCard = slide.querySelector('.card p');
+      if (bottomCard) bottomCard.innerHTML = t.ruleText;
+    } else if (idx === 5) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('p').innerText = t.c1P; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('p').innerText = t.c2P; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('p').innerText = t.c3P; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+      if (cards[3]) { cards[3].querySelector('.tag-num').innerText = t.c4Tag; cards[3].querySelector('h3').innerText = t.c4H3; cards[3].querySelector('p').innerText = t.c4P; cards[3].querySelector('ul').innerHTML = t.c4Ul; }
+    } else if (idx === 6) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+    } else if (idx === 7) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+    } else if (idx === 8) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('h4').innerText = t.c1H4; cards[0].querySelector('p').innerText = t.c1P; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('h4').innerText = t.c2H4; cards[1].querySelector('p').innerText = t.c2P; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('h4').innerText = t.c3H4; cards[2].querySelector('p').innerText = t.c3P; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+    } else if (idx === 9) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+    } else if (idx === 10) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const ths = slide.querySelectorAll('th');
+      if (ths[0]) ths[0].innerText = t.th1;
+      if (ths[1]) ths[1].innerText = t.th2;
+      if (ths[2]) ths[2].innerText = t.th3;
+      if (ths[3]) ths[3].innerText = t.th4;
+      const trs = slide.querySelectorAll('tbody tr');
+      if (trs[0]) { trs[0].children[1].innerText = t.r1; trs[0].children[3].innerText = "G1–G3"; }
+      if (trs[1]) { trs[1].children[1].innerText = t.r2; trs[1].children[3].innerText = "G1–G5"; }
+      if (trs[2]) { trs[2].children[1].innerText = t.r3; trs[2].children[3].innerText = "G3–G6"; }
+      if (trs[3]) { trs[3].children[1].innerText = t.r4; trs[3].children[3].innerText = "G2–G7"; }
+      if (trs[4]) { trs[4].children[1].innerText = t.r5; trs[4].children[3].innerText = "G5–G10"; }
+      if (trs[5]) { trs[5].children[1].innerText = t.r6; trs[5].children[3].innerText = "G7–G15"; }
+      if (trs[6]) { trs[6].children[1].innerText = t.r7; trs[6].children[3].innerText = "G8–G30"; }
+      if (trs[7]) { trs[7].children[1].innerText = t.r8; trs[7].children[3].innerText = "G12–G20"; }
+    } else if (idx === 11) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('h4').innerText = t.c1H4; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('h4').innerText = t.c2H4; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('h4').innerText = t.c3H4; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+    } else if (idx === 12) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+    } else if (idx === 13) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) cards[0].querySelector('p').innerHTML = t.d1;
+      if (cards[1]) cards[1].querySelector('p').innerHTML = t.d2;
+      if (cards[2]) cards[2].querySelector('p').innerHTML = t.d3;
+      if (cards[3]) cards[3].querySelector('p').innerHTML = t.d4;
+      if (cards[4]) cards[4].querySelector('p').innerHTML = t.d5;
+      if (cards[5]) cards[5].querySelector('p').innerHTML = t.d6;
+      if (cards[6]) cards[6].querySelector('p').innerHTML = t.d7;
+      if (cards[7]) cards[7].querySelector('p').innerHTML = t.d8;
+      if (cards[8]) cards[8].querySelector('p').innerHTML = t.d9;
+      if (cards[9]) cards[9].querySelector('p').innerHTML = t.d10;
+    } else if (idx === 14) {
+      slide.querySelector('.eyebrow').innerText = t.eyebrow;
+      slide.querySelector('h2.slide-heading').innerHTML = t.heading;
+      slide.querySelector('p.slide-lead').innerText = t.lead;
+      const cards = slide.querySelectorAll('.card');
+      if (cards[0]) { cards[0].querySelector('.tag-num').innerText = t.c1Tag; cards[0].querySelector('h3').innerText = t.c1H3; cards[0].querySelector('ul').innerHTML = t.c1Ul; }
+      if (cards[1]) { cards[1].querySelector('.tag-num').innerText = t.c2Tag; cards[1].querySelector('h3').innerText = t.c2H3; cards[1].querySelector('ul').innerHTML = t.c2Ul; }
+      if (cards[2]) { cards[2].querySelector('.tag-num').innerText = t.c3Tag; cards[2].querySelector('h3').innerText = t.c3H3; cards[2].querySelector('ul').innerHTML = t.c3Ul; }
+      const banner = slide.querySelector('.card.highlight p');
+      if (banner) banner.innerText = t.bannerText;
+    }
+  }
+
+
+  // Keyboard navigation
       window.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
@@ -1551,6 +2233,19 @@
       }
 
       updateUI();
+
+      // Initialize Bilingual i18n
+      cachePortugueseContent();
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialLang = urlParams.get('lang') || localStorage.getItem('univet_deck_lang') || 'pt';
+      if (initialLang === 'it') {
+        setLanguage('it');
+      }
+
+      const btnPt = document.getElementById('lang-btn-pt');
+      const btnIt = document.getElementById('lang-btn-it');
+      if (btnPt) btnPt.addEventListener('click', () => setLanguage('pt'));
+      if (btnIt) btnIt.addEventListener('click', () => setLanguage('it'));
     })();
   </script>
 </body>
