@@ -669,49 +669,110 @@
       opacity: 0.6;
     }
 
-    /* Print rules for 100% accurate PDF generation */
+    /* Print rules for 100% accurate, unclipped PDF generation in A4 Landscape */
+    @page {
+      size: 297mm 210mm;
+      margin: 0;
+    }
+
     @media print {
-      html, body {
-        overflow: visible !important;
-        height: auto !important;
-        background: #081711 !important;
-        color: #F0F4F2 !important;
+      *, *::before, *::after {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
-      .ambient-bg, .controls-bar, .drawer-overlay {
+      html, body {
+        width: 297mm !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #081711 !important;
+        color: #F0F4F2 !important;
+        overflow: visible !important;
+      }
+      .ambient-bg, .controls-bar, .drawer-overlay, button[onclick*="print"] {
         display: none !important;
       }
       .deck-viewport {
+        width: 297mm !important;
         height: auto !important;
         padding: 0 !important;
+        margin: 0 !important;
         display: block !important;
+        overflow: visible !important;
+        position: static !important;
       }
       .slide-stage {
+        width: 297mm !important;
         max-width: none !important;
         max-height: none !important;
         height: auto !important;
         display: block !important;
+        overflow: visible !important;
+        position: static !important;
         border: none !important;
         box-shadow: none !important;
         border-radius: 0 !important;
+        background: transparent !important;
       }
       .slide {
-        position: relative !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        min-height: 210mm !important;
+        max-height: 210mm !important;
+        box-sizing: border-box !important;
         page-break-after: always !important;
         break-after: page !important;
-        height: 100vh !important;
-        min-height: 100vh !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        padding: 16mm 22mm !important;
+        margin: 0 !important;
         border-radius: 0 !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 40px !important;
-        margin: 0 !important;
         background: #081711 !important;
-        display: block !important;
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+      }
+
+      /* Compact density for print tables to prevent any overflow */
+      .slide table.custom-table th {
+        padding: 5px 8px !important;
+        font-size: 9.5px !important;
+      }
+      .slide table.custom-table td {
+        padding: 4px 8px !important;
+        font-size: 10px !important;
+        line-height: 1.25 !important;
+      }
+      .slide .card {
+        padding: 10px 14px !important;
+        gap: 5px !important;
+      }
+      .slide .card p, .slide .card ul li {
+        font-size: 10.5px !important;
+        line-height: 1.35 !important;
+      }
+      .slide .metric-big {
+        font-size: 22px !important;
+      }
+      .slide-title {
+        font-size: 26px !important;
+      }
+      .slide-heading {
+        font-size: 22px !important;
+      }
+      .slide-lead {
+        font-size: 11.5px !important;
+        line-height: 1.35 !important;
+      }
+      .slide .pill {
+        padding: 3px 8px !important;
+        font-size: 9.5px !important;
       }
 
       /* Language visibility in print */
@@ -874,6 +935,13 @@
             <div class="eyebrow">01 · Norte Estratégico</div>
             <h2 class="slide-heading">O que queremos construir no <span>primeiro mês</span></h2>
             <p class="slide-lead">A meta não é apenas "veicular anúncios". É estruturar uma máquina previsível onde mídia de precisão, posicionamento orgânico, conversão no site e fechamento comercial compartilham as mesmas métricas.</p>
+            <div class="pill-row" style="margin-top: 6px; margin-bottom: 2px;">
+              <span class="pill" style="border-color: rgba(58, 201, 123, 0.35); color: var(--accent-menta); font-weight: 700;">📊 DADOS DE MERCADO (CFO / CFM / OMS):</span>
+              <span class="pill">400k+ Cirurgiões-Dentistas (#1 Global)</span>
+              <span class="pill">65k+ Médicos Cirurgiões</span>
+              <span class="pill">72% Prevalência de Dores Cervicais</span>
+              <span class="pill">+2,5M Implantes/ano</span>
+            </div>
           </div>
           <div class="grid-2">
             <div class="card highlight" style="padding: 28px;">
@@ -898,6 +966,13 @@
             <div class="eyebrow">01 · Nord Strategico</div>
             <h2 class="slide-heading">Cosa vogliamo costruire nel <span>primo mese</span></h2>
             <p class="slide-lead">L'obiettivo non è semplicemente "pubblicare inserzioni". È strutturare una macchina prevedibile in cui paid media di precisione, posizionamento organico, conversione web e chiusura commerciale condividono le medesime metriche.</p>
+            <div class="pill-row" style="margin-top: 6px; margin-bottom: 2px;">
+              <span class="pill" style="border-color: rgba(58, 201, 123, 0.35); color: var(--accent-menta); font-weight: 700;">📊 DATI DI MERCATO (CFO / CFM / OMS):</span>
+              <span class="pill">400k+ Odontoiatri in Brasile (#1 al Mondo)</span>
+              <span class="pill">65k+ Chirurghi Medici</span>
+              <span class="pill">72% Dolori Cervicali Cronici</span>
+              <span class="pill">2,5M+ Impianti/anno</span>
+            </div>
           </div>
           <div class="grid-2">
             <div class="card highlight" style="padding: 28px;">
@@ -1066,9 +1141,9 @@
               <p>Especialistas com alta demanda de precisão óssea, consultórios privados de alto ticket e rápida tomada de decisão.</p>
             </div>
             <div class="card">
-              <div class="tag-num">CLUSTER 03 & 04</div>
-              <h3>Ergonomia & Performance</h3>
-              <p>Profissionais com dores cervicais buscando longevidade de carreira e máximo controle milimétrico.</p>
+              <div class="tag-num">CLUSTER 03 & 04 · DADOS OMS</div>
+              <h3>Ergonomia & Longevidade</h3>
+              <p>Pesquisa clínica: 72% relatam dor cervical crônica. A lupa Univet atua como ativo de saúde preventiva e extensão de carreira.</p>
             </div>
             <div class="card">
               <div class="tag-num">CLUSTER 05 & 06</div>
@@ -1110,9 +1185,9 @@
               <p>Specialisti con massima esigenza di accuratezza ossea, studi privati ad alto ticket e rapidità decisionale.</p>
             </div>
             <div class="card">
-              <div class="tag-num">CLUSTER 03 & 04</div>
-              <h3>Ergonomia & Performance</h3>
-              <p>Professionisti con affaticamento posturale che cercano longevità professionale e massimo controllo millimetrico.</p>
+              <div class="tag-num">CLUSTER 03 & 04 · DATI OMS</div>
+              <h3>Ergonomia & Longevità</h3>
+              <p>Dati clinici: il 72% soffre di cervicalgia cronica. I sistemi Univet agiscono come prevenzione attiva e salvaguardia della carriera.</p>
             </div>
             <div class="card">
               <div class="tag-num">CLUSTER 05 & 06</div>
