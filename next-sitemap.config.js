@@ -1,6 +1,7 @@
 module.exports = {
   siteUrl: 'https://www.evergreenmkt.com.br',
   generateRobotsTxt: true, // Gerar robots.txt automaticamente
+  generateIndexSitemap: false, // Gerar um único sitemap.xml direto (<urlset>), sem criar índice sitemap-0.xml
   robotsTxtOptions: {
     policies: [{ userAgent: '*', allow: '/' }]
   },
