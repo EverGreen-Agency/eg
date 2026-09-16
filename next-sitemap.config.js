@@ -2,10 +2,7 @@ module.exports = {
   siteUrl: 'https://www.evergreenmkt.com.br',
   generateRobotsTxt: true, // Gerar robots.txt automaticamente
   robotsTxtOptions: {
-    policies: [{ userAgent: '*', allow: '/' }],
-    additionalSitemaps: [
-      'https://www.evergreenmkt.com.br/sitemap.xml' // Você pode adicionar outros sitemaps aqui se necessário
-    ]
+    policies: [{ userAgent: '*', allow: '/' }]
   },
   exclude: ['/api/*', '/server-sitemap.xml'] // Excluir rotas de API e o sitemap do servidor (se você usar geração dinâmica)
   // Para rotas dinâmicas, você pode precisar de uma função para gerar os paths,
