@@ -270,7 +270,7 @@ export default function AutoridadeClient({ initialCases }: { initialCases: CaseS
                 title: 'Kommo Partners Oficial',
                 image: '/images/kommopartner.png',
                 description: 'Integradores certificados em implantação de CRM conversacional e Salesbots no Brasil.',
-                link: '/kommo_partners'
+                link: '/kommo-partners'
               },
               {
                 title: 'EG IA Architect',
