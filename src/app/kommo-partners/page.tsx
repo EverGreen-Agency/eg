@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     'CRM para WhatsApp',
     'EverGreen',
   ],
-  alternates: { canonical: '/kommo_partners' },
-  openGraph: { title, description, url: '/kommo_partners', type: 'website', siteName: 'EverGreen', locale: 'pt_BR' },
+  alternates: { canonical: '/kommo-partners' },
+  openGraph: { title, description, url: '/kommo-partners', type: 'website', siteName: 'EverGreen', locale: 'pt_BR' },
   twitter: { card: 'summary_large_image', title, description },
 }
 
@@ -38,7 +38,7 @@ const schema = [
     serviceType: 'implantação de CRM',
     areaServed: { '@type': 'Country', name: 'Brasil' },
     provider: { '@id': `${SITE}/#organization` },
-    url: `${SITE}/kommo_partners`,
+    url: `${SITE}/kommo-partners`,
   },
   {
     '@context': 'https://schema.org',

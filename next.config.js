@@ -41,6 +41,9 @@ nextConfig.redirects = async () => [
     permanent: true
   },
 
+  // Padronizacao de nomenclatura de rota
+  { source: '/kommo_partners', destination: '/kommo-partners', permanent: true },
+
   // Institucional: quem procurava holding/investidores quer saber quem é a empresa
   { source: '/investidores', destination: '/sobre', permanent: true },
   { source: '/holding', destination: '/sobre', permanent: true },

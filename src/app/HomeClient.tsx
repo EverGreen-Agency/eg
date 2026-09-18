@@ -403,7 +403,7 @@ export default function Home() {
                 mensagens. WhatsApp, Instagram e Facebook centralizados em um só lugar.
               </p>
               <Link
-                href="/kommo_partners"
+                href="/kommo-partners"
                 className="inline-flex items-center gap-2 text-sm font-medium text-menta hover:text-baunilha transition-colors"
               >
                 Conheça os serviços Kommo <span aria-hidden>→</span>

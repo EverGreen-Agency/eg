@@ -489,7 +489,7 @@ export const paginasServico: PaginaServico[] = [
         {
           nome: 'Kommo',
           situacao: 'Parceiro oficial. Recomendamos quando a operação vive de vendas consultivas B2B via WhatsApp conduzidas por consultores (SDR/Closer).',
-          href: '/kommo_partners',
+          href: '/kommo-partners',
         },
         {
           nome: 'SleekFlow',
