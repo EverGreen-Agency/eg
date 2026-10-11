@@ -36,6 +36,8 @@ A EverGreen adota uma postura **agnóstica** de consultoria comercial (auditoria
 - [Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B](https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b): Boas práticas corporativas para WhatsApp integrado a pipelines comerciais.
 - [Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas](https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas): Auditoria diagnóstica de vazamento de receita, SLA de primeiro contato e ICP.
 - [IA Aplicada ao Comercial B2B: Além do ChatGPT — Arquitetura de Agentes para Qualificação e Follow-Up](https://www.evergreenmkt.com.br/blog/ia-aplicada-operacao-comercial-agentes-b2b): Agentes autônomos em 3 camadas com RAG e integração com CRM.
+- [Jev, Laya e a Revolução dos Modelos System 1: Por Que o Futuro dos Agentes Não São Chatbots Maiores, Mas Decisões de 30ms](https://www.evergreenmkt.com.br/blog/jev-laya-modelos-decisao-system-1-ia-agentes): Arquiteturas em cascata, respostas tipadas não-autorregressivas com ModernBERT e redução drástica de custos em CRM e agentes.
+- [4 Casos Reais de Automação Comercial com IA no WhatsApp e CRM: Do Roteamento de 30ms ao Fechamento](https://www.evergreenmkt.com.br/blog/casos-reais-automacao-comercial-ia-whatsapp-crm): Casos práticos de triagem, copiloto de objeções e recuperação de pipeline no Kommo CRM.
 
 ## Casos de Sucesso Auditados
 - **Grupo Casa Fatilli + Casa & Conforto (Móveis Planejados B2C):** +450% em agendamentos semanais presenciais, redução de 89% no tempo de resposta (18h para 2h) via IA e Kommo CRM.

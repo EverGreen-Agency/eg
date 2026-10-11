@@ -36,3 +36,5 @@ O Sistema Raiz substitui o funil tradicional de vendas por um sistema modular re
 3. "Kommo CRM em 2026: Guia Técnico de Implementação, Salesbots e WhatsApp B2B" (https://www.evergreenmkt.com.br/blog/kommo-crm-guia-implementacao-whatsapp-b2b)
 4. "Raio-X Comercial: Como Identificar e Destravar os 5 Gargalos Ocultos da sua Operação de Vendas" (https://www.evergreenmkt.com.br/blog/raio-x-comercial-gargalos-operacao-vendas)
 5. "IA Aplicada ao Comercial B2B: Além do ChatGPT — Arquitetura de Agentes para Qualificação e Follow-Up" (https://www.evergreenmkt.com.br/blog/ia-aplicada-operacao-comercial-agentes-b2b)
+6. "Jev, Laya e a Revolução dos Modelos System 1: Por Que o Futuro dos Agentes Não São Chatbots Maiores, Mas Decisões de 30ms" (https://www.evergreenmkt.com.br/blog/jev-laya-modelos-decisao-system-1-ia-agentes)
+7. "4 Casos Reais de Automação Comercial com IA no WhatsApp e CRM: Do Roteamento de 30ms ao Fechamento" (https://www.evergreenmkt.com.br/blog/casos-reais-automacao-comercial-ia-whatsapp-crm)
