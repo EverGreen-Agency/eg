@@ -72,6 +72,9 @@ export function markdownToHtml(markdown: string): string {
   // Inline code `code`
   html = html.replace(/`([^`]+)`/g, '<code class="bg-[#05130E] border border-[#3AC97B]/20 px-1.5 py-0.5 rounded text-sm text-[#3AC97B] font-mono">$1</code>')
 
+  // Images ![alt](url)
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<figure class="my-8 rounded-xl overflow-hidden border border-[#3AC97B]/20 shadow-2xl bg-[#05130E]"><img src="$2" alt="$1" class="w-full h-auto object-cover" /><figcaption class="p-3 text-center text-xs md:text-sm text-[#FFF4C7]/60 italic border-t border-[#3AC97B]/10 bg-[#05130E]/80">$1</figcaption></figure>')
+
   // Links [text](url)
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-[#3AC97B] underline underline-offset-4 hover:text-[#3AC97B]/80 transition-colors font-medium">$1</a>')
 
@@ -81,13 +84,32 @@ export function markdownToHtml(markdown: string): string {
   // Ordered list items 1. list item
   html = html.replace(/^\s*\d+\.\s+(.*$)/gim, '<li class="text-[#FFF4C7]/80 leading-relaxed mb-2 list-decimal list-inside">$1</li>')
 
+  // Tables | col | col |
+  html = html.replace(/((?:\|[^\n]+\|\r?\n)+)/g, (match) => {
+    const lines = match.trim().split(/\r?\n/).filter(line => line.trim().startsWith('|'))
+    if (lines.length < 2) return match
+
+    const isDelimiter = /^\|(?:\s*:?-+:?\s*\|)+$/.test(lines[1].trim())
+    if (!isDelimiter) return match
+
+    const headerCells = lines[0].split('|').slice(1, -1).map(c => c.trim())
+    const headerHtml = `<thead><tr class="border-b border-[#3AC97B]/30 bg-[#3AC97B]/10">${headerCells.map(c => `<th class="px-4 py-3 text-left font-bold text-[#3AC97B] text-sm md:text-base">${c}</th>`).join('')}</tr></thead>`
+
+    const bodyRows = lines.slice(2).map(row => {
+      const cells = row.split('|').slice(1, -1).map(c => c.trim())
+      return `<tr class="border-b border-[#3AC97B]/10 hover:bg-[#3AC97B]/5 transition-colors">${cells.map(c => `<td class="px-4 py-3 text-sm md:text-base text-[#FFF4C7]/80">${c}</td>`).join('')}</tr>`
+    }).join('')
+
+    return `<div class="overflow-x-auto my-8 border border-[#3AC97B]/20 rounded-xl shadow-lg bg-[#05130E]/50"><table class="w-full text-left border-collapse">${headerHtml}<tbody>${bodyRows}</tbody></table></div>`
+  })
+
   // Paragraphs
   const blocks = html.split(/\r?\n\r?\n/)
   html = blocks
     .map((block) => {
       block = block.trim()
       if (!block) return ''
-      if (block.startsWith('<h') || block.startsWith('<pre') || block.startsWith('<blockquote') || block.startsWith('<li') || block.startsWith('<div')) {
+      if (block.startsWith('<h') || block.startsWith('<pre') || block.startsWith('<blockquote') || block.startsWith('<li') || block.startsWith('<div') || block.startsWith('<table') || block.startsWith('<figure')) {
         return block
       }
       return `<p class="text-[#FFF4C7]/80 text-base md:text-lg leading-relaxed mb-6 font-normal">${block.replace(/\r?\n/g, '<br />')}</p>`
