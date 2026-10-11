@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaWhatsapp } from 'react-icons/fa';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -129,33 +128,10 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status.loading}
-        className="w-full px-8 py-4 text-lg font-medium rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-8 py-4 text-base md:text-lg font-semibold rounded-xl text-[#09231B] bg-[#3AC97B] hover:bg-[#3AC97B]/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {status.loading ? 'Enviando...' : 'Bora escalar isso juntos 🚀'}
+        {status.loading ? 'Enviando...' : 'Enviar Mensagem'}
       </button>
-
-      <div className="relative flex py-2 items-center">
-        <div className="flex-grow border-t border-[#3AC97B]/20"></div>
-        <span className="flex-shrink-0 mx-4 text-[#FFF4C7]/50 text-sm">Ou fale diretamente</span>
-        <div className="flex-grow border-t border-[#3AC97B]/20"></div>
-      </div>
-
-      <a
-        href="https://wa.me/5511989966989"
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => {
-          try {
-            const target = window as typeof window & { dataLayer?: Record<string, unknown>[] }
-            target.dataLayer = target.dataLayer || []
-            target.dataLayer.push({ event: 'whatsapp_clicked', source: 'contact_page' })
-          } catch {}
-        }}
-        className="w-full flex items-center justify-center gap-3 px-8 py-4 text-lg font-medium rounded-xl text-[#FFF4C7] bg-[#25D366]/10 border border-[#25D366]/50 hover:bg-[#25D366]/20 transition-all duration-300"
-      >
-        <FaWhatsapp className="text-2xl text-[#25D366]" />
-        Chamar no WhatsApp
-      </a>
     </form>
   );
 }

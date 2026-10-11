@@ -1,7 +1,8 @@
 'use client'
 
 import ContactForm from '@/components/ContactForm'
-import { ChatBubbleLeftRightIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import { EnvelopeIcon } from '@heroicons/react/24/outline'
+import { FaWhatsapp } from 'react-icons/fa'
 import PageHeader from '@/components/brand/PageHeader'
 
 const bullets = [
@@ -43,20 +44,28 @@ export default function ContatoPage() {
             <div className="order-1 md:order-2">
               <h2 className="text-2xl font-bold text-baunilha mb-8">Prefere um canal mais rápido?</h2>
               <div className="space-y-6">
-                <div className="flex items-start gap-4 border hairline p-6">
-                  <div className="w-11 h-11 rounded-full bg-menta/10 flex items-center justify-center shrink-0">
-                    <ChatBubbleLeftRightIcon className="h-6 w-6 text-menta" />
+                <div className="flex items-start gap-4 border hairline p-6 bg-menta/5 rounded-xl">
+                  <div className="w-12 h-12 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 flex items-center justify-center shrink-0">
+                    <FaWhatsapp className="h-6 w-6 text-[#25D366]" />
                   </div>
                   <div>
                     <h3 className="font-bold text-lg text-baunilha mb-1">WhatsApp</h3>
                     <p className="text-baunilha/65 mb-4">Resposta em minutos no horário comercial</p>
                     <a
-                      href="https://wa.me/5511959780701"
+                      href="https://wa.me/5511989966989?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20a%20EverGreen%20e%20o%20diagn%C3%B3stico%20comercial."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 rounded-full bg-menta text-musgo font-semibold hover:bg-baunilha transition-colors duration-300"
+                      onClick={() => {
+                        try {
+                          const target = window as typeof window & { dataLayer?: Record<string, unknown>[] }
+                          target.dataLayer = target.dataLayer || []
+                          target.dataLayer.push({ event: 'whatsapp_clicked', source: 'contact_page' })
+                        } catch {}
+                      }}
+                      className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#25D366]/15 text-[#FFF4C7] border border-[#25D366]/40 hover:bg-[#25D366]/25 transition-all duration-300 font-medium"
                     >
-                      Falar no WhatsApp
+                      <FaWhatsapp className="text-xl text-[#25D366]" />
+                      Chamar no WhatsApp
                     </a>
                   </div>
                 </div>
