@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020B08" />
+      <stop offset="100%" stop-color="#081E15" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E2B1E" />
+      <stop offset="100%" stop-color="#05140D" />
+    </linearGradient>
+    <linearGradient id="greenAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3AC97B" />
+      <stop offset="100%" stop-color="#1E7A47" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" rx="16" fill="url(#bgGrad)" stroke="#3AC97B" stroke-opacity="0.2" stroke-width="2" />
+
+  <!-- Grid overlay lines -->
+  <g stroke="#3AC97B" stroke-opacity="0.05" stroke-width="1">
+    <line x1="0" y1="80" x2="960" y2="80" />
+    <line x1="0" y1="160" x2="960" y2="160" />
+    <line x1="0" y1="240" x2="960" y2="240" />
+    <line x1="0" y1="320" x2="960" y2="320" />
+    <line x1="0" y1="400" x2="960" y2="400" />
+    <line x1="160" y1="0" x2="160" y2="480" />
+    <line x1="320" y1="0" x2="320" y2="480" />
+    <line x1="480" y1="0" x2="480" y2="480" />
+    <line x1="640" y1="0" x2="640" y2="480" />
+    <line x1="800" y1="0" x2="800" y2="480" />
+  </g>
+
+  <!-- Header Badge -->
+  <rect x="40" y="32" width="280" height="32" rx="16" fill="#3AC97B" fill-opacity="0.1" stroke="#3AC97B" stroke-width="1" stroke-opacity="0.3" />
+  <text x="56" y="53" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#3AC97B" letter-spacing="1">ARQUITETURA EM CASCATA · SYSTEM 1</text>
+
+  <!-- Title -->
+  <text x="40" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#FFF4C7">Roteamento Especulativo de Decisão (Jev / Laya)</text>
+
+  <!-- Stage 1: Ingestion -->
+  <g transform="translate(40, 140)">
+    <rect width="210" height="240" rx="12" fill="url(#cardGrad)" stroke="#3AC97B" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect x="16" y="16" width="36" height="36" rx="8" fill="#3AC97B" fill-opacity="0.15" />
+    <text x="28" y="40" font-family="system-ui" font-size="18" fill="#3AC97B">📥</text>
+    <text x="64" y="32" font-family="system-ui" font-size="11" font-weight="700" fill="#3AC97B" letter-spacing="0.5">FASE 1 · INGESTÃO</text>
+    <text x="64" y="48" font-family="system-ui" font-size="15" font-weight="700" fill="#FFF4C7">Eventos Comerciais</text>
+    
+    <g transform="translate(16, 75)" font-family="system-ui" font-size="13" fill="#FFF4C7" fill-opacity="0.8">
+      <rect width="178" height="36" rx="6" fill="#020B08" fill-opacity="0.6" stroke="#3AC97B" stroke-opacity="0.2" />
+      <text x="12" y="23">• WhatsApp (Kommo)</text>
+      <rect y="46" width="178" height="36" rx="6" fill="#020B08" fill-opacity="0.6" stroke="#3AC97B" stroke-opacity="0.2" />
+      <text x="12" y="69">• E-mails / Tickets</text>
+      <rect y="92" width="178" height="36" rx="6" fill="#020B08" fill-opacity="0.6" stroke="#3AC97B" stroke-opacity="0.2" />
+      <text x="12" y="115">• Objeções do Lead</text>
+    </g>
+    <text x="16" y="222" font-family="system-ui" font-size="11" fill="#3AC97B" font-weight="600">Alta Frequência · 100k/mês</text>
+  </g>
+
+  <!-- Connection Arrow 1 -->
+  <g stroke="#3AC97B" stroke-width="2" fill="none">
+    <path d="M 250 260 L 320 260" />
+    <polygon points="325,260 315,255 315,265" fill="#3AC97B" />
+  </g>
+
+  <!-- Stage 2: System 1 Decision Router -->
+  <g transform="translate(330, 140)">
+    <rect width="260" height="240" rx="12" fill="url(#cardGrad)" stroke="#3AC97B" stroke-width="2" filter="url(#glow)" />
+    <rect x="16" y="16" width="36" height="36" rx="8" fill="#3AC97B" fill-opacity="0.2" />
+    <text x="27" y="40" font-family="system-ui" font-size="18" fill="#3AC97B">⚡</text>
+    <text x="64" y="32" font-family="system-ui" font-size="11" font-weight="700" fill="#3AC97B" letter-spacing="0.5">SYSTEM 1 · RESPOSTA TIPADA</text>
+    <text x="64" y="50" font-family="system-ui" font-size="16" font-weight="800" fill="#FFF4C7">Laya / ModernBERT</text>
+
+    <!-- Metrics pills -->
+    <rect x="16" y="72" width="108" height="28" rx="14" fill="#3AC97B" fill-opacity="0.2" />
+    <text x="26" y="91" font-family="system-ui" font-size="12" font-weight="700" fill="#3AC97B">⚡ ~33ms Latência</text>
+    <rect x="134" y="72" width="110" height="28" rx="14" fill="#FFF4C7" fill-opacity="0.1" />
+    <text x="144" y="91" font-family="system-ui" font-size="12" font-weight="700" fill="#FFF4C7">💰 $0 Custo Local</text>
+
+    <g transform="translate(16, 116)" font-family="system-ui" font-size="12" fill="#FFF4C7" fill-opacity="0.85">
+      <text x="0" y="14">• Escolha (Choice): Tool ou Fila</text>
+      <text x="0" y="34">• Pontuação (Score): Urgência 1-5</text>
+      <text x="0" y="54">• Decisão (Yes/No): Perfil Qualificado</text>
+      <text x="0" y="78" font-size="11" font-weight="700" fill="#3AC97B">Single Forward Pass · Sem Alucinação</text>
+    </g>
+  </g>
+
+  <!-- Forking Arrows -->
+  <g stroke="#3AC97B" stroke-width="2" fill="none">
+    <!-- Top branch: High confidence -->
+    <path d="M 590 220 Q 640 220 640 190 L 670 190" />
+    <polygon points="675,190 665,185 665,195" fill="#3AC97B" />
+    <!-- Bottom branch: Low confidence -->
+    <path d="M 590 300 Q 640 300 640 330 L 670 330" />
+    <polygon points="675,330 665,325 665,335" fill="#3AC97B" />
+  </g>
+
+  <!-- Labels on branches -->
+  <rect x="600" y="170" width="60" height="18" rx="4" fill="#020B08" />
+  <text x="603" y="183" font-family="system-ui" font-size="10" font-weight="700" fill="#3AC97B">80% Casos</text>
+
+  <rect x="600" y="335" width="60" height="18" rx="4" fill="#020B08" />
+  <text x="603" y="348" font-family="system-ui" font-size="10" font-weight="700" fill="#FFF4C7" fill-opacity="0.7">20% Casos</text>
+
+  <!-- Stage 3A: Direct Action (Fast Path) -->
+  <g transform="translate(680, 130)">
+    <rect width="240" height="110" rx="10" fill="url(#cardGrad)" stroke="#3AC97B" stroke-width="1.5" stroke-opacity="0.5" />
+    <text x="16" y="28" font-family="system-ui" font-size="11" font-weight="700" fill="#3AC97B">AÇÃO IMEDIATA (30ms)</text>
+    <text x="16" y="48" font-family="system-ui" font-size="14" font-weight="700" fill="#FFF4C7">Execução Determinística</text>
+    <text x="16" y="70" font-family="system-ui" font-size="11" fill="#FFF4C7" fill-opacity="0.75">• Move etapa no Kommo CRM</text>
+    <text x="16" y="86" font-family="system-ui" font-size="11" fill="#FFF4C7" fill-opacity="0.75">• Dispara Salesbot de agendamento</text>
+    <text x="16" y="102" font-family="system-ui" font-size="11" fill="#3AC97B" font-weight="600">Zero latência percebida pelo lead</text>
+  </g>
+
+  <!-- Stage 3B: Frontier Deliberation (Deep Path) -->
+  <g transform="translate(680, 270)">
+    <rect width="240" height="110" rx="10" fill="url(#cardGrad)" stroke="#FFF4C7" stroke-width="1" stroke-opacity="0.3" />
+    <text x="16" y="28" font-family="system-ui" font-size="11" font-weight="700" fill="#FFF4C7" fill-opacity="0.7">SYSTEM 2 · RACIOCÍNIO</text>
+    <text x="16" y="48" font-family="system-ui" font-size="14" font-weight="700" fill="#FFF4C7">Frontier Model (Claude/GPT)</text>
+    <text x="16" y="70" font-family="system-ui" font-size="11" fill="#FFF4C7" fill-opacity="0.75">• Negociação de objeção atípica</text>
+    <text x="16" y="86" font-family="system-ui" font-size="11" fill="#FFF4C7" fill-opacity="0.75">• Redação de proposta consultiva</text>
+    <text x="16" y="102" font-family="system-ui" font-size="11" fill="#FFF4C7" font-opacity="0.5">Acionado apenas quando estritamente necessário</text>
+  </g>
+
+  <!-- Footer Stats -->
+  <g transform="translate(40, 420)" font-family="system-ui" font-size="12">
+    <text x="0" y="20" fill="#FFF4C7" font-weight="600">RESULTADO CONSOLIDADO:</text>
+    <text x="175" y="20" fill="#3AC97B" font-weight="700">▼ 84% de Redução em Custos de API</text>
+    <text x="440" y="20" fill="#3AC97B" font-weight="700">⚡ 85% Menos Latência</text>
+    <text x="640" y="20" fill="#3AC97B" font-weight="700">🔒 Dados On-Premises / LGPD Safe</text>
+  </g>
+</svg>
