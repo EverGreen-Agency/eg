@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import PageHeader from '@/components/brand/PageHeader'
 import ContactForm from '@/components/ContactForm'
 import { kommoFaq } from './faq'
@@ -106,6 +107,66 @@ export default function KommoClient() {
             ))}
           </ul>
           <p className="mt-6 text-baunilha/75 leading-relaxed">É bom nisso. Genuinamente.</p>
+        </div>
+      </section>
+
+      {/* Credencial Oficial Kommo */}
+      <section className="py-14 md:py-20 border-b hairline bg-musgo-deep/30">
+        <div className="container mx-auto px-6 md:px-12 max-w-5xl">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="md:col-span-7">
+              <p className="mono-label text-menta mb-3">
+                Credencial Técnica Oficial · Certificado nº 29045915
+              </p>
+              <h2 className="text-[clamp(1.5rem,3vw,2.3rem)] leading-[1.15] tracking-tight font-bold mb-4 text-balance">
+                Especialista em Automação WhatsApp Cloud API
+              </h2>
+              <p className="text-baunilha/75 leading-relaxed mb-4">
+                A EverGreen é certificada diretamente pela liderança do programa global de parceiros da Kommo.
+                A titulação atesta proficiência avançada no uso e integração da <strong>WhatsApp Cloud API oficial</strong> integrada ao Kommo para automações de atendimento, bots de qualificação e esteiras comerciais sem risco de bloqueio de chips.
+              </p>
+              <p className="text-baunilha/60 text-sm leading-relaxed mb-6">
+                Certificação emitida institucionalmente (EverGreen Consultoria E Tecnologia Ltda.) e conferida aos fundadores responsáveis pela arquitetura de processos e tecnologia.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+                <a
+                  href="/images/certificados/kommo-especialista-whatsapp-evergreen-ltda.jpg"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-menta underline underline-offset-4 hover:text-menta/80 transition font-medium"
+                >
+                  Abrir certificado oficial em alta resolução ↗
+                </a>
+                <a
+                  href="https://www.kommo.com/partners/evergreen-mkt/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-baunilha/70 underline underline-offset-4 hover:text-baunilha transition"
+                >
+                  Verificar diretório da Kommo
+                </a>
+              </div>
+            </div>
+            <div className="md:col-span-5 flex justify-center">
+              <a
+                href="/images/certificados/kommo-especialista-whatsapp-evergreen-ltda.jpg"
+                target="_blank"
+                rel="noreferrer"
+                className="group relative block rounded-xl overflow-hidden border border-menta/25 shadow-2xl hover:border-menta/60 transition-all max-w-sm"
+              >
+                <Image
+                  src="/images/certificados/kommo-especialista-whatsapp-evergreen-ltda.jpg"
+                  alt="Certificado Kommo Especialista em Automação WhatsApp Cloud API - EverGreen Consultoria e Tecnologia"
+                  width={520}
+                  height={390}
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-musgo/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                  <span className="text-xs font-semibold text-baunilha">Clique para visualizar o certificado completo ↗</span>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

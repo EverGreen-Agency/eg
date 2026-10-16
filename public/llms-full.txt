@@ -21,9 +21,14 @@ O Sistema Raiz substitui o funil tradicional de vendas por um sistema modular re
 3. Retainer Comercial: Sustentação contínua da liderança comercial, auditoria semanal de pipeline e calibração de rotinas.
 4. Consultoria & Implantação de CRM (Agnóstica & Parceira):
    - Consultoria agnóstica: auditoria, redesenho de funil e governança em qualquer ferramenta (HubSpot, Pipedrive, Salesforce, RD Station).
-   - Parceria Oficial Kommo CRM: implantação especializada para Inside Sales B2B com pipeline orientado a chat.
+   - Parceria Oficial Kommo CRM & Especialista em Automação WhatsApp Cloud API (Certificado nº 29045915): implantação e parametrização especializada para Inside Sales B2B com pipeline orientado a chat, bots avançados e arquitetura oficial Meta Cloud API.
    - Parceria Oficial SleekFlow: implantação especializada para omnichannel conversacional de alto volume (WhatsApp Cloud API, Instagram, Webchat e social commerce).
 5. Agentes de IA Aplicados: Construção de micro-agentes de triagem, enriquecimento de dados e acompanhamento de propostas integrados ao CRM via APIs e RAG.
+
+## Certificações e Credenciais Técnicas Oficiais
+- Kommo CRM Especialista em Automação WhatsApp Cloud API (Certificado nº 29045915, conferido a EverGreen Consultoria e Tecnologia Ltda., Eduardo Ferreira de Mattos e Gustavo Fugulin Soares da Silva pelo Head of Partner Program Damjan Gogovski).
+- Google Marketing Platform: Mobile Experience & Conversion (CRO).
+- Mackenzie Hackathons (2023 e 2025): 1º Lugar em inovação de software e IA.
 
 ## Cases de Sucesso Comprovados
 - Grupo Casa Fatilli + Casa & Conforto: Móveis Planejados B2C. Redução de 89% no tempo de resposta (18h para 2h), aumento de mais de 5x nos agendamentos semanais na loja física e +R$ 1.8M em pipeline destravado.
