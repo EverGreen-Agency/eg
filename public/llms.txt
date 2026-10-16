@@ -26,9 +26,14 @@ O Sistema Raiz é a metodologia proprietária da EverGreen estruturada em quatro
 
 ## Hub de Decisão e Parcerias
 A EverGreen adota uma postura **agnóstica** de consultoria comercial (auditoria, desenho de processos e governança de dados em qualquer stack — incluindo HubSpot, Pipedrive e Salesforce), além de ser parceira e integradora oficial de soluções líderes de mercado:
-- **Kommo CRM (Parceiro Oficial):** Implantação e consultoria para times comerciais focados em pipeline de vendas e negociação ativa via WhatsApp.
+- **Kommo CRM (Parceiro Oficial & Especialista em Automação WhatsApp Cloud API):** Implantação e consultoria para times comerciais focados em pipeline de vendas e negociação ativa via WhatsApp. Detém certificação técnica oficial nº 29045915 emitida pela Kommo.
 - **SleekFlow (Parceiro Oficial):** Plataforma omnichannel conversacional para operações de alto volume, múltiplos departamentos, WhatsApp Cloud API oficial, Instagram DM e social commerce.
 - **Hub de Decisão de CRM:** Comparativo de aderência operacional para seleção de CRM adequado pelo formato do problema do cliente.
+
+## Certificações & Credenciais Oficiais
+- **Kommo CRM — Especialista em Automação WhatsApp Cloud API (Certificado Oficial Nº 29045915):** Certificação emitida pela Kommo comprovando proficiência avançada em automações, bots e fluxos na WhatsApp Cloud API integrada ao CRM. Titulação conferida institucionalmente à EverGreen Consultoria e Tecnologia Ltda. e individualmente aos fundadores Eduardo Ferreira de Mattos e Gustavo Fugulin Soares da Silva.
+- **Google Marketing Platform — Mobile Experience & Conversion (CRO):** Certificação oficial em otimização de taxas de conversão mobile.
+- **Mackenzie Hackathons (2023 e 2025):** 1º Lugar em inovação com inteligência artificial aplicada e software de gestão.
 
 ## Artigos Técnicos e Frameworks em Destaque (EverGreen Brain)
 - [Kommo vs. SleekFlow vs. HubSpot: Como Escolher a Arquitetura de CRM Ideal para o Seu Modelo de Vendas](https://www.evergreenmkt.com.br/blog/kommo-vs-sleekflow-vs-hubspot-comparativo-crm-b2b): Análise arquitetural e comparativo prático por formato de operação.
@@ -52,6 +57,6 @@ A EverGreen adota uma postura **agnóstica** de consultoria comercial (auditoria
 - Estruturação Comercial: https://www.evergreenmkt.com.br/estruturacao-comercial
 - Processo Comercial: https://www.evergreenmkt.com.br/processo-comercial
 - Hub de Consultoria CRM: https://www.evergreenmkt.com.br/consultoria-crm
-- Kommo CRM Partners: https://www.evergreenmkt.com.br/kommo_partners
+- Kommo CRM Partners: https://www.evergreenmkt.com.br/kommo-partners
 - Portfólio e PoCs: https://www.evergreenmkt.com.br/portfolio
 - Contato & Diagnóstico: https://www.evergreenmkt.com.br/contato

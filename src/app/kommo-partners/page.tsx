@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     'parceiro kommo',
     'implantação de CRM',
     'CRM para WhatsApp',
+    'WhatsApp Cloud API',
+    'automação WhatsApp Cloud API',
+    'especialista kommo whatsapp',
     'EverGreen',
   ],
   alternates: { canonical: '/kommo-partners' },
@@ -39,6 +42,18 @@ const schema = [
     areaServed: { '@type': 'Country', name: 'Brasil' },
     provider: { '@id': `${SITE}/#organization` },
     url: `${SITE}/kommo-partners`,
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Especialista em Automação WhatsApp Cloud API',
+      credentialCategory: 'certification',
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'Kommo',
+        url: 'https://www.kommo.com',
+      },
+      identifier: '29045915',
+      url: `${SITE}/images/certificados/kommo-especialista-whatsapp-evergreen-ltda.jpg`,
+    },
   },
   {
     '@context': 'https://schema.org',
