@@ -267,10 +267,10 @@ export default function AutoridadeClient({ initialCases }: { initialCases: CaseS
                 link: 'https://skillshop.credential.net/dada6b71-4bff-467f-a775-ea559be3de45#acc.omjPgL9M'
               },
               {
-                title: 'Kommo Partners Oficial',
-                image: '/images/kommopartner.png',
-                description: 'Integradores certificados em implantação de CRM conversacional e Salesbots no Brasil.',
-                link: '/kommo-partners'
+                title: 'Kommo WhatsApp Cloud API',
+                image: '/images/certificados/kommo-especialista-whatsapp-evergreen.jpg',
+                description: 'Especialista em Automação WhatsApp Cloud API (Certificado Oficial nº 29045915).',
+                link: '/images/certificados/kommo-especialista-whatsapp-evergreen-ltda.jpg'
               },
               {
                 title: 'EG IA Architect',

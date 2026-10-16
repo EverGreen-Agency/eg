@@ -13,6 +13,7 @@ const founderCards = [
     tagline: 'Engenheiro por formação, executor por vocação.',
     bio: 'Eduardo lidera a EverGreen com foco em crescimento previsível e cultura de resultado. Tem background em processos, vendas e marketing orientado a dados. Já passou por ambientes de alta exigência como o Fasano e agora aplica sua visão estratégica na construção da EG.',
     skills: [
+      'Especialista Kommo WhatsApp Cloud API (#29045915)',
       'Growth Strategy',
       'SPIN Selling',
       'Lean Six Sigma (White/Yellow Belt)',
@@ -20,6 +21,7 @@ const founderCards = [
       'Prompt Engineering & Web Dev',
     ],
     frase: 'Se não mexe no gráfico, a gente nem começa.',
+    certificadoUrl: '/images/certificados/kommo-especialista-whatsapp-eduardo-mattos.jpg',
   },
   {
     nome: 'Gustavo Fugulin Soares da Silva',
@@ -28,6 +30,7 @@ const founderCards = [
     tagline: 'Cérebro técnico por trás da plataforma e das automações da EG.',
     bio: 'Gustavo é o responsável por transformar a visão em tecnologia real. Especialista em IA, automações e análise de dados, lidera o desenvolvimento das soluções que fazem a EG entregar resultado com escala.',
     skills: [
+      'Especialista Kommo WhatsApp Cloud API (#29045915)',
       'Machine Learning & Deep Learning',
       'Análise preditiva e projetos IOT',
       'Software Dev (Full-stack & Mobile)',
@@ -35,6 +38,7 @@ const founderCards = [
       'Treinamento de Modelos',
     ],
     frase: 'Tecnologia boa é aquela que some — e só aparece no resultado final.',
+    certificadoUrl: '/images/certificados/kommo-especialista-whatsapp-gustavo-fugulin.jpg',
   },
 ]
 
@@ -91,6 +95,20 @@ export default function EquipePage() {
                     </li>
                   ))}
                 </ul>
+
+                {founder.certificadoUrl && (
+                  <div className="mb-6">
+                    <a
+                      href={founder.certificadoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-menta/10 border border-menta/30 text-xs text-menta hover:bg-menta/20 transition-colors font-mono"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-menta" />
+                      <span>Ver Certificado Oficial Kommo nº 29045915 ↗</span>
+                    </a>
+                  </div>
+                )}
 
                 <blockquote className="border-l-2 border-menta/40 pl-4 text-baunilha italic">
                   “{founder.frase}”
